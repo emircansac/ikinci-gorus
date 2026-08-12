@@ -1,0 +1,3 @@
+channel_id,name,risk_score,risk_tier,analyzed_videos,min_videos_for_score,total_claims,false_or_disputed,high_risk_claims,funnel_flag,ai_persona_flag,growth_anomaly_flag,bot_comment_ratio,pending_human_review
+UCBhdMrBXcuq1IdPl8uO6KvQ,Dr. Elif Yılmaz,,yetersiz_veri,2,5,22,13,0,False,False,False,0.0,10
+UC83SKJrkGxPAkhK1aPosw7A,Dr. Hasan Yıldırım .Doğal Şifa,,yetersiz_veri,2,5,0,0,0,False,True,False,0.0,0

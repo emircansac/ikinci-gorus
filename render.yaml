@@ -1,0 +1,44 @@
+# Render Blueprint — render.com/docs/blueprint-spec
+#
+# Bu dosya iki servis tanımlar:
+#   1. web       -> dashboard + API (her zaman açık, size bir URL verir)
+#   2. pipeline  -> ağır işi günlük çalıştıran zamanlanmış görev (cron job)
+#
+# İkisi de AYNI kalıcı diski (health-data) paylaşır ki pipeline'ın yazdığı
+# data/*.csv dosyalarını web servisi okuyabilsin.
+#
+# Kullanım: Render dashboard'da "New -> Blueprint" seçip bu repoyu gösterin,
+# Render bu dosyayı okuyup iki servisi de otomatik oluşturur.
+
+services:
+  - type: web
+    name: health-misinfo-dashboard
+    runtime: python
+    plan: starter                     # kalıcı disk için ücretsiz planda mümkün değil
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+    disk:
+      name: health-data
+      mountPath: /app/data
+      sizeGB: 1
+
+  - type: cron
+    name: health-misinfo-pipeline
+    runtime: python
+    plan: starter
+    schedule: "0 6 * * *"              # her gün 06:00 UTC — kendi saat diliminize göre ayarlayın
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python run_pipeline.py --channels data/channels.csv --max-videos 15"
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false                    # Render dashboard'dan elle girilecek, koda yazılmayacak
+      - key: YOUTUBE_API_KEY
+        sync: false
+    disk:
+      name: health-data
+      mountPath: /app/data
+      sizeGB: 1

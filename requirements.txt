@@ -1,0 +1,24 @@
+# Aşama 1: YouTube verisi
+requests
+youtube-transcript-api
+pandas
+
+# Aşama 2 & 3 (üst katman): Claude API
+anthropic
+
+# Aşama 3 (ucuz ilk filtre): Hugging Face NLI
+# NOT: torch ağırdır (~2-3GB). Kurmak istemezseniz pipeline/03_factcheck.py'yi
+# --skip-nli bayrağıyla çalıştırın; her iddiayı doğrudan Claude'a gönderir.
+transformers
+torch
+sentencepiece
+
+# Aşama 3 (kanıt getirme, dense rerank): opsiyonel.
+# Kurulu değilse utils/evidence_retrieval.py otomatik olarak sparse (PubMed'in
+# kendi sıralaması) moduna düşer, çökme olmaz.
+sentence-transformers
+
+# Web sunucusu (dashboard + API) — Render deploy için
+flask
+gunicorn
+python-dotenv
