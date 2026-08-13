@@ -94,3 +94,17 @@ def test_numeric_guard_mg_doses():
         "Papayanın glisemik indeksi 58, glisemik yükü 12'dir.",
         "Üzümün glisemik indeksi 61, glisemik yükü 12'dir.",
     )
+
+
+def test_same_numbers_different_subject_blocked():
+    a = "X değeri 10 güvenli kabul edilir"
+    b = "Y değeri 10 tehlikeli kabul edilir"
+    assert claim_dedup.same_numbers_different_subject_conflict(a, b)
+    assert claim_dedup.pair_merge_blocked(a, b)
+
+
+def test_same_numbers_same_subject_not_blocked():
+    a = "Şeftalinin glisemik indeksi 42, glisemik yükü 4'tür."
+    b = "Taze şeftalinin glisemik indeksi 42 ve glisemik yükü 4'tür."
+    assert not claim_dedup.same_numbers_different_subject_conflict(a, b)
+    assert not claim_dedup.pair_merge_blocked(a, b)

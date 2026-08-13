@@ -75,8 +75,10 @@ CREATE TABLE IF NOT EXISTS verdicts (
     evidence_stance     TEXT,       -- supports|contradicts|mixed|insufficient
     source_tier         TEXT,       -- guideline|systematic_review|primary_study|nutrition_db|encyclopedia|other
     calibration_flags   TEXT,       -- virgülle: inverted_verdict, default_conf, tier_cap:encyclopedia, …
-    human_reviewed      INTEGER DEFAULT 0,
+    human_reviewed      INTEGER DEFAULT 0,   -- yalnızca utils/review.py (gerçek insan onayı)
+    auto_accepted       INTEGER DEFAULT 0,   -- otomasyon: incelemeye gerek yok kararı
     reviewer_note        TEXT,
+    library_match       INTEGER DEFAULT 0,   -- verified_claim_library auto-eşleşme
     verified_at         TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (claim_id) REFERENCES claims(claim_id)
 );

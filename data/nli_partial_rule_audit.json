@@ -1,0 +1,127 @@
+{
+  "source_json": "data/nli_shadow_test.json",
+  "mismatch_cohort": "doğrulanmış→tartışmalı",
+  "mismatch_n": 26,
+  "agreeing_n": 78,
+  "offline_snippet_available": "16/26",
+  "partial_caveat_in_snippet": 3,
+  "newly_escalated_actual_rerun": {
+    "count": 0,
+    "note": "Gerçek rerun conf — kohortta conf<0.75 olduğu için çoğu zaten escalate",
+    "examples": []
+  },
+  "false_positives_among_agreeing": {
+    "count": 0,
+    "examples": []
+  },
+  "hypothetical_high_conf_scenario": {
+    "note": "SUPPORTS/REFUTES + conf>=0.75 olsaydı kural kaçını yakalardı",
+    "mismatch_partial_hits": 3,
+    "agreeing_partial_hits": 4,
+    "mismatch_examples": [
+      {
+        "claim_id": 668,
+        "claim_text": "Kırmızı biberdeki antioksidanlar (betakaroten, likopen) oksidatif stresi nötralize ederek böbrek hastalığının ilerlemesi",
+        "rerun_conf": 0.441,
+        "snippet_len": 500,
+        "partial_caveat": true,
+        "old_would_skip": false,
+        "new_would_escalate": true,
+        "newly_escalated_by_rule": false,
+        "snippet_preview": "Oxidative stress in chronic kidney disease. Oxidative stress (OS), defined as disturbances in the pro-/antioxidant balance, is harmful to cells due to the excessive generation of highly reactive oxygen (ROS) and nitrogen"
+      },
+      {
+        "claim_id": 688,
+        "claim_text": "Pancar yüksek potasyum, doğal şeker ve yüksek oranda nitrat içerir; böbrek yetmezliğinde nitrat metabolizması bozularak ",
+        "rerun_conf": 0.599,
+        "snippet_len": 500,
+        "partial_caveat": true,
+        "old_would_skip": false,
+        "new_would_escalate": true,
+        "newly_escalated_by_rule": false,
+        "snippet_preview": "Dietary nitrate load lowers blood pressure and renal resistive index in patients with chronic kidney disease: A pilot study. Beetroot has a high concentration of inorganic nitrate, which can serially reduced to form nitr"
+      },
+      {
+        "claim_id": 733,
+        "claim_text": "Çilekteki elajik asit hücrelerin insülin duyarlılığını artırır.",
+        "rerun_conf": 0.513,
+        "snippet_len": 500,
+        "partial_caveat": true,
+        "old_would_skip": false,
+        "new_would_escalate": true,
+        "newly_escalated_by_rule": false,
+        "snippet_preview": "Multi-omics chemical and biochemical profiling reveals ellagic acid enhances insulin sensitivity via gut microbiota-tryptophan-indole signaling mechanism. Ellagic acid (EA) is a dietary polyphenol with limited systemic b"
+      }
+    ],
+    "agreeing_fp_examples": [
+      {
+        "claim_id": 710,
+        "claim_text": "GFR (glomerüler filtrasyon hızı) değeri, böbrek hastalığının evresini ve gerekli diyet kısıtlamalarını belirleyen temel ",
+        "rerun_conf": 0.48,
+        "snippet_len": 500,
+        "partial_caveat": true,
+        "old_would_skip": false,
+        "new_would_escalate": true,
+        "newly_escalated_by_rule": false,
+        "snippet_preview": "Critical analysis of the estimated glomerular filtration rate. Kidney function is primarily assessed through glomerular filtration rate (GFR), with serum creatinine being the most commonly used marker in clinical practic"
+      },
+      {
+        "claim_id": 722,
+        "claim_text": "72 yaşındaki tip 2 diyabet hastası, ilaç değiştirmeden sadece dört meyveyi değiştirerek 6 haftada açlık kan şekerini 15 ",
+        "rerun_conf": 0.433,
+        "snippet_len": 499,
+        "partial_caveat": true,
+        "old_would_skip": false,
+        "new_would_escalate": true,
+        "newly_escalated_by_rule": false,
+        "snippet_preview": "A healthy diet with and without cereal grains and dairy products in patients with type 2 diabetes: study protocol for a random-order cross-over pilot study--Alimentation and Diabetes in Lanzarote--ADILAN. Research on the"
+      },
+      {
+        "claim_id": 754,
+        "claim_text": "Meyve olgunlaştıkça içindeki dirençli nişasta serbest glikoz ve fruktoza dönüşerek kan şekerini daha hızlı yükseltir.",
+        "rerun_conf": 0.474,
+        "snippet_len": 499,
+        "partial_caveat": true,
+        "old_would_skip": false,
+        "new_would_escalate": true,
+        "newly_escalated_by_rule": false,
+        "snippet_preview": "Starch deficiency in tomato causes transcriptional reprogramming that modulates fruit development, metabolism, and stress responses. Tomato (Solanum lycopersicum) fruit store carbon as starch during early development and"
+      }
+    ]
+  },
+  "partial_caveat_examples": [
+    {
+      "claim_id": 668,
+      "claim_text": "Kırmızı biberdeki antioksidanlar (betakaroten, likopen) oksidatif stresi nötralize ederek böbrek hastalığının ilerlemesi",
+      "rerun_conf": 0.441,
+      "snippet_len": 500,
+      "partial_caveat": true,
+      "old_would_skip": false,
+      "new_would_escalate": true,
+      "newly_escalated_by_rule": false,
+      "snippet_preview": "Oxidative stress in chronic kidney disease. Oxidative stress (OS), defined as disturbances in the pro-/antioxidant balance, is harmful to cells due to the excessive generation of highly reactive oxygen (ROS) and nitrogen"
+    },
+    {
+      "claim_id": 688,
+      "claim_text": "Pancar yüksek potasyum, doğal şeker ve yüksek oranda nitrat içerir; böbrek yetmezliğinde nitrat metabolizması bozularak ",
+      "rerun_conf": 0.599,
+      "snippet_len": 500,
+      "partial_caveat": true,
+      "old_would_skip": false,
+      "new_would_escalate": true,
+      "newly_escalated_by_rule": false,
+      "snippet_preview": "Dietary nitrate load lowers blood pressure and renal resistive index in patients with chronic kidney disease: A pilot study. Beetroot has a high concentration of inorganic nitrate, which can serially reduced to form nitr"
+    },
+    {
+      "claim_id": 733,
+      "claim_text": "Çilekteki elajik asit hücrelerin insülin duyarlılığını artırır.",
+      "rerun_conf": 0.513,
+      "snippet_len": 500,
+      "partial_caveat": true,
+      "old_would_skip": false,
+      "new_would_escalate": true,
+      "newly_escalated_by_rule": false,
+      "snippet_preview": "Multi-omics chemical and biochemical profiling reveals ellagic acid enhances insulin sensitivity via gut microbiota-tryptophan-indole signaling mechanism. Ellagic acid (EA) is a dietary polyphenol with limited systemic b"
+    }
+  ]
+}

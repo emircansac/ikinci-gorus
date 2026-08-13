@@ -231,6 +231,10 @@ Kurallar:
   spekülatifse "tartışmalı" de. (Örnek: CKD diyetinde sebzeyi haşlayıp suyunu \
   dökme / leaching tavsiyesi yerleşiktir; haşlama suyunu içmeyin diyen bir \
   iddiayı, kidney.org gibi bir kaynak bunu doğruluyorsa "yanlış" işaretleme.)
+- Bileşik iddialar (örn. "X hem A hem B etkisi yapar"): bileşenlerden biri \
+  güçlü kanıtla desteklenirken diğeri desteklenmiyor/zayıf kanıtlıysa \
+  final_verdict="tartışmalı" ver. TÜM bileşenler aynı yönde (hepsi destekli \
+  VEYA hepsi çürütülmüş) değilse asla "doğrulanmış" veya "yanlış" verme.
 - Besin miktarı iddialarında Wikipedia değil USDA / ulusal gıda bileşimi \
   tablosu kullan. Karşılaştırmalı iddia ("X, Y'den düşük potasyum") ancak \
   her iki besinin değeri kaynakta varsa "doğrulanmış/yanlış" olabilir.

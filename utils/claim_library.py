@@ -6,14 +6,13 @@ Yalnızca human_reviewed=1, tam doğrulanmış/yanlış ve kısmi olmayan iddial
 """
 from __future__ import annotations
 
-import re
 import sqlite3
 
 import numpy as np
 
 from utils.claim_dedup import (
     embed_texts, get_threshold, get_lexical_threshold,
-    token_jaccard, numeric_values_conflict,
+    token_jaccard, pair_merge_blocked,
 )
 from utils.text_similarity import normalize
 
@@ -25,22 +24,7 @@ LIBRARY_REVIEW_THRESHOLD = 0.75
 # Seed'e asla alınmayacak origin claim_id'ler (audit)
 SEED_BLOCKLIST: frozenset[int] = frozenset({653})
 
-# Reasoning'de yarı-doğru / kısmi kanıt göstergeleri — seed dışı.
-# "kısmı" (its part) ≠ "kısmi" (partial): IGNORECASE ı/i katlaması 696'yı yanlış elemişti.
-# (?-i:...) i/ı katlamasını kapatır; baş harf büyük/küçük ayrı yazılır.
-PARTIAL_REASONING_RE = re.compile(
-    r"(?-i:[kK]ısmi|[kK]ismi|[kK]ısmen|[kK]ismen)\b|"
-    r"bir kısmı (kanıtlan|doğru değil|yanlış)|"
-    r"bir kismi (kanitlan|dogru degil|yanlis)|"
-    r"kanıtlanmıyor|kanitlanmiyor|kanıtlanmadı|kanitlanmadi|"
-    r"abartılı|abartili|genellem|spekülatif|spekulatif|"
-    r"ancak iddia.{0,90}(kanıtlanm|kanitlanm|yanlış|yanlis|abart|desteklenmiyor)|"
-    r"fakat iddia.{0,90}(kanıtlanm|kanitlanm|yanlış|yanlis|abart|desteklenmiyor)|"
-    r"tam örtüş|tam ortus|"
-    r"yalnızca .{0,40} doğru|sadece .{0,40} doğru|"
-    r"evreye bağlı|porsiyon kontrol|insufficient|mixed stance",
-    re.IGNORECASE,
-)
+from utils.reasoning_patterns import PARTIAL_REASONING_RE
 
 PARTIAL_CALIBRATION_FLAGS = frozenset({
     "default_conf", "mixed_overconfident", "indirect_binary_verdict",
@@ -207,7 +191,7 @@ def lookup_library(conn, claim_text: str) -> dict | None:
             continue
         row_text = row["claim_text"] or ""
         jac = token_jaccard(norm, normalize(row_text))
-        conflict = numeric_values_conflict(claim_text, row_text)
+        conflict = pair_merge_blocked(claim_text, row_text)
         tier = classify_library_match(
             score, jac,
             numeric_conflict=conflict,
@@ -247,11 +231,26 @@ def purge_ineligible_entries(conn) -> dict:
         SELECT library_id, origin_claim_id, final_verdict, reasoning
         FROM verified_claim_library
     """).fetchall():
+        origin_id = row["origin_claim_id"]
+        human_reviewed = 0
+        evidence_stance = None
+        calibration_flags = None
+        if origin_id:
+            vr = conn.execute("""
+                SELECT human_reviewed, evidence_stance, calibration_flags
+                FROM verdicts WHERE claim_id = ?
+            """, (origin_id,)).fetchone()
+            if vr:
+                human_reviewed = vr["human_reviewed"]
+                evidence_stance = vr["evidence_stance"]
+                calibration_flags = vr["calibration_flags"]
         ok, reason = is_seed_eligible(
-            claim_id=row["origin_claim_id"] or -1,
+            claim_id=origin_id or -1,
             final_verdict=row["final_verdict"],
             reasoning=row["reasoning"],
-            human_reviewed=1,
+            evidence_stance=evidence_stance,
+            calibration_flags=calibration_flags,
+            human_reviewed=human_reviewed,
         )
         if not ok:
             conn.execute("DELETE FROM verified_claim_library WHERE library_id = ?", (row["library_id"],))

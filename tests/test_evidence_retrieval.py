@@ -217,6 +217,37 @@ def test_filter_keeps_vaccinium_without_english_blueberry():
     assert kept == [only_latin]
 
 
+def test_key_terms_use_claim_text_without_hand_synonym():
+    """El sözlüğünde yoksa bile Türkçe iddia varlığını anahtar olarak tut."""
+    terms = key_terms_from_query(
+        "cinnamon blood glucose diabetes",
+        "Tarçın tozu tok kanda şekeri düşürür",
+    )
+    assert "cinnamon" in terms
+    assert "tarçın" in terms
+    assert "diabetes" not in terms
+
+
+def test_filter_keeps_latin_genus_via_stem_prefix():
+    """El sözlüğünde yoksa bile 6 harflik kök bilimsel adı tutar (curcumin ↔ Curcuma)."""
+    paper = {
+        "title": "Curcuma longa extract and fasting glucose",
+        "abstract": "Rhizome extract in type 2 diabetes.",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/1/",
+    }
+    generic = {
+        "title": "Diabetes",
+        "abstract": "Blood glucose and insulin.",
+        "url": "https://medlineplus.gov/diabetes.html",
+    }
+    kept, meta = filter_candidates_by_key_terms(
+        [generic, paper],
+        "curcumin insulin sensitivity diabetes",
+    )
+    assert meta["dropped"] == 1
+    assert kept == [paper]
+
+
 def test_filter_zero_hits_falls_back_to_weak_cosine_list():
     """0 key-term eşleşmesi sessiz [] değil; cosine listesine zayıf etiketle döner."""
     generic = {

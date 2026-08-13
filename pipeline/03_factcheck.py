@@ -8,7 +8,8 @@ Akış:
         - NLI belirsiz veya düşük güvenli    -> Claude+web_search'e gönder
         - NLI net ve yüksek güvenli          -> ucuz sonucu kaydet, LLM'e gitme (maliyet tasarrufu)
   3. Yüksek riskli/escalate edilen SONUÇLAR mutlaka insan onayına düşecek şekilde
-     human_reviewed=0 olarak işaretlenir (bkz. README "İnsan onayı" bölümü).
+     human_reviewed=0 olarak işaretlenir; otomasyonun "incelemeye gerek yok" kararı
+     auto_accepted=1 ile ayrı taşınır (bkz. README "İnsan onayı" bölümü).
   4. LLM JSON'u utils/factcheck_calibrate.py ile kırpılır (tersine verdict,
      Wikipedia yüksek güven, 0.55 varsayılan kümesi). Ham reasoning hem DB'ye
      hem data/factcheck_debug.jsonl'e yazılır.
@@ -27,7 +28,6 @@ sonrası superseded_* ile arşivlenen eski iddialar tekrar fact-check edilmez.
 """
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -39,28 +39,24 @@ from utils.extraction_store import ACTIVE_CLAIM_WHERE
 from utils.claim_library import lookup_library, ensure_library_table
 from utils.nutrition_lookup import try_nutrition_factcheck
 from utils.evidence_retrieval import retrieve_pubmed_evidence, FINAL_EVIDENCE_COUNT
+from utils.factcheck_review import (
+    HIGH_RISK_HUMAN_REVIEW_CATEGORIES,
+    is_drug_interaction_claim,
+    compute_needs_human,
+    apply_verdict_reasoning_mismatch,
+    review_flags as _review_flags,
+)
 
 ROOT = Path(__file__).parent.parent
 DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
 
-# "tanı" eklendi: yanlış teşhis iddiaları (ör. "sertleşme sorununuzun kaynağı X'tir")
-# risk etiketi 'medium' bile olsa insan onayı gerektirmeli — bir önceki sürümde
-# sadece initial_risk='high' ya da bu üç kategoriye bakılıyordu, 'tanı' unutulmuştu.
-HIGH_RISK_HUMAN_REVIEW_CATEGORIES = {"tedavi", "doz", "mucize-ürün", "tanı"}
-
-# İlaç-etkileşimi iddiaları mekanizma kategorisinde kalabilir (#704 warfarin/lahana)
-# ama insan onayı zorunlu olmalı — kategori listesi bunları kapsamaz.
-_DRUG_INTERACTION_RE = re.compile(
-    r"antikoag[üu]lan|warfarin|"
-    r"\bdoac\b|apiksaban|rivaroksaban|dabigatran|edoksaban|"
-    r"kan\s*suland[ıi]r[ıi]c[ıi]|"
-    r"ila[çc].{0,40}etkile[sş]im|vitamin\s*k.{0,30}(ila[çc]|warfarin)",
-    re.IGNORECASE,
-)
-
-
-def is_drug_interaction_claim(claim_text: str) -> bool:
-    return bool(_DRUG_INTERACTION_RE.search(claim_text or ""))
+# Geriye dönük test import'ları (utils.factcheck_review'a yönlendirildi)
+__all__ = [
+    "HIGH_RISK_HUMAN_REVIEW_CATEGORIES",
+    "is_drug_interaction_claim",
+    "compute_needs_human",
+    "_review_flags",
+]
 
 
 def _append_debug_log(record: dict) -> None:
@@ -188,18 +184,31 @@ def main():
             escalated_flag = 0
             parse_failed = False
             calibrated = {}
-            needs_human = is_drug_interaction_claim(claim_text)
+            apply_verdict_reasoning_mismatch(final)
+            needs_human = compute_needs_human(
+                category=category,
+                initial_risk=initial_risk,
+                claim_text=claim_text,
+                parse_failed=False,
+                final_verdict=final["final_verdict"],
+                escalated_flag=0,
+                calibrated={},
+                source_directness=final.get("source_directness"),
+                library_review_hit=library_review_hit,
+                calibration_flags=final.get("calibration_flags"),
+            )
+            human_reviewed, auto_accepted = _review_flags(needs_human=needs_human)
             conn.execute("""
                 INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
                                        escalated, final_verdict, confidence, source_url,
                                        reasoning, source_directness, evidence_stance, source_tier,
-                                       calibration_flags, human_reviewed, library_match)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                       calibration_flags, human_reviewed, auto_accepted, library_match)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (claim_id, None, None, "(verified_claim_library eşleşmesi)", escalated_flag,
                   final["final_verdict"], final["confidence"], final["source_url"],
                   final["reasoning"], final["source_directness"], final["evidence_stance"],
                   final["source_tier"], final["calibration_flags"],
-                  0 if needs_human else 1, library_match))
+                  human_reviewed, auto_accepted, library_match))
             conn.commit()
             ok += 1
             print(f"  [{claim_id}] {final['final_verdict']} (kütüphane) library_match=1")
@@ -211,24 +220,33 @@ def main():
                 final = {k: nut_result.get(k) for k in (
                     "final_verdict", "confidence", "source_url", "reasoning",
                     "source_directness", "evidence_stance", "source_tier", "calibration_flags")}
-                needs_human = (
-                    category in HIGH_RISK_HUMAN_REVIEW_CATEGORIES
-                    or initial_risk == "high"
-                    or is_drug_interaction_claim(claim_text)
-                    or nut_result.get("needs_human")
-                )
                 _merge_library_review_flag(final, library_review_hit)
+                apply_verdict_reasoning_mismatch(final)
+                needs_human = compute_needs_human(
+                    category=category,
+                    initial_risk=initial_risk,
+                    claim_text=claim_text,
+                    parse_failed=False,
+                    final_verdict=final["final_verdict"],
+                    escalated_flag=0,
+                    calibrated={},
+                    source_directness=final.get("source_directness"),
+                    library_review_hit=library_review_hit,
+                    calibration_flags=final.get("calibration_flags"),
+                    extra_needs_human=bool(nut_result.get("needs_human")),
+                )
+                human_reviewed, auto_accepted = _review_flags(needs_human=needs_human)
                 conn.execute("""
                     INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
                                            escalated, final_verdict, confidence, source_url,
                                            reasoning, source_directness, evidence_stance, source_tier,
-                                           calibration_flags, human_reviewed, library_match)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                           calibration_flags, human_reviewed, auto_accepted, library_match)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (claim_id, None, None, f"({final.get('source_tier') or 'nutrition'})", 0,
                       final["final_verdict"], final["confidence"], final["source_url"],
                       final["reasoning"], final["source_directness"], final["evidence_stance"],
                       final["source_tier"], final.get("calibration_flags", ""),
-                      0 if needs_human else 1, 0))
+                      human_reviewed, auto_accepted, 0))
                 conn.commit()
                 ok += 1
                 flag = "🔴 İNSAN ONAYI BEKLİYOR" if needs_human else "✓"
@@ -243,7 +261,7 @@ def main():
                 nli_result = nli_check(claim_text, evidence_text)
                 nli_label, nli_conf = nli_result["nli_label"], nli_result["nli_confidence"]
                 nli_snippet = evidence_text[:500]
-                do_escalate = should_escalate(nli_result, initial_risk)
+                do_escalate = should_escalate(nli_result, initial_risk, evidence_text=evidence_text)
             else:
                 no_evidence_found = True
                 do_escalate = True
@@ -324,23 +342,32 @@ def main():
             continue
 
         # parse_failed veya no_evidence_found ise insan onayı olmadan asla "temiz" sayılmaz.
-        needs_human = (category in HIGH_RISK_HUMAN_REVIEW_CATEGORIES) or (initial_risk == "high") \
-            or is_drug_interaction_claim(claim_text) \
-            or parse_failed or (final["final_verdict"] is None) \
-            or (escalated_flag == 1 and bool(calibrated.get("needs_human")))
-
         _merge_library_review_flag(final, library_review_hit)
+        apply_verdict_reasoning_mismatch(final)
+        needs_human = compute_needs_human(
+            category=category,
+            initial_risk=initial_risk,
+            claim_text=claim_text,
+            parse_failed=parse_failed,
+            final_verdict=final["final_verdict"],
+            escalated_flag=escalated_flag,
+            calibrated=calibrated,
+            source_directness=final["source_directness"],
+            library_review_hit=library_review_hit,
+            calibration_flags=final.get("calibration_flags"),
+        )
+        human_reviewed, auto_accepted = _review_flags(needs_human=needs_human)
         conn.execute("""
             INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
                                    escalated, final_verdict, confidence, source_url,
                                    reasoning, source_directness, evidence_stance, source_tier,
-                                   calibration_flags, human_reviewed, library_match)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                   calibration_flags, human_reviewed, auto_accepted, library_match)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (claim_id, nli_label, nli_conf, nli_snippet, escalated_flag,
               final["final_verdict"], final["confidence"], final["source_url"],
               final["reasoning"], final["source_directness"], final["evidence_stance"],
               final["source_tier"], final["calibration_flags"],
-              0 if needs_human else 1, library_match))
+              human_reviewed, auto_accepted, library_match))
         conn.commit()
         ok += 1
         flag = "🔴 İNSAN ONAYI BEKLİYOR" if needs_human else "✓"
@@ -358,8 +385,8 @@ def main():
     print(f"[factcheck] ham reasoning -> {DEBUG_LOG}")
 
     conn.close()
-    print("[factcheck] tamamlandı. Yüksek riskli iddialar human_reviewed=0 ile işaretlendi — "
-          "bunları onaylamadan şüpheli listesine 'kesin' olarak yazmayın (bkz. README).")
+    print("[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — "
+          "auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).")
 
 
 if __name__ == "__main__":

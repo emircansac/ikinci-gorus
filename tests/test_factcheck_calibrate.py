@@ -100,6 +100,11 @@ def test_pubmed_is_primary_not_guideline():
     assert infer_source_tier("https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1/") == "primary_study"
 
 
+def test_pubmed_homepage_is_static_reference():
+    assert infer_source_tier("https://pubmed.ncbi.nlm.nih.gov/") == "static_reference"
+    assert infer_source_tier("https://pubmed.ncbi.nlm.nih.gov") == "static_reference"
+
+
 def test_model_cannot_label_blog_as_nutrition_db():
     """[767] nutrola.app — model nutrition_db dedi; URL allowlist other zorlar."""
     out = calibrate_factcheck({

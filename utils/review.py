@@ -58,7 +58,7 @@ def review_claim(claim_id: int, action: str, note: str | None = None) -> dict:
 
     if action == "archive":
         conn.execute("""
-            UPDATE verdicts SET human_reviewed = 1, reviewer_note = ?, verified_at = datetime('now')
+            UPDATE verdicts SET human_reviewed = 1, auto_accepted = 0, reviewer_note = ?, verified_at = datetime('now')
             WHERE claim_id = ?
         """, (note or "arşivlendi", claim_id))
         archive_claim(conn, claim_id, "manual")
@@ -69,7 +69,7 @@ def review_claim(claim_id: int, action: str, note: str | None = None) -> dict:
             conn.close()
             return {"ok": False, "error": "bu iddia zaten incelenmiş"}
         conn.execute("""
-            UPDATE verdicts SET human_reviewed = 1, reviewer_note = ?, verified_at = datetime('now')
+            UPDATE verdicts SET human_reviewed = 1, auto_accepted = 0, reviewer_note = ?, verified_at = datetime('now')
             WHERE claim_id = ?
         """, (note or "onaylandı", claim_id))
         updated = _get_claim_row(conn, claim_id)
@@ -85,6 +85,7 @@ def review_claim(claim_id: int, action: str, note: str | None = None) -> dict:
         conn.execute("""
             UPDATE verdicts
             SET human_reviewed = 1,
+                auto_accepted = 0,
                 final_verdict = 'tartışmalı',
                 confidence = COALESCE(confidence, 0.5),
                 reviewer_note = ?,

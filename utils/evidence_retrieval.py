@@ -65,6 +65,7 @@ KEY_TERM_STOPWORDS = frozenset({
 })
 
 # Ana varlık eşanlamlıları: makale "Vaccinium" deyip "blueberry" demeyebilir.
+# El sözlüğü ölçeklenmez; asıl güvenlik ağı claim_text token'ları + kök öneki.
 ENTITY_SYNONYMS = {
     "blueberry": ("blueberry", "blueberries", "vaccinium", "yaban mersini"),
     "blueberries": ("blueberry", "blueberries", "vaccinium", "yaban mersini"),
@@ -76,7 +77,19 @@ ENTITY_SYNONYMS = {
     "cabbage": ("cabbage", "lahana"),
     "beetroot": ("beetroot", "beet", "pancar"),
     "beet": ("beetroot", "beet", "pancar"),
+    "cinnamon": ("cinnamon", "cinnamomum", "tarçın", "tarcin"),
+    "tarçın": ("cinnamon", "cinnamomum", "tarçın", "tarcin"),
+    "collagen": ("collagen", "collagenous", "kolajen", "kolagen"),
+    "kolajen": ("collagen", "collagenous", "kolajen", "kolagen"),
+    "mct": ("mct", "mcts", "medium-chain", "orta zincirli"),
 }
+
+CLAIM_TEXT_STOPWORDS = frozenset({
+    "bir", "bu", "şu", "ve", "veya", "ile", "için", "icin", "gibi", "daha",
+    "sonra", "kadar", "değil", "degil", "olan", "olarak", "çok", "cok",
+    "kan", "şeker", "seker", "hastalık", "hastalik", "hasta", "böbrek",
+    "bobrek", "diyabet", "insülin", "insulin",
+})
 
 # Anahtar kelime → kılavuz özeti (NKF/KDIGO/DaVita temalı, statik fallback)
 GUIDELINE_SNIPPETS = [
@@ -135,8 +148,8 @@ GUIDELINE_SNIPPETS = [
             "not within seconds. Beetroot is high in potassium (~325 mg/100g)."
         ),
         "url": "https://pubmed.ncbi.nlm.nih.gov/",
-        "source": "primary_study",
-        "source_tier": "primary_study",
+        "source": "static_reference",
+        "source_tier": "static_reference",
     },
     {
         "keywords": ("oxalate", "heat", "cooking", "reduction", "vegetable"),
@@ -149,8 +162,8 @@ GUIDELINE_SNIPPETS = [
             "Studies report 30-87% oxalate reduction depending on method and duration."
         ),
         "url": "https://pubmed.ncbi.nlm.nih.gov/",
-        "source": "primary_study",
-        "source_tier": "primary_study",
+        "source": "static_reference",
+        "source_tier": "static_reference",
     },
 ]
 
@@ -231,7 +244,10 @@ def retrieve_guideline_snippets(
         hints = snip.get("claim_hints") or ()
         if hints and claim and not any(h in claim for h in hints):
             continue
-        tier = snip.get("source_tier") or snip.get("source", "guideline")
+        declared = snip.get("source_tier") or snip.get("source", "guideline")
+        inferred = infer_source_tier(snip["url"])
+        # Sahte PubMed ana sayfası vb. — beyan edilen yüksek kademeyi URL gerçeği düşürür
+        tier = inferred if inferred == "static_reference" else declared
         matched.append({
             "title": snip["title"],
             "abstract": snip["abstract"],
@@ -308,25 +324,36 @@ def _merge_candidates(existing: list[dict], new_items: list[dict]) -> list[dict]
     return out
 
 
+def _add_anchor(low: str, anchors: list[str], seen: set[str]) -> None:
+    if low in seen:
+        return
+    seen.add(low)
+    anchors.append(low)
+    for syn in ENTITY_SYNONYMS.get(low, ()):
+        s = syn.lower()
+        if s not in seen:
+            seen.add(s)
+            anchors.append(s)
+
+
 def key_terms_from_query(search_query_en: str, claim_text: str | None = None) -> list[str]:
     """
     İddianın ana varlığı (ör. blueberry). search_query_en'deki arka plan
     tıbbi terimler (diabetes, insulin) elenir; eşanlamlılar eklenir.
+    claim_text token'ları da eklenir — el sözlüğüne düşmeden Türkçe varlık kalır.
     """
-    tokens = re.findall(r"[A-Za-zçğıöşüÇĞİÖŞÜ]{3,}", search_query_en or "")
     anchors: list[str] = []
     seen: set[str] = set()
-    for tok in tokens:
+    for tok in re.findall(r"[A-Za-zçğıöşüÇĞİÖŞÜ]{3,}", search_query_en or ""):
         low = tok.lower()
-        if low in KEY_TERM_STOPWORDS or low in seen:
+        if low in KEY_TERM_STOPWORDS:
             continue
-        seen.add(low)
-        anchors.append(low)
-        for syn in ENTITY_SYNONYMS.get(low, ()):
-            s = syn.lower()
-            if s not in seen:
-                seen.add(s)
-                anchors.append(s)
+        _add_anchor(low, anchors, seen)
+    for tok in re.findall(r"[A-Za-zçğıöşüÇĞİÖŞÜ]{3,}", claim_text or ""):
+        low = tok.lower()
+        if low in KEY_TERM_STOPWORDS or low in CLAIM_TEXT_STOPWORDS:
+            continue
+        _add_anchor(low, anchors, seen)
     return anchors
 
 
@@ -336,7 +363,17 @@ def candidate_mentions_key_terms(candidate: dict, terms: list[str]) -> bool:
     blob = f"{candidate.get('title') or ''} {candidate.get('abstract') or ''}".lower()
     blob = re.sub(r"<[^>]+>", " ", blob)
     blob = html_lib.unescape(blob)
-    return any(term in blob for term in terms)
+    if any(term in blob for term in terms):
+        return True
+    # cinnamon ⊂ cinnamomum değil; 6+ karakterlik kök öneki bilimsel adı yakalar.
+    words = re.findall(r"[a-zçğıöşü]{4,}", blob)
+    for term in terms:
+        if len(term) < 6:
+            continue
+        stem = term[:6]
+        if any(w.startswith(stem) for w in words):
+            return True
+    return False
 
 
 def filter_candidates_by_key_terms(

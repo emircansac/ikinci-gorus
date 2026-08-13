@@ -23,12 +23,13 @@ VALID_STANCE = {"supports", "contradicts", "mixed", "insufficient"}
 VALID_TIERS = {
     "guideline", "systematic_review", "primary_study",
     "case_report", "preprint",
-    "nutrition_db", "usda_cache_static", "encyclopedia", "other",
+    "nutrition_db", "usda_cache_static", "static_reference", "encyclopedia", "other",
 }
 
 TIER_CONF_CAP = {
     "encyclopedia": 0.45,
     "other": 0.65,
+    "static_reference": 0.65,  # other ile aynı tavan — statik/elle yazılmış metin
     "preprint": 0.70,       # peer-review yok; primary_study altı
     "case_report": 0.75,    # provisional, kalibre edilmedi — primary_study (0.85) bir altı
     "primary_study": 0.85,
@@ -100,6 +101,12 @@ PREPRINT_HOSTS = (
 )
 
 _DOI_RE = re.compile(r"(10\.\d{4,9}/[-._;()/:A-Z0-9]+)", re.IGNORECASE)
+_PUBMED_PMID_PATH = re.compile(r"pubmed\.ncbi\.nlm\.nih\.gov/(\d+)(?:/|$)", re.IGNORECASE)
+
+
+def _pubmed_url_has_pmid(url: str) -> bool:
+    """Gerçek makale path'i (PMID) yoksa PubMed ana sayfası sayılır."""
+    return bool(_PUBMED_PMID_PATH.search(url or ""))
 
 
 def _host(url: str) -> str:
@@ -180,6 +187,8 @@ def infer_source_tier(
     if _is_preprint_url(url):
         return "preprint"
     if _host_matches(host, PRIMARY_HOSTS):
+        if host == "pubmed.ncbi.nlm.nih.gov" and not _pubmed_url_has_pmid(url):
+            return "static_reference"
         meta = source_tier_from_publication_types(publication_types)
         if meta:
             return meta

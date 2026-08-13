@@ -5,7 +5,7 @@ Yalnızca embedding cosine yeterli değildir — aynı konudaki farklı iddialar
 (ör. genel potasyum uyarısı vs. ıspanak mg değeri) yüksek cosine alabilir.
 Bu yüzden birleştirme için hem cosine hem token Jaccard eşiği gerekir.
 Şablonlu sayısal iddialarda (GI+GL, porsiyon+mg) ayırt edici sayı farklıysa
-cosine/Jaccard ne olursa olsun birleşme yapılmaz (numeric_values_conflict).
+cosine/Jaccard ne olursa olsun birleşme yapılmaz (pair_merge_blocked).
 
 İki katmanlı pipeline:
   1. Chunk-local dedup (her parça içinde)
@@ -186,6 +186,69 @@ def numeric_values_conflict(text_a: str, text_b: str) -> bool:
     return bool(_unmatched_numbers(uniq_a, uniq_b)) and bool(_unmatched_numbers(uniq_b, uniq_a))
 
 
+_SUBJECT_STOPWORDS = frozenset({
+    "değeri", "deger", "değer", "güvenli", "guvenli", "tehlikeli", "kabul", "edilir",
+    "olan", "için", "ile", "bir", "ve", "the", "altında", "altinda", "üzerinde",
+    "uzerinde", "yaklaşık", "yaklasik", "gram", "mg", "mililitre", "ml", "de",
+    "da", "ki", "mi", "mı", "mu", "mü", "gibi", "kadar", "daha", "en", "çok",
+    "cok", "az", "olan", "olarak", "içerir", "icerir", "içerir.", "approx",
+    "glisemik", "indeks", "yükü", "yuku", "indeksi", "yükü", "tür", "tur",
+})
+
+
+def _subject_tokens(text: str) -> set[str]:
+    """Sayılar ve şablon kelimeler çıkarıldıktan sonra ayırt edici konu tokenları."""
+    norm = normalize(text or "")
+    without_nums = _CLAIM_NUMBER_RE.sub(" ", norm)
+    return {
+        t for t in without_nums.split()
+        if t and t not in _SUBJECT_STOPWORDS
+        and (len(t) >= 3 or (len(t) == 1 and t.isalpha()))
+    }
+
+
+def same_numbers_different_subject_conflict(text_a: str, text_b: str) -> bool:
+    """
+    Aynı sayı şablonu, farklı konu — örn. 'X değeri 10 güvenli' vs 'Y değeri 10 tehlikeli'.
+    Her iki tarafta sayılar eşleşir ama subject token kesişimi boşsa birleşme engellenir.
+    """
+    a = extract_claim_numbers(text_a)
+    b = extract_claim_numbers(text_b)
+    uniq_a, uniq_b = list(dict.fromkeys(a)), list(dict.fromkeys(b))
+    if not uniq_a or not uniq_b:
+        return False
+    if _unmatched_numbers(uniq_a, uniq_b) or _unmatched_numbers(uniq_b, uniq_a):
+        return False
+    subj_a, subj_b = _subject_tokens(text_a), _subject_tokens(text_b)
+    if not subj_a or not subj_b:
+        return False
+    return not (subj_a & subj_b)
+
+
+def pair_merge_blocked(text_a: str, text_b: str) -> bool:
+    """Dedup, clustering ve kütüphane eşleşmesinde ortak birleşme engeli."""
+    return numeric_values_conflict(text_a, text_b) or same_numbers_different_subject_conflict(
+        text_a, text_b
+    )
+
+
+def embedding_pair_linkable(
+    text_a: str,
+    text_b: str,
+    emb_a: np.ndarray,
+    emb_b: np.ndarray,
+    *,
+    threshold: float,
+    lexical_threshold: float,
+) -> bool:
+    """Cosine + lexical + sayısal/konu koruması — kümeleme ve dedup ortak kuralı."""
+    if pair_merge_blocked(text_a, text_b):
+        return False
+    if float(np.dot(emb_a, emb_b)) < threshold:
+        return False
+    return token_jaccard(text_a, text_b) >= lexical_threshold
+
+
 def is_case_narrative(text: str) -> bool:
     """Hasta adı/yaşı + ölçülebilir sonuç — recap filtresinden muaf."""
     t = text or ""
@@ -228,12 +291,11 @@ def is_duplicate_pair(
     lexical_threshold = (
         get_lexical_threshold() if lexical_threshold is None else lexical_threshold
     )
-    if numeric_values_conflict(text_a, text_b):
-        return False
-    cosine = float(np.dot(emb_a, emb_b))
-    if cosine < threshold:
-        return False
-    return token_jaccard(text_a, text_b) >= lexical_threshold
+    return embedding_pair_linkable(
+        text_a, text_b, emb_a, emb_b,
+        threshold=threshold,
+        lexical_threshold=lexical_threshold,
+    )
 
 
 def _dedupe_with_window(
@@ -332,7 +394,7 @@ def _is_topic_duplicate(
     emb_b: np.ndarray,
     rule: dict,
 ) -> bool:
-    if numeric_values_conflict(text_a, text_b):
+    if pair_merge_blocked(text_a, text_b):
         return False
     cosine = float(np.dot(emb_a, emb_b))
     strong = rule.get("cosine_strong")
@@ -423,7 +485,7 @@ def _is_recap_duplicate(
     threshold: float,
     lexical_threshold: float,
 ) -> bool:
-    if numeric_values_conflict(text_a, text_b):
+    if pair_merge_blocked(text_a, text_b):
         return False
     cosine = float(np.dot(emb_a, emb_b))
     if cosine >= RECAP_DUPLICATE_COSINE_STRONG:

@@ -9,6 +9,9 @@ from collections import defaultdict
 from difflib import SequenceMatcher
 
 EMBEDDING_CLUSTER_THRESHOLD = 0.80
+# Paraphrase iddialar (perine vb.) düşük Jaccard alır; dedup 0.35 çok sıkı.
+# Sayısal/konu koruması pair_merge_blocked ile dedup ile aynı kalır.
+NARRATIVE_CLUSTER_LEXICAL = 0.12
 
 
 def normalize(text: str) -> str:
@@ -77,11 +80,14 @@ def get_cluster_members_embedding(
     min_length: int = 8,
 ) -> list[list[dict]]:
     """
-    Embedding cosine + single-linkage kümeleme (anlamca benzer iddialar).
-    Narrative clustering için yalnızca cosine kullanılır — lexical eşik
-    dedup için uygundur ama paraphrase iddiaları kaçırır.
+    Embedding cosine + lexical + sayısal/konu koruması ile single-linkage kümeleme.
+    Dedup ile aynı birleşme kuralı (embedding_pair_linkable); paraphrase iddiaları
+    yakalanırken şablonlu sayısal iddialar (şeftali/armut) yanlış birleşmez.
+    Lexical eşik dedup'tan düşük (NARRATIVE_CLUSTER_LEXICAL) — paraphrase Jaccard ~0.13.
     """
-    from utils.claim_dedup import embed_texts
+    from utils.claim_dedup import embed_texts, embedding_pair_linkable
+
+    lexical_threshold = NARRATIVE_CLUSTER_LEXICAL
 
     valid = [(it, normalize(it[text_key])) for it in items if it.get(text_key)]
     valid = [(it, t) for it, t in valid if len(t) >= min_length]
@@ -92,7 +98,8 @@ def get_cluster_members_embedding(
         import numpy as np
         texts = [t for _, t in valid]
         embs = embed_texts(texts)
-    except Exception:
+    except Exception as exc:
+        print(f"[cluster] embedding kümeleme atlandı: {exc}")
         return []
 
     clusters: list[list[int]] = []
@@ -101,7 +108,14 @@ def get_cluster_members_embedding(
         emb = embs[idx]
         target = None
         for cluster in clusters:
-            if any(float(np.dot(emb, embs[j])) >= threshold for j in cluster):
+            if any(
+                embedding_pair_linkable(
+                    valid[idx][1], valid[j][1], emb, embs[j],
+                    threshold=threshold,
+                    lexical_threshold=lexical_threshold,
+                )
+                for j in cluster
+            ):
                 target = cluster
                 break
         if target is not None:

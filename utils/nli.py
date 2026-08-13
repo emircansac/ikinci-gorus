@@ -22,6 +22,8 @@ pip install transformers torch sentencepiece
 import os
 from functools import lru_cache
 
+from utils.reasoning_patterns import evidence_has_partial_caveat
+
 NLI_MODEL_NAME = os.environ.get("NLI_MODEL", "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli")
 
 # zero-shot-classification pipeline'ının altındaki model genelde ~512 token
@@ -62,17 +64,30 @@ def nli_check(claim_text: str, evidence_text: str) -> dict:
     }
 
 
-def should_escalate(nli_result: dict, initial_risk: str, confidence_threshold: float = 0.75) -> bool:
+def should_escalate(
+    nli_result: dict,
+    initial_risk: str,
+    evidence_text: str | None = None,
+    confidence_threshold: float = 0.75,
+) -> bool:
     """
     Escalation kuralı (Claude+web_search'e gönderme kararı):
       - initial_risk == "high"  -> HER ZAMAN escalate et (ucuz filtreye güvenme)
       - NLI güveni eşiğin altında -> escalate et
       - NLI 'NOT_ENOUGH_INFO' dediyse -> escalate et
+      - SUPPORTS/REFUTES + yüksek güven olsa bile kanıtta kısmi/bileşik uyarı -> escalate et
     """
     if initial_risk == "high":
         return True
     if nli_result["nli_label"] == "NOT_ENOUGH_INFO":
         return True
     if nli_result["nli_confidence"] < confidence_threshold:
+        return True
+    if (
+        evidence_text
+        and nli_result["nli_label"] in ("SUPPORTS", "REFUTES")
+        and nli_result["nli_confidence"] >= confidence_threshold
+        and evidence_has_partial_caveat(evidence_text)
+    ):
         return True
     return False

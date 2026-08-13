@@ -15,6 +15,44 @@ def get_conn():
     return conn
 
 
+def _migrate_human_reviewed_semantics(conn):
+    """
+    human_reviewed yalnızca gerçek insan onayını (reviewer_note izi) taşır.
+    Otomasyonun 'incelemeye gerek yok' kararı auto_accepted'a taşınır.
+    """
+    conn.execute("""
+        UPDATE verdicts
+        SET human_reviewed = 0, auto_accepted = 1
+        WHERE human_reviewed = 1
+          AND (reviewer_note IS NULL OR TRIM(reviewer_note) = '')
+    """)
+    conn.execute("""
+        UPDATE verdicts
+        SET auto_accepted = 0
+        WHERE human_reviewed = 1
+          AND reviewer_note IS NOT NULL
+          AND TRIM(reviewer_note) != ''
+    """)
+    # Indirect kanıt: otomasyon bypass sayılmaz (claim 673 tipi)
+    conn.execute("""
+        UPDATE verdicts
+        SET auto_accepted = 0
+        WHERE source_directness = 'indirect'
+          AND human_reviewed = 0
+          AND (reviewer_note IS NULL OR TRIM(reviewer_note) = '')
+    """)
+    conn.execute("""
+        DELETE FROM verified_claim_library
+        WHERE origin_claim_id IN (
+            SELECT vcl.origin_claim_id
+            FROM verified_claim_library vcl
+            JOIN verdicts vr ON vr.claim_id = vcl.origin_claim_id
+            WHERE vr.human_reviewed != 1
+        )
+    """)
+    conn.commit()
+
+
 def _migrate_columns(conn):
     """Mevcut DB'lere sonradan eklenen sütunlar — duplicate column hataları yutulur."""
     migrations = (
@@ -29,6 +67,7 @@ def _migrate_columns(conn):
         ("verdicts", "source_tier", "TEXT"),
         ("verdicts", "calibration_flags", "TEXT"),
         ("verdicts", "library_match", "INTEGER DEFAULT 0"),
+        ("verdicts", "auto_accepted", "INTEGER DEFAULT 0"),
     )
     for table, col, typedef in migrations:
         try:
@@ -36,6 +75,7 @@ def _migrate_columns(conn):
         except sqlite3.OperationalError:
             pass
     conn.commit()
+    _migrate_human_reviewed_semantics(conn)
     conn.execute("""
         UPDATE claims SET extraction_version = 'v1'
         WHERE extraction_version IS NULL

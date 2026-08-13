@@ -54,3 +54,24 @@ def test_embedding_clusters_cross_channel_perine():
     clusters = get_cluster_members_embedding(items, id_key="claim_id", text_key="claim_text", threshold=0.75)
     assert len(clusters) == 1
     assert len(clusters[0]) == 2
+
+
+def test_embedding_clusters_block_numeric_template(monkeypatch):
+    """Şeftali/armut GI-GL — yüksek cosine olsa bile ayrı kümeler."""
+    import numpy as np
+
+    def _same_embed(texts):
+        v = np.ones(4)
+        return np.stack([v / np.linalg.norm(v)] * len(texts))
+
+    monkeypatch.setattr("utils.claim_dedup.embed_texts", _same_embed)
+    from utils.text_similarity import get_cluster_members_embedding
+
+    items = [
+        {"claim_id": 1, "channel_id": "A", "claim_text": "Şeftalinin glisemik indeksi 42, glisemik yükü 4'tür."},
+        {"claim_id": 2, "channel_id": "B", "claim_text": "Armutun glisemik indeksi 38, glisemik yükü 4'tür."},
+    ]
+    clusters = get_cluster_members_embedding(
+        items, id_key="claim_id", text_key="claim_text", threshold=0.5,
+    )
+    assert clusters == []
