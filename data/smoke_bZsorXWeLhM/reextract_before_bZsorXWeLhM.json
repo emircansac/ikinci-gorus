@@ -1,0 +1,650 @@
+[
+  {
+    "claim_id": 162,
+    "timestamp_sec": 2,
+    "claim_text": "72 yaşındaki tip 2 diyabet hastası, ilaçlarını değiştirmeden sadece tükettiği dört meyveyi değiştirerek 6 haftada açlık kan şekerini 15 puan düşürdü.",
+    "category": "tedavi",
+    "initial_risk": "high",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 163,
+    "timestamp_sec": 88,
+    "claim_text": "Metabolik sorunu olmayan kişiler için her meyve faydalıdır, ancak prediyabet, insülin direnci veya tip 2 diyabeti olanlar için bazı meyveler kan şekerini olumsuz etkiler.",
+    "category": "diğer",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 164,
+    "timestamp_sec": 242,
+    "claim_text": "Glisemik indeksi 55'in altındaki yiyecekler düşük ve güvenli, 70'in üzerindekiler kan şekerini sabit tutması gereken biri için problemlidir.",
+    "category": "diğer",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 165,
+    "timestamp_sec": 290,
+    "claim_text": "Glisemik yük değeri 10'un altında olan yiyecekler güvenli kabul edilirken, 20'nin üzerindeki değerler dikkat gerektirir.",
+    "category": "diğer",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 166,
+    "timestamp_sec": 359,
+    "claim_text": "Taze kirazın glisemik indeksi 27'dir ve 120 gramlık porsiyonunun glisemik yükü 6'dır, bu da onu kan şekeri kontrolü için güvenli yapar.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 167,
+    "timestamp_sec": 383,
+    "claim_text": "Kirazdaki antosyaninler yüksek kan şekerinin arter duvarlarında yarattığı oksidatif hasarı azaltan antiinflamatuar ve antioksidan özelliklere sahiptir.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 168,
+    "timestamp_sec": 441,
+    "claim_text": "Guava'nın glisemik indeksi 23, glisemik yükü 3'tür ve eşit ağırlıktaki portakaldan daha fazla C vitamini ve likopen içerir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 169,
+    "timestamp_sec": 471,
+    "claim_text": "Meyvedeki fruktozun karaciğere zarar verdiği iddiası tamamen asılsızdır; fruktoz sadece izole/konsantre halde (şurup, meyve suyu) tüketildiğinde zarar verir, bütün meyvede zarar vermez.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 170,
+    "timestamp_sec": 512,
+    "claim_text": "Çileğin glisemik indeksi 41, glisemik yükü 3'tür ve içerdiği ellajik asit insülin duyarlılığını artırır.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 171,
+    "timestamp_sec": 556,
+    "claim_text": "Avokadonun glisemik indeksi 10, glisemik yükü 2'dir ve kan şekeri etkisi neredeyse sıfırdır.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 172,
+    "timestamp_sec": 529,
+    "claim_text": "Çileğin içerdiği elajik asit, hücrelerin insülin duyarlılığını artırır.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 173,
+    "timestamp_sec": 556,
+    "claim_text": "Avokadonun glisemik indeksi 10 ve glisemik yükü 2'dir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 174,
+    "timestamp_sec": 580,
+    "claim_text": "Avokadodaki tekli doymamış yağlar HDL kolesterolü artırıp LDL kolesterolü düşürür.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 175,
+    "timestamp_sec": 616,
+    "claim_text": "Tip 2 diyabet hastaları günde yarım avokado tüketmelidir.",
+    "category": "doz",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 176,
+    "timestamp_sec": 622,
+    "claim_text": "Armutun glisemik indeksi 38 ve glisemik yükü 4'tür.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 177,
+    "timestamp_sec": 629,
+    "claim_text": "Armuttaki pektin, mide boşalmasını ve şekerin emilimini yavaşlatarak kan şekeri eğrisini dengeler.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 178,
+    "timestamp_sec": 642,
+    "claim_text": "Pektin bağırsakta safra asitlerine bağlanarak vücuttan atılmasını sağlar ve kolesterolü olumlu etkiler.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 179,
+    "timestamp_sec": 673,
+    "claim_text": "Olgunlaşmamış, eti sert armutlar içerdiği dirençli nişasta sayesinde glisemik etkiyi azaltır.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 180,
+    "timestamp_sec": 678,
+    "claim_text": "Elmanın glisemik indeksi 39 ve glisemik yükü 6'dır.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 181,
+    "timestamp_sec": 684,
+    "claim_text": "Elma kabuğundaki pektin, kersetin ve klorojenik asit antioksidan etkisi sağlar ve kan şekerini yavaş yükseltir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 182,
+    "timestamp_sec": 728,
+    "claim_text": "Kivinin glisemik indeksi 38 ve glisemik yükü 9'dur.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 183,
+    "timestamp_sec": 735,
+    "claim_text": "Orta boy bir kivi, günlük C vitamini ihtiyacının %100'ünü karşılar.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 184,
+    "timestamp_sec": 750,
+    "claim_text": "C vitamini, diyabette yüksek kan şekerinin damarlarda yarattığı oksidatif stresi önlemede kritik rol oynar.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 185,
+    "timestamp_sec": 757,
+    "claim_text": "Kividaki aktinidin enzimi damar genişletici özelliğiyle diyabetteki hipertansiyonu kontrol etmeye yardımcı olur.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 186,
+    "timestamp_sec": 784,
+    "claim_text": "Bütün bir portakalın glisemik indeksi 40 ve glisemik yükü 5'tir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 187,
+    "timestamp_sec": 832,
+    "claim_text": "Portakal suyunun glisemik yükü, sıkma işlemiyle lifin kaybolması nedeniyle 20'nin üzerine çıkar.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 188,
+    "timestamp_sec": 847,
+    "claim_text": "Şeftalinin glisemik indeksi 42 ve glisemik yükü 4'tür.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 189,
+    "timestamp_sec": 857,
+    "claim_text": "Şeftalideki betakaroten vücutta A vitaminine dönüşerek diyabet hastalarında antioksidan savunmaya katkı sağlar.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 190,
+    "timestamp_sec": 877,
+    "claim_text": "Şuruplu veya konserve şeftaliler ilave şeker nedeniyle glisemik yükü kontrolden çıkmış yiyeceklerdir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 191,
+    "timestamp_sec": 906,
+    "claim_text": "C vitamini eksikliği diyabetik komplikasyonları hızlandırabilir.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 192,
+    "timestamp_sec": 944,
+    "claim_text": "Yaban mersininin glisemik indeksi 53 ve glisemik yükü 5'tir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 193,
+    "timestamp_sec": 956,
+    "claim_text": "Yaban mersini çilek ve kirazdan daha yoğun oranda antosiyanin içerir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 194,
+    "timestamp_sec": 964,
+    "claim_text": "Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi korur.",
+    "category": "mekanizma",
+    "initial_risk": "high",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 195,
+    "timestamp_sec": 980,
+    "claim_text": "Haftada birkaç kez 80-120 gram taze yaban mersini tüketmek metabolizma için faydalıdır.",
+    "category": "doz",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 196,
+    "timestamp_sec": 1009,
+    "claim_text": "Meyve olgunlaştıkça içindeki dirençli nişasta basit şekerlere dönüşerek kan şekerini daha hızlı yükseltir.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 197,
+    "timestamp_sec": 1132,
+    "claim_text": "120 gramlık mangonun glisemik yükü 14'tür ve bu diyabet yönetiminde dikkat gerektiren bir seviyedir.",
+    "category": "diğer",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 198,
+    "timestamp_sec": 1166,
+    "claim_text": "Tatlı meyveye chia veya keten tohumu eklemek glisemik indeksi yavaşlatır ama toplam glisemik yükü (karbonhidrat miktarını) düşürmez.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 199,
+    "timestamp_sec": 1206,
+    "claim_text": "Ananasın glisemik indeksi 59, glisemik yükü 14'tür.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 200,
+    "timestamp_sec": 1247,
+    "claim_text": "Ananas tüketirken porsiyon en fazla 80 gramla sınırlanmalı ve yanına protein veya sağlıklı yağ eklenmelidir.",
+    "category": "doz",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 201,
+    "timestamp_sec": 1257,
+    "claim_text": "Muzun glisemik indeksi 62, glisemik yükü 16'dır.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 202,
+    "timestamp_sec": 1285,
+    "claim_text": "Avokadonun glisemik yükü 2, muzunki bunun 8 katı kadardır.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 203,
+    "timestamp_sec": 1294,
+    "claim_text": "Diyabetik bireyler muzu yeşil veya tam olgunlaşmadan önce, koyu leke oluşmadan, yarım porsiyon halinde ve protein kaynağıyla birlikte tüketmelidir.",
+    "category": "doz",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 204,
+    "timestamp_sec": 1321,
+    "claim_text": "Papayanın glisemik indeksi 58, glisemik yükü 12'dir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 205,
+    "timestamp_sec": 1367,
+    "claim_text": "Üzümün glisemik indeksi 61, glisemik yükü 12'dir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 206,
+    "timestamp_sec": 1400,
+    "claim_text": "Üzümdeki resveratrol ve polifenoller kalp sağlığı üzerinde olumlu etkiler gösterir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 207,
+    "timestamp_sec": 1441,
+    "claim_text": "Kuru meyvelerde (kuru erik, kuru üzüm, kuru kayısı, kuru incir) kurutma sonrası su uzaklaşır ama şeker miktarı aynı kalır, bu nedenle glisemik yük genellikle 30'un üzerine çıkar.",
+    "category": "diğer",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 208,
+    "timestamp_sec": 1481,
+    "claim_text": "Diyabet hastalarının kuru meyvelerden kaçınması veya çok nadir ve minimal miktarlarda tüketmesi tıbbi tavsiyedir.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 209,
+    "timestamp_sec": 1494,
+    "claim_text": "Karpuzun glisemik indeksi 70'in üzerindedir ama 120 gramlık normal porsiyonun glisemik yükü sadece 3'tür.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 210,
+    "timestamp_sec": 1562,
+    "claim_text": "Porsiyon kontrolü zor olan kişiler karpuz yerine çilek, yaban mersini veya kivi gibi glisemik etkisi daha öngörülebilir meyveleri tercih etmelidir.",
+    "category": "önleme",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 211,
+    "timestamp_sec": 1584,
+    "claim_text": "Su oranı yüksek meyveler (örn. karpuz) metabolik açıdan tamamen zararsız değildir; hızlı geçişleri nedeniyle kana hızlı karışan serbest şeker bırakırlar.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 212,
+    "timestamp_sec": 1632,
+    "claim_text": "Meyveyi kaliteli protein veya sağlıklı yağ ile birlikte tüketmek şekerin emilimini yavaşlatır ve kan şekeri yanıtını azaltır.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 213,
+    "timestamp_sec": 1667,
+    "claim_text": "Vücudun insülin duyarlılığı sabah saatlerinde daha yüksek, öğleden sonra ve akşam saatlerinde daha düşüktür; bu nedenle aynı meyve akşam yendiğinde sabah yenmesine göre daha yüksek glisemik yanıt oluşturur.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 214,
+    "timestamp_sec": 1697,
+    "claim_text": "Glisemik yükü yüksek meyveler güne başlarken, glisemik yükü düşük meyveler öğleden sonra veya akşam tüketilmelidir.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 215,
+    "timestamp_sec": 1708,
+    "claim_text": "Meyve içeren bir öğün sonrası 10-15 dakikalık hafif tempolu yürüyüş, kas aktivasyonu yoluyla insüline bağımlı olmadan glikoz alımını artırarak kan şekeri zirvesini düşürür.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 216,
+    "timestamp_sec": 1739,
+    "claim_text": "Meyveyi kabuğuyla ve bütün olarak yemek (suyunu sıkmamak veya smoothie yapmamak), içerdiği lif sayesinde şekerin kana karışmasını yavaşlatır ve glisemik etkiyi azaltır.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 217,
+    "timestamp_sec": 1822,
+    "claim_text": "Bir hastada meyve suyu yerine bütün portakal, muz yerine çilek/kivi, üzüm yerine elma/armut tüketimi ve akşam meyve yerine şekersiz yoğurt eklenmesiyle 6 haftada açlık glikozu 137'den 122'ye düştü ve HbA1c değeri iyileşti.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 218,
+    "timestamp_sec": 1925,
+    "claim_text": "Glikozu iyi kontrol edilen tip 2 diyabet hastaları için günde 2-3 porsiyon 'dost' meyve tüketmek güvenli ve tolere edilebilir bir düzeydir.",
+    "category": "doz",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 219,
+    "timestamp_sec": 1946,
+    "claim_text": "Bir meyveyi yemeden önce ve yedikten 90 dakika sonra kan şekeri ölçülmeli; fark 40 mg/dL'den düşükse o meyve o miktarda güvenli, fark 40'ın üzerindeyse porsiyon küçültülmeli veya meyve değiştirilmelidir.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 220,
+    "timestamp_sec": 1969,
+    "claim_text": "Tip 1 diyabetlilerde yiyeceklerin kan şekerinde yarattığı biyolojik etki tip 2 diyabetlilerle birebir aynıdır ve aynı meyve tavsiyeleri her iki tür için de geçerlidir.",
+    "category": "mekanizma",
+    "initial_risk": "high",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 221,
+    "timestamp_sec": 1994,
+    "claim_text": "Tip 1 diyabetlilerin tükettikleri meyvenin karbonhidrat değerine göre insülin dozu ayarlaması mutlaka hekim rehberliğinde yapılmalıdır.",
+    "category": "doz",
+    "initial_risk": "high",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 222,
+    "timestamp_sec": 2022,
+    "claim_text": "Prediyabet evresinde yapılan doğru diyet değişiklikleri süreci tamamen tersine çevirebilir ve tip 2 diyabete geçişi kalıcı olarak engelleyebilir.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 223,
+    "timestamp_sec": 2059,
+    "claim_text": "Üzerine ekstra şeker eklenmemiş dondurulmuş meyveler besin değerlerini korur ve glisemik profilleri taze meyvelerle tamamen benzerdir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 224,
+    "timestamp_sec": 2146,
+    "claim_text": "Planlanandan daha yüksek glisemik yüklü beslenilen tek bir gün metabolizmayı bozmaz, kan şekeri kontrolü haftalar süren tutarlı alışkanlıklarla oluşur.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 225,
+    "timestamp_sec": 2185,
+    "claim_text": "Kahvaltı, gün boyunca kan şekeri eğrisini en fazla etkileyen öğündür.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 226,
+    "timestamp_sec": 2190,
+    "claim_text": "Yüksek şeker ve düşük protein içeren bir kahvaltı, glikozun erken yükselmesine ve gün boyu kan şekeri iniş çıkışlarına neden olur.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 227,
+    "timestamp_sec": 2203,
+    "claim_text": "Sağlıklı yağ, protein ve önerilen meyvelerden birini içeren bir kahvaltı, öğlene kadar sürecek istikrarlı enerji ile yumuşak bir glisemik eğri sağlar.",
+    "category": "önleme",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 228,
+    "timestamp_sec": 2216,
+    "claim_text": "Zeytinyağında pişmiş 2 yumurta, kabuğuyla bir elma ve şekersiz kahveden oluşan kombinasyon, diyabet için düşük glisemik etkili mükemmel bir kahvaltıdır.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 229,
+    "timestamp_sec": 2257,
+    "claim_text": "Taze kiraz, listedeki tüm meyveler arasında en düşük glisemik indekse sahiptir ve kalp-damar koruyucudur.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 230,
+    "timestamp_sec": 2265,
+    "claim_text": "Guava olağanüstü düşük glisemik indekse ve yüksek C vitamini içeriğine sahiptir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 231,
+    "timestamp_sec": 2271,
+    "claim_text": "Çilek, damarları koruyan antosiyanin açısından zengindir ve düşük glisemik yüklüdür.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 232,
+    "timestamp_sec": 2273,
+    "claim_text": "Avokadonun kan şekeri üzerinde neredeyse sıfır etkisi vardır ancak kalorisi nedeniyle miktar kontrolü gerektirir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 233,
+    "timestamp_sec": 2281,
+    "claim_text": "Armudun kabuğuyla yenmesi, pektin deposu olduğu için önemlidir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 234,
+    "timestamp_sec": 2284,
+    "claim_text": "Elma, glisemik etkiyi frenleyen antioksidanlar açısından zengindir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 235,
+    "timestamp_sec": 2286,
+    "claim_text": "Kivi, tansiyon dengesine destek olur.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 236,
+    "timestamp_sec": 2288,
+    "claim_text": "Portakalın suyu sıkılmadan bütün olarak yenmesi gerekir.",
+    "category": "önleme",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 237,
+    "timestamp_sec": 2299,
+    "claim_text": "Yaban mersini, listedeki tüm meyveler arasında en yüksek antosiyanin içeriğine sahiptir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 238,
+    "timestamp_sec": 2302,
+    "claim_text": "Mango, ananas, muz, papaya ve üzümün glisemik yükü 12'nin üzerindedir ve dikkatli tüketilmelidir.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 239,
+    "timestamp_sec": 2313,
+    "claim_text": "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek ve sonrasında yürüyüş yapmak glisemik etkiyi azaltır.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 240,
+    "timestamp_sec": 2326,
+    "claim_text": "Kuru meyveler konsantre şeker içeriği nedeniyle tamamen kaçınılması gereken gıdalardır.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 241,
+    "timestamp_sec": 2334,
+    "claim_text": "İlave şeker içermese dahi taze sıkılmış meyve suları, bütün meyveden çok daha şiddetli bir glisemik etki yaratır ve uzak durulmalıdır.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  },
+  {
+    "claim_id": 242,
+    "timestamp_sec": 2344,
+    "claim_text": "Aşırı olgunlaşmış meyveler dirençli nişastalarını kaybederek daha fazla serbest şeker barındıran glisemik bombalara dönüşür.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v1"
+  }
+]

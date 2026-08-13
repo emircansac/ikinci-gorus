@@ -1,0 +1,159 @@
+{
+  "sample_claim_ids": [
+    652,
+    654,
+    663,
+    681,
+    689,
+    695
+  ],
+  "success_count": 6,
+  "total": 6,
+  "success_rate": 1.0,
+  "recommendation": "proceed_hybrid_retrieval",
+  "results": [
+    {
+      "claim_id": 652,
+      "claim_text": "Doğru pişirme yöntemleriyle sebzelerdeki potasyum oranı %70'e kadar düşürülebilir.",
+      "search_query_en": "leaching cooking method reduce potassium vegetables",
+      "category": "doz",
+      "initial_risk": "medium",
+      "baseline_pubmed": {
+        "query": "leaching cooking method reduce potassium vegetables",
+        "hits": 0,
+        "with_abstract": 0
+      },
+      "best_mesh_variant": {
+        "query": "leaching AND cooking AND method AND reduce",
+        "hits": 5,
+        "with_abstract": 5,
+        "title_only": 0
+      },
+      "guideline_snippets": 2,
+      "nutrition_evidence": 0,
+      "hybrid_path": "pubmed_mesh",
+      "hybrid_evidence_count": 3,
+      "retrieval_would_succeed": true,
+      "sample_title": "The effects of boiling and leaching on the content of potassium and other minera"
+    },
+    {
+      "claim_id": 654,
+      "claim_text": "Hasarlı böbreklerde yanlış sebze seçimi potasyum seviyelerini kalp durmasına yol açacak kadar yükseltebilir.",
+      "search_query_en": "hyperkalemia cardiac arrest chronic kidney disease diet",
+      "category": "mekanizma",
+      "initial_risk": "high",
+      "baseline_pubmed": {
+        "query": "hyperkalemia cardiac arrest chronic kidney disease diet",
+        "hits": 0,
+        "with_abstract": 0
+      },
+      "best_mesh_variant": {
+        "query": "hyperkalemia AND cardiac AND arrest AND chronic",
+        "hits": 5,
+        "with_abstract": 5,
+        "title_only": 0
+      },
+      "guideline_snippets": 1,
+      "nutrition_evidence": 0,
+      "hybrid_path": "pubmed_mesh",
+      "hybrid_evidence_count": 3,
+      "retrieval_would_succeed": true,
+      "sample_title": "Acute and chronic cardiovascular effects of hyperkalemia: new insights into prev"
+    },
+    {
+      "claim_id": 663,
+      "claim_text": "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar.",
+      "search_query_en": "zucchini water content hydration kidney",
+      "category": "mekanizma",
+      "initial_risk": "low",
+      "baseline_pubmed": {
+        "query": "zucchini water content hydration kidney",
+        "hits": 0,
+        "with_abstract": 0
+      },
+      "best_mesh_variant": {
+        "hits": 0,
+        "with_abstract": 0,
+        "query": ""
+      },
+      "guideline_snippets": 1,
+      "nutrition_evidence": 0,
+      "hybrid_path": "guideline",
+      "hybrid_evidence_count": 1,
+      "retrieval_would_succeed": true,
+      "sample_title": "NKF: Potassium and Your CKD Diet"
+    },
+    {
+      "claim_id": 681,
+      "claim_text": "Çiğ ıspanak 100 gramda yaklaşık 550 mg potasyum içerir ve hasarlı böbrek bu yükü atamaz.",
+      "search_query_en": "raw spinach potassium content kidney disease",
+      "category": "tanı",
+      "initial_risk": "high",
+      "baseline_pubmed": {
+        "query": "raw spinach potassium content kidney disease",
+        "hits": 0,
+        "with_abstract": 0
+      },
+      "best_mesh_variant": {
+        "query": "raw AND spinach AND potassium AND content",
+        "hits": 2,
+        "with_abstract": 2,
+        "title_only": 0
+      },
+      "guideline_snippets": 2,
+      "nutrition_evidence": 1,
+      "hybrid_path": "nutrition_db",
+      "hybrid_evidence_count": 1,
+      "retrieval_would_succeed": true,
+      "sample_title": "USDA FDC: spinach"
+    },
+    {
+      "claim_id": 689,
+      "claim_text": "Pancar suyu liflerinden arındırıldığı için saniyeler içinde kana devasa bir potasyum ve nitrat yükü bindirir.",
+      "search_query_en": "beetroot juice potassium nitrate load kidney",
+      "category": "tanı",
+      "initial_risk": "high",
+      "baseline_pubmed": {
+        "query": "beetroot juice potassium nitrate load kidney",
+        "hits": 0,
+        "with_abstract": 0
+      },
+      "best_mesh_variant": {
+        "query": "beetroot AND juice AND potassium AND nitrate",
+        "hits": 5,
+        "with_abstract": 5,
+        "title_only": 0
+      },
+      "guideline_snippets": 2,
+      "nutrition_evidence": 0,
+      "hybrid_path": "pubmed_mesh",
+      "hybrid_evidence_count": 3,
+      "retrieval_would_succeed": true,
+      "sample_title": "Influence of iodide ingestion on nitrate metabolism and blood pressure following"
+    },
+    {
+      "claim_id": 695,
+      "claim_text": "Isı, sebzelerdeki oksalatların yapısını bozarak tehlikeyi azaltır.",
+      "search_query_en": "heat cooking oxalate reduction vegetables",
+      "category": "mekanizma",
+      "initial_risk": "low",
+      "baseline_pubmed": {
+        "query": "heat cooking oxalate reduction vegetables",
+        "hits": 0,
+        "with_abstract": 0
+      },
+      "best_mesh_variant": {
+        "query": "heat AND cooking AND oxalate AND reduction",
+        "hits": 3,
+        "with_abstract": 3,
+        "title_only": 0
+      },
+      "guideline_snippets": 2,
+      "nutrition_evidence": 0,
+      "hybrid_path": "pubmed_mesh",
+      "hybrid_evidence_count": 3,
+      "retrieval_would_succeed": true,
+      "sample_title": "Effect of extrusion variables (temperature, moisture) on the antinutrient compon"
+    }
+  ]
+}

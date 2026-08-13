@@ -1,0 +1,506 @@
+[
+  {
+    "claim_id": 547,
+    "timestamp_sec": 94,
+    "claim_text": "Tırnaklar, kan dolaşımı, periferik sinir sistemi ve metabolik ortamla sürekli etkileşim halinde olan nail matrix hücreleri tarafından üretilir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 548,
+    "timestamp_sec": 133,
+    "claim_text": "Tırnaklar ayda yaklaşık 3 mm büyür ve büyürken vücutta o dönemde yaşanan sağlık olaylarını kaydeder.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 549,
+    "timestamp_sec": 139,
+    "claim_text": "3 ay önce geçirilen bir beslenme bozukluğu, tırnak üzerinde çapraz bir çizgi (Beau çizgisi) olarak görünür.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 550,
+    "timestamp_sec": 153,
+    "claim_text": "60 yaşından sonra periferik sinir sistemi beslenme eksikliklerine ve sistemik enflamasyona karşı daha savunmasız hale gelir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 551,
+    "timestamp_sec": 206,
+    "claim_text": "Baskın olmayan elde diğer elden belirgin biçimde daha derin dikey tırnak çizgileri görülmesi, erken Parkinson hastalığı ile ilişkilendirilmiştir.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 552,
+    "timestamp_sec": 213,
+    "claim_text": "Tırnak kırılganlığının son 12-24 ayda artması, el yazısında değişim ile birlikte görüldüğünde erken Parkinson bulgusu olabilir.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 553,
+    "timestamp_sec": 238,
+    "claim_text": "Parkinson hastalığı başlangıçta bir hareket bozukluğu değil, periferik ve otonom sinir sisteminin bozulmasıdır.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 554,
+    "timestamp_sec": 250,
+    "claim_text": "Parkinson hastalığının resmi tanısından önceki prodromal evre 10 yıla kadar uzayabilir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 555,
+    "timestamp_sec": 259,
+    "claim_text": "Parmak uçlarındaki kan akışını ve ter bezi aktivitesini düzenleyen otonom sinirlerin bozulması, tırnak matriksini besleyen doku ortamını etkileyerek tırnak kalitesini değiştirir.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 556,
+    "timestamp_sec": 294,
+    "claim_text": "Koku duyusu kaybı, Parkinson hastalığının prodromal evresinin en güvenilir erken göstergelerinden biridir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 557,
+    "timestamp_sec": 304,
+    "claim_text": "Vaka örneğinde, asimetrik tırnak çizgilenmesi ve koku kaybı bulgularıyla başvuran 67 yaşındaki hastaya nöroloji konsültasyonu sonucu erken evre Parkinson tanısı konmuştur.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 558,
+    "timestamp_sec": 307,
+    "claim_text": "Parkinson hastalığında tedaviye erken başlanması, hastanın yaşam kalitesinin daha uzun süre korunmasını sağlar.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 559,
+    "timestamp_sec": 314,
+    "claim_text": "Her iki baş parmak tırnağını doğal ışıkta yan yana tutup çizgilenme şiddetini, el yazısı değişimini ve koku duyusu farkını gözlemleyip not almak, doktor randevusunda nörolojik tarama istemek için pratik bir öneridir.",
+    "category": "önleme",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 560,
+    "timestamp_sec": 373,
+    "claim_text": "Tırnağı enine geçen oluk şeklindeki Beau çizgileri, tırnak matriksinin ciddi bir baskı nedeniyle bir süre normal doku üretimini durdurmasıyla oluşur.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 561,
+    "timestamp_sec": 400,
+    "claim_text": "Tek bir Beau çizgisinin birden fazla tırnakta aynı anda görülmesi, ciddi bir sistemik hastalık, yüksek ateş veya büyük bir cerrahi geçirildiğine işaret eder.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 562,
+    "timestamp_sec": 411,
+    "claim_text": "COVID-19 sonrasında Beau çizgileri sık görülmüş ve 'Covid tırnakları' olarak anılmaya başlanmıştır.",
+    "category": "tanı",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 563,
+    "timestamp_sec": 431,
+    "claim_text": "60 yaş üzerinde tekrarlayan Beau çizgileri, kronik böbrek hastalığı ile ilişkilendirilmiştir.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 564,
+    "timestamp_sec": 438,
+    "claim_text": "Böbreklerin filtreleme işlevi bozulduğunda nitrojen içeren atık maddeler (üre) kanda birikir ve bu üremik atıklar hızlı bölünen hücreler için toksiktir.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 565,
+    "timestamp_sec": 459,
+    "claim_text": "Üremik baskı başladığında, subklinik düzeyde bile tırnak büyümesi tekrarlayan biçimde kesintiye uğrar.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 566,
+    "timestamp_sec": 466,
+    "claim_text": "Kronik böbrek hastalığı 60 yaş üzerinde çok yaygındır ve erken evrelerde neredeyse hiç belirti vermez.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 567,
+    "timestamp_sec": 481,
+    "claim_text": "Tırnağın alt yarısının beyaz/soluk, üst yarısının pembe/kahverengi olduğu ve aralarında keskin bir sınır bulunduğu 'yarı yarıya tırnaklar' (Lindsay tırnakları), kronik böbrek yetmezliği ile güçlü bir ilişki taşır.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 568,
+    "timestamp_sec": 498,
+    "claim_text": "Vaka örneğinde, tekrarlayan Beau çizgileri ve renk değişimi olan 71 yaşındaki hastada düşük GFR değeri ile erken evre kronik böbrek hastalığı saptanmıştır.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 569,
+    "timestamp_sec": 520,
+    "claim_text": "Erken evrede saptanan kronik böbrek hastalığında diyet düzenlemesi ve ilaç yönetimi ile böbrek fonksiyonu stabilize edilebilir.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 570,
+    "timestamp_sec": 530,
+    "claim_text": "Tırnaklarda yatay oluk, birden fazla oluk, farklı yükseklikte oluklar veya alt-üst yarı renk farkı gözlemlenmesi durumunda doktordan kreatinin ve GFR içeren temel metabolik panel istenmesi önerilir.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 571,
+    "timestamp_sec": 567,
+    "claim_text": "Tırnaklar, vücudun en az yatırım gerektiren en erken uyarı sistemidir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 572,
+    "timestamp_sec": 578,
+    "claim_text": "Demir eksikliği anemisi ve B12 eksikliği tırnak bulguları ile bağlantılı nörolojik hasara yol açabilir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 573,
+    "timestamp_sec": 591,
+    "claim_text": "Tırnak matriks hücreleri vücudun en hızlı yenilenen ve metabolik strese en duyarlı dokusudur.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 574,
+    "timestamp_sec": 634,
+    "claim_text": "Tırnağın kaşık şeklinde (koylonişi) içbükey hale gelmesi demir eksikliğiyle ilişkilidir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 575,
+    "timestamp_sec": 637,
+    "claim_text": "60 yaş üzerinde koylonişi öncelikle demir eksikliği ile ilişkilendirilir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 576,
+    "timestamp_sec": 654,
+    "claim_text": "Demir, sinir liflerini kaplayan miyelin kılıfının sentezi için kritiktir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 577,
+    "timestamp_sec": 661,
+    "claim_text": "Demir, dopamin ve serotonin dahil pek çok nörotransmiterin üretiminde doğrudan yer alır.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 578,
+    "timestamp_sec": 665,
+    "claim_text": "Demir, frontal lobun bellek, yönetici işlev ve işlem hızından sorumlu bölgesinin metabolik fonksiyonu için gereklidir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 579,
+    "timestamp_sec": 696,
+    "claim_text": "Yaşlı bireylerde demir eksikliği anemisi; aktiviteyle orantısız yorgunluk, konsantrasyon güçlüğü, zihinsel yavaşlama ve huzursuz bacak sendromu belirtileriyle kendini gösterebilir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 580,
+    "timestamp_sec": 725,
+    "claim_text": "Nörolojik belirtilerle birlikte tırnaklarda konkavite (kaşık tırnak) görülüyorsa doktordan kan testi istenmelidir.",
+    "category": "önleme",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 581,
+    "timestamp_sec": 730,
+    "claim_text": "Demir eksikliği anemisi düzeltildiğinde bilişsel işlevlerde anlamlı iyileşme görülebilir.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 582,
+    "timestamp_sec": 755,
+    "claim_text": "Vaka: 68 yaşındaki hastada belirgin tırnak konkavitesi sonrası yapılan kan testinde demir eksikliği anemisi saptanmıştır.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 583,
+    "timestamp_sec": 761,
+    "claim_text": "Vaka: Demir eksikliği anemisi tedavisi sonrası birkaç ay içinde enerji düzeyi ve zihinsel netlik belirgin biçimde iyileşmiştir.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 584,
+    "timestamp_sec": 785,
+    "claim_text": "Lunula (tırnak dibindeki soluk yarım ay biçimli alan) tırnak matriksinin görünür kısmıdır ve yeni tırnak üretiminin gerçekleştiği yaşayan bölgedir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 585,
+    "timestamp_sec": 824,
+    "claim_text": "Lunula'nın aşamalı kaybı, medikal literatürde pek çok ciddi sistemik tabloyla ilişkilendirilmiştir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 586,
+    "timestamp_sec": 831,
+    "claim_text": "B12 eksikliği subakut kombine spinal kord dejenerasyonuna (miyelin hasarına) yol açabilir.",
+    "category": "mekanizma",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 587,
+    "timestamp_sec": 844,
+    "claim_text": "B12 vitamini sinir liflerini koruyan miyelin kılıfının üretimi için kritiktir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 588,
+    "timestamp_sec": 849,
+    "claim_text": "Yeterli B12 olmadan omurilikteki ve periferik sinirlerdeki miyelin bozulmaya başlar ve bu uyuşma, karıncalanma, denge bozukluğu, kas güçsüzlüğü, bilişsel değişim ve ileri vakalarda ciddi omurilik hasarına yol açar.",
+    "category": "mekanizma",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 589,
+    "timestamp_sec": 877,
+    "claim_text": "60 yaşından sonra mide mukozası B12 emilimi için gerekli intrinsik faktörü daha az üretir.",
+    "category": "mekanizma",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 590,
+    "timestamp_sec": 886,
+    "claim_text": "Metformin ve proton pompası inhibitörleri gibi yaygın ilaçlar B12 emilimini düşürür.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 591,
+    "timestamp_sec": 892,
+    "claim_text": "Rutin kan testleri çoğu klinikte otomatik olarak B12 seviyesini içermez.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 592,
+    "timestamp_sec": 902,
+    "claim_text": "Tırnak matriks hücreleri, B12 eksikliğinin sonuçlarını erken gösterir ve lunula küçülür ya da deri altına çekilir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 593,
+    "timestamp_sec": 925,
+    "claim_text": "Journal of Neurology'de yayımlanan bir çalışma, subklinik B12 eksikliğinin bile periferik sinir iletiminde ölçülebilir bozulmaya yol açtığını ve bu bozulmanın belirti vermeden önce ilerlediğini göstermiştir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 594,
+    "timestamp_sec": 946,
+    "claim_text": "Lancet Neurology'de yayımlanan bir derleme, düşük-normal aralıktaki B12 düzeylerinin bile yaşlı bireylerde daha hızlı bilişsel gerileme ile ilişkili olduğunu ortaya koymuştur.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 595,
+    "timestamp_sec": 963,
+    "claim_text": "New England Journal of Medicine'de yayımlanan klinik seriler, subakut kombine dejenerasyonun erken yakalanıp tedavi edildiğinde büyük ölçüde geri döndürülebilir, geciktiğinde ise kalıcı hasar bırakabileceğini göstermiştir.",
+    "category": "tedavi",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 596,
+    "timestamp_sec": 1006,
+    "claim_text": "Vaka: 73 yaşındaki hastada hafıza kayması, denge sorunu ve el uyuşması ile başvurduğunda vibrasyon duyusu azalması ve baş parmaklarda lunula kaybı saptanmış, B12 düzeyi kritik düşük çıkmıştır.",
+    "category": "tanı",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 597,
+    "timestamp_sec": 1039,
+    "claim_text": "Vaka: 10 yıldır mide koruyucu ilaç kullanan hastada yüksek doz B12 replasmanı (önce enjeksiyon sonra oral) sonrası denge ve hafıza belirgin biçimde iyileşmiş, 3 ay içinde lunula yeniden görünmeye başlamıştır.",
+    "category": "tedavi",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 598,
+    "timestamp_sec": 1135,
+    "claim_text": "Doktordan B12 düzeyi, demir çalışması ve GFR dahil temel metabolik panel istenmesi önerilir.",
+    "category": "önleme",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 599,
+    "timestamp_sec": 1135,
+    "claim_text": "Tırnak bulguları olan kişilerin doktorlarından B12 düzeyi ölçümü istemesi gerekir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 600,
+    "timestamp_sec": 1135,
+    "claim_text": "Tırnak bulguları olan kişilerin doktorlarından demir çalışması (demir paneli) istemesi gerekir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 601,
+    "timestamp_sec": 1139,
+    "claim_text": "Tırnak bulguları olan kişilerin doktorlarından GFR dahil temel metabolik panel istemesi gerekir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 602,
+    "timestamp_sec": 1144,
+    "claim_text": "B12, demir ve GFR dahil metabolik panel testlerinin kombinasyonu dört farklı hastalık tablosunun erken teşhisine kapı aralayabilir.",
+    "category": "tanı",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 603,
+    "timestamp_sec": 1150,
+    "claim_text": "Tırnak bulguları tek başına herhangi bir hastalık için tanı koydurucu değildir.",
+    "category": "diğer",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 604,
+    "timestamp_sec": 1165,
+    "claim_text": "Bahsedilen dört hastalık tablosu (böbrek hastalığı, demir eksikliği anemisi, B12 eksikliği ve ilişkili durumlar) erken evrede yakalandığında tedaviye çok daha iyi yanıt verir.",
+    "category": "tedavi",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 605,
+    "timestamp_sec": 1171,
+    "claim_text": "Böbrek hastalığı, GFR düşüklüğü başlamadan önce prodromal (belirti öncesi) bir evreden geçer.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 606,
+    "timestamp_sec": 1177,
+    "claim_text": "Demir eksikliği anemisinde miyelin hasarı belirli bir aşamadan sonra ortaya çıkar.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 607,
+    "timestamp_sec": 1179,
+    "claim_text": "B12 eksikliği tedavi edilmezse spinal kord hasarına yol açabilir ve bu hasar geri dönüşümsüz hale gelebilir.",
+    "category": "mekanizma",
+    "initial_risk": "high",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 608,
+    "timestamp_sec": 1185,
+    "claim_text": "Vücut, bu hastalıkların belirtilerini semptomlar ortaya çıkmadan 10-20 yıl önce sessizce göstermeye başlar.",
+    "category": "mekanizma",
+    "initial_risk": "medium",
+    "extraction_version": "v2"
+  },
+  {
+    "claim_id": 609,
+    "timestamp_sec": 1103,
+    "claim_text": "Tırnakların düzenli olarak fotoğraflanıp 3 ay arayla karşılaştırılması, sağlık değişikliklerini erken tespit etmek için pratik bir öz-izleme yöntemidir.",
+    "category": "önleme",
+    "initial_risk": "low",
+    "extraction_version": "v2"
+  }
+]

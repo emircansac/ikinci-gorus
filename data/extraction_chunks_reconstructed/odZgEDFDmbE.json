@@ -1,0 +1,922 @@
+{
+  "video_id": "odZgEDFDmbE",
+  "title": "BÖBREKLERİ BİTİREN 4 Sebze ve Kreatinini Düşüren 4 Şifa Kaynağı",
+  "total_claims": 102,
+  "chunk_count": 4,
+  "ambiguous_assignments": [
+    {
+      "claim_text": "Konserve veya turşu biber, sodyum ve koruyucu madde içeriği nedeniyle böbrek hastalarının tüketmemesi gereken bir üründür.",
+      "timestamp_sec": 535,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir ve böbreği besleyen damarların iç yüzeyini tahriş ederek iltihaplanmayı tetikler, bu da damarların daralmasına ve böbrek dokusunun ölümüne yol açar.",
+      "timestamp_sec": 544,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Kırmızı biber tüketmek kandaki homosistein seviyelerini kontrol altında tutar.",
+      "timestamp_sec": 526,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir.",
+      "timestamp_sec": 548,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Yüksek homosistein böbrekleri besleyen kan damarlarının iç yüzeyini çizerek şiddetli iltihaplanmayı tetikler.",
+      "timestamp_sec": 554,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Bu iltihaplanma zamanla damarların daralmasına, böbreğe kan akışının azalmasına ve böbrek dokusunun ölmesine yol açar.",
+      "timestamp_sec": 561,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Böbrek yetmezliğinde nitrik oksit mekanizması işlemez ve atılamayan nitratlar ile potasyum böbrekler için ciddi tehdit oluşturur.",
+      "timestamp_sec": 1060,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Pancarın yüksek doğal şeker içeriği diyabet hastaları için onu çok daha sorunlu hale getirir.",
+      "timestamp_sec": 1071,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Diyabet böbrek hastalığına yol açan en yaygın ve en sık karşılaşılan nedenlerin başında gelmektedir.",
+      "timestamp_sec": 1079,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Böbrek hastalarının renal beslenme konusunda uzmanlaşmış bir diyetisyene sevk edilmesi talep edilmelidir.",
+      "timestamp_sec": 1594,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "Böbrek hastalarının potasyum, fosfor ve kreatinin değerlerini rakamsal olarak öğrenmesi gerekir.",
+      "timestamp_sec": 1582,
+      "reason": "multi_range_nearest"
+    },
+    {
+      "claim_text": "67 yaşındaki bir hasta, evre 3 böbrek yetmezliği tanısı aldıktan 2 yıl sonra, beslenme eğitimi sayesinde böbrek fonksiyonları stabil kalmış ve hastalığı evre 4'e ilerlememiştir.",
+      "timestamp_sec": 1597,
+      "reason": "multi_range_nearest"
+    }
+  ],
+  "chunks": [
+    {
+      "chunk_index": 1,
+      "is_recap": false,
+      "ts_min": 0,
+      "ts_max": 567,
+      "claims": [
+        {
+          "claim_id": 445,
+          "timestamp_sec": 8,
+          "claim_text": "Sebzelerin kaynatıldığı suyu içmek veya çorbalara katmak, böbrek yetmezliği olanlarda kanda tehlikeli düzeyde potasyum yükselmesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 446,
+          "timestamp_sec": 28,
+          "claim_text": "Doğru pişirme yöntemleri sebzelerdeki potasyum oranını %70'e kadar düşürebilir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 447,
+          "timestamp_sec": 21,
+          "claim_text": "Böbrek filtrasyon kapasitesi (GFR) düştüğünde domates gibi sebzeler bile kanda potasyum birikimine yol açarak zehir etkisi yaratabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 448,
+          "timestamp_sec": 55,
+          "claim_text": "Yanlış sebze seçimi böbrek hastalarında potasyum seviyelerini kalbi durduracak kadar yükseltebilir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 449,
+          "timestamp_sec": 60,
+          "claim_text": "Ispanak, domates veya pancar tüketimi böbrek hastalarında kreatinin değerlerini yükseltebilir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 450,
+          "timestamp_sec": 122,
+          "claim_text": "Sağlıklı bir böbrek dakikada ortalama 120 ml kanı süzerek temizler (glomerüler filtrasyon hızı, GFH).",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 451,
+          "timestamp_sec": 148,
+          "claim_text": "Hiperkalemi (yüksek potasyum) haftalarca belirti vermeden ilerleyebilir ve kritik seviyelerde kas güçsüzlüğü, kalp ritim bozukluğu ve ani kalp durmasına yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 452,
+          "timestamp_sec": 164,
+          "claim_text": "Fosfor birikimi zamanla kan damarlarını ve kemikleri tahrip eder.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 453,
+          "timestamp_sec": 171,
+          "claim_text": "Salatalarda bulunan bazı bitkisel bileşikler (oksalatlar) zayıflamış böbrekte birikerek mikroskobik kristaller oluşturur ve zamanla böbrek taşına dönüşür.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 454,
+          "timestamp_sec": 252,
+          "claim_text": "62 yaşındaki bir hastada evre 3 kronik böbrek hastalığı teşhisi konmuştur.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 455,
+          "timestamp_sec": 269,
+          "claim_text": "Vaka örneğinde hastanın potasyum değeri 6.2 mmol/L'ye yükselmiştir (normal üst sınır 5.1 olarak belirtilmiştir).",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 456,
+          "timestamp_sec": 278,
+          "claim_text": "Vaka örneğinde hastanın kreatinin seviyesi 6 ay içinde 1.8'den 2.3'e yükselmiştir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 457,
+          "timestamp_sec": 286,
+          "claim_text": "Hasarlı böbreklerde ıspanak, domates ve pancarın düzenli tüketimi kötü tahlil sonuçlarının doğrudan nedeni olmuştur.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 458,
+          "timestamp_sec": 313,
+          "claim_text": "Kabak, düşük potasyum içeriği nedeniyle böbrek hastaları için dostu bir sebzedir ve tüketilmesi önerilir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 459,
+          "timestamp_sec": 343,
+          "claim_text": "100 gram kabak yaklaşık 240 mg potasyum içerirken aynı miktarda ıspanak veya domates 400-500 mg'ın üzerine çıkabilir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 460,
+          "timestamp_sec": 355,
+          "claim_text": "Kabağın %92'sinden fazlası sudur ve böbreği yormadan hidrasyon sağlar.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 461,
+          "timestamp_sec": 363,
+          "claim_text": "Kabaktaki çözünebilir lif bağırsakları düzenleyerek kana karışan toksik yükü azaltır ve böbreğin süzmesi gereken zehir miktarını düşürür.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 462,
+          "timestamp_sec": 384,
+          "claim_text": "Kabaktaki C vitamini ve karotenoid gibi antioksidanlar kronik böbrek hastalığındaki hücresel iltihaplanmayı hafifletir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 463,
+          "timestamp_sec": 394,
+          "claim_text": "Kabağı buharda veya az suyla haşlayıp zeytinyağı, kekik ve limonla pişirmek böbrek dostu bir hazırlama yöntemidir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 464,
+          "timestamp_sec": 424,
+          "claim_text": "Hücresel iltihaplanma böbreğin kanı süzen ince damarlarına ve nefronlarına saldırarak zamanla işlevsiz yara izlerine dönüşmesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 465,
+          "timestamp_sec": 452,
+          "claim_text": "Kırmızı dolmalık biber, yüksek C vitamini içeriğine rağmen düşük potasyum seviyesi nedeniyle böbrek hastaları için uygun bir sebzedir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 466,
+          "timestamp_sec": 496,
+          "claim_text": "C vitamini, damar duvarlarını esnek ve dayanıklı tutan kolajen üretiminin temel taşıdır ve böbreği besleyen kılcal damarları korur.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 467,
+          "timestamp_sec": 505,
+          "claim_text": "Oksidatif stres, kronik böbrek hastalığının ilerlemesinde böbreği yavaş yavaş bitiren ana mekanizmadır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 468,
+          "timestamp_sec": 519,
+          "claim_text": "Biberdeki B vitamini ve folik asit, damar duvarlarını tahrip eden homosistein seviyelerini kontrol altında tutar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 472,
+          "timestamp_sec": 548,
+          "claim_text": "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 473,
+          "timestamp_sec": 554,
+          "claim_text": "Yüksek homosistein böbrekleri besleyen kan damarlarının iç yüzeyini çizerek şiddetli iltihaplanmayı tetikler.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 474,
+          "timestamp_sec": 561,
+          "claim_text": "Bu iltihaplanma zamanla damarların daralmasına, böbreğe kan akışının azalmasına ve böbrek dokusunun ölmesine yol açar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        }
+      ],
+      "claim_count": 27
+    },
+    {
+      "chunk_index": 2,
+      "is_recap": false,
+      "ts_min": 526,
+      "ts_max": 1099,
+      "claims": [
+        {
+          "claim_id": 469,
+          "timestamp_sec": 535,
+          "claim_text": "Konserve veya turşu biber, sodyum ve koruyucu madde içeriği nedeniyle böbrek hastalarının tüketmemesi gereken bir üründür.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 470,
+          "timestamp_sec": 544,
+          "claim_text": "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir ve böbreği besleyen damarların iç yüzeyini tahriş ederek iltihaplanmayı tetikler, bu da damarların daralmasına ve böbrek dokusunun ölümüne yol açar.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 471,
+          "timestamp_sec": 526,
+          "claim_text": "Kırmızı biber tüketmek kandaki homosistein seviyelerini kontrol altında tutar.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 475,
+          "timestamp_sec": 569,
+          "claim_text": "Kırmızı biberdeki folik asit homosisteini zararsız maddelere dönüştürerek damar duvarlarını korur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 476,
+          "timestamp_sec": 592,
+          "claim_text": "Doğru hazırlanan lahana düşük fosforlu ve orta düzeyde potasyumlu bir sebzedir, hasarlı böbrekler tarafından rahat tolere edilir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 477,
+          "timestamp_sec": 602,
+          "claim_text": "Lahana bağırsağı temizleyerek böbreğe giden toksin yükünü azaltır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 478,
+          "timestamp_sec": 608,
+          "claim_text": "Lahananın içerdiği çözünmez lif bağırsakta süpürge görevi görerek zehirli maddelerin kana karışmasını engeller.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 479,
+          "timestamp_sec": 629,
+          "claim_text": "Lahana vücutta sülforafana dönüşen glukozinolatlar içerir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 480,
+          "timestamp_sec": 634,
+          "claim_text": "Sülforafan hücresel bazda iltihap kurutucu etkiye sahiptir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 481,
+          "timestamp_sec": 639,
+          "claim_text": "Lahanayı bol suda haşlayıp haşlama suyunu dökerek tüketmek içindeki potasyumun büyük kısmının atılmasını sağlar.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 482,
+          "timestamp_sec": 652,
+          "claim_text": "Hazır lahana turşuları aşırı sodyum içerdiği için kesinlikle tüketilmemelidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 483,
+          "timestamp_sec": 659,
+          "claim_text": "Lahana böbrek hastalarında sıkı diyet kısıtlamaları nedeniyle eksikliği çekilen C vitamini, K vitamini ve folik asidi önemli ölçüde sağlar.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 484,
+          "timestamp_sec": 673,
+          "claim_text": "Salatalık %95'inden fazlası su olan, doğadaki en yüksek su içeriğine sahip besinlerden biridir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 485,
+          "timestamp_sec": 695,
+          "claim_text": "Salatalık kana ani sıvı yüklemesi yapmadan yavaş ve kademeli hidrasyon sağlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 486,
+          "timestamp_sec": 703,
+          "claim_text": "Salatalık düşük sodyum ve potasyum oranına sahip olduğu için bu mineralleri kısıtlamak zorunda olanlar için en güvenli atıştırmalıktır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 487,
+          "timestamp_sec": 710,
+          "claim_text": "Salatalık ayak, bilek ve bacaklardaki ödemin atılmasına yardımcı olan doğal antienflamatuar bileşikler ve damar sağlığını destekleyen silisyum içerir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 488,
+          "timestamp_sec": 753,
+          "claim_text": "Salatalık normal kan pıhtılaşmasına katkıda bulunan küçük miktarlarda K vitamini içerir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 489,
+          "timestamp_sec": 786,
+          "claim_text": "100 gram çiğ ıspanak yaklaşık 550 miligram potasyum barındırır.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 490,
+          "timestamp_sec": 819,
+          "claim_text": "Çiğ ıspanak dünyadaki en yüksek oksalat içeren bitkilerden biridir.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 491,
+          "timestamp_sec": 828,
+          "claim_text": "Ispanaktaki oksalatlar sindirim sisteminde kalsiyumla birleşerek kalsiyum oksalat kristalleri oluşturur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 492,
+          "timestamp_sec": 835,
+          "claim_text": "Süzme yeteneği azalmış böbrekte hapsolan kalsiyum oksalat kristalleri böbrek dokusunu tahriş ederek süzme fonksiyonunu bozar.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 493,
+          "timestamp_sec": 845,
+          "claim_text": "Ispanağı 5-7 dakika bol suda kaynatıp suyunu dökmek oksalatların %60-70'ini ve potasyumun büyük kısmını yok eder.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 494,
+          "timestamp_sec": 858,
+          "claim_text": "Bu şekilde haşlanmış ıspanak tuzsuz ve küçük porsiyonlarda tüketildiğinde böbrek hastaları için nispeten güvenlidir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 495,
+          "timestamp_sec": 864,
+          "claim_text": "Çiğ ıspanaklı salatalardan ve yeşil detoks smoothie karışımlarından böbrek hastaları kesinlikle uzak durmalıdır.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 496,
+          "timestamp_sec": 887,
+          "claim_text": "Orta boy bir domates ortalama 350-400 miligram potasyum içerir.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 497,
+          "timestamp_sec": 900,
+          "claim_text": "Domates oksalik asit içerir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 498,
+          "timestamp_sec": 903,
+          "claim_text": "Salça, domates püresi, ketçap ve kızartılmış domates sosları suyu uçtuğu için yoğun potasyum ve sodyum bombasına dönüşür.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 499,
+          "timestamp_sec": 913,
+          "claim_text": "Bir yemek kaşığı konsantre salça 3-4 taze domatesin potasyumunu tek seferde bedene sokar.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 500,
+          "timestamp_sec": 923,
+          "claim_text": "Kan potasyumu kontrol altında olan böbrek hastaları haftada bir iki kez küçük miktarlarda taze domatesi tolere edebilir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 501,
+          "timestamp_sec": 932,
+          "claim_text": "Her gün ve özellikle salça formunda domates tüketmek kronik böbrek hastalarının potasyum krizine girmesinin başlıca nedenlerindendir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 502,
+          "timestamp_sec": 940,
+          "claim_text": "Taze domatesi pişirmek ve kabuğunu soymak içerdiği oksalat yükünü azaltır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 503,
+          "timestamp_sec": 962,
+          "claim_text": "Pazının böbrekleri temizlediğine dair yaygın inanış aldatıcıdır ve pazı ıspanak gibi devasa oranda potasyum ve oksalat içerir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 504,
+          "timestamp_sec": 984,
+          "claim_text": "Pazının idrar söktürücü etkisi kana zayıf böbreğin temizleyemeyeceği kadar potasyum yüklemesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 505,
+          "timestamp_sec": 997,
+          "claim_text": "Pazı yerine beyaz lahana veya marul kullanmak böbrek hastaları için riski büyük oranda düşürür.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 506,
+          "timestamp_sec": 1006,
+          "claim_text": "Pancar yüksek potasyum, doğal şeker ve çok yüksek oranda nitrat barındırır.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 507,
+          "timestamp_sec": 1021,
+          "claim_text": "Böbrek yetmezliğinde nitrat metabolizması bozulur ve vücuttan atılamayan nitratlar kan basıncı ve oksijen dengesiyle tehlikeli etkileşime girer.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 508,
+          "timestamp_sec": 1037,
+          "claim_text": "Pancar suyu liflerinden arındırıldığı için saniyeler içinde kana devasa potasyum ve nitrat yükü bindirir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 509,
+          "timestamp_sec": 1047,
+          "claim_text": "Sağlıklı bireylerde pancar suyunun nitrik oksit dönüşümü sayesinde spor performansını artırdığı ve hipertansiyonu olanlarda kan basıncını düşürdüğü gösterilmiştir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 512,
+          "timestamp_sec": 1079,
+          "claim_text": "Diyabet böbrek hastalığına yol açan en yaygın ve en sık karşılaşılan nedenlerin başında gelmektedir.",
+          "category": "tanı",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        }
+      ],
+      "claim_count": 39
+    },
+    {
+      "chunk_index": 3,
+      "is_recap": false,
+      "ts_min": 1058,
+      "ts_max": 1605,
+      "claims": [
+        {
+          "claim_id": 510,
+          "timestamp_sec": 1060,
+          "claim_text": "Böbrek yetmezliğinde nitrik oksit mekanizması işlemez ve atılamayan nitratlar ile potasyum böbrekler için ciddi tehdit oluşturur.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 511,
+          "timestamp_sec": 1071,
+          "claim_text": "Pancarın yüksek doğal şeker içeriği diyabet hastaları için onu çok daha sorunlu hale getirir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 513,
+          "timestamp_sec": 1101,
+          "claim_text": "Sebzeleri çift kaynatma (potasyum liksiviyasyonu) tekniği ile hazırlamak böbrek hastaları için hayat kurtarıcıdır.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 514,
+          "timestamp_sec": 1122,
+          "claim_text": "Sebzeleri 10-15 dakika kaynatıp suyunu dökme tekniği potasyum oranını %40-%70 arasında azaltabilir.",
+          "category": "doz",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 515,
+          "timestamp_sec": 1140,
+          "claim_text": "Isı, sebzelerdeki oksalatların yapısını bozarak tehlikeyi azaltır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 516,
+          "timestamp_sec": 1147,
+          "claim_text": "Sebze haşlama suyu içilmemeli veya yemeklere katılmamalıdır çünkü potasyum ve diğer zararlı maddelerin yoğunlaştığı sudur.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 517,
+          "timestamp_sec": 1159,
+          "claim_text": "Çift kaynatılmış patatesin potasyum profili buharda pişmiş patatese göre çok daha düşüktür.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 518,
+          "timestamp_sec": 1183,
+          "claim_text": "Sebzeleri saatlerce veya bir gece soğuk suda bekletip suyu birkaç kez değiştirmek potasyum ve oksalatın suya geçmesini sağlar.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 519,
+          "timestamp_sec": 1229,
+          "claim_text": "Hastanın potasyum seviyesi 6.2'den normal kabul edilen 5'e düşmüştür.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 520,
+          "timestamp_sec": 1239,
+          "claim_text": "Hastanın kreatinin seviyesi 2.1'de sabitlenmiştir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 521,
+          "timestamp_sec": 1242,
+          "claim_text": "Doğru sebze seçimi ve pişirme yöntemleri, ilaç dozu değiştirilmeden kronik böbrek yetmezliğinin ilerlemesini durdurup değerleri sabitleyebilir.",
+          "category": "tedavi",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 522,
+          "timestamp_sec": 1264,
+          "claim_text": "Sebze suyu (havuç, ıspanak, pancar) içmek böbrek hastaları için tehlikelidir çünkü lifler çıkarılıp potasyum konsantre edilmiş olur.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 523,
+          "timestamp_sec": 1283,
+          "claim_text": "Domates, ıspanak, pancar ve salatalık içeren karışık salatalar günlük potasyum ve oksalat limitlerini tek öğünde aşmaya neden olabilir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 524,
+          "timestamp_sec": 1317,
+          "claim_text": "Marul, taze salatalık, çiğ kabak ve kırmızı kapya biberden oluşan salata böbrek hastaları için güvenlidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 525,
+          "timestamp_sec": 1327,
+          "claim_text": "Pancar gibi sebzeler tansiyon ilaçlarının etkisini beklenmedik şekilde artırabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 526,
+          "timestamp_sec": 1334,
+          "claim_text": "Lahana ve marulda bulunan yüksek K vitamini, kan sulandırıcı (antikoagülan) ilaçlarla doğrudan etkileşime girer.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 527,
+          "timestamp_sec": 1378,
+          "claim_text": "Tek bir bulyon tableti 600-1000 mg arasında sodyum içerir.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 528,
+          "timestamp_sec": 1386,
+          "claim_text": "Bulyon tabletindeki sodyum miktarı, böbrek hastasının günlük alması gereken sınırın neredeyse yarısına denk gelir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 529,
+          "timestamp_sec": 1388,
+          "claim_text": "Fazla sodyum kan basıncını yükseltir, vücutta su tutulmasına neden olur ve böbrek fonksiyonunu hızla kötüleştirir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 530,
+          "timestamp_sec": 1406,
+          "claim_text": "Günde 3 litre su içme tavsiyesi sadece sağlıklı insanlar için geçerlidir, ileri evre böbrek hastalarında fazla su dokularda birikip kalbe aşırı yük bindirir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 531,
+          "timestamp_sec": 1434,
+          "claim_text": "Böbrek hastasının içmesi gereken su miktarı, çıkardığı idrar hacmine bakılarak nefrolog tarafından kişisel olarak belirlenmelidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 532,
+          "timestamp_sec": 1438,
+          "claim_text": "Su oranı %90'ın üzerinde olan kabak ve salatalık gibi sebzeler, vücuda ani su yüklemesi yapmadan güvenli hidrasyon sağlar.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 533,
+          "timestamp_sec": 1456,
+          "claim_text": "Bazı bitki çayları doğal olarak yüksek potasyum içerebilir veya ilaçlarla tehlikeli etkileşimlere girebilir, bu yüzden tüketmeden önce doktora danışılmalıdır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 534,
+          "timestamp_sec": 1562,
+          "claim_text": "GFH (glomerüler filtrasyon hızı) değeri, böbrek hastalığının evresini ve gerekli diyet kısıtlamalarını belirleyen temel rakamdır.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 535,
+          "timestamp_sec": 1594,
+          "claim_text": "Böbrek hastalarının renal beslenme konusunda uzmanlaşmış bir diyetisyene sevk edilmesi talep edilmelidir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 537,
+          "timestamp_sec": 1597,
+          "claim_text": "67 yaşındaki bir hasta, evre 3 böbrek yetmezliği tanısı aldıktan 2 yıl sonra, beslenme eğitimi sayesinde böbrek fonksiyonları stabil kalmış ve hastalığı evre 4'e ilerlememiştir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        }
+      ],
+      "claim_count": 26
+    },
+    {
+      "chunk_index": 4,
+      "is_recap": true,
+      "ts_min": 1567,
+      "ts_max": 1766,
+      "claims": [
+        {
+          "claim_id": 536,
+          "timestamp_sec": 1582,
+          "claim_text": "Böbrek hastalarının potasyum, fosfor ve kreatinin değerlerini rakamsal olarak öğrenmesi gerekir.",
+          "category": "tanı",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 538,
+          "timestamp_sec": 1651,
+          "claim_text": "Böbrekler kandaki potasyum ve oksalat gibi atıkları temizlemekte zorlandığında bu maddelerin birikmesi kalp krizine ve şiddetli böbrek dokusu hasarına yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 539,
+          "timestamp_sec": 1666,
+          "claim_text": "Kapya biber, C vitamini ve antioksidan içeriği sayesinde damar koruyucu etki gösterir ve böbrek hastaları için uygundur.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 540,
+          "timestamp_sec": 1670,
+          "claim_text": "Lahana bağırsağı temizleyen lifleri sayesinde böbrek hastaları için önerilen bir sebzedir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 541,
+          "timestamp_sec": 1674,
+          "claim_text": "Salatalık nazik hidrasyon sağladığı için böbrek hastaları için faydalı bir sebzedir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 542,
+          "timestamp_sec": 1681,
+          "claim_text": "Çiğ ıspanak yüksek oksalat ve potasyum içeriği nedeniyle böbrek hastaları için tehlikelidir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 543,
+          "timestamp_sec": 1691,
+          "claim_text": "Pancar yüksek nitrat içeriği nedeniyle böbrek hastaları için mutfaktaki gizli tehlikelerden biridir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 544,
+          "timestamp_sec": 1695,
+          "claim_text": "Sebzeleri bol suda kaynatıp suyunu dökmek potasyum oranını %70'e kadar azaltır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 545,
+          "timestamp_sec": 1704,
+          "claim_text": "Hazır bulyonlar ve sosların gizli sodyum içeriği böbrek hastaları için bir tuzaktır ve bunlardan kaçınılmalıdır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        },
+        {
+          "claim_id": 546,
+          "timestamp_sec": 1736,
+          "claim_text": "Vaktinde alınan küçük bir beslenme kararı, ileride yaşanacak ağır bir diyaliz sürecinin önüne geçebilir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2"
+        }
+      ],
+      "claim_count": 10
+    }
+  ]
+}

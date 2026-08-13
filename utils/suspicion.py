@@ -106,3 +106,98 @@ def compute_priority(suspicion_score: float, category: str, channels_affected: i
     excess = max(0.0, suspicion_score - 50)  # 0-50 arası: ne kadar yanlışa eğilimli
     priority = excess * 2 * stakes * spread_multiplier
     return round(min(100.0, priority), 1)
+
+
+def compute_channel_risk(
+    claim_rows: list[dict],
+    *,
+    funnel_flag: bool = False,
+    ai_persona_flag: bool = False,
+    growth_anomaly_flag: bool = False,
+    bot_comment_ratio: float = 0.0,
+) -> tuple[float | None, str, dict]:
+    """
+    Kanal bazlı risk skoru (0-100) ve kademe.
+
+    Eski formül yanlış/tartışmalı oranını TÜM iddialara böldüğü için, fact-check
+    bekleyen (henüz hüküm yok) iddialar skoru yapay olarak düşürüyordu.
+    Yeni formül:
+      - Kontrol edilmiş iddiaların ortalama şüphe skoru (en güçlü sinyal)
+      - Kontrol edilmişler arasında yüksek şüphe (≥75) oranı
+      - Henüz kontrol edilmemiş ama initial_risk=high iddialar (düşük ağırlık)
+      - Genel yüksek risk yoğunluğu + davranış bayrakları (hunisi, AI-persona…)
+
+    Düşük fact-check kapsamında (<20%) kademe en fazla 'incele' olur — skor
+    erken yükselse bile kesin 'acil' etiketi verilmez.
+    """
+    total = len(claim_rows)
+    if total == 0:
+        return None, "yetersiz_veri", {"total_claims": 0, "fact_check_coverage": 0.0}
+
+    scored_suspicions: list[float] = []
+    unscored_high = 0
+    high_risk = 0
+    false_or_disputed = 0
+
+    for row in claim_rows:
+        if row.get("initial_risk") == "high":
+            high_risk += 1
+        verdict = row.get("final_verdict")
+        if verdict in ("yanlış", "tartışmalı"):
+            false_or_disputed += 1
+        if verdict is not None:
+            score, _ = compute_suspicion(verdict, row.get("confidence"))
+            if score is not None:
+                scored_suspicions.append(score)
+        elif row.get("initial_risk") == "high":
+            unscored_high += 1
+
+    coverage = len(scored_suspicions) / total
+
+    suspicion_component = 0.0
+    peak_component = 0.0
+    avg_suspicion = None
+    if scored_suspicions:
+        avg_suspicion = sum(scored_suspicions) / len(scored_suspicions)
+        suspicion_component = (avg_suspicion / 100) * 40
+        high_susp_share = sum(1 for s in scored_suspicions if s >= 75) / len(scored_suspicions)
+        peak_component = high_susp_share * 10
+
+    unscored_component = min(unscored_high / total, 1.0) * 15
+    high_risk_component = min(high_risk / total, 1.0) * 10
+    flag_component = (
+        (15 if funnel_flag else 0)
+        + (5 if ai_persona_flag else 0)
+        + (10 if growth_anomaly_flag else 0)
+        + min(max(bot_comment_ratio, 0.0), 1.0) * 15
+    )
+
+    score = suspicion_component + peak_component + unscored_component + high_risk_component + flag_component
+    score = round(min(100.0, max(0.0, score)), 1)
+
+    if score >= 60:
+        tier = "acil"
+    elif score >= 30:
+        tier = "incele"
+    else:
+        tier = "izlemede"
+
+    if coverage < 0.2 and tier == "acil":
+        tier = "incele"
+
+    meta = {
+        "total_claims": total,
+        "scored_claims": len(scored_suspicions),
+        "fact_check_coverage": round(coverage, 3),
+        "avg_suspicion": round(avg_suspicion, 1) if avg_suspicion is not None else None,
+        "false_or_disputed": false_or_disputed,
+        "high_risk_claims": high_risk,
+        "score_components": {
+            "avg_suspicion": round(suspicion_component, 1),
+            "high_suspicion_peak": round(peak_component, 1),
+            "unscored_high_risk": round(unscored_component, 1),
+            "high_risk_density": round(high_risk_component, 1),
+            "behavior_flags": round(flag_component, 1),
+        },
+    }
+    return score, tier, meta

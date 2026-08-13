@@ -1,0 +1,181 @@
+{
+  "note": "escalate_factcheck only; DB not written",
+  "results": [
+    {
+      "claim_id": 652,
+      "claim_text": "Doğru pişirme yöntemleriyle sebzelerdeki potasyum oranı %70'e kadar düşürülebilir.",
+      "before": {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.7,
+        "source_url": "https://www.sciencedirect.com/science/article/abs/pii/S1051227619302717",
+        "source_tier": "primary_study"
+      },
+      "after": {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.65,
+        "source_url": "https://www.healio.com/news/nephrology/20191002/preparation-method-developed-to-lower-potassium-in-potatoes-for-patients-with-ckd",
+        "source_tier": "other",
+        "calibration_flags": "tier_url:primary_study->other",
+        "raw_model_tier": "primary_study"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": true
+      }
+    },
+    {
+      "claim_id": 653,
+      "claim_text": "Sağlıklı bir böbrek dakikada ortalama 120 ml kan filtreler (glomerüler filtrasyon hızı).",
+      "before": {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.8,
+        "source_url": "https://pubmed.ncbi.nlm.nih.gov/29763208/",
+        "source_tier": "primary_study"
+      },
+      "after": {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.8,
+        "source_url": "https://www.kidney.org/kidney-health/kidneydisease/siemens_hcp_gfr",
+        "source_tier": "guideline",
+        "calibration_flags": "",
+        "raw_model_tier": "guideline"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": true
+      }
+    },
+    {
+      "claim_id": 663,
+      "claim_text": "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar.",
+      "before": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.35,
+        "source_url": "https://medipol.com.tr/saglik-rehberi/vucudun-su-ihtiyacini-gideren-besinler",
+        "source_tier": "other"
+      },
+      "after": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.4,
+        "source_url": "https://www.kidney.org/kidney-topics/squash",
+        "source_tier": "guideline",
+        "calibration_flags": "",
+        "raw_model_tier": "guideline"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": true
+      }
+    },
+    {
+      "claim_id": 667,
+      "claim_text": "C vitamini, damar duvarlarını esnek tutan kolajen üretiminin temel taşıdır ve böbrek damarlarının sağlığını korur.",
+      "before": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.45,
+        "source_url": "https://pubmed.ncbi.nlm.nih.gov/12631359/",
+        "source_tier": "primary_study"
+      },
+      "after": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.45,
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3869438/",
+        "source_tier": "primary_study",
+        "calibration_flags": "",
+        "raw_model_tier": "primary_study"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": false
+      }
+    },
+    {
+      "claim_id": 678,
+      "claim_text": "Salatalık %95'in üzerinde su içeriğine sahip olduğundan böbrek hastalarına kademeli ve güvenli hidrasyon sağlar.",
+      "before": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.35,
+        "source_url": "https://kidneyvitality.co.uk/learn/kidney-diet/is-cucumber-good-for-kidneys",
+        "source_tier": "other"
+      },
+      "after": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.35,
+        "source_url": "https://blog.renaltracker.com/healthy-kidney-diet/relationship-between-cucumbers-and-kidney-disease/",
+        "source_tier": "other",
+        "calibration_flags": "",
+        "raw_model_tier": "other"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": false
+      }
+    },
+    {
+      "claim_id": 745,
+      "claim_text": "Kivideki C vitamini, yüksek kan şekerinin damarlarda yarattığı oksidatif stresi önlemede koruyucu rol oynar.",
+      "before": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.4,
+        "source_url": "https://www.mdpi.com/2076-3921/10/8/1306",
+        "source_tier": "other"
+      },
+      "after": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.5,
+        "source_url": "https://www.jacc.org/doi/10.1016/S0735-1097(00)00980-3",
+        "source_tier": "other",
+        "calibration_flags": "tier_url:primary_study->other,default_conf",
+        "raw_model_tier": "primary_study"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": false
+      }
+    },
+    {
+      "claim_id": 746,
+      "claim_text": "Kivideki aktinidin enzimi damarları genişletici özelliğe sahiptir ve kan basıncını kontrol etmeye yardımcı olur.",
+      "before": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.5,
+        "source_url": "https://www.tandfonline.com/doi/full/10.3109/08037051.2014.976979",
+        "source_tier": "primary_study"
+      },
+      "after": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.3,
+        "source_url": "https://www.sciencedirect.com/science/article/abs/pii/S0023643816307897",
+        "source_tier": "primary_study",
+        "calibration_flags": "",
+        "raw_model_tier": "primary_study"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": false
+      }
+    },
+    {
+      "claim_id": 752,
+      "claim_text": "Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi koruduğu kanıtlanmıştır.",
+      "before": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.5,
+        "source_url": "https://ajcn.nutrition.org/article/S0002-9165(22)03206-3/fulltext",
+        "source_tier": "other"
+      },
+      "after": {
+        "final_verdict": "tartışmalı",
+        "confidence": 0.35,
+        "source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6537945/",
+        "source_tier": "primary_study",
+        "calibration_flags": "",
+        "raw_model_tier": "primary_study"
+      },
+      "changed": {
+        "verdict": false,
+        "source_tier": true
+      }
+    }
+  ]
+}

@@ -5,13 +5,13 @@ Video/iddia bazlı değil, KANAL bazlı puanlama yapılır çünkü tespit etti�
 aynı kanal hem sorumlu hem agresif yanıltıcı içerik üretebiliyor — kanalın genel
 paternine bakmak gerekiyor.
 
-Skor bileşenleri (0-100):
-  - yanlış/tartışmalı iddia oranı         (ağırlık: 35)
-  - yüksek riskli iddia sayısı            (ağırlık: 20)
-  - satış hunisi/ücretli ürün göstergesi  (ağırlık: 15)  <- description/transcript keyword taraması
-  - AI-persona itirafı / şablon metin     (ağırlık: 5)   <- description benzerlik + anahtar kelime
-  - anormal büyüme                        (ağırlık: 10)  <- snapshot'lar arası abone artış hızı
-  - şüpheli/bot yorum oranı               (ağırlık: 15)  <- Aşama 5 (05_comment_authenticity.py), opsiyonel
+Skor bileşenleri (0-100, toplam):
+  - kontrol edilmiş iddiaların ort. şüphe skoru     (ağırlık: 40)
+  - kontrol edilmişlerde yüksek şüphe (≥75) oranı   (ağırlık: 10)
+  - henüz kontrol edilmemiş high initial_risk        (ağırlık: 15)
+  - genel yüksek risk yoğunluğu                       (ağırlık: 10)
+  - satış hunisi / AI-persona / büyüme / bot yorum  (ağırlık: 15+5+10+15)
+  Fact-check kapsamı <%20 ise kademe en fazla 'incele' olur.
 
 Kullanım:
     python pipeline/04_score_suspects.py --export data/suspects.csv
@@ -25,6 +25,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 import pandas as pd
 from utils.db import get_conn
 from utils.watchlist import MIN_VIDEOS_FOR_CHANNEL_SCORE
+from utils.suspicion import compute_channel_risk
+from utils.extraction_store import ACTIVE_CLAIM_WHERE
 
 FUNNEL_PATTERNS = [
     r"ücretsiz rehber", r"sabit yorum", r"linke tıkla", r"profil.*link",
@@ -80,16 +82,16 @@ def main():
     results = []
     for ch in channels:
         cid = ch["channel_id"]
-        claim_rows = conn.execute("""
+        claim_rows = conn.execute(f"""
             SELECT c.claim_id, c.category, c.initial_risk, vr.final_verdict, vr.human_reviewed
             FROM claims c LEFT JOIN verdicts vr ON vr.claim_id = c.claim_id
-            WHERE c.channel_id = ?
+            WHERE c.channel_id = ? AND c.{ACTIVE_CLAIM_WHERE}
         """, (cid,)).fetchall()
 
         total = len(claim_rows)
         false_or_disputed = sum(1 for r in claim_rows if r["final_verdict"] in ("yanlış", "tartışmalı"))
         high_risk = sum(1 for r in claim_rows if r["initial_risk"] == "high")
-        pending_human = sum(1 for r in claim_rows if r["human_reviewed"] == 0)
+        pending_human = sum(1 for r in claim_rows if r["human_reviewed"] == 0 and r["final_verdict"] is not None)
 
         transcripts = conn.execute("SELECT transcript FROM videos WHERE channel_id=?", (cid,)).fetchall()
         full_text = " ".join((t["transcript"] or "") for t in transcripts) + " " + (ch["description"] or "")
@@ -109,17 +111,21 @@ def main():
         if analyzed_videos < MIN_VIDEOS_FOR_CHANNEL_SCORE:
             tier = "yetersiz_veri"
             score = None
+            scored_claims = 0
+            fact_check_coverage = 0.0
+            avg_suspicion = None
         else:
-            false_ratio = (false_or_disputed / total) if total else 0
-            score = (
-                false_ratio * 35
-                + min(high_risk / max(total, 1), 1) * 20
-                + (15 if funnel else 0)
-                + (5 if ai_persona else 0)
-                + (10 if growth_anomaly else 0)
-                + min(bot_ratio, 1) * 15
+            rows_as_dicts = [dict(r) for r in claim_rows]
+            score, tier, risk_meta = compute_channel_risk(
+                rows_as_dicts,
+                funnel_flag=funnel,
+                ai_persona_flag=ai_persona,
+                growth_anomaly_flag=growth_anomaly,
+                bot_comment_ratio=bot_ratio,
             )
-            tier = "acil" if score >= 60 else ("incele" if score >= 30 else "izlemede")
+            scored_claims = risk_meta["scored_claims"]
+            fact_check_coverage = risk_meta["fact_check_coverage"]
+            avg_suspicion = risk_meta["avg_suspicion"]
 
         conn.execute("""
             INSERT INTO channel_risk_scores
@@ -143,6 +149,9 @@ def main():
             "analyzed_videos": analyzed_videos,
             "min_videos_for_score": MIN_VIDEOS_FOR_CHANNEL_SCORE,
             "total_claims": total, "false_or_disputed": false_or_disputed, "high_risk_claims": high_risk,
+            "scored_claims": scored_claims if analyzed_videos >= MIN_VIDEOS_FOR_CHANNEL_SCORE else 0,
+            "fact_check_coverage": fact_check_coverage if analyzed_videos >= MIN_VIDEOS_FOR_CHANNEL_SCORE else 0.0,
+            "avg_suspicion": avg_suspicion,
             "funnel_flag": funnel, "ai_persona_flag": ai_persona, "growth_anomaly_flag": growth_anomaly,
             "bot_comment_ratio": bot_ratio, "pending_human_review": pending_human,
         })

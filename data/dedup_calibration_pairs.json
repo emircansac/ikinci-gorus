@@ -1,0 +1,111 @@
+{
+  "description": "Dedup eşiği kalibrasyonu — positive=tekilleştirilmeli, negative=ayrı kalmalı. Böbrek, glisemik indeks, kas/kahve, uyku/protein ve tırnak konularından örnekler.",
+  "positive_pairs": [
+    [
+      "GFR (glomerüler filtrasyon hızı) değeri böbrek hastalığının evresini ve gerekli diyet kısıtlamalarını belirleyen temel ölçüttür",
+      "Glomerüler filtrasyon hızı (GFR) değeri, böbrek hastalığının evresini ve gereken diyet kısıtlamalarını belirleyen tek rakamdır."
+    ],
+    [
+      "Yüksek homosistein böbreği besleyen kan damarlarını çizerek iltihaplanma ve böbrek dokusu ölümüne yol açar",
+      "Yüksek homosistein seviyesi böbrekleri besleyen kan damarlarının iç yüzeyini çizerek şiddetli iltihaplanmaya ve böbrek dokusu ölümüne yol açar"
+    ],
+    [
+      "Sebzeleri bol suda kaynatıp suyunu dökmek potasyum oranını %70'e kadar azaltır",
+      "Doğru pişirme yöntemleriyle sebzelerdeki potasyum oranı %70'e kadar düşürülebilir"
+    ],
+    [
+      "Koku duyusunda azalma Parkinson hastalığının prodromal evresinin en güvenilir erken göstergelerinden biridir",
+      "Koku kaybı Parkinson hastalığının prodromal evresinin en güvenilir erken göstergelerinden biridir"
+    ],
+    [
+      "Avokadonun glisemik indeksi 10, glisemik yükü 2'dir ve kan şekeri etkisi neredeyse sıfırdır.",
+      "Avokadonun glisemik indeksi 10 ve glisemik yükü 2'dir."
+    ],
+    [
+      "60-78 yaş arası katılımcılarla yapılan bir çalışmada 12 hafta hidrolize kolajen kullanımı diz ve kalça ağrılarını kontrol grubuna kıyasla %41 azaltmıştır.",
+      "60-78 yaş katılımcılarla yapılan bir çalışmada 12 hafta hidrolize kolajen kullanan grupta diz ve kalça ağrılarında kontrol grubuna göre %41 azalma bildirilmiştir."
+    ],
+    [
+      "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir ve böbreği besleyen damarların iç yüzeyini tahriş ederek iltihaplanmayı tetikler, bu da damarların daralmasına ve böbrek dokusunun ölümüne yol açar.",
+      "Yüksek homosistein böbrekleri besleyen kan damarlarının iç yüzeyini çizerek şiddetli iltihaplanmayı tetikler."
+    ],
+    [
+      "Biberdeki folik asit ve B vitamini homosistein seviyelerini kontrol altında tutar",
+      "Kırmızı biber tüketimi kanda homosistein seviyesini kontrol altında tutar"
+    ],
+    [
+      "Sebzeleri bol suda kaynatıp suyunu dökmek potasyum oranını %70'e kadar azaltır.",
+      "Sebzeleri 10-15 dakika kaynatıp suyunu dökme tekniği potasyum oranını %40-%70 arasında azaltabilir."
+    ],
+    [
+      "Kabak, kapya biber, lahana ve salatalık böbrek hastaları için düşük potasyumlu ve faydalı sebzelerdir.",
+      "Düşük potasyumlu ve yüksek sulu yapısıyla kabak, C vitamini ve damar koruyucu antioksidanlarıyla kapya biber, bağırsağı temizleyen lifleriyle lahana ve nazik hidrasyon sağlayan salatalık sizin en büyük dört müttefikinizdir."
+    ]
+  ],
+  "negative_pairs": [
+    [
+      "100 gram kabak sadece 240 mg potasyum içerir",
+      "Çiğ ıspanak yüksek potasyum ve oksalat içeriği nedeniyle zayıflamış böbrekler için tehlikelidir"
+    ],
+    [
+      "60 yaş üzerinde tekrarlayan Bo çizgileri kronik böbrek hastalığı ile ilişkilendirilmiştir",
+      "Lunula'nın kaybolması B12 eksikliği ile ilişkilendirilmiştir"
+    ],
+    [
+      "Metformin B12 emilimini düşürür",
+      "Pancar suyu liflerden arındırıldığı için kana hızlı potasyum yükü bindirir"
+    ],
+    [
+      "Kırmızı biber yüksek C vitamini içeriğine rağmen düşük potasyum seviyesine sahiptir",
+      "Demir eksikliği anemisi düzeltildiğinde bilişsel işlevlerde iyileşme görülebilir"
+    ],
+    [
+      "100 gram çiğ ıspanak yaklaşık 550 miligram potasyum içerir",
+      "Çiğ ıspanak yüksek potasyum ve oksalat içeriği nedeniyle zayıflamış böbrekler için tüketilmesi en kötü gıdalardan biridir"
+    ],
+    [
+      "Pancar suyu liflerden arındırıldığı için saniyeler içinde kana devasa bir potasyum ve nitrat yükü bindirir",
+      "Pancar yüksek potasyum, doğal şeker ve çok yüksek oranda nitrat içerdiğinden böbrek hastaları için tehlikelidir"
+    ],
+    [
+      "Böbrek hastalığında en çok korkulan iki mineral potasyum ve fosfordur",
+      "Pancar yüksek potasyum, doğal şeker ve çok yüksek oranda nitrat içerdiğinden böbrek hastaları için tehlikelidir"
+    ],
+    [
+      "Kabak 100 gramda sadece 240 mg potasyum içerirken ıspanak veya domates 400-500 mg üzerinde potasyum içerir",
+      "Orta boy bir domates ortalama 350-400 miligram potasyum içerir ve günlük potasyum sınırının aşılmasına neden olabilir"
+    ],
+    [
+      "Glisemik indeksi 55'in altındaki yiyecekler düşük ve güvenli, 70'in üzerindekiler kan şekerini hızla yükseltir",
+      "Glisemik yük değeri 10'un altında olan yiyecekler güvenli kabul edilirken, 20'nin üzerindeki değerler risklidir"
+    ],
+    [
+      "Sabah aç karnına içilen sade kahve kasları aç bırakarak düşme riskini artırır",
+      "Sabah kahvesine eklenen 8 laboratuvar onaylı malzeme kas gücünü ve dengeyi sonsuza dek korur"
+    ],
+    [
+      "Uyku sırasında vücut hasarlı dokuları onarır, hücreleri yeniler ve hormonları düzenler; bu süreç kas onarımı için kritiktir",
+      "Kazein proteini mide de yavaş sindirilen bir yapı oluşturarak 4-6 saat boyunca sindirilir ve gece boyunca amino asit sağlar"
+    ],
+    [
+      "Taze kirazın glisemik indeksi 27'dir ve 120 gramlık porsiyonunun glisemik yükü 6'dır, bu da onu diyabet dostu yapar",
+      "Guava'nın glisemik indeksi 23, glisemik yükü 3'tür ve eşit ağırlıktaki portakaldan daha fazla C vitamini içerir"
+    ],
+    [
+      "Sarkopeni yaşlanmaya bağlı kas kütlesi ve kas gücünün kademeli kaybıdır",
+      "Uyumadan önce yeterli protein alınmazsa vücut onarım için gereken aminoasitleri kendi kaslarından çeker"
+    ],
+    [
+      "Yatmadan önce yarım muz yemek gece bacak kramplarını azaltabilir",
+      "Yoğurt yemek kemikleri güçlendiren kalsiyum sağlar ve bacak kaslarının dayanıklılığını artırır"
+    ],
+    [
+      "Yüksek homosistein böbreği besleyen kan damarlarını çizerek iltihaplanma ve böbrek dokusu ölümüne yol açar",
+      "Kırmızı biberdeki folik asit homosisteini zararsız maddelere dönüştürerek damar duvarlarını korur"
+    ],
+    [
+      "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir.",
+      "Biberdeki B vitamini ve folik asit homosistein seviyelerini kontrol altında tutar."
+    ]
+  ]
+}

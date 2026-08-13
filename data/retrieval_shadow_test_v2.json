@@ -1,0 +1,1222 @@
+{
+  "sample_claim_ids": [
+    745,
+    752,
+    653,
+    663,
+    652,
+    746,
+    667,
+    678
+  ],
+  "selection_note": "745/752: bu tur other URL'leri (MADDE 1); kalanı no_evidence_found veya NLI<0.75",
+  "publication_type_live_proof": {
+    "efetch_pmids": [
+      "37214237",
+      "42583491",
+      "23182013"
+    ],
+    "proofs": [
+      {
+        "pmid": "37214237",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/37214237/",
+        "title": "Effect of fruit on glucose control in diabetes mellitus: a meta-analysis of nineteen randomized controlled trials.",
+        "publication_types_from_xml": [
+          "Meta-Analysis",
+          "Journal Article",
+          "Review"
+        ],
+        "source_tier": "systematic_review",
+        "expected": "systematic_review",
+        "match": true
+      },
+      {
+        "pmid": "42583491",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42583491/",
+        "title": "Anesthetic Considerations in a High-Risk Pregnant Patient With Myelomeningocele and Urosepsis Undergoing Emergent Surger",
+        "publication_types_from_xml": [
+          "Case Reports",
+          "Journal Article"
+        ],
+        "source_tier": "case_report",
+        "expected": "case_report",
+        "match": true
+      },
+      {
+        "pmid": "23182013",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/23182013/",
+        "title": "Plasma potassium concentration and content changes after banana ingestion in exercised men.",
+        "publication_types_from_xml": [
+          "Journal Article"
+        ],
+        "source_tier": "primary_study",
+        "expected": "primary_study",
+        "match": true
+      }
+    ]
+  },
+  "delta": {
+    "madde1_url_tier_changed": [
+      745,
+      752
+    ],
+    "madde2_pubmed_evidence": [
+      652,
+      653,
+      667,
+      678,
+      745
+    ],
+    "madde3_newly_found_via_europepmc": [
+      663,
+      746,
+      752
+    ],
+    "madde3_has_evidence": [
+      652,
+      653,
+      663,
+      667,
+      678,
+      745,
+      746,
+      752
+    ],
+    "madde4_newly_found_via_medlineplus": [],
+    "madde4_medlineplus_api_hits": [
+      652,
+      653,
+      663,
+      667,
+      678,
+      745,
+      746,
+      752
+    ],
+    "madde4_medlineplus_in_rerank_top": [
+      653,
+      678,
+      746,
+      752
+    ],
+    "madde4_top_tier_changed": [
+      678,
+      746
+    ],
+    "madde4_has_evidence": [
+      652,
+      653,
+      663,
+      667,
+      678,
+      745,
+      746,
+      752
+    ],
+    "final_with_evidence": 8,
+    "total": 8
+  },
+  "results": [
+    {
+      "claim_id": 652,
+      "claim_text": "Doğru pişirme yöntemleriyle sebzelerdeki potasyum oranı %70'e kadar düşürülebilir.",
+      "search_query_en": "leaching cooking method reduce potassium vegetables",
+      "stored_verdict": "doğrulanmış",
+      "stored_confidence": 0.7,
+      "was_no_evidence": true,
+      "nli_confidence": null,
+      "madde1_allowlist": {
+        "stored_url": "https://www.sciencedirect.com/science/article/abs/pii/S1051227619302717",
+        "stored_source_tier_before": "primary_study",
+        "url_tier_after_allowlist": "primary_study",
+        "changed": false
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 10,
+        "evidence_count": 3,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "sample": [
+          {
+            "title": "The effects of boiling and leaching on the content of potassium and other minerals in potatoes.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/18576999/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "A mechanistic perspective on process-induced changes in glucosinolate content in Brassica vegetables",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24915330/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, Non-U.S. Gov't",
+              "Review"
+            ]
+          },
+          {
+            "title": "The effect of cooking on the phytochemical content of vegetables.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24227349/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          }
+        ]
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 20,
+        "evidence_count": 3,
+        "new_vs_m2": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "pubmed",
+          "europepmc",
+          "pubmed"
+        ],
+        "sample": [
+          {
+            "title": "The effects of boiling and leaching on the content of potassium and other minerals in potatoes.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/18576999/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Effect of the Sous-Vide Method on the Quality of Vegetables-A Review.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41596805/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "A mechanistic perspective on process-induced changes in glucosinolate content in Brassica vegetables",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24915330/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, Non-U.S. Gov't",
+              "Review"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 5,
+        "merged_count": 25,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": false,
+        "top_tier_changed": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "pubmed",
+          "europepmc",
+          "pubmed"
+        ],
+        "sample": [
+          {
+            "title": "The effects of boiling and leaching on the content of potassium and other minerals in potatoes.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/18576999/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Effect of the Sous-Vide Method on the Quality of Vegetables-A Review.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41596805/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "A mechanistic perspective on process-induced changes in glucosinolate content in Brassica vegetables",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24915330/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, Non-U.S. Gov't",
+              "Review"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 653,
+      "claim_text": "Sağlıklı bir böbrek dakikada ortalama 120 ml kan filtreler (glomerüler filtrasyon hızı).",
+      "search_query_en": "normal glomerular filtration rate 120 ml",
+      "stored_verdict": "doğrulanmış",
+      "stored_confidence": 0.8,
+      "was_no_evidence": false,
+      "nli_confidence": 0.382,
+      "madde1_allowlist": {
+        "stored_url": "https://pubmed.ncbi.nlm.nih.gov/29763208/",
+        "stored_source_tier_before": "primary_study",
+        "url_tier_after_allowlist": "primary_study",
+        "changed": false
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 10,
+        "evidence_count": 3,
+        "tiers": [
+          "systematic_review",
+          "primary_study",
+          "primary_study"
+        ],
+        "sample": [
+          {
+            "title": "Glomerular Filtration Rate in Healthy Living Potential Kidney Donors: A Meta-Analysis Supporting the",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/27764827/",
+            "source_tier": "systematic_review",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Meta-Analysis"
+            ]
+          },
+          {
+            "title": "Establishing discordance rate of estimated glomerular filtration rate between serum creatinine-based",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/39945448/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Observational Study"
+            ]
+          },
+          {
+            "title": "Effects of intensive blood-pressure control in type 2 diabetes mellitus.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20228401/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Multicenter Study",
+              "Randomized Controlled Trial",
+              "Research Support, N.I.H., Extramural",
+              "Research Support, Non-U.S. Gov't",
+              "Research Support, U.S. Gov't, P.H.S."
+            ]
+          }
+        ]
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 20,
+        "evidence_count": 3,
+        "new_vs_m2": false,
+        "tiers": [
+          "systematic_review",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "pubmed",
+          "europepmc",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Glomerular Filtration Rate in Healthy Living Potential Kidney Donors: A Meta-Analysis Supporting the",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/27764827/",
+            "source_tier": "systematic_review",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Meta-Analysis"
+            ]
+          },
+          {
+            "title": "Incident Hypertension in Young Adults With a Mild Estimated Glomerular Filtration Rate Reduction.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/42052971/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Correlation Between Renal Biomarkers, Glomerular Filtration Rate, and Meropenem Clearance in Pediatr",
+            "url": "https://europepmc.org/article/PMC/PMC13245427",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 5,
+        "merged_count": 25,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": true,
+        "top_tier_changed": false,
+        "tiers": [
+          "systematic_review",
+          "guideline",
+          "primary_study"
+        ],
+        "providers": [
+          "pubmed",
+          "medlineplus",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Glomerular Filtration Rate in Healthy Living Potential Kidney Donors: A Meta-Analysis Supporting the",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/27764827/",
+            "source_tier": "systematic_review",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Meta-Analysis"
+            ]
+          },
+          {
+            "title": "Kidney Failure",
+            "url": "https://medlineplus.gov/kidneyfailure.html",
+            "source_tier": "guideline",
+            "provider": "medlineplus",
+            "publication_types": []
+          },
+          {
+            "title": "Incident Hypertension in Young Adults With a Mild Estimated Glomerular Filtration Rate Reduction.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/42052971/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 663,
+      "claim_text": "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar.",
+      "search_query_en": "zucchini water content hydration kidney",
+      "stored_verdict": "tartışmalı",
+      "stored_confidence": 0.35,
+      "was_no_evidence": true,
+      "nli_confidence": null,
+      "madde1_allowlist": {
+        "stored_url": "https://medipol.com.tr/saglik-rehberi/vucudun-su-ihtiyacini-gideren-besinler",
+        "stored_source_tier_before": "other",
+        "url_tier_after_allowlist": "other",
+        "changed": false
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 0,
+        "evidence_count": 0,
+        "tiers": [],
+        "sample": []
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 10,
+        "evidence_count": 3,
+        "new_vs_m2": true,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "europepmc",
+          "europepmc",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Diet format, protein, amino acids, salt, and osmolytes, as well as water viscosity, affect water con",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41389339/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "Scoping Review",
+              "research-article",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Hydration Strategies in Older Adults.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40732881/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "A Comprehensive Review of the Nutritional and Health-Promoting Properties of Edible Parts of Selecte",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40238346/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 2,
+        "merged_count": 12,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": false,
+        "top_tier_changed": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "europepmc",
+          "europepmc",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Diet format, protein, amino acids, salt, and osmolytes, as well as water viscosity, affect water con",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41389339/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "Scoping Review",
+              "research-article",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Hydration Strategies in Older Adults.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40732881/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "A Comprehensive Review of the Nutritional and Health-Promoting Properties of Edible Parts of Selecte",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40238346/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 667,
+      "claim_text": "C vitamini, damar duvarlarını esnek tutan kolajen üretiminin temel taşıdır ve böbrek damarlarının sağlığını korur.",
+      "search_query_en": "vitamin C collagen synthesis vascular health kidney",
+      "stored_verdict": "tartışmalı",
+      "stored_confidence": 0.45,
+      "was_no_evidence": true,
+      "nli_confidence": null,
+      "madde1_allowlist": {
+        "stored_url": "https://pubmed.ncbi.nlm.nih.gov/12631359/",
+        "stored_source_tier_before": "primary_study",
+        "url_tier_after_allowlist": "primary_study",
+        "changed": false
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 10,
+        "evidence_count": 3,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "case_report"
+        ],
+        "sample": [
+          {
+            "title": "Transport and intracellular accumulation of vitamin C in endothelial cells: relevance to collagen sy",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/15629121/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, U.S. Gov't, P.H.S."
+            ]
+          },
+          {
+            "title": "Pathophysiological Role and Therapeutic Potential of Vitamin C in Metabolic Syndrome and Type 2 Diab",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41441014/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          },
+          {
+            "title": "Scurvy.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36153722/",
+            "source_tier": "case_report",
+            "provider": "pubmed",
+            "publication_types": [
+              "Case Reports",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 20,
+        "evidence_count": 3,
+        "new_vs_m2": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "case_report"
+        ],
+        "providers": [
+          "pubmed",
+          "pubmed",
+          "pubmed"
+        ],
+        "sample": [
+          {
+            "title": "Transport and intracellular accumulation of vitamin C in endothelial cells: relevance to collagen sy",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/15629121/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, U.S. Gov't, P.H.S."
+            ]
+          },
+          {
+            "title": "Pathophysiological Role and Therapeutic Potential of Vitamin C in Metabolic Syndrome and Type 2 Diab",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41441014/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          },
+          {
+            "title": "Scurvy.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36153722/",
+            "source_tier": "case_report",
+            "provider": "pubmed",
+            "publication_types": [
+              "Case Reports",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 5,
+        "merged_count": 25,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": false,
+        "top_tier_changed": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "case_report"
+        ],
+        "providers": [
+          "pubmed",
+          "pubmed",
+          "pubmed"
+        ],
+        "sample": [
+          {
+            "title": "Transport and intracellular accumulation of vitamin C in endothelial cells: relevance to collagen sy",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/15629121/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, U.S. Gov't, P.H.S."
+            ]
+          },
+          {
+            "title": "Pathophysiological Role and Therapeutic Potential of Vitamin C in Metabolic Syndrome and Type 2 Diab",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41441014/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          },
+          {
+            "title": "Scurvy.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36153722/",
+            "source_tier": "case_report",
+            "provider": "pubmed",
+            "publication_types": [
+              "Case Reports",
+              "Journal Article"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 678,
+      "claim_text": "Salatalık %95'in üzerinde su içeriğine sahip olduğundan böbrek hastalarına kademeli ve güvenli hidrasyon sağlar.",
+      "search_query_en": "cucumber water content hydration kidney disease",
+      "stored_verdict": "tartışmalı",
+      "stored_confidence": 0.35,
+      "was_no_evidence": true,
+      "nli_confidence": null,
+      "madde1_allowlist": {
+        "stored_url": "https://kidneyvitality.co.uk/learn/kidney-diet/is-cucumber-good-for-kidneys",
+        "stored_source_tier_before": "other",
+        "url_tier_after_allowlist": "other",
+        "changed": false
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 4,
+        "evidence_count": 3,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "sample": [
+          {
+            "title": "Pectin-like polysaccharide extracted from Cucumis melo pulp: physicochemical, antioxidant, and skin ",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/39604812/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Root respiratory burst oxidase homologue-dependent H2O2 production confers salt tolerance on a graft",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29145593/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, Non-U.S. Gov't"
+            ]
+          },
+          {
+            "title": "Water Relations of Seed Development and Germination in Muskmelon (Cucumis melo L.) : V. Water Relati",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/16667369/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 14,
+        "evidence_count": 3,
+        "new_vs_m2": false,
+        "tiers": [
+          "case_report",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "europepmc",
+          "europepmc",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "An Unusual Cause of Oxalate Nephropathy: Acute Kidney Injury After Ingestion of Dried Bilimbi Fruit.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/42367535/",
+            "source_tier": "case_report",
+            "provider": "europepmc",
+            "publication_types": [
+              "Journal Article",
+              "Case Reports",
+              "case-report"
+            ]
+          },
+          {
+            "title": "A cross-sectional study of the association between plant-based diet indices and kidney stones among ",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40251384/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "Compositional and functional characterization of cucumber and watermelon seed powders and their appl",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40511337/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 2,
+        "merged_count": 16,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": true,
+        "top_tier_changed": true,
+        "tiers": [
+          "guideline",
+          "case_report",
+          "primary_study"
+        ],
+        "providers": [
+          "medlineplus",
+          "europepmc",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Nutritional Support",
+            "url": "https://medlineplus.gov/nutritionalsupport.html",
+            "source_tier": "guideline",
+            "provider": "medlineplus",
+            "publication_types": []
+          },
+          {
+            "title": "An Unusual Cause of Oxalate Nephropathy: Acute Kidney Injury After Ingestion of Dried Bilimbi Fruit.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/42367535/",
+            "source_tier": "case_report",
+            "provider": "europepmc",
+            "publication_types": [
+              "Journal Article",
+              "Case Reports",
+              "case-report"
+            ]
+          },
+          {
+            "title": "A cross-sectional study of the association between plant-based diet indices and kidney stones among ",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/40251384/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 745,
+      "claim_text": "Kivideki C vitamini, yüksek kan şekerinin damarlarda yarattığı oksidatif stresi önlemede koruyucu rol oynar.",
+      "search_query_en": "vitamin C oxidative stress diabetes vascular",
+      "stored_verdict": "tartışmalı",
+      "stored_confidence": 0.4,
+      "was_no_evidence": false,
+      "nli_confidence": 0.4,
+      "madde1_allowlist": {
+        "stored_url": "https://www.mdpi.com/2076-3921/10/8/1306",
+        "stored_source_tier_before": "other",
+        "url_tier_after_allowlist": "primary_study",
+        "changed": true
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 10,
+        "evidence_count": 3,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "sample": [
+          {
+            "title": "Pathophysiological Role and Therapeutic Potential of Vitamin C in Metabolic Syndrome and Type 2 Diab",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41441014/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          },
+          {
+            "title": "Vitamin C further improves the protective effect of glucagon-like peptide-1 on acute hypoglycemia-in",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24130351/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Randomized Controlled Trial"
+            ]
+          },
+          {
+            "title": "Vitamin C and Cardiovascular Disease: An Update.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/33287462/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          }
+        ]
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 20,
+        "evidence_count": 3,
+        "new_vs_m2": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "pubmed",
+          "pubmed",
+          "pubmed"
+        ],
+        "sample": [
+          {
+            "title": "Pathophysiological Role and Therapeutic Potential of Vitamin C in Metabolic Syndrome and Type 2 Diab",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41441014/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          },
+          {
+            "title": "Vitamin C further improves the protective effect of glucagon-like peptide-1 on acute hypoglycemia-in",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24130351/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Randomized Controlled Trial"
+            ]
+          },
+          {
+            "title": "Vitamin C and Cardiovascular Disease: An Update.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/33287462/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 5,
+        "merged_count": 25,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": false,
+        "top_tier_changed": false,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "pubmed",
+          "pubmed",
+          "pubmed"
+        ],
+        "sample": [
+          {
+            "title": "Pathophysiological Role and Therapeutic Potential of Vitamin C in Metabolic Syndrome and Type 2 Diab",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41441014/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          },
+          {
+            "title": "Vitamin C further improves the protective effect of glucagon-like peptide-1 on acute hypoglycemia-in",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/24130351/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Randomized Controlled Trial"
+            ]
+          },
+          {
+            "title": "Vitamin C and Cardiovascular Disease: An Update.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/33287462/",
+            "source_tier": "primary_study",
+            "provider": "pubmed",
+            "publication_types": [
+              "Journal Article",
+              "Review"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 746,
+      "claim_text": "Kivideki aktinidin enzimi damarları genişletici özelliğe sahiptir ve kan basıncını kontrol etmeye yardımcı olur.",
+      "search_query_en": "kiwi actinidin blood pressure vasodilation",
+      "stored_verdict": "tartışmalı",
+      "stored_confidence": 0.5,
+      "was_no_evidence": true,
+      "nli_confidence": null,
+      "madde1_allowlist": {
+        "stored_url": "https://www.tandfonline.com/doi/full/10.3109/08037051.2014.976979",
+        "stored_source_tier_before": "primary_study",
+        "url_tier_after_allowlist": "primary_study",
+        "changed": false
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 0,
+        "evidence_count": 0,
+        "tiers": [],
+        "sample": []
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 1,
+        "merged_count": 1,
+        "evidence_count": 1,
+        "new_vs_m2": true,
+        "tiers": [
+          "primary_study"
+        ],
+        "providers": [
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "The Peels of Fruits and Vegetables: An Increasingly Recognized Source of Bioactive Compounds for Bio",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41977649/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "other",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 5,
+        "merged_count": 6,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": true,
+        "top_tier_changed": true,
+        "tiers": [
+          "guideline",
+          "guideline",
+          "guideline"
+        ],
+        "providers": [
+          "medlineplus",
+          "medlineplus",
+          "medlineplus"
+        ],
+        "sample": [
+          {
+            "title": "High Blood Pressure",
+            "url": "https://medlineplus.gov/highbloodpressure.html",
+            "source_tier": "guideline",
+            "provider": "medlineplus",
+            "publication_types": []
+          },
+          {
+            "title": "Blood Pressure Medicines",
+            "url": "https://medlineplus.gov/bloodpressuremedicines.html",
+            "source_tier": "guideline",
+            "provider": "medlineplus",
+            "publication_types": []
+          },
+          {
+            "title": "Low Blood Pressure",
+            "url": "https://medlineplus.gov/lowbloodpressure.html",
+            "source_tier": "guideline",
+            "provider": "medlineplus",
+            "publication_types": []
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 752,
+      "claim_text": "Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi koruduğu kanıtlanmıştır.",
+      "search_query_en": "blueberry insulin sensitivity microvascular diabetes",
+      "stored_verdict": "tartışmalı",
+      "stored_confidence": 0.5,
+      "was_no_evidence": true,
+      "nli_confidence": null,
+      "madde1_allowlist": {
+        "stored_url": "https://ajcn.nutrition.org/article/S0002-9165(22)03206-3/fulltext",
+        "stored_source_tier_before": "other",
+        "url_tier_after_allowlist": "primary_study",
+        "changed": true
+      },
+      "madde2_pubmed_pubtype": {
+        "candidate_count": 0,
+        "evidence_count": 0,
+        "tiers": [],
+        "sample": []
+      },
+      "madde3_europepmc": {
+        "europepmc_raw_count": 10,
+        "merged_count": 10,
+        "evidence_count": 3,
+        "new_vs_m2": true,
+        "tiers": [
+          "primary_study",
+          "primary_study",
+          "primary_study"
+        ],
+        "providers": [
+          "europepmc",
+          "europepmc",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Evaluation of Gustatory and Olfactory Perception in Type II Diabetic Patients - A Clinical Observati",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41587888/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article",
+              "Observational Study"
+            ]
+          },
+          {
+            "title": "<i>Vaccinium</i> as Potential Therapy for Diabetes and Microvascular Complications.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/37432140/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          },
+          {
+            "title": "&lt;i&gt;Vaccinium oldhamii&lt;/i&gt; fruits improve insulin resistance by inhibiting inflammation i",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41377596/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article"
+            ]
+          }
+        ]
+      },
+      "madde4_medlineplus": {
+        "medlineplus_raw_count": 5,
+        "merged_count": 15,
+        "evidence_count": 3,
+        "new_vs_m3": false,
+        "medlineplus_in_top": true,
+        "top_tier_changed": false,
+        "tiers": [
+          "primary_study",
+          "guideline",
+          "primary_study"
+        ],
+        "providers": [
+          "europepmc",
+          "medlineplus",
+          "europepmc"
+        ],
+        "sample": [
+          {
+            "title": "Evaluation of Gustatory and Olfactory Perception in Type II Diabetic Patients - A Clinical Observati",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/41587888/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "research-article",
+              "Journal Article",
+              "Observational Study"
+            ]
+          },
+          {
+            "title": "Diabetes",
+            "url": "https://medlineplus.gov/diabetes.html",
+            "source_tier": "guideline",
+            "provider": "medlineplus",
+            "publication_types": []
+          },
+          {
+            "title": "<i>Vaccinium</i> as Potential Therapy for Diabetes and Microvascular Complications.",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/37432140/",
+            "source_tier": "primary_study",
+            "provider": "europepmc",
+            "publication_types": [
+              "review-article",
+              "Review",
+              "Journal Article"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

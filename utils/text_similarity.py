@@ -8,6 +8,8 @@ tek yerden yönetiliyor.
 from collections import defaultdict
 from difflib import SequenceMatcher
 
+EMBEDDING_CLUSTER_THRESHOLD = 0.80
+
 
 def normalize(text: str) -> str:
     import re
@@ -65,3 +67,46 @@ def get_cluster_members(items: list[dict], id_key: str, text_key: str,
             clusters.append([(it, text)])
 
     return [[it for it, _ in cluster] for cluster in clusters if len(cluster) > 1]
+
+
+def get_cluster_members_embedding(
+    items: list[dict],
+    id_key: str,
+    text_key: str,
+    threshold: float = EMBEDDING_CLUSTER_THRESHOLD,
+    min_length: int = 8,
+) -> list[list[dict]]:
+    """
+    Embedding cosine + single-linkage kümeleme (anlamca benzer iddialar).
+    Narrative clustering için yalnızca cosine kullanılır — lexical eşik
+    dedup için uygundur ama paraphrase iddiaları kaçırır.
+    """
+    from utils.claim_dedup import embed_texts
+
+    valid = [(it, normalize(it[text_key])) for it in items if it.get(text_key)]
+    valid = [(it, t) for it, t in valid if len(t) >= min_length]
+    if len(valid) < 2:
+        return []
+
+    try:
+        import numpy as np
+        texts = [t for _, t in valid]
+        embs = embed_texts(texts)
+    except Exception:
+        return []
+
+    clusters: list[list[int]] = []
+
+    for idx in range(len(valid)):
+        emb = embs[idx]
+        target = None
+        for cluster in clusters:
+            if any(float(np.dot(emb, embs[j])) >= threshold for j in cluster):
+                target = cluster
+                break
+        if target is not None:
+            target.append(idx)
+        else:
+            clusters.append([idx])
+
+    return [[valid[i][0] for i in c] for c in clusters if len(c) > 1]

@@ -2,8 +2,9 @@
 Web sunucusu — Render'a deploy edildiğinde bir web adresi versin diye.
 
 Yaptığı iş basit: pipeline'ın ürettiği CSV dosyalarını (data/suspects.csv,
-data/claim_index.csv, data/narrative_clusters.csv, data/videos.csv) okuyup JSON olarak sunar,
-dashboard bu JSON'ı fetch() ile çekip gösterir.
+data/claim_index.csv, data/claim_archive.csv, data/narrative_clusters.csv,
+data/videos.csv) okuyup JSON olarak sunar, dashboard bu JSON'ı fetch() ile
+çekip gösterir.
 
 BİLİNÇLİ TASARIM: veritabanına (SQLite) doğrudan bağlanmak yerine SADECE
 CSV çıktılarını okuyor. Neden: pipeline'ın "doğruluk kaynağı" zaten bu CSV'ler
@@ -40,7 +41,9 @@ except ImportError:
     pass
 
 app = Flask(__name__)
-DATA_DIR = Path(os.environ.get("DATA_DIR", "data"))
+ROOT = Path(__file__).resolve().parent
+_raw_data = os.environ.get("DATA_DIR")
+DATA_DIR = Path(_raw_data) if _raw_data else (ROOT / "data")
 
 
 def read_csv_as_json(filename: str):
@@ -163,9 +166,7 @@ def api_watchlist_remove_video(video_id):
 @app.route("/api/videos")
 def api_videos():
     data = read_csv_as_json("videos.csv")
-    if data is None:
-        return jsonify({"error": "henüz veri yok — pipeline/06_claim_index.py hiç çalışmamış olabilir"}), 404
-    return jsonify(data)
+    return jsonify(data or [])
 
 
 @app.route("/api/clusters")

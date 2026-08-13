@@ -5,4 +5,5 @@ __pycache__/
 .pytest_cache/
 data/monitor.db
 data/_healthcheck_test.db
+data/factcheck_debug.jsonl
 .DS_Store

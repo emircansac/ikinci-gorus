@@ -22,7 +22,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 import pandas as pd
 from utils.db import get_conn
 from utils.suspicion import compute_suspicion, compute_priority
-from utils.text_similarity import get_cluster_members
+from utils.text_similarity import get_cluster_members, get_cluster_members_embedding
+from utils.factcheck_calibrate import calibrate_factcheck
 
 # Claim metinleri comment'lerden farklı — aynı fikri farklı cümle yapısıyla ifade
 # edebilirler (LLM'in çıkardığı önerme, videodan videoya paslanmaz). Bu yüzden
@@ -47,10 +48,11 @@ def build_flat_index(conn) -> pd.DataFrame:
     rows = conn.execute("""
         SELECT
             cl.claim_id, cl.claim_text, cl.category, cl.initial_risk, cl.timestamp_sec,
-            cl.video_id, cl.channel_id, cl.archived_at, cl.archive_reason,
+            cl.video_id, cl.channel_id, cl.extraction_version, cl.archived_at, cl.archive_reason,
             ch.name AS channel_name,
             v.title AS video_title, v.published_at AS video_published_at,
-            vr.final_verdict, vr.confidence, vr.source_url, vr.human_reviewed, vr.reviewer_note, vr.escalated
+            vr.final_verdict, vr.confidence, vr.source_url, vr.human_reviewed, vr.reviewer_note, vr.escalated,
+            vr.reasoning, vr.source_directness, vr.evidence_stance, vr.source_tier, vr.calibration_flags
         FROM claims cl
         LEFT JOIN verdicts vr ON vr.claim_id = cl.claim_id
         LEFT JOIN videos v ON v.video_id = cl.video_id
@@ -60,7 +62,25 @@ def build_flat_index(conn) -> pd.DataFrame:
     records = []
     for r in rows:
         parse_failed = (r["final_verdict"] is None and r["escalated"] == 1)
-        score, note = compute_suspicion(r["final_verdict"], r["confidence"], parse_failed=parse_failed)
+        # Eski kayıtlarda reasoning/stance boş olabilir; URL tabanlı koruma yine çalışır
+        # (ör. Wikipedia + conf=0.85 → tavan). DB'deki ham değer değişmez, CSV kalibre edilir.
+        cal = calibrate_factcheck({
+            "final_verdict": r["final_verdict"],
+            "confidence": r["confidence"],
+            "source_url": r["source_url"] or "",
+            "reasoning": r["reasoning"] or "",
+            "source_directness": r["source_directness"],
+            "evidence_stance": r["evidence_stance"],
+            "source_tier": r["source_tier"],
+        })
+        stored_flags = (r["calibration_flags"] or "").strip()
+        export_flags = cal["calibration_flags"]
+        if stored_flags and export_flags and stored_flags not in export_flags:
+            export_flags = f"{stored_flags},{export_flags}"
+        elif stored_flags and not export_flags:
+            export_flags = stored_flags
+        score, note = compute_suspicion(
+            cal["final_verdict"], cal["confidence"], parse_failed=parse_failed)
         records.append({
             "claim_id": r["claim_id"],
             "claim_text": r["claim_text"],
@@ -71,29 +91,46 @@ def build_flat_index(conn) -> pd.DataFrame:
             "channel_name": r["channel_name"],
             "video_title": r["video_title"],
             "timestamp_sec": r["timestamp_sec"],
-            "final_verdict": r["final_verdict"],
-            "confidence": r["confidence"],
+            "extraction_version": r["extraction_version"],
+            "final_verdict": cal["final_verdict"],
+            "confidence": cal["confidence"],
             "suspicion_score": score,
             "suspicion_note": note,
             "human_reviewed": r["human_reviewed"],
             "reviewer_note": r["reviewer_note"],
             "archived_at": r["archived_at"],
             "archive_reason": r["archive_reason"],
-            "source_url": r["source_url"],
+            "source_url": cal["source_url"] or r["source_url"],
+            "reasoning": cal["reasoning"] or r["reasoning"],
+            "source_directness": cal["source_directness"],
+            "evidence_stance": cal["evidence_stance"],
+            "source_tier": cal["source_tier"],
+            "calibration_flags": export_flags,
         })
     return pd.DataFrame(records)
 
 
-def build_narrative_clusters(df: pd.DataFrame) -> pd.DataFrame:
+def build_narrative_clusters(df: pd.DataFrame, method: str = "embedding") -> pd.DataFrame:
     """
     Farklı kanallardaki BENZER iddiaları kümeler. Tek kanaldaki tek iddiadan çok,
     aynı yanlış anlatının kaç farklı kanalda tekrarlandığı asıl haber değeridir.
     """
-    # needs_more_data (suspicion_score=None) kümeleme dışı tutulur — henüz
-    # doğruluk değeri belirlenmemiş bir iddiayı 'yaygın yanlış anlatı' saymak yanlış olur.
     scoreable = df[df["suspicion_score"].notna()].to_dict("records")
-    clusters = get_cluster_members(scoreable, id_key="claim_id", text_key="claim_text",
-                                    threshold=CLAIM_CLUSTER_THRESHOLD)
+    if method == "embedding":
+        clusters = get_cluster_members_embedding(
+            scoreable, id_key="claim_id", text_key="claim_text",
+            threshold=0.80,
+        )
+        if not clusters:
+            clusters = get_cluster_members(
+                scoreable, id_key="claim_id", text_key="claim_text",
+                threshold=CLAIM_CLUSTER_THRESHOLD,
+            )
+    else:
+        clusters = get_cluster_members(
+            scoreable, id_key="claim_id", text_key="claim_text",
+            threshold=CLAIM_CLUSTER_THRESHOLD,
+        )
 
     cluster_rows = []
     for members in clusters:
@@ -194,6 +231,7 @@ def build_video_index(conn, claims_df: pd.DataFrame) -> pd.DataFrame:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--export-dir", default="data/")
+    ap.add_argument("--cluster-method", choices=("embedding", "sequence"), default="embedding")
     args = ap.parse_args()
 
     conn = get_conn()
@@ -226,7 +264,7 @@ def main():
     active.to_csv(index_path, index=False)
     archived.to_csv(archive_path, index=False)
 
-    clusters_df = build_narrative_clusters(df)
+    clusters_df = build_narrative_clusters(df, method=args.cluster_method)
     clusters_path = export_dir / "narrative_clusters.csv"
     clusters_df.to_csv(clusters_path, index=False)
 

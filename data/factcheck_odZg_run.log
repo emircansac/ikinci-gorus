@@ -1,0 +1,156 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[factcheck] işlenecek iddia sayısı: 62 video=odZgEDFDmbE
+  [654] doğrulanmış conf=0.80 tier=guideline direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           National Kidney Foundation, hasarlı böbreklerin potasyumu yeterince atamadığını ve yüksek potasyumlu sebze/meyve tüketiminin hiperkalemiye yol açabileceğini belirtiyor; NKF ayrıca bu durumun kalp durması dahil ciddi ve yaşamı tehdit eden so
+  [655] yanlış conf=0.60 tier=guideline direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddiadaki mekanizma -bu sebzelerin 'böbrek fonksiyonlarını yorarak' kreatinini yükseltmesi- bilimsel literatürle örtüşmüyor. NKF, ıspanak/domates gibi sebzelerin böbreği yormasından değil, yüksek potasyum ve oksalat içeriğinden söz eder ve 
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6126.13it/s]
+Loading weights:   0%|          | 0/202 [00:00<?, ?it/s]Loading weights: 100%|██████████| 202/202 [00:00<00:00, 10683.97it/s]
+  [656] doğrulanmış conf=0.72 tier=primary_study direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           StatPearls (NIH) kaynağı, hafif hiperkalemi vakalarının genellikle asemptomatik seyrettiğini, ancak şiddetli hiperkaleminin yaşamı tehdit eden kardiyak aritmilere, kas güçsüzlüğüne, felce ve tedavi edilmezse ani kalp durmasına yol açabilece
+  [661] tartışmalı conf=0.45 tier=primary_study direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Tıp literatüründe ıspanak ve pancar gibi yüksek oksalatlı sebzelerin aşırı/kronik tüketiminin akut oksalat nefropatisine ve böbrek yetmezliğine yol açtığı iyi belgelenmiş vaka raporları mevcuttur; örneğin bir vaka, hastanın 'started a daily
+  [681] tartışmalı conf=0.55 tier=guideline direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA FoodData Central verilerine göre çiğ ıspanak 100 gramda yaklaşık 558 mg potasyum içerir, bu iddiadaki '~550 mg' rakamıyla uyumludur. Ancak iddianın ikinci kısmı ('hasarlı böbrek bu yükü atamaz') aşırı genellemedir: kidney.org'a göre ço
+           kalibrasyon: default_conf
+  [682] tartışmalı conf=0.50 tier=primary_study direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Mekanizmanın kendisi (oksalat + kalsiyum birleşimi → kalsiyum oksalat kristalleri, tübüler hasar/inflamasyon) bilimsel olarak doğru ve vaka raporları ile in vitro çalışmalarla destekleniyor; ancak bu genellikle çok yüksek/aşırı miktarda (ör
+           kalibrasyon: default_conf
+  [683] tartışmalı conf=0.45 tier=primary_study direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Bilimsel literatür ıspanağın 5-7 dakika kaynatılıp suyunun dökülmesinin (leaching) çözünür oksalatı önemli ölçüde azalttığını destekliyor; tandfonline'daki çalışmada ıspanakta çözünür oksalatta %67 kayıp bulunmuş ve genel olarak sebzelerde 
+  [684] yanlış conf=0.78 tier=nutrition_db direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA FoodData Central verisine göre orta boy (123g) çiğ domates yaklaşık 292 mg potasyum içerir (%6 günlük değer), iddiadaki 350-400 mg aralığı bu değerin belirgin şekilde üzerinde ve birden fazla bağımsız kaynak (USDA türevli veriler) 290-
+  [685] tartışmalı conf=0.55 tier=nutrition_db direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA verilerine göre domates salçasında 100g'da yaklaşık 1015 mg potasyum bulunur ve çeyrek fincan (54g) 669 mg potasyum içerir; bu da 1 yemek kaşığının (~16-17g) yaklaşık 190-210 mg potasyum içerdiği anlamına gelir. Bir orta boy taze domat
+           kalibrasyon: default_conf
+  [687] tartışmalı conf=0.50 tier=other direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Pazı ve ıspanağın yüksek potasyum ve oksalat içerdiği yönü doğru: USDA verilerinde pazının 100g'da yaklaşık 379-549mg potasyum içerdiği ve oksalat açısından da yüksek besinler grubunda yer aldığı görülüyor, nefroloji kaynakları da bu iki se
+           kalibrasyon: default_conf
+  [688] tartışmalı conf=0.40 tier=primary_study direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Pancarın yüksek potasyum içerdiği doğrudur (yaklaşık 325 mg/100g) ve bu, ileri evre KBH/diyaliz hastalarında gerçek bir kaygıdır. Ancak nitrat kısmı için iddianın öne sürdüğü 'nitrat metabolizması bozularak tehlikeli oksijen dengesi bozuklu
+  [689] yanlış conf=0.72 tier=systematic_review direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın 'saniyeler içinde kana devasa yük binmesi' kısmı fizyolojik kanıtlarla doğrudan çelişiyor: birden fazla bağımsız klinik çalışma ve sistematik derleme, oral nitratın plazma nitrat pikine 1-2 saatte, plazma nitrit pikine ise 2-3 saat
+  [699] yanlış conf=0.75 tier=guideline direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar, diyet ve sebze seçiminin (sodyum/fosfor/potasyum kısıtlaması, meyve-sebze artışı ile asit yükünün azaltılması) CKD ilerlemesini YAVAŞLATABİLECEĞİNİ gösteriyor, ancak bu iddianın 'sadece doğru sebze seçimi ve pişirme yöntemleriyle,
+  [700] doğrulanmış conf=0.70 tier=guideline direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           National Kidney Foundation ve DaVita gibi güvenilir kaynaklar, sebze/meyve suyu sıkma işleminde lifin kaybolduğunu ve bu nedenle böbrek hastaları için potasyum yükünün arttığını açıkça belirtiyor. Kidney.org, 'Most juicing recipes contain f
+  [703] tartışmalı conf=0.45 tier=other direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar pancarın nitrat içeriği yoluyla kan basıncını düşürdüğünü ve tansiyon ilaçlarıyla birlikte kullanıldığında etkinin 'artması' değil 'toplamsal/aditif' olarak güçlenip aşırı hipotansiyona yol açabileceğini gösteriyor; bu klasik ilaç 
+  [704] tartışmalı conf=0.55 tier=systematic_review direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Lahana ve marulun vitamin K içeriğinin warfarin gibi vitamin K antagonistleriyle mekanizma temelli bir etkileşimi yerleşik bir klinik gerçektir; Drugs.com bu ikiliyi 'moderate drug interaction' olarak tanımlar ve hastalara warfarin alırken 
+           kalibrasyon: default_conf
+  [707] doğrulanmış conf=0.65 tier=other direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İleri evre KBH (ve özellikle diyaliz) hastalarında böbreklerin fazla sıvıyı idrar yoluyla atma kapasitesinin ciddi biçimde azaldığı ve bu nedenle genel 'günde 3 litre su iç' tavsiyesinin uygulanamayacağı, bireysel sıvı kısıtlaması gerektiği
+           kalibrasyon: tier_cap:other
+  [708] tartışmalı conf=0.40 tier=other direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın yönü kısmen doğru: aşırı su tüketimi (su zehirlenmesi/overhydration) gerçek bir klinik durumdur ve özellikle kalp yetmezliği, böbrek veya karaciğer hastalığı olanlarda ödem ve kalpte ek yüke yol açabilir; Cleveland Clinic bunu 'Swe
+  [651] doğrulanmış conf=0.65 tier=other direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Renal diyet kaynakları, haşlama/leaching suyunun içilmemesini açıkça tavsiye ediyor çünkü bu su, sebzeden çekilen fazla potasyumu içerir. RenalDietHQ 'consuming the water used for leaching may not be advisable for individuals with kidney is
+           kalibrasyon: tier_cap:other
+  [652] doğrulanmış conf=0.70 tier=primary_study direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Bilimsel literatür ve klinik kaynaklar, uygun pişirme/leaching (yıkama-haşlama-suyu dökme) yöntemleriyle sebze ve tuber (patates, kök sebzeler) potasyum içeriğinin önemli ölçüde azaltılabildiğini destekliyor. ScienceDirect'te yayınlanan çal
+  [657] doğrulanmış conf=0.85 tier=guideline direct=direct stance=supports (esc=1) ✓
+           National Kidney Foundation, hiperfosfateminin kemiklerden kalsiyum çekerek onları zayıflattığını ve kan damarları, kalp, akciğer ve gözlerde kalsiyum birikintilerine (kalsifikasyon) yol açtığını açıkça belirtiyor; bu sürecin haftalar-aylar 
+  [658] doğrulanmış conf=0.80 tier=systematic_review direct=direct stance=supports (esc=1) ✓
+           Klinik kaynak (Clinical Kidney Journal derlemesi) oksalat nefropatisini şu şekilde tanımlar: 'Oxalate nephropathy (ON) is defined by an acute and/or chronic decrease in kidney function associated with the deposition of calcium oxalate cryst
+  [659] tartışmalı conf=0.40 tier=guideline direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Ispanak, domates ve pancar (özellikle pancar yaprakları ve pişmiş ıspanak) yüksek potasyum içeren besinlerdir; NIDDK'nın CKD hastaları için potasyum kılavuzu bu üçünü de (pişmiş ıspanak, pancar yaprakları, domates/domates suyu) yüksek potas
+[claude] escalate_factcheck JSON parse hatası. Ham çıktı: ```json
+{
+  "final_verdict": "belirsiz",
+  "confidence": 0.3,
+  "reasoning": "İddia, tek bir hastanın kreatinin değerinin 6 ayda 1.8'den 2.3 mg/dL'ye (yaklaşık %28 artış) yükseldiğini bildiren bir gözlemsel/olgusal ifade olup, doğrulanabilir bir 'tıbbi mekanizma' veya genel geçer bir önerme içermiyo
+  [660] None conf=— tier=— direct=— stance=— (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           LLM çıktısı parse edilemedi — insan gözden geçirmeli
+  [662] tartışmalı conf=0.45 tier=nutrition_db direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA verisine göre haşlanmış kabuklu kabak 100 gramda yaklaşık 264 mg potasyum içerir; bu iddiadaki 240 mg rakamına yakın olup abartılı değil, ancak bazı kaynaklarda çeşit/pişirme yöntemine göre 240-459 mg arasında değişen değerler bulunuyo
+  [664] tartışmalı conf=0.40 tier=systematic_review direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Genel mekanizmalar için kanıt var: sistematik derlemeler, C vitamini ve karotenoidler gibi düşük moleküler ağırlıklı antioksidanların Nrf2 sinyali üzerinden hücresel antioksidan/anti-inflamatuar etkiler gösterdiğini belirtiyor ve KBH'de oks
+[claude] escalate_factcheck JSON parse hatası. Ham çıktı: Kaynaklar arasında önemli çelişkiler var. Bakalım genel resmi netleştirelim.
+
+Elde ettiğim kanıtlar üzerinden değerlendirme yapıyorum:
+
+**Değerlendirme özeti:** İddia, kabağın (kastedilen muhtemelen zucchini/yazlık kabak) hem düşük fosfor hem düşük potasyum içerdiğini ve böbrek hastaları diyetine "i
+  [665] None conf=— tier=— direct=— stance=— (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           LLM çıktısı parse edilemedi — insan gözden geçirmeli
+  [666] doğrulanmış conf=0.65 tier=other direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA verilerine göre kırmızı dolmalık biber 100 g'da yaklaşık 190-211 mg C vitamini ve sadece 211 mg potasyum içerir (kıyasla muz ~358 mg, patates ~400+ mg gibi yüksek potasyumlu besinlere göre düşük); bu, C vitamininin yüksek ve potasyumun
+           kalibrasyon: tier_cap:other
+  [668] tartışmalı conf=0.35 tier=primary_study direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Oksidatif stresin KBH patogenezinde rol oynadığı mekanistik olarak iyi kabul görmüş bir bulgu; ancak bu iddiaya spesifik olan 'kırmızı biber tüketimi hastalık ilerlemesini yavaşlatır' önermesi klinik kanıtla desteklenmiyor. Cochrane derleme
+  [669] tartışmalı conf=0.45 tier=encyclopedia direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Mekanizma yönünden doğru bir temel var: Linus Pauling Institute ve PubMed kaynaklı incelemeler, homosistein düzeyinin folat, B12 ve B6 vitaminleri tarafından metabolize edilerek 'regüle edildiğini' açıkça belirtiyor. Ancak kırmızı biberin f
+  [670] tartışmalı conf=0.55 tier=systematic_review direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Bilimsel literatür, yüksek homosistein (HHcy) seviyelerinin oksidatif stres, endotel disfonksiyonu ve inflamasyon yoluyla böbrek damarlarına zarar verdiğini ve CKD ilerlemesine katkıda bulunduğunu destekliyor; bir inceleme, Hcy'nin oksidati
+           kalibrasyon: default_conf
+  [673] doğrulanmış conf=0.76 tier=primary_study direct=indirect stance=supports (esc=0) ✓
+           NLI ilk filtresi: SUPPORTS (güven 0.76); LLM'e escalate edilmedi.
+  [674] doğrulanmış conf=0.70 tier=nutrition_db direct=direct stance=supports (esc=1) ✓
+           USDA temelli verilerde çiğ lahana 100g'da yaklaşık 26 mg fosfor içerir; bu, günlük referans değerin (700 mg) sadece %3.7'sidir, dolayısıyla düşük fosfor kabul edilir. DaVita gibi böbrek beslenmesi kaynağı, yarım fincan pişmiş yeşil lahananı
+  [675] tartışmalı conf=0.40 tier=systematic_review direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Sistematik derlemeler diyet lifinin genel olarak üremik toksinleri (indoksil sülfat, p-kresil sülfat, BUN) azalttığını ve bağırsak bariyer bütünlüğünü güçlendirerek toksin translokasyonunu sınırladığını gösteriyor, ancak bu etki esas olarak
+  [677] doğrulanmış conf=0.70 tier=guideline direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           National Kidney Foundation (NKF), lahana dahil yüksek potasyumlu sebzelerin bol suda haşlanıp suyunun dökülmesi (leaching) yönteminin sebzedeki potasyumun bir kısmını sudan uzaklaştırdığını doğruluyor: leaching işlemi 'pulling some (but not
+  [686] tartışmalı conf=0.40 tier=primary_study direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Genel sebze/baklagillerde kaynatma suda çözünen oksalatın %30-87 azalmasına yol açabiliyor ve bu kayıp büyük oranda pişirme suyuna geçiyor; bu nedenle 'domates pişirip suyu dökülürse çözünür oksalat azalabilir' önermesi genel oksalat litera
+  [690] yanlış conf=0.65 tier=primary_study direct=direct stance=contradicts (esc=1) ✓
+           İddianın ilk iki kısmı (sağlıklı bireylerde egzersiz performansı ve hipertansiflerde kan basıncı üzerindeki etki) sistematik derlemeler ve meta-analizlerle iyi desteklenmiş: <cite index="2-2,2-3">bu çalışma pancar suyu ve aerobik/anaerobik 
+[evidence] PubMed ESearch hatası: HTTPSConnectionPool(host='eutils.ncbi.nlm.nih.gov', port=443): Read timed out. (read timeout=15)
+  [691] tartışmalı conf=0.50 tier=guideline direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın ikinci kısmı olan diyabetin böbrek yetmezliğinin en yaygın nedeni olması NKF ve CDC verileriyle doğrulanmış (yeni vakaların %44-47'si). Ancak pancarın 'yüksek doğal şeker içeriği' nedeniyle diyabet hastaları için özellikle sorunlu 
+           kalibrasyon: mixed_overconfident,default_conf
+  [696] doğrulanmış conf=0.78 tier=guideline direct=direct stance=supports (esc=1) ✓
+           National Kidney Foundation, sebze haşlama/leaching suyunun potasyumu içine çektiğini ve bu suyun atılması gerektiğini açıkça belirtiyor: 'Another easy way to lower the amount of extra potassium you get from food is to avoid drinking or usin
+  [697] doğrulanmış conf=0.80 tier=guideline direct=direct stance=supports (esc=1) ✓
+           National Kidney Foundation (NKF), leaching yönteminde sebzeleri ince dilimleyip soğuk suda en az 2 saat, uzun süre (gece boyu) bekletiliyorsa suyu her 4 saatte bir değiştirerek bekletmenin potasyumu suya çektiğini açıkça tanımlıyor: <cite i
+  [698] belirsiz conf=0.10 tier=primary_study direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Bu ifade genel bir tıbbi önerme değil, belirli bir hastaya ait laboratuvar takip verisidir (potasyum 6.2'den 5.0'e düşmüş, kreatinin 2.1'de stabilize olmuş). Genel literatür hiperkalemi eşik değerlerini ve kreatinin trendlerinin klinik önem
+  [701] tartışmalı conf=0.40 tier=nutrition_db direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Sayılar iddiayı kısmen destekliyor kısmen çürütüyor: domates (~5-10mg oksalat/100g), salatalık (~1-4mg oksalat/100g) ve pancar (haşlanmış, ~60-76mg/yarım fincan) oksalat açısından düşük-orta düzeydedir, ancak ıspanak tek başına yüksek oksal
+  [702] doğrulanmış conf=0.65 tier=other direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Birden fazla böbrek diyeti kaynağı, marul, salatalık, kabak (zucchini) ve kırmızı biberi düşük potasyumlu, böbrek dostu sebzeler arasında listeler. UNC Kidney Center marul için ~78 mg/2 su bardağı, salatalık için 153 mg/su bardağı gibi düşü
+           kalibrasyon: tier_cap:other
+  [705] doğrulanmış conf=0.72 tier=nutrition_db direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA verisine göre bir kuru tavuk suyu/bulyon küpü yaklaşık 955 mg sodyum içeriyor ve bu bilimsel dozu iddia edilen 600-1000 mg aralığına düşüyor. Böbrek hastaları için günlük sodyum sınırı kaynağa göre değişse de (NKF 1500 mg, KDIGO <2000 
+  [706] tartışmalı conf=0.55 tier=systematic_review direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kan basıncını yükseltme ve su/sodyum tutulmasına yol açma mekanizmaları güçlü kanıtlarla desteklenmektedir: KDIGO ve çok sayıda kohort/RCT verisi, aşırı sodyum alımının hipertansiyon, sıvı fazlalığı ve hipervolemiyle bağlantılı olduğunu gös
+           kalibrasyon: default_conf
+  [709] doğrulanmış conf=0.72 tier=guideline direct=direct stance=supports (esc=1) ✓
+           İddianın her iki bileşeni de güvenilir kaynaklarla destekleniyor. Potasyum açısından, Kidney.org ve klinik kaynaklar kediler için tehlike arz eden bitkisel çayları (ısırgan otu, karahindiba, meyan kökü) açıkça yüksek potasyumlu olarak liste
+  [712] tartışmalı conf=0.50 tier=primary_study direct=indirect stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia genel klinik bir vaka tanımıdır (67 yaşında hasta, evre 3 KBH, 2 yılda evre 4'e ilerlememiş). Bu spesifik hasta için kanıt sunulamaz, ancak popülasyon düzeyinde kanıtlar bu senaryonun tamamen olası ve hatta yaygın olduğunu güçlü şekil
+           kalibrasyon: indirect_binary_verdict,default_conf
+  [653] doğrulanmış conf=0.80 tier=primary_study direct=direct stance=supports (esc=1) ✓
+           PubMed'deki fizyoloji derlemesi, sağlıklı bir böbrekte GFR'nin yaklaşık 120 ml/dakika (günde 180 L) olduğunu doğrudan belirtiyor. National Kidney Foundation da genç yetişkinlerde normal GFR'nin yaklaşık 120 ml/dak/1.73 m2 olduğunu ve yaşla 
+  [663] tartışmalı conf=0.35 tier=other direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA verilerine göre kabağın su içeriği yaklaşık %95 civarındadır (bazı kaynaklarda %92'nin üzerinde belirtiliyor), bu kısım doğrulanabilir. Ancak 'böbreği yormadan hidrasyon sağlar' ifadesi kaynaklarda desteklenmiyor; aksine böbrek hastala
+  [667] tartışmalı conf=0.45 tier=primary_study direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın kolajen sentezi kısmı sağlam biyokimyasal kanıtla destekleniyor: C vitamini, prokolajendeki prolin ve lizin kalıntılarının hidroksilasyonunu katalizleyen enzimler için kofaktördür ve endotel hücrelerinde tip IV kolajen sentezini uy
+  [671] doğrulanmış conf=0.70 tier=nutrition_db direct=direct stance=supports (esc=1) ✓
+           USDA FoodData Central kaynaklı veriye göre konserve kırmızı biber (solids and liquids) 100 gramda yaklaşık 1369 mg sodyum içerirken, taze kırmızı biber aynı miktarda sadece birkaç mg sodyum içerir; bu devasa fark konserve/turşu işleminin so
+  [672] tartışmalı conf=0.45 tier=guideline direct=direct stance=mixed (esc=1) ✓
+           Konserve ve turşu sebzelerin genellikle taze sebzelere göre önemli ölçüde daha fazla sodyum içerdiği doğrudur; NIDDK 'no salt added' etiketli konserve sebzeleri tercih etmeyi ve konserve sebzeleri süzüp durulamayı önerir, DaVita ise aynı yö
+  [676] doğrulanmış conf=0.72 tier=primary_study direct=direct stance=supports (esc=1) ✓
+           Çok sayıda hücresel/moleküler çalışma ve derleme, lahana ve diğer Brassica sebzelerinde bulunan glukozinolatların (özellikle glukorafanin) miyrosinaz enzimiyle hidrolize edilerek sülforafan oluşturduğunu ve sülforafanın hücresel düzeyde NF-
+  [678] tartışmalı conf=0.35 tier=other direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           USDA verisine göre salatalığın su içeriği %95-96 civarındadır ve bu kısım doğrulanmıştır; kaynaklardan biri salatalığın 100 g'da yaklaşık 99 g suya sahip olduğunu belirtir. Ancak 'kademeli ve güvenli hidrasyon sağlar' ifadesi tıbbi/nefroloj
+  [679] doğrulanmış conf=0.72 tier=guideline direct=direct stance=supports (esc=1) ✓
+           USDA verilerine göre 100 g çiğ salatalık yaklaşık 2 mg sodyum ve 136-170 mg potasyum içerir, bu da düşük sodyum/düşük potasyum kategorisine girer. National Kidney Foundation ve DaVita gibi böbrek beslenmesi kaynakları, salatalığı düşük pota
+  [680] tartışmalı conf=0.35 tier=primary_study direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Salatalıkta bazı iltihap önleyici bileşiklerin varlığı bilimsel olarak gösterilmiştir; örneğin bazı eski salatalık çeşitlerinden izole edilen idoBR1 adlı iminosugar bileşiğinin LPS ile uyarılmış hücrelerde TNF-alfa üretimini azalttığı in vi
+  [693] yanlış conf=0.55 tier=other direct=direct stance=contradicts (esc=1) ✓
+           Kaynaklar pancarın orta düzeyde bir glisemik indekse (GI ~61-70) sahip olduğunu, ancak porsiyon başına karbonhidrat/şeker içeriğinin düşük olması nedeniyle glisemik yükünün (GL) düşük (~4-6) kaldığını gösteriyor; diyabet açısından asıl beli
+  [694] doğrulanmış conf=0.90 tier=guideline direct=direct stance=supports (esc=1) ✓
+           National Kidney Foundation, iddiayı doğrudan ve net şekilde destekliyor: 'Diyabet, böbrek yetmezliğinin önde gelen nedenidir ve yeni vakaların %44'ünü oluşturur.' Aynı şekilde American Kidney Fund de 2022 verilerine dayanarak diyabetin yeni
+  [695] yanlış conf=0.75 tier=primary_study direct=direct stance=contradicts (esc=1) ✓
+           Kanıtlar, oksalat azalmasının ısının molekülü 'bozması/parçalaması' değil, ısıtma sırasında suda çözünen (soluble) oksalatların pişirme suyuna sızması (leaching) mekanizmasıyla gerçekleştiğini gösteriyor. Chai & Liebman (2005) çalışması, ka
+  [710] doğrulanmış conf=0.85 tier=guideline direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           KDIGO'nun resmi CKD sınıflandırma sistemi, GFR'yi (G1-G5 kategorileri) hastalığın evresini belirleyen temel bileşenlerden biri olarak kullanır; CKD, cause (neden), GFR kategorisi ve albüminüri kategorisine (CGA) göre sınıflandırılır. Klinik
+  [711] doğrulanmış conf=0.85 tier=primary_study direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           KDOQI ve KDIGO kılavuzları, KBH hastalarında serum fosfor düzeylerinin normal aralıkta tutulması gerektiğini, hedef aralıkların rakamsal olarak tanımlandığını (örn. 2.5-4.5 mg/dL) ve bu değerlerin izlenmesi gerektiğini açıkça belirtir. Stat
+  [713] tartışmalı conf=0.45 tier=systematic_review direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Lahananın lif içerdiği ve düşük potasyum içeriğiyle CKD diyetinde genel olarak faydalı sayıldığı doğrudur; kaynaklar 'high in vitamin K, vitamin C and fiber, cabbage is also a good source of vitamin B6 and folic acid' ve 'low in potassium a
+
+[factcheck] 62 iddia işlendi, 0 iddia hata verdi (tekrar denenecek).
+[factcheck] ham reasoning -> /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/factcheck_debug.jsonl
+[factcheck] tamamlandı. Yüksek riskli iddialar human_reviewed=0 ile işaretlendi — bunları onaylamadan şüpheli listesine 'kesin' olarak yazmayın (bkz. README).

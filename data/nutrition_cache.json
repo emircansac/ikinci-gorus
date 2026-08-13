@@ -1,0 +1,11 @@
+{
+  "spinach": {"potassium_mg": 558, "name_tr": "ıspanak", "fdc_url": "https://fdc.nal.usda.gov/fdc-app.html#/food-details/168462/nutrients"},
+  "zucchini": {"potassium_mg": 261, "water_pct": 95, "name_tr": "kabak"},
+  "tomato": {"potassium_mg": 237, "name_tr": "domates"},
+  "beet": {"potassium_mg": 325, "gi": 64, "gl": 5, "name_tr": "pancar"},
+  "cabbage": {"potassium_mg": 170, "phosphorus_mg": 26, "name_tr": "lahana"},
+  "cucumber": {"potassium_mg": 147, "water_pct": 95, "name_tr": "salatalık"},
+  "cherry": {"gi": 22, "gl": 6, "name_tr": "kiraz"},
+  "guava": {"gi": 23, "gl": 3, "name_tr": "guava"},
+  "avocado": {"gi": 10, "gl": 2, "name_tr": "avokado"}
+}

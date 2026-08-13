@@ -1,0 +1,576 @@
+{
+  "video_id": "odZgEDFDmbE",
+  "chunks": [
+    {
+      "chunk_index": 1,
+      "is_recap": false,
+      "raw_count": 21,
+      "local_dedup_count": 21,
+      "claims": [
+        {
+          "timestamp_sec": 8,
+          "claim_text": "Sebze kaynatma suyunun içilmesi böbrek yetmezliği olan kişilerde kanda tehlikeli düzeyde potasyum yükselmesine neden olabilir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "vegetable cooking water potassium load kidney disease"
+        },
+        {
+          "timestamp_sec": 28,
+          "claim_text": "Doğru pişirme yöntemleriyle sebzelerdeki potasyum oranı %70'e kadar düşürülebilir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "leaching cooking method reduce potassium vegetables"
+        },
+        {
+          "timestamp_sec": 18,
+          "claim_text": "Sağlıklı bir böbrek dakikada ortalama 120 ml kan filtreler (glomerüler filtrasyon hızı).",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "normal glomerular filtration rate 120 ml"
+        },
+        {
+          "timestamp_sec": 55,
+          "claim_text": "Hasarlı böbreklerde yanlış sebze seçimi potasyum seviyelerini kalp durmasına yol açacak kadar yükseltebilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "hyperkalemia cardiac arrest chronic kidney disease diet"
+        },
+        {
+          "timestamp_sec": 60,
+          "claim_text": "Ispanak, domates ve pancar gibi sebzeler böbrek fonksiyonlarını yorarak kreatinin değerlerini yükseltebilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "spinach tomato beet potassium chronic kidney disease creatinine"
+        },
+        {
+          "timestamp_sec": 148,
+          "claim_text": "Hiperkalemi haftalarca belirti vermeden ilerleyip kritik seviyede kas güçsüzlüğü, kalp ritim bozukluğu ve ani kalp durmasına yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "hyperkalemia asymptomatic cardiac arrhythmia sudden death"
+        },
+        {
+          "timestamp_sec": 164,
+          "claim_text": "Yüksek fosfor seviyeleri zamanla kan damarlarını ve kemikleri tahrip eder.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "hyperphosphatemia vascular calcification bone disease CKD"
+        },
+        {
+          "timestamp_sec": 171,
+          "claim_text": "Bazı sebzelerdeki bitkisel bileşikler (oksalatlar) zayıflamış böbrekte birikerek mikroskobik kristaller oluşturup böbrek taşına dönüşebilir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "dietary oxalate kidney stones impaired renal function"
+        },
+        {
+          "timestamp_sec": 247,
+          "claim_text": "Evre 3 kronik böbrek hastalığı olan bir hastanın ıspanak, domates ve pancar tüketmesi sonrası potasyum değeri 6.2 mmol/L'ye yükseldi.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "stage 3 CKD hyperkalemia dietary potassium case"
+        },
+        {
+          "timestamp_sec": 278,
+          "claim_text": "Aynı hastada kreatinin seviyesi 6 ay içinde 1.8'den 2.3'e yükseldi.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "creatinine progression chronic kidney disease case report"
+        },
+        {
+          "timestamp_sec": 286,
+          "claim_text": "Hastanın böbrek fonksiyon bozulmasının nedeni ıspanak, domates ve pancarı düzenli tüketmesiydi.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "search_query_en": "high potassium vegetables worsen kidney function"
+        },
+        {
+          "timestamp_sec": 313,
+          "claim_text": "Kabak, düşük potasyum içeriği (100 gramda 240 mg) nedeniyle böbrek hastaları için uygun bir sebzedir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "zucchini squash potassium content renal diet"
+        },
+        {
+          "timestamp_sec": 355,
+          "claim_text": "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "zucchini water content hydration kidney"
+        },
+        {
+          "timestamp_sec": 384,
+          "claim_text": "Kabaktaki C vitamini ve karotenoid gibi antioksidanlar kronik böbrek hastalığındaki hücresel iltihaplanmayı hafifletir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "antioxidants inflammation chronic kidney disease vitamin C"
+        },
+        {
+          "timestamp_sec": 413,
+          "claim_text": "Kabak, düşük fosfor ve potasyum profili nedeniyle böbrek hastaları diyetine ilk eklenmesi gereken sebzeler arasındadır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "low phosphorus potassium vegetables renal diet recommendation"
+        },
+        {
+          "timestamp_sec": 452,
+          "claim_text": "Kırmızı dolmalık biber yüksek C vitamini içeriğine rağmen düşük potasyum seviyesine sahiptir ve böbrek hastaları için uygundur.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "red bell pepper potassium vitamin C renal diet"
+        },
+        {
+          "timestamp_sec": 496,
+          "claim_text": "C vitamini, damar duvarlarını esnek tutan kolajen üretiminin temel taşıdır ve böbrek damarlarının sağlığını korur.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "vitamin C collagen synthesis vascular health kidney"
+        },
+        {
+          "timestamp_sec": 507,
+          "claim_text": "Kırmızı biberdeki antioksidanlar (betakaroten, likopen) oksidatif stresi nötralize ederek böbrek hastalığının ilerlemesini yavaşlatabilir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "oxidative stress antioxidants CKD progression"
+        },
+        {
+          "timestamp_sec": 519,
+          "claim_text": "Kırmızı biberdeki folik asit ve B vitamini, kanda biriken homosistein seviyelerini kontrol altında tutar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "folate B vitamins homocysteine kidney disease"
+        },
+        {
+          "timestamp_sec": 544,
+          "claim_text": "Yüksek homosistein seviyeleri böbreği besleyen kan damarlarını tahriş ederek iltihaplanmayı tetikler ve böbrek dokusunun ölümüne yol açar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "hyperhomocysteinemia vascular damage kidney disease"
+        },
+        {
+          "timestamp_sec": 535,
+          "claim_text": "Konserve veya turşu kırmızı biber, yüksek sodyum ve koruyucu madde içeriği nedeniyle böbrek hastaları için sakıncalıdır.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "canned pickled vegetables sodium kidney disease risk"
+        }
+      ]
+    },
+    {
+      "chunk_index": 2,
+      "is_recap": false,
+      "raw_count": 23,
+      "local_dedup_count": 23,
+      "claims": [
+        {
+          "timestamp_sec": 526,
+          "claim_text": "Kırmızı biber tüketimi homosistein seviyelerini kontrol altında tutar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "bell pepper homocysteine levels"
+        },
+        {
+          "timestamp_sec": 535,
+          "claim_text": "Konserve veya turşu sebzeler yüksek sodyum ve koruyucu madde içerdiğinden tüketilmemelidir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "canned pickled vegetables sodium kidney"
+        },
+        {
+          "timestamp_sec": 548,
+          "claim_text": "Böbrekler zayıfladığında homosistein kanda tehlikeli seviyelerde birikir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "chronic kidney disease homocysteine accumulation"
+        },
+        {
+          "timestamp_sec": 554,
+          "claim_text": "Yüksek homosistein böbreği besleyen kan damarlarının iç yüzeyini çizerek şiddetli iltihaplanmaya yol açar ve bu durum böbrek dokusunun ölümüne neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "homocysteine endothelial damage kidney disease"
+        },
+        {
+          "timestamp_sec": 569,
+          "claim_text": "Kırmızı biberdeki folik asit homosisteini zararsız maddelere dönüştürerek damar duvarlarını korur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "folic acid homocysteine metabolism vascular protection"
+        },
+        {
+          "timestamp_sec": 592,
+          "claim_text": "Lahana doğru hazırlandığında düşük fosfor ve orta düzey potasyum içerdiğinden hasarlı böbrekler tarafından tolere edilebilir.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "search_query_en": "cabbage phosphorus potassium chronic kidney disease diet"
+        },
+        {
+          "timestamp_sec": 602,
+          "claim_text": "Lahanadaki çözünmez lif bağırsakta toksinlerin kana karışmasını engelleyerek böbreğe giden toksin yükünü azaltır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "insoluble fiber gut toxin clearance kidney"
+        },
+        {
+          "timestamp_sec": 629,
+          "claim_text": "Lahanadaki glukozinolatlardan oluşan sülforafan hücresel düzeyde iltihap giderici etkiye sahiptir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "sulforaphane anti-inflammatory cellular effect"
+        },
+        {
+          "timestamp_sec": 639,
+          "claim_text": "Lahanayı bol suda haşlayıp suyunu dökerek tüketmek içindeki potasyumun büyük kısmının atılmasını sağlar.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "boiling cabbage potassium leaching kidney diet"
+        },
+        {
+          "timestamp_sec": 673,
+          "claim_text": "Salatalık %95'in üzerinde su içeriğine sahip olduğundan böbrek hastalarına kademeli ve güvenli hidrasyon sağlar.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "search_query_en": "cucumber water content hydration kidney disease"
+        },
+        {
+          "timestamp_sec": 703,
+          "claim_text": "Salatalığın düşük sodyum ve potasyum oranı onu böbrek hastaları için güvenli bir atıştırmalık yapar.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "search_query_en": "cucumber low potassium sodium renal diet"
+        },
+        {
+          "timestamp_sec": 710,
+          "claim_text": "Salatalık, ödemin atılmasına yardımcı olan doğal antienflamatuar bileşikler ve damar sağlığını destekleyen silisyum içerir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "cucumber silicon anti-inflammatory edema"
+        },
+        {
+          "timestamp_sec": 786,
+          "claim_text": "Çiğ ıspanak 100 gramda yaklaşık 550 mg potasyum içerir ve hasarlı böbrek bu yükü atamaz.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "search_query_en": "raw spinach potassium content kidney disease"
+        },
+        {
+          "timestamp_sec": 819,
+          "claim_text": "Çiğ ıspanaktaki yüksek oksalatlar kalsiyumla birleşerek kalsiyum oksalat kristalleri oluşturur ve böbrek dokusunu tahriş ederek süzme fonksiyonunu bozar.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "spinach oxalate calcium oxalate crystals kidney damage"
+        },
+        {
+          "timestamp_sec": 845,
+          "claim_text": "Ispanağı 5-7 dakika kaynatıp suyunu dökmek oksalatların %60-70'ini ve potasyumun büyük kısmını azaltır, bu şekilde küçük porsiyonlarda tüketimi nispeten güvenlidir.",
+          "category": "doz",
+          "initial_risk": "high",
+          "search_query_en": "boiling spinach oxalate reduction potassium"
+        },
+        {
+          "timestamp_sec": 877,
+          "claim_text": "Orta boy bir domates ortalama 350-400 mg potasyum içerir ve bu miktar günlük potasyum sınırını kolayca aştırabilir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "search_query_en": "tomato potassium content kidney diet"
+        },
+        {
+          "timestamp_sec": 900,
+          "claim_text": "Salça, domates püresi ve ketçap gibi işlenmiş domates ürünleri konsantre potasyum ve sodyum içerir; bir yemek kaşığı salça 3-4 taze domatesin potasyumuna eşdeğerdir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "search_query_en": "tomato paste potassium sodium concentration"
+        },
+        {
+          "timestamp_sec": 940,
+          "claim_text": "Taze domatesi pişirip kabuğunu soymak içerdiği oksalat yükünü azaltır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "peeling cooking tomato oxalate reduction"
+        },
+        {
+          "timestamp_sec": 962,
+          "claim_text": "Pazı, ıspanak gibi yüksek oranda potasyum ve oksalat içerir ve idrar söktürücü etkisine rağmen zayıf böbreğin temizleyemeyeceği kadar potasyum yükler.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "chard potassium oxalate kidney disease diuretic"
+        },
+        {
+          "timestamp_sec": 1006,
+          "claim_text": "Pancar yüksek potasyum, doğal şeker ve yüksek oranda nitrat içerir; böbrek yetmezliğinde nitrat metabolizması bozularak kan basıncı ve oksijen dengesiyle tehlikeli etkileşime girer.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "beetroot nitrate potassium kidney failure"
+        },
+        {
+          "timestamp_sec": 1037,
+          "claim_text": "Pancar suyu liflerinden arındırıldığı için saniyeler içinde kana devasa bir potasyum ve nitrat yükü bindirir.",
+          "category": "tanı",
+          "initial_risk": "high",
+          "search_query_en": "beetroot juice potassium nitrate load kidney"
+        },
+        {
+          "timestamp_sec": 1047,
+          "claim_text": "Pancar suyunun nitrik oksit dönüşümü sağlıklı bireylerde spor performansını artırır ve hipertansiyonu olanlarda kan basıncını düşürür, ancak böbrek yetmezliğinde bu mekanizma işlemez.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "beetroot juice nitric oxide blood pressure exercise"
+        },
+        {
+          "timestamp_sec": 1071,
+          "claim_text": "Pancarın yüksek doğal şeker içeriği onu özellikle diyabet hastaları için daha sorunlu hale getirir ve diyabet böbrek hastalığının en yaygın nedenlerinden biridir.",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "search_query_en": "diabetes leading cause chronic kidney disease"
+        }
+      ]
+    },
+    {
+      "chunk_index": 3,
+      "is_recap": false,
+      "raw_count": 20,
+      "local_dedup_count": 20,
+      "claims": [
+        {
+          "timestamp_sec": 1063,
+          "claim_text": "Böbrek yetmezliğinde pancardaki nitratlar ve potasyum atılamadığı için böbrekler için ciddi bir tehdit oluşturur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "beetroot nitrate potassium chronic kidney disease risk"
+        },
+        {
+          "timestamp_sec": 1071,
+          "claim_text": "Pancarın yüksek doğal şeker içeriği diyabet hastaları için onu daha sorunlu bir sebze haline getirir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "search_query_en": "beetroot sugar content diabetes risk"
+        },
+        {
+          "timestamp_sec": 1079,
+          "claim_text": "Diyabet, böbrek hastalığına yol açan en yaygın nedenlerin başında gelir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "search_query_en": "diabetes leading cause chronic kidney disease"
+        },
+        {
+          "timestamp_sec": 1101,
+          "claim_text": "Çift kaynatma (potasyum liksiviyasyonu) tekniği ile sebzelerin potasyum içeriği %40-%70 oranında azaltılabilir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "potassium leaching double boiling vegetables kidney"
+        },
+        {
+          "timestamp_sec": 1140,
+          "claim_text": "Isı, sebzelerdeki oksalatların yapısını bozarak tehlikeyi azaltır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "heat cooking oxalate reduction vegetables"
+        },
+        {
+          "timestamp_sec": 1145,
+          "claim_text": "Sebzelerin haşlama suyu içilmemeli veya yemeklere katılmamalıdır çünkü içinde yoğunlaşmış potasyum ve oksalat bulunur.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "vegetable boiling water potassium concentration kidney disease"
+        },
+        {
+          "timestamp_sec": 1183,
+          "claim_text": "Sebzeleri doğrayıp saatlerce veya bir gece soğuk suda bekletip suyunu birkaç kez değiştirmek potasyum ve oksalatların suya geçmesini sağlar.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "vegetable soaking potassium reduction renal diet"
+        },
+        {
+          "timestamp_sec": 1229,
+          "claim_text": "Vaka: Hastanın potasyum seviyesi 6,2'den 5'e, kreatinin seviyesi ise sürekli yükseliş trendinden 2,1'de sabitlenmiştir.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "dietary intervention potassium creatinine stabilization CKD case"
+        },
+        {
+          "timestamp_sec": 1244,
+          "claim_text": "Sadece doğru sebze seçimi ve pişirme yöntemleriyle, ilaç dozu değiştirilmeden kronik böbrek yetmezliğinin ilerlemesi durdurulup değerler sabitlenebilir.",
+          "category": "tedavi",
+          "initial_risk": "high",
+          "search_query_en": "diet modification slows chronic kidney disease progression without medication"
+        },
+        {
+          "timestamp_sec": 1264,
+          "claim_text": "Sebze suyu (havuç, ıspanak, pancar) içmek böbrek hastaları için tehlikelidir çünkü potasyum emilimini yavaşlatan lifler kaybolur ve yoğun potasyum alınır.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "search_query_en": "vegetable juice potassium load kidney disease risk"
+        },
+        {
+          "timestamp_sec": 1291,
+          "claim_text": "Domates, ıspanak, pancar ve salatalık içeren karışık salatalar tek öğünde günlük potasyum ve oksalat limitlerini aşmaya neden olabilir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "mixed salad potassium oxalate load renal diet"
+        },
+        {
+          "timestamp_sec": 1317,
+          "claim_text": "Böbrek hastaları için güvenli salata; marul, taze salatalık, çiğ kabak ve kırmızı kapya biberden oluşmalıdır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "low potassium salad recommendations kidney disease"
+        },
+        {
+          "timestamp_sec": 1327,
+          "claim_text": "Pancar gibi sebzeler tansiyon ilaçlarının etkisini beklenmedik şekilde artırabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "beetroot antihypertensive drug interaction"
+        },
+        {
+          "timestamp_sec": 1334,
+          "claim_text": "Lahana ve marulda bulunan yüksek K vitamini, kan sulandırıcı antikoagülan ilaçlarla doğrudan etkileşime girer.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "vitamin K leafy greens warfarin interaction"
+        },
+        {
+          "timestamp_sec": 1378,
+          "claim_text": "Tek bir bulyon tableti 600-1000 mg arasında sodyum içerir ve bu böbrek hastasının günlük sınırının yarısına yakındır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "bouillon cube sodium content renal diet"
+        },
+        {
+          "timestamp_sec": 1388,
+          "claim_text": "Aşırı sodyum alımı kan basıncını yükseltir, vücutta su tutulmasına yol açar ve böbrek fonksiyonunu hızla kötüleştirir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "sodium intake blood pressure kidney function decline"
+        },
+        {
+          "timestamp_sec": 1409,
+          "claim_text": "İleri evre böbrek hastalarında günde 3 litre su içme tavsiyesi geçerli değildir çünkü böbrekler fazla suyu idrara çeviremez.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "search_query_en": "fluid restriction advanced chronic kidney disease"
+        },
+        {
+          "timestamp_sec": 1421,
+          "claim_text": "İhtiyaçtan fazla içilen su dokularda birikir, ayaklarda şişmeye ve kalbe aşırı yük binmesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "fluid overload edema cardiac strain kidney disease"
+        },
+        {
+          "timestamp_sec": 1456,
+          "claim_text": "Bazı bitki çayları doğal olarak yüksek potasyum içerir veya ilaçlarla tehlikeli etkileşimlere girebilir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "herbal tea potassium drug interaction kidney"
+        },
+        {
+          "timestamp_sec": 1562,
+          "claim_text": "GFR (glomerüler filtrasyon hızı) değeri, böbrek hastalığının evresini ve gerekli diyet kısıtlamalarını belirleyen temel ölçüttür.",
+          "category": "tanı",
+          "initial_risk": "low",
+          "search_query_en": "glomerular filtration rate CKD staging diet"
+        }
+      ]
+    },
+    {
+      "chunk_index": 4,
+      "is_recap": true,
+      "raw_count": 13,
+      "local_dedup_count": 11,
+      "claims": [
+        {
+          "timestamp_sec": 1567,
+          "claim_text": "Glomerüler filtrasyon hızı (GFR) değeri böbrek hastalığının evresini ve gerekli diyet kısıtlamalarını belirleyen temel ölçüttür.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "glomerular filtration rate CKD staging diet"
+        },
+        {
+          "timestamp_sec": 1582,
+          "claim_text": "Böbrek hastalarının potasyum, fosfor ve kreatinin değerlerini rakamsal olarak takip etmesi gerekir.",
+          "category": "tanı",
+          "initial_risk": "low",
+          "search_query_en": "potassium phosphorus creatinine monitoring CKD"
+        },
+        {
+          "timestamp_sec": 1597,
+          "claim_text": "67 yaşındaki bir hasta evre 3 böbrek yetmezliği tanısıyla başvurmuş ve 2 yıl sonra hastalığı evre 4'e ilerlemeden stabil kalmıştır.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "CKD stage 3 progression stabilization dietary education"
+        },
+        {
+          "timestamp_sec": 1651,
+          "claim_text": "Böbrekler kanındaki potasyum ve oksalat gibi atıkları temizlemekte zorlandığında bu maddelerin birikmesi kalp krizinden şiddetli böbrek dokusu hasarına kadar ağır sonuçlar doğurabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "hyperkalemia oxalate accumulation kidney disease cardiac risk"
+        },
+        {
+          "timestamp_sec": 1663,
+          "claim_text": "Kabak düşük potasyum ve yüksek su içeriğiyle böbrek hastaları için faydalı bir sebzedir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "low potassium vegetables CKD diet zucchini"
+        },
+        {
+          "timestamp_sec": 1667,
+          "claim_text": "Kapya biber C vitamini ve antioksidan içeriğiyle damar sağlığını koruyarak böbrek hastalarına fayda sağlar.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "bell pepper antioxidants vascular health CKD"
+        },
+        {
+          "timestamp_sec": 1670,
+          "claim_text": "Lahana içerdiği liflerle bağırsak temizliğine katkıda bulunarak böbrek hastaları için faydalıdır.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "cabbage fiber bowel health kidney disease"
+        },
+        {
+          "timestamp_sec": 1681,
+          "claim_text": "Çiğ ıspanak yüksek oksalat ve potasyum içeriği nedeniyle böbrek hastaları için tehlikelidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "raw spinach oxalate potassium CKD risk"
+        },
+        {
+          "timestamp_sec": 1686,
+          "claim_text": "Salça gibi konsantre domates ürünleri yüksek potasyum içeriği nedeniyle böbrek hastaları için risklidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "tomato paste potassium content CKD"
+        },
+        {
+          "timestamp_sec": 1691,
+          "claim_text": "Pazı idrar söktürücü sanılsa da aslında yüksek potasyum içerir ve böbrek hastaları için risklidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "swiss chard potassium content kidney disease"
+        },
+        {
+          "timestamp_sec": 1693,
+          "claim_text": "Pancar yüksek nitrat içeriği nedeniyle böbrek hastaları için risklidir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "beetroot nitrate content chronic kidney disease"
+        },
+        {
+          "timestamp_sec": 1698,
+          "claim_text": "Sebzeleri bol suda kaynatıp suyunu dökmek potasyum oranını %70'e kadar azaltır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "leaching boiling vegetables potassium reduction CKD"
+        },
+        {
+          "timestamp_sec": 1704,
+          "claim_text": "Hazır bulyon ve soslar gizli sodyum içerdiğinden böbrek hastalarının bunlardan kaçınması gerekir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "hidden sodium processed broth sauces CKD"
+        }
+      ]
+    }
+  ]
+}

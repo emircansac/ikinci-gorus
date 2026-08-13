@@ -36,7 +36,13 @@
   .sidebar-overlay{position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:140; opacity:0; pointer-events:none; transition:opacity .2s;}
   .sidebar-overlay.open{opacity:1; pointer-events:auto;}
   .main-col{flex:1; min-width:0; width:100%;}
-  .sidebar h2{font-family:var(--head); font-size:14px; margin:0 0 12px; font-weight:600;}
+  .sidebar-head{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px;}
+  .sidebar-close{
+    font-size:20px; line-height:1; width:32px; height:32px; flex-shrink:0;
+    border:none; background:transparent; color:var(--text-muted); border-radius:6px;
+  }
+  .sidebar-close:hover{background:var(--line); color:var(--text);}
+  .sidebar h2{font-family:var(--head); font-size:14px; margin:0; font-weight:600;}
   .sidebar-section{margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid var(--line);}
   .sidebar-section:last-child{border-bottom:none;}
   .wl-label{font-family:var(--mono); font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
@@ -53,6 +59,18 @@
   .wl-note{font-family:var(--mono); font-size:10px; color:var(--text-muted); line-height:1.45; margin-top:6px;}
   .wl-msg{font-family:var(--mono); font-size:10px; margin-top:6px; min-height:14px;}
   .wl-msg.err{color:var(--red);} .wl-msg.ok{color:var(--teal);}
+  .wl-disclosure{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:6px 0; margin-bottom:4px; border:none; background:none; color:var(--text-muted);
+    font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.06em;
+    cursor:pointer; text-align:left;
+  }
+  .wl-disclosure:hover{color:var(--teal);}
+  .wl-disclosure-count{font-weight:400; text-transform:none; letter-spacing:0;}
+  .wl-chevron{font-size:11px; transition:transform .15s; color:var(--text-muted); flex-shrink:0;}
+  .wl-disclosure[aria-expanded="true"] .wl-chevron{transform:rotate(90deg);}
+  .wl-disclosure-panel{display:none; margin-bottom:6px;}
+  .wl-disclosure-panel.open{display:block;}
   .menu-btn{font-size:20px; width:40px; height:40px; border:none; background:var(--bg-card); border-radius:8px; color:var(--text); flex-shrink:0; display:flex; align-items:center; justify-content:center;}
   .menu-btn:hover{background:var(--line);}
 
@@ -179,9 +197,11 @@
   .claim-stream-score{
     margin-left:auto; font-weight:600; font-size:11px;
   }
-  .claim-stream-detail{
-    display:none; margin-top:10px; padding-top:10px; border-top:1px solid var(--line);
-    font-size:12px; color:var(--text-muted); line-height:1.5;
+  .claim-reasoning{
+    margin:8px 0 6px; color:var(--text); font-size:12.5px; line-height:1.45;
+  }
+  .claim-cal-flag{
+    font-family:var(--mono); font-size:10px; color:var(--yellow); margin-top:4px;
   }
   .claim-stream-item.open .claim-stream-detail{display:block;}
   .claim-stream-detail a{color:var(--teal);}
@@ -260,11 +280,6 @@
   footer{margin-top:40px; font-family:var(--mono); font-size:10.5px; color:var(--text-muted); border-top:1px solid var(--line); padding-top:16px;}
   footer .note{margin-top:6px; opacity:.7;}
 
-  @media (min-width:1100px){
-    .sidebar{position:static; transform:none; height:auto; min-height:100vh;}
-    .sidebar-overlay{display:none;}
-    .menu-btn{display:none;}
-  }
   @media (max-width:640px){
     .topbar{flex-wrap:wrap; padding:10px 12px;}
     .search-wrap{order:3; flex-basis:100%; max-width:none;}
@@ -273,10 +288,14 @@
 </style>
 </head>
 <body>
+<div class="app-shell">
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
-<aside class="sidebar" id="sidebar">
-  <h2>İzleme listesi</h2>
-  <p class="wl-note">Kanala abone olunca yeni videolar taranır. Tek video eklersen yalnızca o video analiz edilir. Kanal puanı en az 5 video sonrası verilir.</p>
+<aside class="sidebar" id="sidebar" aria-hidden="true">
+  <div class="sidebar-head">
+    <h2>İzleme listesi</h2>
+    <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Kapat">×</button>
+  </div>
+  <p class="wl-note">Kanala abone olunca yeni videolar taranır. Tek video eklersen yalnızca o video analiz edilir.</p>
 
   <div class="sidebar-section">
     <div class="wl-label">Abone olunan kanallar</div>
@@ -289,17 +308,21 @@
   </div>
 
   <div class="sidebar-section">
-    <div class="wl-label">İzleme listesindeki videolar</div>
-    <div id="wl-videos"><div class="empty-note" style="padding:8px 0;">henüz video yok</div></div>
-    <form class="wl-form" id="form-add-video">
-      <input class="wl-input" type="text" placeholder="Video URL veya ID" autocomplete="off">
+    <form class="wl-form" id="form-add-video" style="margin-top:0;">
+      <input class="wl-input" type="text" placeholder="Video URL veya ID ekle" autocomplete="off">
       <button class="wl-add-btn" type="submit">videoyu izle</button>
       <div class="wl-msg" id="msg-video"></div>
     </form>
+    <button class="wl-disclosure" id="wl-videos-toggle" type="button" aria-expanded="false" aria-controls="wl-videos-panel">
+      <span>video geçmişi <span class="wl-disclosure-count" id="wl-videos-count">(0)</span></span>
+      <span class="wl-chevron" aria-hidden="true">▸</span>
+    </button>
+    <div class="wl-disclosure-panel" id="wl-videos-panel">
+      <div id="wl-videos"><div class="empty-note" style="padding:8px 0;">henüz video yok</div></div>
+    </div>
   </div>
 </aside>
 
-<div class="app-shell">
 <div class="main-col">
 <div class="topbar">
   <button class="menu-btn" id="menu-btn" type="button" aria-label="Menü">☰</button>
@@ -329,7 +352,7 @@
   <div class="panel" id="clusters"><div class="empty-note">yükleniyor…</div></div>
 
   <footer>
-    /api/videos · /api/channels · /api/claims · /api/clusters
+    /api/videos · /api/channels · /api/claims · /api/claims/archived · /api/clusters
     <div class="note">skorlar olasılık göstergesidir, kesin hüküm değildir · + doğrulanmış, × yanlış, ± tartışmalı</div>
   </footer>
 </div>
@@ -359,6 +382,7 @@ let activePanel = "videos";
 let searchQuery = "";
 let searchTimer = null;
 let claimsFilter = "all";
+let wlVideosOpen = false;
 
 function verdictMark(v){ return VERDICT_MARK[v] || {sym:"?", cls:"belirsiz"}; }
 function tierColor(s){ if(s==null) return 'var(--text-muted)'; return s>=75 ? 'var(--red)' : s>=45 ? 'var(--yellow)' : 'var(--teal)'; }
@@ -448,13 +472,16 @@ function renderClaimStreamItem(c, opts){
       <span class="claim-stream-verdict ${vCls}">${vMark.sym} ${esc(verdictLabel)}</span>
       <span>${esc(c.channel_name || c.channel_id)}</span>
       ${timeLink ? `<span>${timeLink}</span>` : ''}
+      ${c.confidence != null ? `<span>güven ${Number(c.confidence).toFixed(2)}</span>` : ''}
       ${isArchiveView && c.archive_reason ? `<span class="archive-tag">${esc(archiveReasonLabel(c.archive_reason))}</span>` : ''}
       ${susp != null ? `<span class="claim-stream-score" style="color:${tierColor(susp)}">${Number(susp).toFixed(0)}</span>` : ''}
     </div>
     <div class="claim-stream-detail">
       ${c.video_title ? `<div><strong>video:</strong> ${esc(c.video_title)}</div>` : ''}
       ${c.category ? `<div><strong>kategori:</strong> ${esc(c.category)}</div>` : ''}
-      <div><a href="${esc(ytUrl)}" target="_blank" rel="noopener">videoyu izle${c.timestamp_sec != null ? ` (${c.timestamp_sec}s)` : ''}</a>${c.source_url ? ` · <a href="${esc(c.source_url)}" target="_blank" rel="noopener">kaynak</a>` : ''}</div>
+      ${c.reasoning ? `<div class="claim-reasoning">${esc(c.reasoning)}</div>` : ''}
+      <div><a href="${esc(ytUrl)}" target="_blank" rel="noopener">videoyu izle${c.timestamp_sec != null ? ` (${c.timestamp_sec}s)` : ''}</a>${c.source_url ? ` · <a href="${esc(c.source_url)}" target="_blank" rel="noopener">kaynak</a>` : ''}${c.source_tier ? ` · ${esc(c.source_tier)}` : ''}${c.source_directness ? ` · ${esc(c.source_directness)}` : ''}</div>
+      ${c.calibration_flags ? `<div class="claim-cal-flag">kalibrasyon: ${esc(c.calibration_flags)}</div>` : ''}
       ${!isArchiveView && pending ? `
       <div class="review-actions">
         <button type="button" class="review-btn approve" data-review="approve" data-claim-id="${esc(c.claim_id)}">onayla</button>
@@ -475,12 +502,13 @@ function renderTweetCard(c){
   const vMark = verdictMark(c.final_verdict);
   const susp = c.suspicion_score;
   const ytUrl = youtubeAt(c.video_id, c.timestamp_sec);
+  const verdictLabel = c.final_verdict || (c.suspicion_note === 'veri_eksik' ? 'henüz kontrol edilmedi' : 'belirsiz');
   return `
   <article class="tweet-card v-${vCls}">
     <div class="tweet-meta-line">${esc(c.channel_name)} · ${esc(c.video_title || c.video_id)}</div>
     <p class="tweet-text">${esc(c.claim_text)}</p>
     <div class="tweet-foot">
-      <span>${vMark.sym} ${esc(c.final_verdict || "belirsiz")}</span>
+      <span>${vMark.sym} ${esc(verdictLabel)}</span>
       ${c.category ? `<span>${esc(c.category)}</span>` : ''}
       ${susp != null ? `<span style="color:${tierColor(susp)}">şüphe ${Number(susp).toFixed(0)}</span>` : ''}
       <a href="${esc(ytUrl)}" target="_blank" rel="noopener">videoyu izle</a>
@@ -597,10 +625,12 @@ function renderChannels(){
         </div>
         ${c.pending_human_review > 0 ? `<div class="pending-note">${c.pending_human_review} iddia insan onayı bekliyor — "${esc(c.risk_tier)}" etiketi kesinleşmedi</div>` : ''}
         ${c.risk_tier === 'yetersiz_veri' ? `<div class="pending-note">${c.analyzed_videos ?? 0} / ${c.min_videos_for_score ?? watchlist.min_videos_for_score} video analiz edildi — kanal puanı için ${c.min_videos_for_score ?? watchlist.min_videos_for_score} video gerekir</div>` : ''}
+        ${c.fact_check_coverage != null && c.fact_check_coverage < 0.5 && c.total_claims > 0 ? `<div class="pending-note">${c.scored_claims ?? 0} / ${c.total_claims} iddia fact-check edildi (${Math.round((c.fact_check_coverage ?? 0) * 100)}%) — skor kısmi veriye dayanır</div>` : ''}
         </div>
         <div class="score-block">
           <div class="score-num" style="color:${tierColor(c.risk_score)}">${c.risk_score != null ? Number(c.risk_score).toFixed(1) : '—'}</div>
         <div class="score-label">risk skoru</div>
+        ${c.avg_suspicion != null ? `<div class="score-label">ort. şüphe ${Number(c.avg_suspicion).toFixed(0)} (kontrol edilenler)</div>` : ''}
         <div class="tier-pill ${c.risk_tier}">${esc(c.risk_tier)}</div>
       </div>
     </div>`).join('');
@@ -743,6 +773,9 @@ async function loadWatchlist(){
 function renderWatchlistSidebar(){
   const chEl = document.getElementById('wl-channels');
   const vEl = document.getElementById('wl-videos');
+  const countEl = document.getElementById('wl-videos-count');
+  const panelEl = document.getElementById('wl-videos-panel');
+  const toggleEl = document.getElementById('wl-videos-toggle');
   const ch = watchlist.channels || [];
   const vids = watchlist.videos || [];
   chEl.innerHTML = ch.length ? ch.map(c => `
@@ -755,12 +788,23 @@ function renderWatchlistSidebar(){
       <div><div class="wl-item-title">${esc(v.title || v.video_id)}</div><div class="wl-item-sub">${esc(v.video_id)}</div></div>
       <button class="wl-remove" type="button" data-remove-video="${esc(v.video_id)}">×</button>
     </div>`).join('') : `<div class="empty-note" style="padding:8px 0;">henüz video yok</div>`;
+  if(countEl) countEl.textContent = `(${vids.length})`;
+  if(panelEl && toggleEl){
+    panelEl.classList.toggle('open', wlVideosOpen);
+    toggleEl.setAttribute('aria-expanded', wlVideosOpen ? 'true' : 'false');
+  }
   chEl.querySelectorAll('[data-remove-channel]').forEach(btn => {
     btn.addEventListener('click', () => removeWatchlistChannel(btn.dataset.removeChannel));
   });
   vEl.querySelectorAll('[data-remove-video]').forEach(btn => {
     btn.addEventListener('click', () => removeWatchlistVideo(btn.dataset.removeVideo));
   });
+}
+
+function toggleWlVideos(open){
+  wlVideosOpen = open ?? !wlVideosOpen;
+  document.getElementById('wl-videos-panel')?.classList.toggle('open', wlVideosOpen);
+  document.getElementById('wl-videos-toggle')?.setAttribute('aria-expanded', wlVideosOpen ? 'true' : 'false');
 }
 
 async function addWatchlistChannel(input){
@@ -785,6 +829,7 @@ async function addWatchlistVideo(input){
     if(!data.ok){ msg.className='wl-msg err'; msg.textContent = data.error; return; }
     msg.className='wl-msg ok'; msg.textContent = 'video eklendi — pipeline çalıştırınca analiz edilir';
     document.querySelector('#form-add-video input').value = '';
+    wlVideosOpen = true;
     await loadWatchlist();
   } catch(e){ msg.className='wl-msg err'; msg.textContent = e.message; }
 }
@@ -804,6 +849,8 @@ function toggleSidebar(open){
   const on = open ?? !sb.classList.contains('open');
   sb.classList.toggle('open', on);
   ov.classList.toggle('open', on);
+  sb.setAttribute('aria-hidden', on ? 'false' : 'true');
+  document.body.style.overflow = on ? 'hidden' : '';
 }
 
 async function refreshAll(){
@@ -818,7 +865,14 @@ async function refreshAll(){
       fetchJson('/api/claims/archived').catch(() => []),
       fetchJson('/api/clusters').catch(() => []),
     ]);
-    cache = {videos, channels, claims, claimsArchived, clusters};
+    const asArr = x => Array.isArray(x) ? x : [];
+    cache = {
+      videos: asArr(videos),
+      channels: asArr(channels),
+      claims: asArr(claims),
+      claimsArchived: asArr(claimsArchived),
+      clusters: asArr(clusters),
+    };
     await loadWatchlist();
     renderActivePanel();
   } catch(e) {
@@ -830,8 +884,10 @@ async function refreshAll(){
 }
 
 document.getElementById('refresh-btn').addEventListener('click', refreshAll);
-document.getElementById('menu-btn').addEventListener('click', () => toggleSidebar());
+document.getElementById('menu-btn').addEventListener('click', () => toggleSidebar(true));
+document.getElementById('sidebar-close').addEventListener('click', () => toggleSidebar(false));
 document.getElementById('sidebar-overlay').addEventListener('click', () => toggleSidebar(false));
+document.getElementById('wl-videos-toggle').addEventListener('click', () => toggleWlVideos());
 document.getElementById('form-add-channel').addEventListener('submit', e => {
   e.preventDefault();
   addWatchlistChannel(e.target.querySelector('input').value);
@@ -842,7 +898,11 @@ document.getElementById('form-add-video').addEventListener('submit', e => {
 });
 document.getElementById('detail-close').addEventListener('click', closeDetail);
 document.getElementById('overlay').addEventListener('click', closeDetail);
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDetail(); });
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  if(document.getElementById('sidebar').classList.contains('open')) toggleSidebar(false);
+  else closeDetail();
+});
 
 document.getElementById('search-input').addEventListener('input', e => {
   clearTimeout(searchTimer);

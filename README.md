@@ -100,6 +100,19 @@ istemiyorsanız (`torch` ~2-3GB):
 python pipeline/03_factcheck.py --skip-nli   # her iddiayı doğrudan Claude'a gönderir
 ```
 
+Şüpheli iddiaları yeniden değerlendirmek (eski verdict silinir, reasoning loglanır):
+
+```bash
+python pipeline/03_factcheck.py --recheck-ids 96,110 --skip-nli
+python pipeline/06_claim_index.py --export-dir data/
+```
+
+Ham `reasoning` `verdicts.reasoning` sütununa ve `data/factcheck_debug.jsonl` dosyasına yazılır
+(şablon vs. gerçek gerekçe denetimi için). LLM JSON'u kaydedilmeden önce
+`utils/factcheck_calibrate.py` kaynak kademesi / stance tutarlılığı ile kırpılır:
+Wikipedia genel sayfasına yüksek güven bağlanamaz; kaynak iddiayı desteklerken
+"yanlış" denemez; `tartışmalı` + tam 0.55 varsayılanı insan incelemesine düşer.
+
 **Dil notu**: Varsayılan NLI modeli (`MoritzLaurer/mDeBERTa-v3-base-mnli-xnli`)
 çok dilli olduğu için Türkçe iddiaları doğrudan işleyebilir. FEVER/PubHealth
 tabanlı İngilizce modeller (ör. `Dzeniks/roberta-fact-check`) kullanmak isterseniz
@@ -203,18 +216,25 @@ yakın tutar — sistem kendinden emin değilse skor da aşırı uçta olmamalı
 python pipeline/06_claim_index.py --export-dir data/
 ```
 
-İki çıktı:
+Dört çıktı:
 
-1. **`claim_index.csv`** — her iddia tek satır, şüphe skoruna göre sıralı.
+1. **`claim_index.csv`** — her **aktif** iddia tek satır, şüphe skoruna göre sıralı.
    `suspicion_score` boş (`veri_eksik`) olan satırlar (parse hatası ya da hiç
    fact-check yapılmamış) listenin EN SONUNA konur, sıfır şüpheli gibi
    görünmesinler diye — bunlar "az şüpheli" değil "henüz bilinmiyor" demektir.
+   Dashboard `/api/claims` bunu okur.
 
-2. **`narrative_clusters.csv`** — aynı/benzer iddianın **birden fazla kanalda**
+2. **`claim_archive.csv`** — `archived_at` dolu iddialar. Dashboard
+   `/api/claims/archived` bunu okur (arşiv filtresi).
+
+3. **`narrative_clusters.csv`** — aynı/benzer iddianın **birden fazla kanalda**
    tekrar ettiği kümeler. Tek kanaldaki tek iddiadan çok, aynı yanlış anlatının
    kaç farklı kanalda dolaştığı asıl haber değeridir. `priority_score` burada
    hem şüphe skorunu hem kategori riskini (tedavi/doz/tanı daha ağır) hem de
    kaç kanalı etkilediğini birleştirir.
+
+4. **`videos.csv`** — video bazlı özet (iddia sayısı, max şüphe, thumbnail).
+   Dashboard `/api/videos` bunu okur; dosya yoksa boş liste döner (404 değil).
 
 **Kümeleme yöntemi ve sınırı**: `utils/text_similarity.py`, saf harf/kelime
 benzerliği (`SequenceMatcher`, single-linkage) kullanıyor — geliştirme sırasında
@@ -285,9 +305,11 @@ Hâlâ **çözülmemiş**, bilerek kapsam dışı bırakılan noktalar:
 - **Yorum bot tespiti naif O(n²) karşılaştırma kullanıyor.** `find_duplicate_clusters`
   binlerce yorumda yavaşlar; üretimde MinHash/SimHash gibi yaklaşık kümeleme
   yöntemlerine geçin.
-- **Yorumcu profili sinyali tek boyutlu.** Şu an sadece "kanal yaşı + video sayısı"
-  bakılıyor; profil fotoğrafı varsayılan mı, kanal adı rastgele karakter+rakam
-  paterni mi gibi ek sinyaller eklenebilir.
+- **Fact-check confidence varsayılanı.** Escalate edilen "tartışmalı" iddiaların
+  bir kısmı tam `confidence=0.55` / `suspicion=61.0` değerine yığılabiliyor
+  (model "emin değilim" sayısı). Prompt + `default_conf` bayrağı bunu
+  yakalar; eski kayıtları düzeltmek için `--recheck-ids` gerekir. Ham
+  `reasoning` daha önce kaydedilmiyordu — şimdi DB + jsonl'de.
 
 ## Bilgisayarınıza hiçbir şey kurmadan deploy (GitHub + Render, tarayıcıdan)
 
@@ -361,5 +383,6 @@ health_misinfo_monitor/
     ├── bot_detection.py       # yorum bot skorlama heuristikleri
     ├── text_similarity.py     # paylaşılan metin kümeleme (yorumlar + iddialar)
     ├── suspicion.py            # sürekli şüphe/öncelik skoru
+    ├── factcheck_calibrate.py  # kaynak kademesi / tersine-verdict kırpma
     └── db.py
 ```

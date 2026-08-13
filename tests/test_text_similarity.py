@@ -39,3 +39,18 @@ def test_different_texts_stay_separate():
     sizes = find_similar_clusters(items, id_key="id", text_key="text", threshold=0.85)
     assert sizes.get("a", 1) == 1
     assert sizes.get("b", 1) == 1
+
+
+def test_embedding_clusters_cross_channel_perine():
+    """Demo seed'deki çapraz-kanal perine iddiaları embedding ile kümelenmeli."""
+    from utils.text_similarity import get_cluster_members_embedding
+
+    items = [
+        {"claim_id": 1, "channel_id": "B", "claim_text":
+         "Perine bölgesindeki pudendal sinir sıkışması çoğu 60+ erkekteki sertleşme sorununun kaynağıdır"},
+        {"claim_id": 2, "channel_id": "C", "claim_text":
+         "Perine noktasındaki sinir baskısı 60 yaş üstü erkeklerin çoğunda sertleşme sorununa yol açan asıl nedendir"},
+    ]
+    clusters = get_cluster_members_embedding(items, id_key="claim_id", text_key="claim_text", threshold=0.75)
+    assert len(clusters) == 1
+    assert len(clusters[0]) == 2

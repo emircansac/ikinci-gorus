@@ -1,0 +1,79 @@
+{
+  "note": "escalate_factcheck API limiti (2026-09-01); retrieval+cite_source sunucu tarafı kanıtı. DB yazılmadı.",
+  "api_escalate": "blocked_workspace_usage_limit",
+  "results": [
+    {
+      "claim_id": 652,
+      "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+      "package": [
+        {
+          "title": "The effects of boiling and leaching on the content of potassium and other minerals in potatoes.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18576999/",
+          "source_tier": "primary_study",
+          "provider": "pubmed",
+          "pmid": "18576999"
+        },
+        {
+          "title": "Effect of the Sous-Vide Method on the Quality of Vegetables-A Review.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41596805/",
+          "source_tier": "primary_study",
+          "provider": "europepmc",
+          "pmid": "41596805"
+        },
+        {
+          "title": "A mechanistic perspective on process-induced changes in glucosinolate content in Brassica vegetables: a review.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24915330/",
+          "source_tier": "primary_study",
+          "provider": "pubmed",
+          "pmid": "24915330"
+        },
+        {
+          "title": "Impact of Boiling on Cyanogenic Detoxification and Nutrient Retention in &lt;i&gt;Cnidoscolus aconitifolius&lt;/i&gt; (Chaya) Leaves.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42279813/",
+          "source_tier": "primary_study",
+          "provider": "europepmc",
+          "pmid": "42279813"
+        },
+        {
+          "title": "The effect of cooking on the phytochemical content of vegetables.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24227349/",
+          "source_tier": "primary_study",
+          "provider": "pubmed",
+          "pmid": "24227349"
+        }
+      ],
+      "package_user_message_head": "İddia: Doğru pişirme yöntemleriyle sebzelerdeki potasyum oranı %70'e kadar düşürülebilir.\n\nRetrieval kanıt paketi (PubMed / Europe PMC / MedlinePlus). Önce bunlara bak; iddiayı doğrudan ele alan parça varsa source_url olarak o parçanın url'sini yaz. Yetersiz/ilgisizse web_search yap.\n\n[1] The effects of boiling and leaching on the content of potassium and other minerals in potatoes.\n    url: https://pubmed.ncbi.nlm.nih.gov/18576999/\n    The white potato (Solanum tuberosum L.) is a valuable sourc",
+      "previous_healio_cite_source": "web_search_override",
+      "if_cited_package_first": "retrieval_cited",
+      "healio_calibrated": {
+        "cite_source": "web_search_override",
+        "source_tier": "other",
+        "calibration_flags": "tier_url:primary_study->other,tier_cap:other,web_search_override",
+        "needs_human": true
+      }
+    },
+    {
+      "claim_id": 752,
+      "retrieval_path": "europepmc+medlineplus",
+      "package": [
+        {
+          "title": "<i>Vaccinium</i> as Potential Therapy for Diabetes and Microvascular Complications.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37432140/",
+          "source_tier": "primary_study",
+          "provider": "europepmc",
+          "pmid": "37432140"
+        },
+        {
+          "title": "&lt;i&gt;Vaccinium oldhamii&lt;/i&gt; fruits improve insulin resistance by inhibiting inflammation in macrophages and adipocytes.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41377596/",
+          "source_tier": "primary_study",
+          "provider": "europepmc",
+          "pmid": "41377596"
+        }
+      ],
+      "package_user_message_head": "İddia: Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi koruduğu kanıtlanmıştır.\n\nRetrieval kanıt paketi (PubMed / Europe PMC / MedlinePlus). Önce bunlara bak; iddiayı doğrudan ele alan parça varsa source_url olarak o parçanın url'sini yaz. Yetersiz/ilgisizse web_search yap.\n\n[1] <i>Vaccinium</i> as Potential Therapy for Diabetes and Microvascular Complications.\n    url: https://pubmed.ncbi.nlm.nih.gov/37432140/\n    Diabetes mellitus i",
+      "top_is_vaccinium": true,
+      "diabetes_page_in_package": false
+    }
+  ]
+}

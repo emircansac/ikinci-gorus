@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS videos (
     watch_source        TEXT DEFAULT 'channel',  -- 'channel' (abonelik) | 'direct' (tek video)
     claims_extracted_at TEXT,   -- NULL = Aşama 2 henüz çalışmadı. 0 iddia bulunsa bile burası set edilir,
                                 -- yoksa 02_extract_claims.py her çalıştırmada aynı videoyu tekrar işler.
+    active_extraction_version TEXT DEFAULT 'v1',  -- claims tablosundaki aktif extraction_version
     FOREIGN KEY (channel_id) REFERENCES channels(channel_id)
 );
 
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS claims (
     category        TEXT,                  -- tedavi|tanı|doz|önleme|mucize-ürün|mekanizma|diğer
     initial_risk    TEXT,                  -- LLM'in ilk kaba tahmini: low|medium|high
     extracted_at    TEXT DEFAULT (datetime('now')),
+    extraction_version TEXT DEFAULT 'v1',   -- Aşama 2 prompt/pipeline sürümü
     archived_at     TEXT,                  -- NULL = ana dashboard akışında
     archive_reason  TEXT,                  -- manual | reject | auto_low_risk
     FOREIGN KEY (video_id) REFERENCES videos(video_id),
@@ -68,6 +70,11 @@ CREATE TABLE IF NOT EXISTS verdicts (
     final_verdict       TEXT,       -- doğrulanmış|yanlış|tartışmalı|belirsiz
     confidence          REAL,
     source_url          TEXT,
+    reasoning           TEXT,       -- LLM gerekçesi (kalibrasyon denetimi için saklanır)
+    source_directness   TEXT,       -- direct|indirect|unrelated
+    evidence_stance     TEXT,       -- supports|contradicts|mixed|insufficient
+    source_tier         TEXT,       -- guideline|systematic_review|primary_study|nutrition_db|encyclopedia|other
+    calibration_flags   TEXT,       -- virgülle: inverted_verdict, default_conf, tier_cap:encyclopedia, …
     human_reviewed      INTEGER DEFAULT 0,
     reviewer_note        TEXT,
     verified_at         TEXT DEFAULT (datetime('now')),
@@ -112,4 +119,18 @@ CREATE TABLE IF NOT EXISTS channel_risk_scores (
     risk_tier           TEXT,                -- izlemede|incele|acil
     computed_at         TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (channel_id) REFERENCES channels(channel_id)
+);
+
+CREATE TABLE IF NOT EXISTS verified_claim_library (
+    library_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    claim_text        TEXT NOT NULL,
+    claim_text_norm   TEXT NOT NULL,
+    embedding         BLOB,
+    final_verdict     TEXT NOT NULL,
+    confidence        REAL,
+    source_url        TEXT,
+    source_tier       TEXT,
+    reasoning         TEXT,
+    origin_claim_id   INTEGER,
+    created_at        TEXT DEFAULT (datetime('now'))
 );
