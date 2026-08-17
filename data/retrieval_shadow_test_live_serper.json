@@ -1,0 +1,391 @@
+{
+  "mode": "live_serper",
+  "claim_ids": [
+    662,
+    684,
+    686,
+    746,
+    752,
+    663
+  ],
+  "summary": {
+    "n": 6,
+    "native_sufficient": 4,
+    "serper_invoked": 2,
+    "serper_sufficient": 2,
+    "serper_rescue_rate": 1.0,
+    "serper_api_key_present": true,
+    "decision_note": "Asıl karar verici sayı: canlı serper_rescue_rate. A'daki offline proxy üst sınırdır, karar değildir.",
+    "fields_ok_count": 6
+  },
+  "results": [
+    {
+      "claim_id": 662,
+      "video_id": "odZgEDFDmbE",
+      "claim_text": "Kabak, düşük potasyum içeriği (100 gramda 240 mg) nedeniyle böbrek hastaları için uygun bir sebzedir.",
+      "search_query_en": "zucchini squash potassium content renal diet",
+      "native_path": "pubmed_mesh+europepmc+medlineplus",
+      "native": {
+        "sufficient": true,
+        "relevance_ok": true,
+        "quality_ok": true,
+        "reason": "ok",
+        "best_tier": "guideline",
+        "kept_count": 9,
+        "max_rerank_score": null
+      },
+      "serper_invoked": false,
+      "serper_raw_count": 0,
+      "after_serper": null,
+      "serper_sufficient": false,
+      "hybrid_path": "pubmed_mesh+europepmc+medlineplus",
+      "package_field_proof": [
+        {
+          "title": "Potassium quantification and sensory analysis in plant food cooking processes in heart disease patie",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40681108/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "pubmed"
+        },
+        {
+          "title": "Potassium",
+          "url": "https://medlineplus.gov/potassium.html",
+          "retrieval_tier": "native",
+          "source_tier": "guideline",
+          "evidence_content_type": "abstract",
+          "provider": "medlineplus"
+        },
+        {
+          "title": "Disorders of potassium homeostasis after kidney transplantation.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/39295980/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "<i>Dieta de la Milpa:</i> A Culturally-Concordant Plant-Based Dietary Pattern for Hispanic/Latine Pe",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38474703/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "Minerals",
+          "url": "https://medlineplus.gov/minerals.html",
+          "retrieval_tier": "native",
+          "source_tier": "guideline",
+          "evidence_content_type": "abstract",
+          "provider": "medlineplus"
+        }
+      ],
+      "fields_ok": true
+    },
+    {
+      "claim_id": 663,
+      "video_id": "odZgEDFDmbE",
+      "claim_text": "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar.",
+      "search_query_en": "zucchini water content hydration kidney",
+      "native_path": "europepmc+medlineplus",
+      "native": {
+        "sufficient": true,
+        "relevance_ok": true,
+        "quality_ok": true,
+        "reason": "ok",
+        "best_tier": "systematic_review",
+        "kept_count": 7,
+        "max_rerank_score": null
+      },
+      "serper_invoked": false,
+      "serper_raw_count": 0,
+      "after_serper": null,
+      "serper_sufficient": false,
+      "hybrid_path": "europepmc+medlineplus",
+      "package_field_proof": [
+        {
+          "title": "Diet format, protein, amino acids, salt, and osmolytes, as well as water viscosity, affect water con",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41389339/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "Effect of different cooking method on vitamin E and K content and true retention of legumes and vege",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37009044/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "A cross-sectional study of the association between plant-based diet indices and kidney stones among ",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40251384/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "Guidelines for nutritional management of feline diabetes mellitus: a proposed classification system ",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41369075/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "A Case Study of a Rare Disease (Fructosemia) Diagnosed in a Patient with Abdominal Pain.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38929922/",
+          "retrieval_tier": "native",
+          "source_tier": "case_report",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        }
+      ],
+      "fields_ok": true
+    },
+    {
+      "claim_id": 684,
+      "video_id": "odZgEDFDmbE",
+      "claim_text": "Orta boy bir domates ortalama 350-400 mg potasyum içerir ve bu miktar günlük potasyum sınırını kolayca aştırabilir.",
+      "search_query_en": "tomato potassium content kidney diet",
+      "native_path": "pubmed_mesh+europepmc+medlineplus",
+      "native": {
+        "sufficient": true,
+        "relevance_ok": true,
+        "quality_ok": true,
+        "reason": "ok",
+        "best_tier": "guideline",
+        "kept_count": 10,
+        "max_rerank_score": null
+      },
+      "serper_invoked": false,
+      "serper_raw_count": 0,
+      "after_serper": null,
+      "serper_sufficient": false,
+      "hybrid_path": "pubmed_mesh+europepmc+medlineplus",
+      "package_field_proof": [
+        {
+          "title": "Potassium",
+          "url": "https://medlineplus.gov/potassium.html",
+          "retrieval_tier": "native",
+          "source_tier": "guideline",
+          "evidence_content_type": "abstract",
+          "provider": "medlineplus"
+        },
+        {
+          "title": "Potassium Bioaccessibility in Uncooked and Cooked Plant Foods: Results from a Static In Vitro Digest",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36287937/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "pubmed"
+        },
+        {
+          "title": "Effects of water soaking and/or sodium polystyrene sulfonate addition on potassium content of foods.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24720622/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "pubmed"
+        },
+        {
+          "title": "Effect of Tomato and Cucumber Juice on Blood Pressure in Hypertensive Patients: a Quasi-Experimental",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40666740/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        },
+        {
+          "title": "Dietary management of pediatric patients with kidney disease: recommendations by the Korean Society ",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41837398/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        }
+      ],
+      "fields_ok": true
+    },
+    {
+      "claim_id": 686,
+      "video_id": "odZgEDFDmbE",
+      "claim_text": "Taze domatesi pişirip kabuğunu soymak içerdiği oksalat yükünü azaltır.",
+      "search_query_en": "peeling cooking tomato oxalate reduction",
+      "native_path": "europepmc",
+      "native": {
+        "sufficient": false,
+        "relevance_ok": false,
+        "quality_ok": false,
+        "reason": "weak_key_term_match",
+        "best_tier": null,
+        "kept_count": 0,
+        "max_rerank_score": null
+      },
+      "serper_invoked": true,
+      "serper_raw_count": 9,
+      "after_serper": {
+        "sufficient": true,
+        "relevance_ok": true,
+        "quality_ok": true,
+        "reason": "ok",
+        "best_tier": "primary_study",
+        "kept_count": 9,
+        "max_rerank_score": null
+      },
+      "serper_sufficient": true,
+      "hybrid_path": "europepmc+serper",
+      "package_field_proof": [
+        {
+          "title": "Effect of different cooking methods on vegetable oxalate ...",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15826055/",
+          "retrieval_tier": "serper",
+          "source_tier": "primary_study",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "How Cooking Reduces Oxalate: The Science of Boiling, ...",
+          "url": "https://oxalateguard.com/blog/how-cooking-reduces-oxalate",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "Management Strategies for the Anti-nutrient Oxalic Acid in Foods",
+          "url": "https://link.springer.com/article/10.1007/s11947-024-03726-0",
+          "retrieval_tier": "serper",
+          "source_tier": "primary_study",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "Does soaking vegetables reduce oxalate?",
+          "url": "https://kidneystonediet.com/ep/does-soaking-vegetables-reduce-oxalate/",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "Peeling tomatoes for flavor and nutrition",
+          "url": "https://www.facebook.com/groups/kitchenculturecookingclub/posts/1444502125938995/",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        }
+      ],
+      "fields_ok": true
+    },
+    {
+      "claim_id": 746,
+      "video_id": "bZsorXWeLhM",
+      "claim_text": "Kivideki aktinidin enzimi damarları genişletici özelliğe sahiptir ve kan basıncını kontrol etmeye yardımcı olur.",
+      "search_query_en": "kiwi actinidin blood pressure vasodilation",
+      "native_path": "europepmc+medlineplus",
+      "native": {
+        "sufficient": false,
+        "relevance_ok": false,
+        "quality_ok": false,
+        "reason": "weak_key_term_match",
+        "best_tier": null,
+        "kept_count": 0,
+        "max_rerank_score": null
+      },
+      "serper_invoked": true,
+      "serper_raw_count": 10,
+      "after_serper": {
+        "sufficient": true,
+        "relevance_ok": true,
+        "quality_ok": true,
+        "reason": "ok",
+        "best_tier": "primary_study",
+        "kept_count": 10,
+        "max_rerank_score": null
+      },
+      "serper_sufficient": true,
+      "hybrid_path": "europepmc+medlineplus+serper",
+      "package_field_proof": [
+        {
+          "title": "Kiwi for Heart Health: How It Helps Lower Blood Pressure and ... - Sukino",
+          "url": "https://sukino.com/kiwi-for-heart-health-how-it-helps-lower-blood-pressure-and-cholesterol/",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "The Powerful Protein-Digesting Enzyme from Kiwifruit - Actazin",
+          "url": "https://actazin.com/kiwifruit-protein-digesting-enzyme/",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "Kiwi: A Tangy Fruit That's Sweet on Your Blood Pressure Looking for a ...",
+          "url": "https://www.facebook.com/smartbpapp/videos/-kiwi-a-tangy-fruit-thats-sweet-on-your-blood-pressure-looking-for-a-natural-way/1874726683308559/",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "the Kiwi fruit! Kiwis may be small, but they pack a lot of nutrition in their ...",
+          "url": "https://www.facebook.com/mtalverniahospital/posts/today-is-world-hypertension-day-so-let-us-look-at-one-fruit-which-helps-to-keep-/10155881947257163/",
+          "retrieval_tier": "serper",
+          "source_tier": "other",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        },
+        {
+          "title": "Actinidin in Green and SunGold Kiwifruit Improves Digestion ... - MDPI",
+          "url": "https://www.mdpi.com/2304-8158/11/18/2739",
+          "retrieval_tier": "serper",
+          "source_tier": "primary_study",
+          "evidence_content_type": "search_snippet",
+          "provider": "serper"
+        }
+      ],
+      "fields_ok": true
+    },
+    {
+      "claim_id": 752,
+      "video_id": "bZsorXWeLhM",
+      "claim_text": "Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi koruduğu kanıtlanmıştır.",
+      "search_query_en": "blueberry insulin sensitivity microvascular diabetes",
+      "native_path": "europepmc+medlineplus",
+      "native": {
+        "sufficient": true,
+        "relevance_ok": true,
+        "quality_ok": true,
+        "reason": "ok",
+        "best_tier": "primary_study",
+        "kept_count": 1,
+        "max_rerank_score": null
+      },
+      "serper_invoked": false,
+      "serper_raw_count": 0,
+      "after_serper": null,
+      "serper_sufficient": false,
+      "hybrid_path": "europepmc+medlineplus",
+      "package_field_proof": [
+        {
+          "title": "&lt;i&gt;Vaccinium oldhamii&lt;/i&gt; fruits improve insulin resistance by inhibiting inflammation i",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41377596/",
+          "retrieval_tier": "native",
+          "source_tier": "primary_study",
+          "evidence_content_type": "abstract",
+          "provider": "europepmc"
+        }
+      ],
+      "fields_ok": true
+    }
+  ]
+}

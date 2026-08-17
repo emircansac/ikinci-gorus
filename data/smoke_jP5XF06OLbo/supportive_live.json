@@ -1,0 +1,34 @@
+{
+  "note": "Canlı supportive deneme (--recheck-ids 745,752 --skip-nli). Önceki cite_source her ikisinde web_search_override.",
+  "retrieval_cited": 1,
+  "web_search_override": 1,
+  "n": 2,
+  "results": [
+    {
+      "claim_id": 745,
+      "claim_text": "Kivideki C vitamini, yüksek kan şekerinin damarlarda yarattığı oksidatif stresi önlemede koruyucu rol oynar.",
+      "specificity_tier": "supportive",
+      "epistemic_class": null,
+      "force_package_only": false,
+      "cite_source": "retrieval_cited",
+      "final_verdict": "tartışmalı",
+      "confidence": 0.35,
+      "calibration_flags": "retrieval_cited,specificity_tier:supportive",
+      "retrieval_path": "pubmed+europepmc+medlineplus",
+      "prev_cite_source": "web_search_override"
+    },
+    {
+      "claim_id": 752,
+      "claim_text": "Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi koruduğu kanıtlanmıştır.",
+      "specificity_tier": "supportive",
+      "epistemic_class": null,
+      "force_package_only": false,
+      "cite_source": "web_search_override",
+      "final_verdict": "tartışmalı",
+      "confidence": 0.35,
+      "calibration_flags": "web_search_override,specificity_tier:supportive",
+      "retrieval_path": "europepmc+medlineplus",
+      "prev_cite_source": "web_search_override"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[factcheck] yeniden değerlendirilecek: 3 iddia ([745, 752, 663])
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 5842.67it/s]
+[evidence] alaka filtresi: 1 aday elendi (terimler=['vitamin', 'oxidative', 'stress', 'kivideki', 'vitamini', 'yüksek'], kalan=24)
+[evidence] hibrit yol: pubmed+europepmc+medlineplus (5 parça)
+  [claude] usage input=50306 output=1161
+  [745] tartışmalı conf=0.35 tier=primary_study cite=web_search_override path=pubmed+europepmc+medlineplus direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar karışık: intra-arteriyel/IV vitamin C infüzyonu bazı çalışmalarda diyabetik hastalarda endotel disfonksiyonunu ve oksidatif stresi iyileştirmiş, fakat oral vitamin C ile yapılan randomize kontrollü bir çalışma Tip II diyabette oksi
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 14 aday elendi (terimler=['blueberry', 'blueberries', 'vaccinium', 'yaban mersini', 'yaban', 'mersini'], kalan=1)
+[evidence] hibrit yol: europepmc+medlineplus (1 parça)
+  [claude] usage input=22711 output=889
+  [752] tartışmalı conf=0.35 tier=primary_study cite=web_search_override path=europepmc+medlineplus direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İnsülin duyarlılığı bileşeni için bazı küçük klinik çalışmalar destek sunuyor: bir çalışmada yaban mersini smoothisi tüketen grupta insülin duyarlılığında plasebo grubuna göre beş kat daha fazla artış bildirilmiş, ancak başka randomize kont
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 5 aday elendi (terimler=['zucchini', 'courgette', 'squash', 'kabak', 'kabağın', 'den'], kalan=7)
+[evidence] hibrit yol: europepmc+medlineplus (5 parça)
+  [claude] usage input=34114 output=982
+  [663] tartışmalı conf=0.35 tier=other cite=web_search_override path=europepmc+medlineplus direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kabağın su içeriğinin yaklaşık %92-95 aralığında olduğu USDA tabanlı beslenme veritabanlarınca desteklenmektedir; örneğin myfooddata/USDA verisi çiğ kabağın 'This food consists of 95.3% water' olduğunu, foodnutrify ise 'zucchini's 94.8% wat
+           kalibrasyon: tier_url:nutrition_db->other,web_search_override
+
+[factcheck] 3 iddia işlendi, 0 iddia hata verdi (tekrar denenecek).
+[factcheck] ham reasoning -> /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/factcheck_debug.jsonl
+[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).

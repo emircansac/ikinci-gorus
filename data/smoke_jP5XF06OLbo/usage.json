@@ -1,0 +1,30 @@
+{
+  "extraction": {
+    "calls": 5,
+    "chunks": [
+      {"chunk": 1, "input": 6834, "output": 1941},
+      {"chunk": 2, "input": 6819, "output": 2154},
+      {"chunk": 3, "input": 6863, "output": 2446},
+      {"chunk": 4, "input": 6917, "output": 2473},
+      {"chunk": 5, "input": 5256, "output": 1463}
+    ],
+    "input_tokens": 32689,
+    "output_tokens": 10477
+  },
+  "factcheck_20": {
+    "calls": 20,
+    "input_tokens": 1097388,
+    "output_tokens": 24484
+  },
+  "recheck_3": {
+    "calls": 3,
+    "input_tokens": 107131,
+    "output_tokens": 3032
+  },
+  "total": {
+    "claude_calls": 28,
+    "input_tokens": 1237208,
+    "output_tokens": 37993,
+    "note": "Fact-check input includes web_search tool traffic. Console dollar amount not available from this environment."
+  }
+}

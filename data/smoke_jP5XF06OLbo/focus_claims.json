@@ -1,0 +1,260 @@
+{
+  "1281": {
+    "claim_id": 1281,
+    "claim_text": "62-76 yaş arası katılımcılarda 12 hafta karabiberli zerdeçal kullanımı inflamasyon belirteçlerini düşürmüş ve egzersiz sonrası kas eklem ağrılarını azaltmıştır.",
+    "initial_risk": "medium",
+    "raw_verdict": "belirsiz",
+    "raw_conf": 0.3,
+    "raw_source_tier": "systematic_review",
+    "raw_source_url": "https://pubmed.ncbi.nlm.nih.gov/38561618/",
+    "cal_verdict": "belirsiz",
+    "cal_conf": 0.3,
+    "cal_source_tier": "primary_study",
+    "source_url": "https://pubmed.ncbi.nlm.nih.gov/38561618/",
+    "source_host": "pubmed.ncbi.nlm.nih.gov",
+    "cite_source": "retrieval_cited",
+    "retrieval_path": "pubmed_mesh+europepmc",
+    "retrieval_tiers": [
+      "native",
+      "native",
+      "native",
+      "native",
+      "native"
+    ],
+    "package_hosts": [
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "package_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/42072098/",
+      "https://pubmed.ncbi.nlm.nih.gov/41488278/",
+      "https://pubmed.ncbi.nlm.nih.gov/41701327/",
+      "https://pubmed.ncbi.nlm.nih.gov/38561618/",
+      "https://pubmed.ncbi.nlm.nih.gov/40735406/"
+    ],
+    "directness": "indirect",
+    "stance": "insufficient",
+    "flags": "tier_url:systematic_review->primary_study,retrieval_cited",
+    "mismatch": false,
+    "healio_type_drop": false,
+    "tier_url_flag": [
+      "tier_url:systematic_review->primary_study"
+    ],
+    "reasoning": "Retrieval paketindeki kaynaklar curcumin+piperine'in inflamasyon ve oksidatif stres üzerine genel etkilerini ele alıyor; örneğin [4] curcumin+piperine'in RCT'lerde inflamasyon belirteçleri üzerindeki etkisini inceleyen bir meta-analiz ancak katılımcı yaş aralığı (62-76) veya egzersiz sonrası kas-eklem ağrısı spesifik sonucu belirtilmemiş. Web aramasında da bu yaş aralığına (62-76 yaş) ve 12 haftalık süreye özgü bir turmeric/piperine + egzersiz sonrası ağrı çalışması bulunamadı; bulunan çalışmalar farklı yaş gruplarına (18-65, ≥40, ortalama 28-34 yaş) veya farklı sürelere (5-21 gün) odaklanıyor"
+  },
+  "1284": {
+    "claim_id": 1284,
+    "claim_text": "Ölçülü kahve tüketimi Alzheimer ve Parkinson gibi nörodejeneratif hastalıklara yakalanma riskini azaltır.",
+    "initial_risk": "medium",
+    "raw_verdict": "tartışmalı",
+    "raw_conf": 0.4,
+    "raw_source_tier": "systematic_review",
+    "raw_source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6213481/",
+    "cal_verdict": "tartışmalı",
+    "cal_conf": 0.4,
+    "cal_source_tier": "primary_study",
+    "source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6213481/",
+    "source_host": "ncbi.nlm.nih.gov",
+    "cite_source": "web_search_override",
+    "retrieval_path": "pubmed_mesh+europepmc",
+    "retrieval_tiers": [
+      "native",
+      "native",
+      "native",
+      "native",
+      "native"
+    ],
+    "package_hosts": [
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "package_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/28507563/",
+      "https://pubmed.ncbi.nlm.nih.gov/29417473/",
+      "https://pubmed.ncbi.nlm.nih.gov/39168304/",
+      "https://pubmed.ncbi.nlm.nih.gov/26677204/",
+      "https://pubmed.ncbi.nlm.nih.gov/38879999/"
+    ],
+    "directness": "direct",
+    "stance": "mixed",
+    "flags": "tier_url:systematic_review->primary_study,web_search_override",
+    "mismatch": false,
+    "healio_type_drop": false,
+    "tier_url_flag": [
+      "tier_url:systematic_review->primary_study"
+    ],
+    "reasoning": "İddia hem Alzheimer hem Parkinson için risk azalmasını öne sürüyor ama kanıtlar bu iki hastalık için farklı yönde. Parkinson için epidemiyolojik ilişki daha tutarlı bulunmuş; sağlanan derlemede 'coffee-tea-caffeine consumption' olası koruyucu faktör olarak listeleniyor, ancak bunun 'ters nedensellik ürünü olabileceği' de belirtiliyor. Alzheimer/demans için ise güncel doz-yanıt meta-analizi (Larsson & Orsini 2018, 8 kohort, 328,885 kişi) kahve tüketimi ile demans veya Alzheimer riski arasında istatistiksel olarak anlamlı bir ilişki bulamadı ve doğrusal trendden sapma göstermedi. Ayrıca 2020 met"
+  },
+  "1256": {
+    "claim_id": 1256,
+    "claim_text": "Kakao içindeki flavonol bileşikleri nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır.",
+    "initial_risk": "low",
+    "raw_verdict": "doğrulanmış",
+    "raw_conf": 0.7,
+    "raw_source_tier": "primary_study",
+    "raw_source_url": "https://doi.org/10.3390/nu13051646",
+    "cal_verdict": "doğrulanmış",
+    "cal_conf": 0.7,
+    "cal_source_tier": "primary_study",
+    "source_url": "https://doi.org/10.3390/nu13051646",
+    "source_host": "doi.org",
+    "cite_source": "web_search_override",
+    "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+    "retrieval_tiers": [
+      "native",
+      "native",
+      "native",
+      "native",
+      "native"
+    ],
+    "package_hosts": [
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "package_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/18991246/",
+      "https://pubmed.ncbi.nlm.nih.gov/35094491/",
+      "https://pubmed.ncbi.nlm.nih.gov/33235219/",
+      "https://pubmed.ncbi.nlm.nih.gov/38150009/",
+      "https://pubmed.ncbi.nlm.nih.gov/22173910/"
+    ],
+    "directness": "direct",
+    "stance": "supports",
+    "flags": "web_search_override",
+    "mismatch": false,
+    "healio_type_drop": false,
+    "tier_url_flag": [],
+    "reasoning": "Kanıtlar, kakao flavanollerinin damar esnekliği/endotel fonksiyonunu nitrik oksit sinyali yoluyla iyileştirdiğini ve kas dokusuna (m. vastus lateralis) kan akışını (mikrovasküler kan hacmi) artırdığını doğrudan gösteriyor. Sian ve ark. çalışmasında akut kakao flavanol alımının, plazma epikateşin artışıyla eşzamanlı olarak kas mikrovasküler kan hacmini artırdığı ve bunun artmış biyoaktif nitrik oksit varlığından kaynaklandığı belirtiliyor. Ancak bu tek bir küçük çalışmadır (n=12, yaşlı yetişkinler) ve başka çalışmalar (örn. bisikletçilerde egzersiz sırasında) etkinin sınırlı/minimal olabileceği"
+  },
+  "745": {
+    "claim_id": 745,
+    "claim_text": "Kivideki C vitamini, yüksek kan şekerinin damarlarda yarattığı oksidatif stresi önlemede koruyucu rol oynar.",
+    "initial_risk": "medium",
+    "raw_verdict": "tartışmalı",
+    "raw_conf": 0.35,
+    "raw_source_tier": "primary_study",
+    "raw_source_url": "https://journals.physiology.org/doi/full/10.1152/ajpheart.00768.2005",
+    "cal_verdict": "tartışmalı",
+    "cal_conf": 0.35,
+    "cal_source_tier": "primary_study",
+    "source_url": "https://journals.physiology.org/doi/full/10.1152/ajpheart.00768.2005",
+    "source_host": "journals.physiology.org",
+    "cite_source": "web_search_override",
+    "retrieval_path": "pubmed+europepmc+medlineplus",
+    "retrieval_tiers": [
+      "native",
+      "native",
+      "native",
+      "native",
+      "native"
+    ],
+    "package_hosts": [
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "package_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/24130351/",
+      "https://pubmed.ncbi.nlm.nih.gov/33287462/",
+      "https://pubmed.ncbi.nlm.nih.gov/12241530/",
+      "https://pubmed.ncbi.nlm.nih.gov/12641541/",
+      "https://pubmed.ncbi.nlm.nih.gov/10601878/"
+    ],
+    "directness": "indirect",
+    "stance": "mixed",
+    "flags": "web_search_override",
+    "mismatch": false,
+    "healio_type_drop": false,
+    "tier_url_flag": [],
+    "reasoning": "Kanıtlar karışık: intra-arteriyel/IV vitamin C infüzyonu bazı çalışmalarda diyabetik hastalarda endotel disfonksiyonunu ve oksidatif stresi iyileştirmiş, fakat oral vitamin C ile yapılan randomize kontrollü bir çalışma Tip II diyabette oksidatif stres, endotel fonksiyonu veya kan basıncı üzerinde etki bulamamıştır. Ayrıca bir derleme, antioksidan vitaminlerin (C ve E) hayvan modellerinde umut verici olsa da diyabetik hastalarda klinik kardiyovasküler sonuçların tutarsız olduğunu belirtmektedir. İddianın 'kivi' bileşeni için ise (kividen alınan C vitamininin bu etkiyi göstermesi) doğrudan klini"
+  },
+  "752": {
+    "claim_id": 752,
+    "claim_text": "Yaban mersini insülin duyarlılığını artırır ve böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemi koruduğu kanıtlanmıştır.",
+    "initial_risk": "medium",
+    "raw_verdict": "tartışmalı",
+    "raw_conf": 0.35,
+    "raw_source_tier": "primary_study",
+    "raw_source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4488775/",
+    "cal_verdict": "tartışmalı",
+    "cal_conf": 0.35,
+    "cal_source_tier": "primary_study",
+    "source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4488775/",
+    "source_host": "ncbi.nlm.nih.gov",
+    "cite_source": "web_search_override",
+    "retrieval_path": "europepmc+medlineplus",
+    "retrieval_tiers": [
+      "native"
+    ],
+    "package_hosts": [
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "package_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/41377596/"
+    ],
+    "directness": "indirect",
+    "stance": "mixed",
+    "flags": "web_search_override",
+    "mismatch": false,
+    "healio_type_drop": false,
+    "tier_url_flag": [],
+    "reasoning": "İnsülin duyarlılığı bileşeni için bazı küçük klinik çalışmalar destek sunuyor: bir çalışmada yaban mersini smoothisi tüketen grupta insülin duyarlılığında plasebo grubuna göre beş kat daha fazla artış bildirilmiş, ancak başka randomize kontrollü çalışmalarda (USDA Beltsville çalışması ve metabolik sendromlu yetişkinlerde yapılan çalışma) anlamlı fark bulunamamış, yani sonuçlar tutarsız/karışık. Böbrek, retina ve periferik sinirlerdeki mikrovasküler sistemin 'korunduğunun kanıtlandığı' iddiası ise büyük ölçüde hücre/hayvan çalışmalarına dayanıyor; insan klinik kanıtı esas olarak endotel fonksiy"
+  },
+  "663": {
+    "claim_id": 663,
+    "claim_text": "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar.",
+    "initial_risk": "low",
+    "raw_verdict": "tartışmalı",
+    "raw_conf": 0.35,
+    "raw_source_tier": "nutrition_db",
+    "raw_source_url": "https://tools.myfooddata.com/nutrition-facts/169291/wt1",
+    "cal_verdict": "tartışmalı",
+    "cal_conf": 0.35,
+    "cal_source_tier": "other",
+    "source_url": "https://tools.myfooddata.com/nutrition-facts/169291/wt1",
+    "source_host": "tools.myfooddata.com",
+    "cite_source": "web_search_override",
+    "retrieval_path": "europepmc+medlineplus",
+    "retrieval_tiers": [
+      "native",
+      "native",
+      "native",
+      "native",
+      "native"
+    ],
+    "package_hosts": [
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "package_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/41389339/",
+      "https://pubmed.ncbi.nlm.nih.gov/37009044/",
+      "https://pubmed.ncbi.nlm.nih.gov/40251384/",
+      "https://pubmed.ncbi.nlm.nih.gov/41369075/",
+      "https://pubmed.ncbi.nlm.nih.gov/38929922/"
+    ],
+    "directness": "indirect",
+    "stance": "mixed",
+    "flags": "tier_url:nutrition_db->other,web_search_override",
+    "mismatch": false,
+    "healio_type_drop": false,
+    "tier_url_flag": [
+      "tier_url:nutrition_db->other"
+    ],
+    "reasoning": "Kabağın su içeriğinin yaklaşık %92-95 aralığında olduğu USDA tabanlı beslenme veritabanlarınca desteklenmektedir; örneğin myfooddata/USDA verisi çiğ kabağın 'This food consists of 95.3% water' olduğunu, foodnutrify ise 'zucchini's 94.8% water content' olduğunu belirtiyor, bu da %92'nin üzerinde bir değer olup iddianın bu kısmıyla uyumludur. Ancak iddianın 'böbreği yormadan hidrasyon sağlar' kısmı için hiçbir kaynak (ne pakette ne web aramasında) böbrek fonksiyonu/yükü ile kabak tüketimi arasında doğrudan bir mekanistik veya klinik ilişki kurmuyor; bu, sağlıklı böbreklerde sıvı alımının genel o"
+  }
+}

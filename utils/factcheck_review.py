@@ -6,6 +6,7 @@ from utils.reasoning_patterns import PARTIAL_REASONING_RE
 HIGH_RISK_HUMAN_REVIEW_CATEGORIES = {"tedavi", "doz", "mucize-ürün", "tanı"}
 
 VERDICT_REASONING_MISMATCH_FLAG = "verdict_reasoning_mismatch"
+PACKAGE_ONLY_FORCED_FLAG = "package_only_forced"
 BINARY_VERDICTS_FOR_MISMATCH = frozenset({"doğrulanmış", "yanlış"})
 
 _DRUG_INTERACTION_RE = re.compile(
@@ -67,6 +68,7 @@ def compute_needs_human(
         or (library_review_hit is not None)
         or ("library_flag_review" in flags)
         or (VERDICT_REASONING_MISMATCH_FLAG in flags)
+        or (PACKAGE_ONLY_FORCED_FLAG in flags)
     )
 
 

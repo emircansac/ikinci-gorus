@@ -111,3 +111,29 @@ def test_tartışmalı_skips_mismatch_check():
     }
     assert not apply_verdict_reasoning_mismatch(final)
     assert VERDICT_REASONING_MISMATCH_FLAG not in (final.get("calibration_flags") or "")
+
+
+def test_package_only_forced_always_needs_human():
+    from utils.factcheck_review import PACKAGE_ONLY_FORCED_FLAG
+    assert compute_needs_human(
+        category="diğer",
+        initial_risk="low",
+        claim_text="Ölçülü kahve Alzheimer riskini azaltır.",
+        parse_failed=False,
+        final_verdict="tartışmalı",
+        escalated_flag=1,
+        calibrated={"needs_human": False},
+        source_directness="direct",
+        calibration_flags=PACKAGE_ONLY_FORCED_FLAG,
+    )
+    assert not compute_needs_human(
+        category="diğer",
+        initial_risk="low",
+        claim_text="Ölçülü kahve Alzheimer riskini azaltır.",
+        parse_failed=False,
+        final_verdict="tartışmalı",
+        escalated_flag=1,
+        calibrated={"needs_human": False},
+        source_directness="direct",
+        calibration_flags="retrieval_cited",
+    )

@@ -1,0 +1,125 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[factcheck] yeniden değerlendirilecek: 20 iddia ([1244, 1245, 1252, 1253, 1242, 1243, 1247, 1248, 1254, 1255, 1261, 1262, 1263, 1265, 1267, 1268, 1271, 1281, 1284, 1256])
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6849.33it/s]
+[evidence] alaka filtresi: 3 aday elendi (terimler=['post', 'waking', 'anabolic', 'window', 'muscle', 'protein'], kalan=9)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=30334 output=1055
+  [1244] tartışmalı conf=0.50 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia iki spesifik ve güçlü önerme içeriyor: (1) uyandıktan sonraki 20 dakika içinde beslenmemenin akut bir eşik etkisi olduğu ve (2) bunun 'yıllar içinde kalıcı/birikimli kas kaybı hasarına' yol açtığı. Egzersiz-beslenme zamanlaması litera
+           kalibrasyon: indirect_binary_verdict,default_conf,web_search_override
+[evidence] alaka filtresi: 3 aday elendi (terimler=['coffee', 'additives', 'reverse', 'sarcopenia', 'muscle', 'loss'], kalan=8)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=57529 output=1284
+  [1245] tartışmalı conf=0.35 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Nature Metabolism (2024) çalışması, kahvede doğal bulunan trigonelline'in solucan, fare ve insan kas hücrelerinde (in vitro) NAD+ düzeyini artırdığını ve yaşlanmaya bağlı kas fonksiyon kaybını hafiflettiğini gösteriyor; ayrıca <cite index="
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 2 aday elendi (terimler=['cassia', 'cinnamon', 'cinnamomum', 'tarçın', 'tarcin', 'coumarin'], kalan=12)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=33718 output=799
+  [1252] doğrulanmış conf=0.65 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           BfR ve ANSES gibi resmi risk değerlendirme kurumları, Kasya tarçınının (Cinnamomum cassia) Ceylon tarçınına kıyasla yüksek kumarin içerdiğini ve kumarinin özellikle düzenli/yüksek dozda alındığında karaciğerde birikip hasar yapabileceğini a
+           kalibrasyon: tier_cap:other,tier_url:guideline->other,verdict_reasoning_mismatch,web_search_override
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=35739 output=626
+  [1253] doğrulanmış conf=0.68 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Birden fazla bağımsız kaynak, kasya tarçınının (Cinnamomum cassia) Ceylon tarçınına kıyasla yüksek düzeyde kumarin içerdiğini ve kumarinin antikoagülan özelliği nedeniyle warfarin gibi kan sulandırıcılarla etkileşip kanama riskini artırabil
+           kalibrasyon: verdict_reasoning_mismatch,web_search_override
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+  [claude] usage input=59286 output=1930
+  [1242] tartışmalı conf=0.40 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Sistematik derleme, kalça kırığı sonrası bağımsızlık kaybının ciddi ve yaygın bir sonuç olduğunu doğruluyor, ancak 'dörtte biri' (%25) rakamı literatürdeki tüm aralığı temsil etmiyor. Bir kritik derleme, temel günlük yaşam aktivitelerinde b
+           kalibrasyon: tier_url:systematic_review->primary_study,web_search_override
+[evidence] alaka filtresi: 1 aday elendi (terimler=['fasting', 'coffee', 'muscle', 'loss', 'sarcopenia', 'sabah'], kalan=9)
+[evidence] hibrit yol: europepmc (5 parça)
+  [claude] usage input=112864 output=1748
+  [1243] yanlış conf=0.55 tier=other cite=web_search_override path=europepmc direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki PubMed makaleleri (kahve-vücut kompozisyonu, sarkopeni-diyabetik ayak, MASLD, sağlıklı yaşlanma) bu spesifik iddiayı (sabah aç karnına sade kahvenin kas kaybını hızlandırdığı) doğrudan test etmiyor; sadece genel sarkopeni mekanizm
+           kalibrasyon: web_search_override
+[evidence] hibrit yol: pubmed+europepmc (5 parça)
+  [claude] usage input=73075 output=1365
+  [1247] belirsiz conf=0.20 tier=other cite=web_search_override path=pubmed+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Ramón y Cajal Üniversite Hastanesi'ne ait sarkopeni çalışmaları bulunabildi, ancak bunlar iddiada belirtilen spesifik popülasyonu (evde bağımsız yaşayan 65 yaş üstü) ve rakamı (%29'dan fazla, 'ileri/şiddetli sarkopeni') doğrulamıyor. Buluna
+           kalibrasyon: tier_url:primary_study->other,web_search_override
+[evidence] hibrit yol: pubmed+europepmc+medlineplus (5 parça)
+  [claude] usage input=26763 output=765
+  [1248] tartışmalı conf=0.45 tier=primary_study cite=web_search_override path=pubmed+europepmc+medlineplus direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın ilk kısmı (kas zayıflığı düşme riskini artırır) sistematik derleme/meta-analizle desteklenir, ancak 'katlanarak' (exponential) ifadesi abartılıdır: Moreland ve ark.'nın meta-analizi alt ekstremite güçsüzlüğü için düşme riskinde OR 
+           kalibrasyon: tier_url:systematic_review->primary_study,web_search_override
+[evidence] alaka filtresi: 3 aday elendi (terimler=['ceylon', 'cinnamon', 'cinnamomum', 'tarçın', 'tarcin', 'glucose'], kalan=13)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+  [claude] usage input=30125 output=679
+  [1254] tartışmalı conf=0.42 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Hücre kültürü (C2C12 miyosit, 3T3-L1 adiposit) ve hayvan çalışmaları tarçın ekstresinin/sinamaldehitin GLUT4 translokasyonunu ve kas hücrelerine glikoz alımını AMPK yolu üzerinden artırdığını gösteriyor. Ancak aynı kaynak çalışmada tarçın e
+           kalibrasyon: web_search_override
+[evidence] native yetersiz (reason=weak_key_term_match relevance_ok=False quality_ok=False) — Serper
+[evidence] Serper yeterli (reason=ok best_tier=primary_study)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['ceylon', 'cinnamon', 'cinnamomum', 'tarçın', 'tarcin', 'dosage'], kalan=10)
+[evidence] hibrit yol: europepmc+serper (5 parça)
+  [claude] usage input=95195 output=2601
+  [1255] tartışmalı conf=0.35 tier=other cite=web_search_override path=europepmc+serper direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Yarım çay kaşığı (yaklaşık 1-2,5g) doz genel sağlık/wellness kullanımı için blog kaynaklarında sık önerilen bir aralıkta, ancak Fitoterapi Derneği kaynağına göre kan şekerini düşürücü etkinin gözlendiği tüm çalışmalarda doz 3g/gün'ün üzerin
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 5 aday elendi (terimler=['mct', 'mcts', 'medium-chain', 'orta zincirli', 'oil', 'dosage'], kalan=8)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=35473 output=1075
+  [1261] tartışmalı conf=0.35 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           MCT yağına düşük dozla (genelde 1 çay kaşığı/5 mL) başlayıp kademeli artırma prensibi birçok kaynakta yaygın ve GI yan etkilerini azaltmak için mantıklı bir öneri olarak tekrarlanıyor; örneğin bir kaynak 'increase your MCT tolerance by 1 te
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 8 aday elendi (terimler=['mct', 'mcts', 'medium-chain', 'orta zincirli', 'oil', 'ldl'], kalan=12)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=71019 output=936
+  [1262] doğrulanmış conf=0.65 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Drugs.com'un ilaç bilgi sayfası, MCT kullanmadan önce ciddi karaciğer sorunları olan kişilerin doktora veya eczacıya danışmasını açıkça tavsiye ediyor. Karaciğer bileşeni için kanıt güçlü ve doğrudan; kolesterol bileşeni için ise sistematik
+           kalibrasyon: tier_cap:other,web_search_override
+[evidence] alaka filtresi: 1 aday elendi (terimler=['insufficient', 'protein', 'breakfast', 'muscle', 'catabolism', 'kahvaltıda'], kalan=13)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=35615 output=1936
+  [1263] tartışmalı conf=0.35 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın genel mekanizması (protein yetersizliğinde vücudun amino asit ihtiyacı için kas dokusunu kullanması) fizyolojik olarak gerçek bir süreçtir, ancak bunun 'kahvaltıda' tek seferlik yetersiz protein alımıyla 'hayatta kalmak için' akut/
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 1 aday elendi (terimler=['whey', 'protein', 'collagen', 'collagenous', 'kolajen', 'kolagen'], kalan=19)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=105778 output=1719
+[claude] escalate_factcheck JSON parse hatası. Ham çıktı: Bu iddia, spesifik bir vaka (61 yaşındaki tek bir hastanın kişisel deneyimi) hakkında olduğu için, sağlanan kanıt paketindeki çalışmaların hiçbiri bu spesifik vakayı doğrudan ele almıyor. Bu genel randomize kontrollü çalışmalar ve mekanistik araştırmalar olup, tek bir hastanın 8 haftalık takibini iç
+  [1265] None conf=— tier=— cite=— path=pubmed_mesh+europepmc direct=— stance=— (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           LLM çıktısı parse edilemedi — insan gözden geçirmeli
+[evidence] alaka filtresi: 7 aday elendi (terimler=['hydrolyzed', 'collagen', 'collagenous', 'kolajen', 'kolagen', 'joint'], kalan=12)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=93980 output=1141
+  [1267] tartışmalı conf=0.40 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar karışık: Bazı 12 haftalık RCT'ler 5-10 g/gün hidrolize kolajen ile eklem ağrısında anlamlı azalma bulmuş (örn. 5g/12 hafta diz-kalça ağrısı çalışmaları, dinlenme ve yürüme ağrısında p<0.05 azalma), ancak dikkat çekici bir RCT olan 
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 1 aday elendi (terimler=['hydrolyzed', 'collagen', 'collagenous', 'kolajen', 'kolagen', 'knee'], kalan=15)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=32432 output=1043
+  [1268] belirsiz conf=0.25 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddiada belirtilen çok spesifik kombinasyon (60-78 yaş aralığı, tam olarak %41 azalma, hem diz hem kalça ağrısı, 12 haftalık kontrol grubu karşılaştırması) hiçbir bulunan çalışmayla birebir eşleşmiyor. Benzer çalışmalar farklı yaş aralıklar
+           kalibrasyon: tier_url:primary_study->other,web_search_override
+[evidence] alaka filtresi: 2 aday elendi (terimler=['collagen', 'collagenous', 'kolajen', 'kolagen', 'gummy', 'dosage'], kalan=8)
+[evidence] hibrit yol: europepmc (5 parça)
+  [claude] usage input=60071 output=1144
+  [1271] tartışmalı conf=0.45 tier=other cite=web_search_override path=europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar karışık: piyasadaki jelibon ve kapsül formundaki takviyeler gerçekten de klinik çalışmalarda kullanılan dozların (genellikle 2,5-20 g) çok altında, sıklıkla 100-200 mg gibi miktarlar içeriyor. Ancak bazı randomize kontrollü çalışma
+           kalibrasyon: web_search_override
+[evidence] alaka filtresi: 1 aday elendi (terimler=['curcumin', 'piperine', 'inflammation', 'markers', 'exercise', 'induced'], kalan=19)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=31911 output=1054
+  [1281] belirsiz conf=0.30 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Retrieval paketindeki kaynaklar curcumin+piperine'in inflamasyon ve oksidatif stres üzerine genel etkilerini ele alıyor; örneğin [4] curcumin+piperine'in RCT'lerde inflamasyon belirteçleri üzerindeki etkisini inceleyen bir meta-analiz ancak
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited
+[evidence] alaka filtresi: 3 aday elendi (terimler=['coffee', 'consumption', 'alzheimer', 'parkinson', 'ölçülü', 'kahve'], kalan=17)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [claude] usage input=27122 output=804
+  [1284] tartışmalı conf=0.40 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia hem Alzheimer hem Parkinson için risk azalmasını öne sürüyor ama kanıtlar bu iki hastalık için farklı yönde. Parkinson için epidemiyolojik ilişki daha tutarlı bulunmuş; sağlanan derlemede 'coffee-tea-caffeine consumption' olası koruyu
+           kalibrasyon: tier_url:systematic_review->primary_study,web_search_override
+[evidence] alaka filtresi: 14 aday elendi (terimler=['cacao', 'flavonols', 'nitric', 'oxide', 'flow', 'muscle'], kalan=11)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+  [claude] usage input=49259 output=780
+  [1256] doğrulanmış conf=0.70 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar, kakao flavanollerinin damar esnekliği/endotel fonksiyonunu nitrik oksit sinyali yoluyla iyileştirdiğini ve kas dokusuna (m. vastus lateralis) kan akışını (mikrovasküler kan hacmi) artırdığını doğrudan gösteriyor. Sian ve ark. çalı
+           kalibrasyon: web_search_override
+
+[factcheck] 20 iddia işlendi, 0 iddia hata verdi (tekrar denenecek).
+[factcheck] ham reasoning -> /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/factcheck_debug.jsonl
+[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).

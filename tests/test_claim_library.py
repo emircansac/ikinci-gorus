@@ -77,10 +77,14 @@ def test_classify_library_match_bands():
     assert classify_library_match(0.90, 0.90, numeric_conflict=True, auto_threshold=0.8055, lexical_threshold=0.35) == "flag_review"
 
 
-def test_663_no_guideline_false_positive():
+def test_663_no_guideline_false_positive(monkeypatch):
+    monkeypatch.setattr(
+        "utils.nli.nli_check",
+        lambda *a, **k: {"nli_label": "NOT_ENOUGH_INFO", "nli_confidence": 0.4, "raw": {}},
+    )
     text = "Kabağın %92'den fazlası su olduğu için böbreği yormadan hidrasyon sağlar."
     query = "zucchini water content hydration kidney"
     snippets = retrieve_guideline_snippets(query, "mekanizma", claim_text=text)
     assert snippets == []
-    ev, path = retrieve_hybrid_evidence(text, query, "mekanizma")
+    ev, path = retrieve_hybrid_evidence(text, query, "mekanizma", include_serper=False)
     assert path != "guideline" or not ev

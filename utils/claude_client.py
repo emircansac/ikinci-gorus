@@ -40,6 +40,76 @@ CLAIM_EXTRACTION_MAX_TOKENS = int(os.environ.get("CLAIM_MAX_TOKENS", "8192"))
 MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
 
 MAX_RETRIES = 3
+WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search"}
+BATCH_CUSTOM_ID_RE = re.compile(r"^[a-zA-Z0-9_-]{1,64}$")
+
+
+def _cached_system(text: str) -> list[dict]:
+    """System prompt'u prompt-caching breakpoint'i ile sar."""
+    return [{"type": "text", "text": text, "cache_control": {"type": "ephemeral"}}]
+
+
+def _usage_dict(usage) -> dict:
+    if usage is None:
+        return {}
+    if isinstance(usage, dict):
+        return {
+            "input_tokens": usage.get("input_tokens"),
+            "output_tokens": usage.get("output_tokens"),
+            "cache_creation_input_tokens": usage.get("cache_creation_input_tokens") or 0,
+            "cache_read_input_tokens": usage.get("cache_read_input_tokens") or 0,
+        }
+    return {
+        "input_tokens": getattr(usage, "input_tokens", None),
+        "output_tokens": getattr(usage, "output_tokens", None),
+        "cache_creation_input_tokens": getattr(usage, "cache_creation_input_tokens", None) or 0,
+        "cache_read_input_tokens": getattr(usage, "cache_read_input_tokens", None) or 0,
+    }
+
+
+def summarize_cache_roles(usage_by_custom_id: dict) -> dict:
+    """İstek bazında cache write/read: n_write_gt0 / n_read_gt0 (both her iki sayıya girer)."""
+    roles: dict[str, str] = {}
+    n_write_only = n_read_only = n_both = n_none = 0
+    for cid, raw in (usage_by_custom_id or {}).items():
+        u = raw or {}
+        w = int(u.get("cache_creation_input_tokens") or 0) > 0
+        r = int(u.get("cache_read_input_tokens") or 0) > 0
+        if w and r:
+            role = "both"
+            n_both += 1
+        elif w:
+            role = "write"
+            n_write_only += 1
+        elif r:
+            role = "read"
+            n_read_only += 1
+        else:
+            role = "none"
+            n_none += 1
+        roles[str(cid)] = role
+    return {
+        "roles": roles,
+        "n_write_gt0": n_write_only + n_both,
+        "n_read_gt0": n_read_only + n_both,
+        "n_both": n_both,
+        "n_write_only": n_write_only,
+        "n_read_only": n_read_only,
+        "n_none": n_none,
+    }
+
+
+def _log_usage(usage) -> dict:
+    fields = _usage_dict(usage)
+    if not fields:
+        return fields
+    print(
+        f"  [claude] usage input={fields.get('input_tokens')} "
+        f"output={fields.get('output_tokens')} "
+        f"cache_write={fields.get('cache_creation_input_tokens')} "
+        f"cache_read={fields.get('cache_read_input_tokens')}"
+    )
+    return fields
 
 
 def _response_text(resp) -> str:
@@ -53,7 +123,9 @@ def _call_with_retry(**kwargs):
     kwargs.setdefault("thinking", {"type": "disabled"})
     for attempt in range(MAX_RETRIES):
         try:
-            return client.messages.create(**kwargs)
+            resp = client.messages.create(**kwargs)
+            _log_usage(getattr(resp, "usage", None))
+            return resp
         except (anthropic.RateLimitError, anthropic.APIConnectionError, anthropic.InternalServerError) as e:
             if attempt == MAX_RETRIES - 1:
                 raise
@@ -155,7 +227,7 @@ def _extract_claims_once(transcript_slice: str, *, recap_hint: bool = False) -> 
     resp = _call_with_retry(
         model=MODEL,
         max_tokens=CLAIM_EXTRACTION_MAX_TOKENS,
-        system=CLAIM_EXTRACTION_SYSTEM,
+        system=_cached_system(CLAIM_EXTRACTION_SYSTEM),
         messages=[{"role": "user", "content": transcript_slice + (_RECAP_CHUNK_HINT if recap_hint else "")}],
     )
     raw = _response_text(resp)
@@ -312,13 +384,38 @@ def extract_claims(transcript: str, *, video_id: str | None = None) -> tuple[lis
     return merged, success
 
 
+SUPPORTIVE_PACKAGE_NOTE = (
+    "Bu paket iddiayla orta güvenle ilgili kanıt içeriyor. Paketi kullan; "
+    "yalnızca paket AÇIKÇA yetersizse veya iddiayı hiç ele almıyorsa ek arama yap."
+)
+NO_DIRECT_EVIDENCE_NOTE = (
+    "Bu iddia için pakette muhtemelen doğrudan kanıt yok. "
+    "'belirsiz' olarak değerlendirmeyi düşün; gereksiz yere aramaya devam etme."
+)
+
+
+def _escalate_user_notes(
+    specificity_tier: str | None = None,
+    epistemic_class: str | None = None,
+) -> str:
+    notes: list[str] = []
+    if specificity_tier == "supportive":
+        notes.append(SUPPORTIVE_PACKAGE_NOTE)
+    if epistemic_class == "no_direct_evidence_expected":
+        notes.append(NO_DIRECT_EVIDENCE_NOTE)
+    if not notes:
+        return ""
+    return "\n\n" + "\n".join(notes)
+
+
 def _format_evidence_package(claim_text: str, evidence: list[dict]) -> str:
     lines = [
         f"İddia: {claim_text}",
         "",
-        "Retrieval kanıt paketi (PubMed / Europe PMC / MedlinePlus). "
+        "Retrieval kanıt paketi (PubMed / Europe PMC / MedlinePlus / Serper). "
         "Önce bunlara bak; iddiayı doğrudan ele alan parça varsa source_url "
-        "olarak o parçanın url'sini yaz. Yetersiz/ilgisizse web_search yap.",
+        "olarak o parçanın url'sini yaz. Yetersiz/ilgisizse web_search yap. "
+        "evidence_content_type=search_snippet başlık+özet kırıntısıdır, tam abstract değildir.",
         "",
     ]
     for i, item in enumerate(evidence, 1):
@@ -327,6 +424,12 @@ def _format_evidence_package(claim_text: str, evidence: list[dict]) -> str:
         abstract = (item.get("abstract") or "").strip()[:900]
         lines.append(f"[{i}] {title}")
         lines.append(f"    url: {url}")
+        r_tier = (item.get("retrieval_tier") or "").strip()
+        if r_tier:
+            lines.append(f"    retrieval_tier: {r_tier}")
+        content_type = (item.get("evidence_content_type") or "").strip()
+        if content_type:
+            lines.append(f"    content_type: {content_type}")
         doi = (item.get("doi") or "").strip()
         if doi:
             lines.append(f"    doi: {doi}")
@@ -352,39 +455,124 @@ def _format_evidence_package(claim_text: str, evidence: list[dict]) -> str:
     return "\n".join(lines).strip()
 
 
-def escalate_factcheck(claim_text: str, evidence: list[dict] | None = None) -> dict:
-    """
-    NLI ilk filtresi 'belirsiz'/'düşük güven' dediğinde, ya da initial_risk=high
-    olduğunda çağrılır. evidence verilmişse önce o pakete bakması istenir;
-    web_search yetersiz/ilgisiz pakette ek kaynak içindir.
-
-    cite_source LLM JSON'undan okunmaz — çağıran calibrate_factcheck atar.
-    """
+def build_escalate_params(
+    claim_text: str,
+    evidence: list[dict] | None = None,
+    *,
+    force_package_only: bool = False,
+    specificity_tier: str | None = None,
+    epistemic_class: str | None = None,
+) -> dict:
+    """Messages API params — senkron ve Batch aynı gövdeyi kullanır."""
     package = list(evidence or [])[:5]
     if package:
         user_content = _format_evidence_package(claim_text, package)
     else:
         user_content = f"İddiayı değerlendir: {claim_text}"
+    user_content += _escalate_user_notes(specificity_tier, epistemic_class)
+    params: dict = {
+        "model": MODEL,
+        "max_tokens": 2000,
+        "system": _cached_system(FACTCHECK_ESCALATION_SYSTEM),
+        "messages": [{"role": "user", "content": user_content}],
+        "thinking": {"type": "disabled"},
+    }
+    if not force_package_only:
+        params["tools"] = [WEB_SEARCH_TOOL]
+    return params
 
-    resp = _call_with_retry(
-        model=MODEL,
-        max_tokens=2000,
-        system=FACTCHECK_ESCALATION_SYSTEM,
-        tools=[{"type": "web_search_20250305", "name": "web_search"}],
-        messages=[{"role": "user", "content": user_content}],
-    )
-    # Son text bloğunu al (tool_use/tool_result aralarına serpiştirilmiş olabilir)
-    text_blocks = [b.text for b in resp.content if getattr(b, "text", None)]
-    full_text = "\n".join(text_blocks).strip()
+
+def build_batch_request(
+    claim_id: int | str,
+    claim_text: str,
+    evidence: list[dict] | None = None,
+    *,
+    force_package_only: bool = False,
+    specificity_tier: str | None = None,
+    epistemic_class: str | None = None,
+) -> dict:
+    """Anthropic Message Batches öğesi: {custom_id, params}."""
+    custom_id = str(claim_id)
+    if not BATCH_CUSTOM_ID_RE.fullmatch(custom_id):
+        raise ValueError(f"batch custom_id geçersiz: {custom_id!r}")
+    return {
+        "custom_id": custom_id,
+        "params": build_escalate_params(
+            claim_text, evidence, force_package_only=force_package_only,
+            specificity_tier=specificity_tier, epistemic_class=epistemic_class,
+        ),
+    }
+
+
+def _content_text(message) -> str:
+    content = getattr(message, "content", None)
+    if content is None and isinstance(message, dict):
+        content = message.get("content") or []
+    parts = []
+    for block in content or []:
+        text = getattr(block, "text", None)
+        if text is None and isinstance(block, dict):
+            text = block.get("text")
+        if text:
+            parts.append(text)
+    return "\n".join(parts).strip()
+
+
+def parse_escalate_response(resp) -> dict:
+    """
+    Messages API (senkron veya batch succeeded.message) → factcheck JSON.
+    cite_source LLM'den okunmaz.
+    """
+    full_text = _content_text(resp)
     parsed = _extract_json(full_text)
     if parsed is None:
-        # ÖNEMLİ: parse hatası "belirsiz" değil "işlenemedi" anlamına gelir — bunu
-        # 04_score_suspects.py'de "doğrulanmış" gibi göstermemek için final_verdict'i
-        # None bırakıyoruz ve ayrı bir bayrak koyuyoruz. Önceki sürüm burada sessizce
-        # "belirsiz"/0.0 güven yazıp riski hafiflettiği için düzeltildi.
         print(f"[claude] escalate_factcheck JSON parse hatası. Ham çıktı: {full_text[:300]}")
-        return {"final_verdict": None, "confidence": None,
-                "reasoning": "LLM çıktısı parse edilemedi — insan gözden geçirmeli", "source_url": "",
-                "parse_failed": True}
-    parsed.pop("cite_source", None)  # model uydurmasın
+        return {
+            "final_verdict": None,
+            "confidence": None,
+            "reasoning": "LLM çıktısı parse edilemedi — insan gözden geçirmeli",
+            "source_url": "",
+            "parse_failed": True,
+        }
+    parsed.pop("cite_source", None)
     return parsed
+
+
+def escalate_factcheck(
+    claim_text: str,
+    evidence: list[dict] | None = None,
+    *,
+    force_package_only: bool = False,
+    specificity_tier: str | None = None,
+    epistemic_class: str | None = None,
+) -> dict:
+    """
+    NLI ilk filtresi 'belirsiz'/'düşük güven' dediğinde, ya da initial_risk=high
+    olduğunda çağrılır. evidence verilmişse önce o pakete bakması istenir;
+    web_search yetersiz/ilgisiz pakette ek kaynak içindir.
+
+    force_package_only=True: bu çağrıda web_search aracı hiç eklenmez
+    (yalnızca strong_match paketlerinde). Prompt dili değil, araç yokluğu kilidi.
+
+    cite_source LLM JSON'undan okunmaz — çağıran calibrate_factcheck atar.
+    """
+    resp = _call_with_retry(
+        **build_escalate_params(
+            claim_text, evidence, force_package_only=force_package_only,
+            specificity_tier=specificity_tier, epistemic_class=epistemic_class,
+        )
+    )
+    return parse_escalate_response(resp)
+
+
+def submit_message_batch(requests: list[dict]):
+    """Message Batches API: requests = [{custom_id, params}, ...]."""
+    return client.messages.batches.create(requests=requests)
+
+
+def retrieve_message_batch(batch_id: str):
+    return client.messages.batches.retrieve(batch_id)
+
+
+def iter_batch_results(batch_id: str):
+    return client.messages.batches.results(batch_id)

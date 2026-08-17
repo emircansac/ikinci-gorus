@@ -1,0 +1,179 @@
+{
+  "video_id": "jP5XF06OLbo",
+  "n": 20,
+  "ids": [
+    1244,
+    1245,
+    1252,
+    1253,
+    1242,
+    1243,
+    1247,
+    1248,
+    1254,
+    1255,
+    1261,
+    1262,
+    1263,
+    1265,
+    1267,
+    1268,
+    1271,
+    1281,
+    1284,
+    1256
+  ],
+  "swap_note": "top-20 risk sırasında bileşik yoktu; 1273,1274,1275 yerine 1281,1284,1256 alındı",
+  "compound_ids": [
+    1281,
+    1284,
+    1256
+  ],
+  "compound_why": {
+    "1281": "karabiberli zerdeçal: inflamasyon belirteçleri düşer VE egzersiz sonrası kas/eklem ağrıları azalır",
+    "1284": "kahve: Alzheimer VE Parkinson riskini azaltır",
+    "1256": "kakao flavonolleri: damar esnekliği VE kas dokusuna kan akışını artırır"
+  },
+  "claims": [
+    {
+      "claim_id": 1244,
+      "initial_risk": "high",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Uyandıktan sonraki ilk 20 dakika içinde besin alınmaması yıllar içinde kas kaybına yol açan kalıcı hasar biriktirir."
+    },
+    {
+      "claim_id": 1245,
+      "initial_risk": "high",
+      "category": "mucize-ürün",
+      "compound": false,
+      "claim_text": "Sabah kahvesine eklenen bilimsel olarak kanıtlanmış doğal bileşenler kas kaybı sürecini tersine çevirebilir."
+    },
+    {
+      "claim_id": 1252,
+      "initial_risk": "high",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Kasya tarçınının düzenli günlük tüketimi karaciğerde kumarin birikimine ve karaciğer hasarına yol açabilir."
+    },
+    {
+      "claim_id": 1253,
+      "initial_risk": "high",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Kasya tarçını kan sulandırıcı ilaçlarla etkileşime girme riski taşır."
+    },
+    {
+      "claim_id": 1242,
+      "initial_risk": "medium",
+      "category": "tanı",
+      "compound": false,
+      "claim_text": "İleri yaşta kalça kırığı geçiren her dört kişiden biri eski bağımsızlığına kavuşamaz."
+    },
+    {
+      "claim_id": 1243,
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Sabah aç karnına sade kahve içmek kas kaybını hızlandıran gizli bir tehlikedir."
+    },
+    {
+      "claim_id": 1247,
+      "initial_risk": "medium",
+      "category": "tanı",
+      "compound": false,
+      "claim_text": "Madrid Ramón y Cajal Üniversite Hastanesi araştırmasına göre kendi evinde bağımsız yaşayan 65 yaş üstü bireylerin %29'undan fazlasında teşhis edilmemiş ileri derecede sarkopeni bulunmuştur."
+    },
+    {
+      "claim_id": 1248,
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Kas zayıflığı düşme riskini katlanarak artırır ve 65 yaş sonrası kalça kırığı ömür boyu bağımlılığa yol açabilir."
+    },
+    {
+      "claim_id": 1254,
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Seylan tarçını insülin duyarlılığını artırarak kas hücrelerine glikoz taşınmasını iyileştirir."
+    },
+    {
+      "claim_id": 1255,
+      "initial_risk": "medium",
+      "category": "doz",
+      "compound": false,
+      "claim_text": "Günde yarım çay kaşığı seylan tarçını tüketilmesi önerilir; çeyreği sabah kahveye, çeyreği öğleden sonra veya akşam karbonhidratlı öğüne eklenmelidir."
+    },
+    {
+      "claim_id": 1261,
+      "initial_risk": "medium",
+      "category": "doz",
+      "compound": false,
+      "claim_text": "MCT yağı kullanımına ilk gün yarım küçük çay kaşığı ile başlanmalı, bir hafta sonra tatlı kaşığına, sonra yemek kaşığına çıkarılmalıdır."
+    },
+    {
+      "claim_id": 1262,
+      "initial_risk": "medium",
+      "category": "önleme",
+      "compound": false,
+      "claim_text": "Yüksek LDL kolesterolü veya bilinen karaciğer rahatsızlığı olanlar MCT yağı kullanmadan önce doktora danışmalıdır."
+    },
+    {
+      "claim_id": 1263,
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "compound": false,
+      "claim_text": "Kahvaltıda yeterli protein alınmazsa vücut hayatta kalmak için kendi kas dokusunu parçalamaya başlar."
+    },
+    {
+      "claim_id": 1265,
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "compound": false,
+      "claim_text": "61 yaşındaki bir hastanın günlük yürüyüş yapmasına rağmen düşük proteinli kahvaltı (4 gramın altında) nedeniyle kas gücü kaybı yaşadığı, diyetine peynir altı suyu proteini, proteinli süt ve hidrolize kolajen eklenmesinin ardından 8 hafta sonra bacak gücünde belirgin iyileşme bildirdiği vaka anlatılmıştır."
+    },
+    {
+      "claim_id": 1267,
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "compound": false,
+      "claim_text": "Günde 10-15 gram hidrolize kolajen kullanımı, 12 haftalık düzenli kullanım sonucunda eklem ağrılarını belirgin ölçüde azaltmaktadır."
+    },
+    {
+      "claim_id": 1268,
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "compound": false,
+      "claim_text": "60-78 yaş arası katılımcılarla yapılan bir çalışmada, 12 hafta hidrolize kolajen kullanan grubun diz ve kalça ağrılarında kontrol grubuna kıyasla %41 azalma bildirdiği görülmüştür."
+    },
+    {
+      "claim_id": 1271,
+      "initial_risk": "medium",
+      "category": "doz",
+      "compound": false,
+      "claim_text": "Jelibon veya hap formundaki kolajen takviyelerinin dozu düşük olduğu için tedavi edici etkisi neredeyse sıfırdır."
+    },
+    {
+      "claim_id": 1281,
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "compound": true,
+      "claim_text": "62-76 yaş arası katılımcılarda 12 hafta karabiberli zerdeçal kullanımı inflamasyon belirteçlerini düşürmüş ve egzersiz sonrası kas eklem ağrılarını azaltmıştır."
+    },
+    {
+      "claim_id": 1284,
+      "initial_risk": "medium",
+      "category": "önleme",
+      "compound": true,
+      "claim_text": "Ölçülü kahve tüketimi Alzheimer ve Parkinson gibi nörodejeneratif hastalıklara yakalanma riskini azaltır."
+    },
+    {
+      "claim_id": 1256,
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "compound": true,
+      "claim_text": "Kakao içindeki flavonol bileşikleri nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır."
+    }
+  ]
+}

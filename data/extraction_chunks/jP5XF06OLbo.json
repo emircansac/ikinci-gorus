@@ -1,0 +1,591 @@
+{
+  "video_id": "jP5XF06OLbo",
+  "chunks": [
+    {
+      "chunk_index": 1,
+      "is_recap": false,
+      "raw_count": 15,
+      "local_dedup_count": 15,
+      "claims": [
+        {
+          "timestamp_sec": 2,
+          "claim_text": "İleri yaşta kalça kırığı geçiren her dört kişiden biri eski bağımsızlığına kavuşamaz.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "hip fracture elderly loss of independence outcomes"
+        },
+        {
+          "timestamp_sec": 14,
+          "claim_text": "Sabah aç karnına sade kahve içmek kas kaybını hızlandıran gizli bir tehlikedir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "fasting coffee muscle loss sarcopenia"
+        },
+        {
+          "timestamp_sec": 47,
+          "claim_text": "Uyandıktan sonraki ilk 20 dakika içinde besin alınmaması yıllar içinde kas kaybına yol açan kalıcı hasar biriktirir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "post-waking anabolic window muscle protein synthesis"
+        },
+        {
+          "timestamp_sec": 62,
+          "claim_text": "Sabah kahvesine eklenen bilimsel olarak kanıtlanmış doğal bileşenler kas kaybı sürecini tersine çevirebilir.",
+          "category": "mucize-ürün",
+          "initial_risk": "high",
+          "search_query_en": "coffee additives reverse sarcopenia muscle loss"
+        },
+        {
+          "timestamp_sec": 178,
+          "claim_text": "Sarkopeni, yaşlanmaya bağlı olarak kas kütlesi ve kas gücünün kademeli kaybıdır.",
+          "category": "tanı",
+          "initial_risk": "low",
+          "search_query_en": "sarcopenia definition age-related muscle loss"
+        },
+        {
+          "timestamp_sec": 219,
+          "claim_text": "Madrid Ramón y Cajal Üniversite Hastanesi araştırmasına göre kendi evinde bağımsız yaşayan 65 yaş üstü bireylerin %29'undan fazlasında teşhis edilmemiş ileri derecede sarkopeni bulunmuştur.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "search_query_en": "sarcopenia prevalence community-dwelling elderly Spain study"
+        },
+        {
+          "timestamp_sec": 283,
+          "claim_text": "Kas zayıflığı düşme riskini katlanarak artırır ve 65 yaş sonrası kalça kırığı ömür boyu bağımlılığa yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "muscle weakness fall risk hip fracture elderly"
+        },
+        {
+          "timestamp_sec": 312,
+          "claim_text": "Kas dokusu 75-80 yaşında bile doğru uyarıcılarla yeniden inşa edilebilir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "muscle protein synthesis older adults resistance exercise"
+        },
+        {
+          "timestamp_sec": 327,
+          "claim_text": "Yaşlanmayla birlikte anabolik direnç oluşur ve vücut kas yapımı için daha fazla ve kaliteli besine ihtiyaç duyar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "anabolic resistance aging muscle protein requirement"
+        },
+        {
+          "timestamp_sec": 389,
+          "claim_text": "Seylan tarçını kasya tarçınına göre 250 kat daha az kumarin içerir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "search_query_en": "Ceylon cinnamon cassia coumarin content comparison"
+        },
+        {
+          "timestamp_sec": 423,
+          "claim_text": "Kasya tarçınının düzenli günlük tüketimi karaciğerde kumarin birikimine ve karaciğer hasarına yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "cassia cinnamon coumarin liver toxicity"
+        },
+        {
+          "timestamp_sec": 434,
+          "claim_text": "Kasya tarçını kan sulandırıcı ilaçlarla etkileşime girme riski taşır.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "cinnamon coumarin anticoagulant drug interaction"
+        },
+        {
+          "timestamp_sec": 469,
+          "claim_text": "Seylan tarçını insülin duyarlılığını artırarak kas hücrelerine glikoz taşınmasını iyileştirir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "Ceylon cinnamon insulin sensitivity glucose uptake muscle"
+        },
+        {
+          "timestamp_sec": 514,
+          "claim_text": "Günde yarım çay kaşığı seylan tarçını tüketilmesi önerilir; çeyreği sabah kahveye, çeyreği öğleden sonra veya akşam karbonhidratlı öğüne eklenmelidir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "Ceylon cinnamon dosage half teaspoon daily"
+        },
+        {
+          "timestamp_sec": 582,
+          "claim_text": "Kakao içindeki flavonol bileşikleri nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "cacao flavonols nitric oxide vascular blood flow muscle"
+        }
+      ]
+    },
+    {
+      "chunk_index": 2,
+      "is_recap": false,
+      "raw_count": 14,
+      "local_dedup_count": 14,
+      "claims": [
+        {
+          "timestamp_sec": 610,
+          "claim_text": "Kakaodaki flavanoller ileri yaştaki bireylerde kanıtlanmış bir vazodilatör (damar genişletici) etkiye sahiptir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "cocoa flavanols vasodilation elderly"
+        },
+        {
+          "timestamp_sec": 582,
+          "claim_text": "Kakaodaki flavanol bileşikleri damar iç yüzeyini uyararak nitrik oksit üretimini tetikler ve bu da kan akışını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "cocoa flavanols nitric oxide blood flow"
+        },
+        {
+          "timestamp_sec": 626,
+          "claim_text": "Sabah kahvesine 1-2 yemek kaşığı saf kakao tozu eklenmesi damar sağlığı için yeterlidir.",
+          "category": "doz",
+          "initial_risk": "low",
+          "search_query_en": "cocoa powder dosage vascular health"
+        },
+        {
+          "timestamp_sec": 685,
+          "claim_text": "MCT yağı bağırsaklardan hızlı emilir ve karaciğer tarafından neredeyse anında ketonlara dönüştürülür.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "MCT oil ketone conversion liver"
+        },
+        {
+          "timestamp_sec": 692,
+          "claim_text": "Ketonlar beyin ve kaslar için insüline ihtiyaç duymadan kullanılabilen, glikoza kıyasla daha istikrarlı bir enerji kaynağıdır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "ketones alternative energy source insulin independent"
+        },
+        {
+          "timestamp_sec": 747,
+          "claim_text": "MCT yağı kullanımına ilk gün yarım küçük çay kaşığı ile başlanmalı, bir hafta sonra tatlı kaşığına, sonra yemek kaşığına çıkarılmalıdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "MCT oil dosage titration gastrointestinal tolerance"
+        },
+        {
+          "timestamp_sec": 784,
+          "claim_text": "Yüksek LDL kolesterolü veya bilinen karaciğer rahatsızlığı olanlar MCT yağı kullanmadan önce doktora danışmalıdır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "MCT oil LDL cholesterol liver disease contraindication"
+        },
+        {
+          "timestamp_sec": 867,
+          "claim_text": "Kahvaltıda yeterli protein alınmazsa vücut hayatta kalmak için kendi kas dokusunu parçalamaya başlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "insufficient protein breakfast muscle catabolism"
+        },
+        {
+          "timestamp_sec": 918,
+          "claim_text": "Kas sağlığı için içilen bir süt/protein içeceğinin porsiyonunda en az 5-8 gram protein olmalıdır.",
+          "category": "doz",
+          "initial_risk": "low",
+          "search_query_en": "protein intake per serving muscle maintenance elderly"
+        },
+        {
+          "timestamp_sec": 932,
+          "claim_text": "61 yaşındaki bir hastanın günlük yürüyüş yapmasına rağmen düşük proteinli kahvaltı (4 gramın altında) nedeniyle kas gücü kaybı yaşadığı, diyetine peynir altı suyu proteini, proteinli süt ve hidrolize kolajen eklenmesinin ardından 8 hafta sonra bacak gücünde belirgin iyileşme bildirdiği vaka anlatılmıştır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "whey protein collagen supplementation muscle strength elderly case"
+        },
+        {
+          "timestamp_sec": 1057,
+          "claim_text": "Vücudun doğal kolajen üretimi 50 yaşından sonra keskin bir düşüşe geçer ve bu düşüş her 10 yılda hızlanır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "collagen production decline aging"
+        },
+        {
+          "timestamp_sec": 1067,
+          "claim_text": "Günde 10-15 gram hidrolize kolajen kullanımı, 12 haftalık düzenli kullanım sonucunda eklem ağrılarını belirgin ölçüde azaltmaktadır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "hydrolyzed collagen 10g joint pain 12 weeks"
+        },
+        {
+          "timestamp_sec": 1078,
+          "claim_text": "60-78 yaş arası katılımcılarla yapılan bir çalışmada, 12 hafta hidrolize kolajen kullanan grubun diz ve kalça ağrılarında kontrol grubuna kıyasla %41 azalma bildirdiği görülmüştür.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "hydrolyzed collagen knee hip pain reduction randomized trial"
+        },
+        {
+          "timestamp_sec": 894,
+          "claim_text": "Kemik yoğunluğu azaldığında kasın tutunacağı zemin zayıflar ve kas zayıfladığında kemik düşme/kırıklara karşı korumasız kalır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "bone density muscle strength fall fracture risk"
+        }
+      ]
+    },
+    {
+      "chunk_index": 3,
+      "is_recap": false,
+      "raw_count": 19,
+      "local_dedup_count": 19,
+      "claims": [
+        {
+          "timestamp_sec": 1067,
+          "claim_text": "Günde 10-15 gram hidrolize kolajen 12 hafta düzenli kullanıldığında eklem ağrılarını belirgin ölçüde azaltır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "hydrolyzed collagen joint pain randomized trial"
+        },
+        {
+          "timestamp_sec": 1080,
+          "claim_text": "60-78 yaş arası katılımcılarda 12 hafta hidrolize kolajen kullanımı diz ve kalça ağrılarını kontrol grubuna kıyasla %41 azaltmıştır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "collagen supplementation knee hip pain elderly trial"
+        },
+        {
+          "timestamp_sec": 1113,
+          "claim_text": "Kolajen içeren kremler kıkırdağa ulaşacak kadar derine nüfuz edemez.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "topical collagen cream skin penetration cartilage"
+        },
+        {
+          "timestamp_sec": 1120,
+          "claim_text": "Jelibon veya hap formundaki kolajen takviyelerinin dozu düşük olduğu için tedavi edici etkisi neredeyse sıfırdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "collagen gummy dosage bioavailability efficacy"
+        },
+        {
+          "timestamp_sec": 1166,
+          "claim_text": "Lösin amino asidi kaslarda protein sentezini başlatan ana tetikleyicidir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "leucine muscle protein synthesis trigger"
+        },
+        {
+          "timestamp_sec": 1178,
+          "claim_text": "İleri yaştaki bireylerde kas protein sentezi şalterinin açılması için tek seferde yaklaşık 3 gram lösine ihtiyaç vardır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "leucine threshold muscle protein synthesis elderly"
+        },
+        {
+          "timestamp_sec": 1218,
+          "claim_text": "3 gramlık lösin eşiği, yaşlanmayla ortaya çıkan anabolik direnci kırmanın tek yoludur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "anabolic resistance aging leucine threshold"
+        },
+        {
+          "timestamp_sec": 1247,
+          "claim_text": "60 yaş üstü kişilerin kahvaltıda 20-30 gram yüksek kaliteli protein tüketmesi kas kütlesinin korunmasında en güçlü beslenme değişikliğidir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "protein intake breakfast muscle mass preservation elderly"
+        },
+        {
+          "timestamp_sec": 1343,
+          "claim_text": "Kurkumin tek başına tüketildiğinde bağırsakta sadece %1-2 oranında emilir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "curcumin bioavailability low absorption"
+        },
+        {
+          "timestamp_sec": 1359,
+          "claim_text": "Karabiberdeki piperin, kurkumini parçalayan enzimleri durdurarak kurkuminin kana geçiş oranını 2000 kata kadar artırır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "piperine curcumin bioavailability enhancement"
+        },
+        {
+          "timestamp_sec": 1376,
+          "claim_text": "Zerdeçal karabibersiz kullanıldığında etkisi neredeyse yoktur, bu yüzden asla karabibersiz kullanılmamalıdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "turmeric black pepper combination absorption"
+        },
+        {
+          "timestamp_sec": 1387,
+          "claim_text": "Kurkumin yağda çözünen bir madde olduğundan MCT yağı ile birlikte alındığında emilimi en üst düzeye çıkar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "curcumin fat soluble MCT oil absorption"
+        },
+        {
+          "timestamp_sec": 1421,
+          "claim_text": "Kurkumin proinflamatuvar molekülleri engelleyerek kronik düşük dereceli inflamasyonu azaltır ve bu sarkopeni mekanizmasına karşı etkilidir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "curcumin anti-inflammatory sarcopenia mechanism"
+        },
+        {
+          "timestamp_sec": 1439,
+          "claim_text": "62-76 yaş arası katılımcılarda 12 hafta karabiberli zerdeçal kullanımı inflamasyon belirteçlerini düşürmüş ve egzersiz sonrası kas eklem ağrılarını azaltmıştır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "curcumin piperine inflammation markers exercise-induced pain elderly trial"
+        },
+        {
+          "timestamp_sec": 1508,
+          "claim_text": "Kahvedeki klorojenik asit ve polifenoller hücreleri yaşlanmaya bağlı oksidatif hasara karşı korur.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "coffee chlorogenic acid antioxidant oxidative stress"
+        },
+        {
+          "timestamp_sec": 1521,
+          "claim_text": "Makul dozda kafein nöromüsküler sinir-kas fonksiyonlarını geliştirerek denge ve refleksi iyileştirir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "caffeine neuromuscular function balance elderly"
+        },
+        {
+          "timestamp_sec": 1543,
+          "claim_text": "Ölçülü kahve tüketimi Alzheimer ve Parkinson gibi nörodejeneratif hastalıklara yakalanma riskini azaltır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "coffee consumption Alzheimer Parkinson risk reduction"
+        },
+        {
+          "timestamp_sec": 1553,
+          "claim_text": "Ölçülü kahve tüketimi insülin duyarlılığını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "coffee consumption insulin sensitivity"
+        },
+        {
+          "timestamp_sec": 1560,
+          "claim_text": "Günde 3 fincandan fazla veya öğleden sonra saat 15:00'ten sonra kahve içmek kortizolü sürekli yüksek tutarak kas erimesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "coffee timing cortisol muscle loss"
+        }
+      ]
+    },
+    {
+      "chunk_index": 4,
+      "is_recap": false,
+      "raw_count": 19,
+      "local_dedup_count": 19,
+      "claims": [
+        {
+          "timestamp_sec": 1579,
+          "claim_text": "Belirtilmeyen bir faktörün kas erimesine neden olduğu bilimsel olarak kanıtlanmıştır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "factor causing muscle atrophy sarcopenia"
+        },
+        {
+          "timestamp_sec": 1584,
+          "claim_text": "Kaliteli gece uykusu kas onarımı için hayati önem taşır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "sleep quality muscle recovery repair"
+        },
+        {
+          "timestamp_sec": 1589,
+          "claim_text": "Günde 2-3 fincan kahve, en geç öğleden sonra içilmelidir.",
+          "category": "doz",
+          "initial_risk": "low",
+          "search_query_en": "coffee timing afternoon caffeine intake"
+        },
+        {
+          "timestamp_sec": 1628,
+          "claim_text": "Kahvaltıda yeterli protein, kaliteli yağ, iltihap sökücü bileşikler ve kan şekerini dengeleyici maddeler bulunmalıdır.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "breakfast protein fat glycemic control"
+        },
+        {
+          "timestamp_sec": 1656,
+          "claim_text": "Sekiz malzeme eklenmiş kahve, kasları koruyan metabolik bir zırha dönüştürülebilir.",
+          "category": "mucize-ürün",
+          "initial_risk": "medium",
+          "search_query_en": "supplemented coffee muscle protection protocol"
+        },
+        {
+          "timestamp_sec": 1674,
+          "claim_text": "Kasların gelişip korunabilmesi için mekanik uyarı (egzersiz) gereklidir, beslenme tek başına yeterli değildir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "resistance exercise muscle protein synthesis"
+        },
+        {
+          "timestamp_sec": 1693,
+          "claim_text": "Sandalyeden 10 kez kalkıp oturmak, günde 20 dakika yürümek veya merdiven kullanmak kaslara onarım sinyali göndermeye yeterlidir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "search_query_en": "sit to stand exercise muscle stimulus elderly"
+        },
+        {
+          "timestamp_sec": 1719,
+          "claim_text": "Proteinin böbrekleri çürüttüğü iddiası bir efsanedir ve sadece böbrek hastalarına özgü verilerden yanlış genellenmiştir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "dietary protein kidney damage myth healthy adults"
+        },
+        {
+          "timestamp_sec": 1733,
+          "claim_text": "Böbrekleri sağlıklı yaşlı bireylerde önerilen günlük protein alımı vücut ağırlığının kilogramı başına 1-1.2 gram arasındadır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "protein intake recommendation elderly kg body weight"
+        },
+        {
+          "timestamp_sec": 1762,
+          "claim_text": "Yıllar içinde biriken protein açığı sarkopeninin bir numaralı sebebidir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "chronic protein deficiency sarcopenia cause"
+        },
+        {
+          "timestamp_sec": 1787,
+          "claim_text": "Geleneksel Türk kahvaltısı (peynir, zeytinyağlı ekmek, domates, meyve, çay/kahve) yaklaşık 4-6 gram protein içerir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "search_query_en": "traditional breakfast protein content estimation"
+        },
+        {
+          "timestamp_sec": 1796,
+          "claim_text": "60 yaşındaki bir bireyin kahvaltıda ihtiyacı olan protein miktarı 20-30 gramdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "breakfast protein requirement older adults muscle"
+        },
+        {
+          "timestamp_sec": 1812,
+          "claim_text": "Kahveye peynir altı suyu proteini, kolajen ve proteinli süt eklenerek kahvaltı proteini 5 dakikada 4 gramdan 25-30 grama çıkarılabilir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "search_query_en": "whey protein collagen coffee supplementation"
+        },
+        {
+          "timestamp_sec": 1866,
+          "claim_text": "Vaka: 64 yaşındaki bir hastanın kahvaltı proteini 5 gramdı, kahvesine peynir altı suyu proteini ve kolajen eklenip 10 hafta sonra fiziksel performansı belirgin şekilde iyileşti.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "whey protein collagen supplementation elderly physical function case"
+        },
+        {
+          "timestamp_sec": 1912,
+          "claim_text": "Vaka: 72 yaşındaki bir hastanın kahvaltısı sıfır protein içeriyordu, kahvesine peynir altı suyu proteini, MCT yağı ve tarçın eklenince bir ay içinde enerjisi arttı ve yogaya geri döndü.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "whey protein MCT oil cinnamon energy elderly case"
+        },
+        {
+          "timestamp_sec": 1999,
+          "claim_text": "Kas kütlesini korumak için peynir altı suyu proteini, seylan tarçını ve hidrolize kolajen kombinasyonu kas yapımını, insülin duyarlılığını ve eklem korumasını aynı anda sağlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "whey protein cinnamon collagen combination muscle insulin"
+        },
+        {
+          "timestamp_sec": 2015,
+          "claim_text": "MCT yağı, saf kakao ve peynir altı suyu proteini kombinasyonu enerjiyi artırıp yorgunluğu azaltır.",
+          "category": "mucize-ürün",
+          "initial_risk": "medium",
+          "search_query_en": "MCT oil cocoa whey protein fatigue energy"
+        },
+        {
+          "timestamp_sec": 2023,
+          "claim_text": "Karabiberli zerdeçal, hidrolize kolajen ve seylan tarçını kombinasyonu eklem ağrısı ve iltihaplanmayı azaltır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "turmeric piperine collagen cinnamon joint inflammation"
+        },
+        {
+          "timestamp_sec": 2035,
+          "claim_text": "Peynir altı suyu proteini kaslar üzerinde en hızlı etkiyi yaratan maddedir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "whey protein fastest muscle protein synthesis"
+        }
+      ]
+    },
+    {
+      "chunk_index": 5,
+      "is_recap": true,
+      "raw_count": 11,
+      "local_dedup_count": 11,
+      "claims": [
+        {
+          "timestamp_sec": 2144,
+          "claim_text": "Kahveye sadece peynir altı suyu proteini eklemek, kas kaybını durdurmak için yapılabilecek en önemli ve en büyük değişikliktir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "whey protein supplementation sarcopenia prevention"
+        },
+        {
+          "timestamp_sec": 2219,
+          "claim_text": "Zerdeçaldaki kurkumin, kan sulandırıcı ilaç kullanan hastalarda ilacın etkisini hafifçe artırabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "search_query_en": "curcumin warfarin anticoagulant interaction"
+        },
+        {
+          "timestamp_sec": 2231,
+          "claim_text": "MCT yağı, çok yüksek LDL kolesterolü veya karaciğer sorunu olan kişiler için uygun olmayabilir.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "search_query_en": "MCT oil LDL cholesterol liver disease"
+        },
+        {
+          "timestamp_sec": 2256,
+          "claim_text": "İlk 1-2 hafta içinde MCT yağı ve proteinin etkisiyle sabah yorgunluğu kaybolur ve güne daha enerjik başlanır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "MCT oil protein morning fatigue energy"
+        },
+        {
+          "timestamp_sec": 2268,
+          "claim_text": "6-8 hafta içinde kolajen sayesinde merdiven çıkarken veya yürürken eklem ağrıları azalır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "collagen supplementation joint pain relief"
+        },
+        {
+          "timestamp_sec": 2278,
+          "claim_text": "8-12 hafta arasında kas kütlesi ve fiziksel güç artışı, günlük aktivitelerde (poşet taşıma, sandalyeden kalkma) fark edilir hale gelir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "protein supplementation muscle mass functional strength weeks"
+        },
+        {
+          "timestamp_sec": 2364,
+          "claim_text": "Uyandıktan hemen sonra aç karna boş kahve içmek, vücudun kendini onarmak için en aç olduğu fırsatı kaçırmaktır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "morning fasting protein muscle protein synthesis"
+        },
+        {
+          "timestamp_sec": 2369,
+          "claim_text": "Sarkopeni kaderdir değildir; hangi yaşta olursa olsun doğru besinlerle kas erimesi durdurulabilir ve geri çevrilebilir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "search_query_en": "sarcopenia reversal nutrition older adults"
+        },
+        {
+          "timestamp_sec": 2379,
+          "claim_text": "Seylan tarçını insülin duyarlılığını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "search_query_en": "ceylon cinnamon insulin sensitivity"
+        },
+        {
+          "timestamp_sec": 2381,
+          "claim_text": "Kakao kan dolaşımını açar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "cocoa flavanols blood circulation vasodilation"
+        },
+        {
+          "timestamp_sec": 2395,
+          "claim_text": "Karabiberli zerdeçal iltihapları kurutur (azaltır).",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "search_query_en": "turmeric black pepper anti-inflammatory bioavailability"
+        }
+      ]
+    }
+  ]
+}

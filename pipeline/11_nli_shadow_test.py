@@ -10,6 +10,10 @@ Kullanım:
     ./venv/bin/python pipeline/11_nli_shadow_test.py --claim-ids 671,690
     ./venv/bin/python pipeline/11_nli_shadow_test.py --reanalyze data/nli_shadow_test.json
     ./venv/bin/python pipeline/11_nli_shadow_test.py --audit-partial-rule data/nli_shadow_test.json
+
+Kademeli retrieval kohortu (aynı video_id + escalated=1) için:
+    ./venv/bin/python pipeline/10_retrieval_shadow_test.py --cascade
+    ./venv/bin/python pipeline/10_retrieval_shadow_test.py --live-serper
 """
 from __future__ import annotations
 

@@ -32,24 +32,51 @@ atlanır, sparse sıralamayla devam edilir, sistem çökmez)
 Hibrit katman (v2): MeSH genişletme, kılavuz snippet fallback, besin DB yönlendirmesi.
 Hibrit katman (v3): PubMed PublicationType → source_tier; Europe PMC paralel;
 MedlinePlus tüketici sağlığı (üçüncü kaynak).
+Hibrit katman (v4): kademeli getirme — native (ücretsiz) → Serper (ucuz) →
+Claude web_search (pahalı, escalate_factcheck güvenlik ağı, burada çağrılmaz).
+Yeterlilik tek kapı: assess_evidence_sufficiency (alaka × kademe, AND).
 """
+from __future__ import annotations
+
 import html as html_lib
+import os
 import re
 import requests
 import xml.etree.ElementTree as ET
 from functools import lru_cache
+from pathlib import Path
+from typing import NamedTuple
 
-from utils.factcheck_calibrate import infer_source_tier
+from utils.factcheck_calibrate import TIER_CONF_CAP, infer_source_tier
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass
 
 PUBMED_ESEARCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 PUBMED_EFETCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 EUROPEPMC_SEARCH = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
 MEDLINEPLUS_SEARCH = "https://wsearch.nlm.nih.gov/ws/query"
+SERPER_SEARCH = "https://google.serper.dev/search"
+
+# quality_ok: mevcut TIER_CONF_CAP, primary_study tavanı ve üzeri + native besin yolu.
+# Yeni kademe icat edilmez.
+SUFFICIENT_QUALITY_TIERS = frozenset(
+    {tier for tier, cap in TIER_CONF_CAP.items() if cap >= TIER_CONF_CAP["primary_study"]}
+    | {"usda_cache_static"}
+)
 
 CANDIDATE_POOL_SIZE = 10
 FINAL_EVIDENCE_COUNT = 3
 ESCALATE_PACKAGE_SIZE = 5
 EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+# Kapı spesifikliği: SUPPORTS/REFUTES + bu eşik. Gevşetilmez (yanlış pozitif kaçışı yok).
+SPECIFICITY_NLI_MIN_CONF = 0.75
+# supportive kademe + epistemik "doğrudan kanıt" tabanı. 0.75 kilidi değişmez.
+SPECIFICITY_SUPPORTIVE_MIN_CONF = 0.5
+EPISTEMIC_NO_DIRECT = "no_direct_evidence_expected"
 
 # search_query_en'deki arka plan tıbbi terimler — ana varlık değil.
 # "blueberry insulin ... diabetes" → anahtar "blueberry", "diabetes" değil.
@@ -256,6 +283,8 @@ def retrieve_guideline_snippets(
             "source": tier,
             "source_tier": tier,
             "provider": "guideline_snippet",
+            "retrieval_tier": "native",
+            "evidence_content_type": "abstract",
         })
     return matched[:2]
 
@@ -418,34 +447,209 @@ def apply_key_term_filter(
     return filtered, {**meta, "weak_fallback": False}
 
 
-def retrieve_hybrid_evidence(
+class SufficiencyResult(NamedTuple):
+    sufficient: bool
+    relevance_ok: bool
+    quality_ok: bool
+    reason: str  # no_evidence | weak_key_term_match | low_tier | ok
+    best_tier: str | None
+    kept_count: int
+    max_rerank_score: float | None
+    specificity_ok: bool = False
+    strong_match: bool = False  # sufficient AND specificity_ok; sufficient tanımı değişmez
+    specificity_tier: str = "none"  # none | background | supportive | direct
+
+
+def _candidate_source_tier(candidate: dict) -> str:
+    """URL/domain (+ publication_types); model beyanı yok."""
+    return infer_source_tier(
+        candidate.get("url") or "",
+        publication_types=candidate.get("publication_types"),
+    )
+
+
+def _max_rerank_score(candidates: list[dict]) -> float | None:
+    scores: list[float] = []
+    for item in candidates:
+        raw = item.get("rerank_score")
+        if raw is None:
+            continue
+        try:
+            scores.append(float(raw))
+        except (TypeError, ValueError):
+            continue
+    return max(scores) if scores else None
+
+
+def _top_candidate(kept: list[dict]) -> dict:
+    """En yüksek rerank_score; skor yoksa listedeki ilk aday."""
+    scored: list[tuple[float, dict]] = []
+    for item in kept:
+        raw = item.get("rerank_score")
+        if raw is None:
+            continue
+        try:
+            scored.append((float(raw), item))
+        except (TypeError, ValueError):
+            continue
+    if scored:
+        return max(scored, key=lambda pair: pair[0])[1]
+    return kept[0]
+
+
+def _candidate_evidence_text(candidate: dict) -> str:
+    abstract = (candidate.get("abstract") or "").strip()
+    if abstract:
+        return abstract
+    return (candidate.get("title") or "").strip()
+
+
+def _specificity_nli_result(claim_text: str, candidate: dict) -> dict | None:
+    """Mevcut nli_check; yeni model yok. Metin yoksa None (çağrı yok)."""
+    evidence_text = _candidate_evidence_text(candidate)
+    if not evidence_text:
+        return None
+    from utils.nli import nli_check
+    return nli_check(claim_text, evidence_text)
+
+
+def _nli_label_conf(nli_result: dict | None) -> tuple[str | None, float]:
+    if not nli_result:
+        return None, 0.0
+    label = nli_result.get("nli_label")
+    try:
+        conf = float(nli_result.get("nli_confidence") or 0.0)
+    except (TypeError, ValueError):
+        conf = 0.0
+    return label, conf
+
+
+def _specificity_ok_from_nli(nli_result: dict | None) -> bool:
+    label, conf = _nli_label_conf(nli_result)
+    return label in ("SUPPORTS", "REFUTES") and conf >= SPECIFICITY_NLI_MIN_CONF
+
+
+def classify_specificity_tier(
+    reason: str,
+    relevance_ok: bool,
+    quality_ok: bool,
+    nli_result: dict | None,
+) -> str:
+    """Kademeli yeterlilik; assess_evidence_sufficiency kapılarını değiştirmez."""
+    if reason in ("no_evidence", "weak_key_term_match"):
+        return "none"
+    if _specificity_ok_from_nli(nli_result):
+        return "direct"
+    label, conf = _nli_label_conf(nli_result)
+    if label in ("SUPPORTS", "REFUTES") and conf >= SPECIFICITY_SUPPORTIVE_MIN_CONF:
+        return "supportive"
+    if relevance_ok and (
+        not quality_ok
+        or nli_result is None
+        or label not in ("SUPPORTS", "REFUTES")
+        or conf < SPECIFICITY_SUPPORTIVE_MIN_CONF
+    ):
+        return "background"
+    return "none"
+
+
+def classify_evidence_expectation(
+    claim_text: str,
+    all_candidates_specificity_scores: list[dict] | None,
+) -> str | None:
+    """
+    Retrieval havuzundaki tüm adayların specificity NLI skorlarına bakar.
+    Hiçbiri SUPPORTS/REFUTES + conf >= 0.5 değilse doğrudan kanıt beklenmez.
+    claim_text imzada durur (çağıran bağlamı); eşik yalnızca skor listesine bakılır.
+    """
+    del claim_text
+    for nli in all_candidates_specificity_scores or []:
+        label, conf = _nli_label_conf(nli)
+        if label in ("SUPPORTS", "REFUTES") and conf >= SPECIFICITY_SUPPORTIVE_MIN_CONF:
+            return None
+    return EPISTEMIC_NO_DIRECT
+
+
+def collect_specificity_nli_scores(
+    claim_text: str,
+    candidates: list[dict] | None,
+) -> list[dict]:
+    """Paketteki her aday için yerel nli_check; top-1 ile sınırlı değil."""
+    scores: list[dict] = []
+    for candidate in candidates or []:
+        nli = _specificity_nli_result(claim_text, candidate)
+        if nli:
+            scores.append(nli)
+    return scores
+
+
+def assess_evidence_sufficiency(
+    candidates: list[dict],
+    claim_text: str,
+    search_query_en: str | None = None,
+) -> SufficiencyResult:
+    """
+    Kaynak-agnostik yeterlilik: alaka (key-term) × kademe (infer_source_tier).
+    sufficient yalnızca ikisi de True ise True. Harmanlanmış tek skor yok.
+    Native ve Serper sonrası aynı fonksiyon — kaynağa özel eşik yok.
+
+    relevance_ok ve quality_ok geçtikten sonra ek üst kademe: top adayın
+    abstract'ı nli_check ile iddianın spesifik önermesini SUPPORTS/REFUTES
+    ediyor mu (confidence >= SPECIFICITY_NLI_MIN_CONF). Bu specificity_ok /
+    strong_match'i belirler; sufficient tanımını değiştirmez.
+    """
+    if not candidates:
+        return SufficiencyResult(
+            False, False, False, "no_evidence", None, 0, None,
+            specificity_tier="none",
+        )
+
+    kept, _meta = filter_candidates_by_key_terms(
+        candidates, search_query_en or "", claim_text
+    )
+    if not kept:
+        return SufficiencyResult(
+            False, False, False, "weak_key_term_match", None, 0,
+            _max_rerank_score(candidates),
+            specificity_tier="none",
+        )
+
+    tiers = [_candidate_source_tier(c) for c in kept]
+    quality_ok = any(t in SUFFICIENT_QUALITY_TIERS for t in tiers)
+    best_tier = max(tiers, key=lambda t: TIER_CONF_CAP.get(t, 0.0)) if tiers else None
+    max_score = _max_rerank_score(kept)
+    if not quality_ok:
+        return SufficiencyResult(
+            False, True, False, "low_tier", best_tier, len(kept), max_score,
+            specificity_tier="background",
+        )
+
+    nli_result = _specificity_nli_result(claim_text, _top_candidate(kept))
+    specificity_ok = _specificity_ok_from_nli(nli_result)
+    return SufficiencyResult(
+        True, True, True, "ok", best_tier, len(kept), max_score,
+        specificity_ok, specificity_ok,
+        classify_specificity_tier("ok", True, True, nli_result),
+    )
+
+
+def _tag_native_item(item: dict) -> dict:
+    out = dict(item)
+    out.setdefault("retrieval_tier", "native")
+    out.setdefault("evidence_content_type", "abstract")
+    return out
+
+
+def collect_native_candidates(
     claim_text: str,
     search_query_en: str | None = None,
     category: str | None = None,
     *,
     include_europe_pmc: bool = True,
     include_medlineplus: bool = True,
-) -> tuple[list[dict], str]:
-    """
-    Hibrit kanıt getirme: besin DB → PubMed (çoklu sorgu) → Europe PMC →
-    MedlinePlus → kılavuz fallback.
-
-    Dönüş: (evidence_list, retrieval_path)
-    retrieval_path: nutrition_db | usda_cache_static | pubmed | pubmed_mesh |
-                    europepmc | medlineplus | guideline | none
-                    (birden fazla kaynak `+` ile birleşir)
-    """
-    from utils.nutrition_lookup import is_nutrition_quantity_claim, lookup_nutrition_evidence
-
-    if is_nutrition_quantity_claim(claim_text):
-        nut = lookup_nutrition_evidence(claim_text)
-        if nut:
-            return nut, nut[0].get("source") or "nutrition_db"
-
-    if not search_query_en:
-        print("[evidence] uyarı: search_query_en yok, ham iddia metniyle aranıyor")
+) -> tuple[list[dict], list[str]]:
+    """PubMed + Europe PMC + MedlinePlus (+ boşsa kılavuz). Serper yok."""
     query = search_query_en or claim_text
-
     candidates: list[dict] = []
     path_parts: list[str] = []
 
@@ -477,7 +681,76 @@ def retrieve_hybrid_evidence(
     if not candidates:
         guidelines = retrieve_guideline_snippets(query, category, claim_text=claim_text)
         if guidelines:
-            return guidelines[:FINAL_EVIDENCE_COUNT], "guideline"
+            candidates = list(guidelines)
+            path_parts.append("guideline")
+
+    return [_tag_native_item(c) for c in candidates], path_parts
+
+
+def retrieve_hybrid_evidence(
+    claim_text: str,
+    search_query_en: str | None = None,
+    category: str | None = None,
+    *,
+    include_europe_pmc: bool = True,
+    include_medlineplus: bool = True,
+    include_serper: bool = True,
+) -> tuple[list[dict], str]:
+    """
+    Hibrit kanıt getirme: besin DB → PubMed (çoklu sorgu) → Europe PMC →
+    MedlinePlus → kılavuz fallback → (yetersizse) Serper.
+
+    Dönüş: (evidence_list, retrieval_path)
+    retrieval_path: nutrition_db | usda_cache_static | pubmed | pubmed_mesh |
+                    europepmc | medlineplus | guideline | serper | none
+                    (birden fazla kaynak `+` ile birleşir)
+    """
+    from utils.nutrition_lookup import is_nutrition_quantity_claim, lookup_nutrition_evidence
+
+    if is_nutrition_quantity_claim(claim_text):
+        nut = lookup_nutrition_evidence(claim_text)
+        if nut:
+            tagged = [_tag_native_item(x) for x in nut]
+            return tagged, nut[0].get("source") or "nutrition_db"
+
+    if not search_query_en:
+        print("[evidence] uyarı: search_query_en yok, ham iddia metniyle aranıyor")
+    query = search_query_en or claim_text
+
+    candidates, path_parts = collect_native_candidates(
+        claim_text, query, category,
+        include_europe_pmc=include_europe_pmc,
+        include_medlineplus=include_medlineplus,
+    )
+    _attach_rerank_scores(claim_text, candidates)
+
+    native_suff = assess_evidence_sufficiency(candidates, claim_text, query)
+    if not native_suff.sufficient and include_serper:
+        print(
+            f"[evidence] native yetersiz (reason={native_suff.reason} "
+            f"relevance_ok={native_suff.relevance_ok} "
+            f"quality_ok={native_suff.quality_ok}) — Serper"
+        )
+        serper = retrieve_serper_evidence(query)
+        if serper:
+            candidates = _merge_candidates(candidates, serper)
+            path_parts.append("serper")
+            _attach_rerank_scores(claim_text, candidates)
+            serper_suff = assess_evidence_sufficiency(candidates, claim_text, query)
+            if serper_suff.sufficient:
+                print(
+                    f"[evidence] Serper yeterli (reason={serper_suff.reason} "
+                    f"best_tier={serper_suff.best_tier})"
+                )
+            else:
+                print(
+                    f"[evidence] Serper sonrası hâlâ yetersiz "
+                    f"(reason={serper_suff.reason} "
+                    f"relevance_ok={serper_suff.relevance_ok} "
+                    f"quality_ok={serper_suff.quality_ok}) — Claude web_search güvenlik ağı"
+                )
+
+    if not candidates:
         return [], "none"
 
     filtered, filt_meta = apply_key_term_filter(candidates, query, claim_text)
@@ -493,10 +766,7 @@ def retrieve_hybrid_evidence(
             f"(terimler={filt_meta['terms'][:6]}, kalan={filt_meta['kept']})"
         )
     if not filtered:
-        guidelines = retrieve_guideline_snippets(query, category, claim_text=claim_text)
-        if guidelines:
-            return guidelines[:FINAL_EVIDENCE_COUNT], "guideline"
-        return [], "none"
+        return [], "+".join(path_parts) if path_parts else "none"
 
     ranked = _dense_rerank(claim_text, filtered, ESCALATE_PACKAGE_SIZE)
     return ranked, "+".join(path_parts) if path_parts else "none"
@@ -576,6 +846,8 @@ def parse_pubmed_efetch_xml(xml_text: str) -> dict:
             "source": tier,
             "source_tier": tier,
             "provider": "pubmed",
+            "retrieval_tier": "native",
+            "evidence_content_type": "abstract",
         }
     return out
 
@@ -675,6 +947,8 @@ def parse_europepmc_search_json(payload: dict) -> list[dict]:
             "source": tier,
             "source_tier": tier,
             "provider": "europepmc",
+            "retrieval_tier": "native",
+            "evidence_content_type": "abstract",
         })
     return out
 
@@ -740,6 +1014,8 @@ def parse_medlineplus_xml(xml_text: str) -> list[dict]:
             "source": tier,
             "source_tier": tier,
             "provider": "medlineplus",
+            "retrieval_tier": "native",
+            "evidence_content_type": "abstract",
         })
     return out
 
@@ -819,6 +1095,27 @@ def _get_embedder():
         return None
 
 
+def _attach_rerank_scores(claim_text: str, candidates: list[dict]) -> list[dict]:
+    """Dense cosine skorunu adaya rerank_score olarak yazar; kesmez. Embedder yoksa no-op."""
+    if not candidates:
+        return candidates
+    embedder = _get_embedder()
+    if embedder is None:
+        return candidates
+    texts = [f"{c.get('title') or ''} {c.get('abstract') or ''}".strip() for c in candidates]
+    try:
+        import numpy as np
+        claim_vec = embedder.encode([claim_text])[0]
+        cand_vecs = embedder.encode(texts)
+        norms = np.linalg.norm(cand_vecs, axis=1) * np.linalg.norm(claim_vec) + 1e-9
+        sims = (cand_vecs @ claim_vec) / norms
+        for item, score in zip(candidates, sims):
+            item["rerank_score"] = float(score)
+    except Exception as e:
+        print(f"[evidence] dense rerank hatası ({e}), sparse sıralamayla devam ediliyor")
+    return candidates
+
+
 def _dense_rerank(claim_text: str, candidates: list[dict], top_k: int) -> list[dict]:
     """
     Adayları claim_text'e (orijinal dildeki iddia — model çok dilli olduğu için
@@ -826,22 +1123,72 @@ def _dense_rerank(claim_text: str, candidates: list[dict], top_k: int) -> list[d
     Embedder yoksa veya aday listesi boşsa, PubMed'in kendi sıralamasından
     ilk top_k'yı döner (zarif düşüş — sistem hiçbir durumda çökmez).
     """
-    embedder = _get_embedder()
-    if embedder is None or not candidates:
-        return candidates[:top_k]
+    if not candidates:
+        return []
+    _attach_rerank_scores(claim_text, candidates)
+    if any(c.get("rerank_score") is not None for c in candidates):
+        ranked = sorted(
+            candidates,
+            key=lambda c: float(c.get("rerank_score") or 0.0),
+            reverse=True,
+        )
+        return ranked[:top_k]
+    return candidates[:top_k]
 
-    texts = [f"{c['title']} {c['abstract']}".strip() for c in candidates]
+
+def parse_serper_search_json(payload: dict) -> list[dict]:
+    """Serper organic JSON → evidence aday listesi (HTTP yok)."""
+    organic = (payload or {}).get("organic") or []
+    if isinstance(organic, dict):
+        organic = [organic]
+    out = []
+    for item in organic:
+        if not isinstance(item, dict):
+            continue
+        title = (item.get("title") or "").strip()
+        snippet = (item.get("snippet") or "").strip()
+        url = (item.get("link") or item.get("url") or "").strip()
+        if not url or not (title or snippet):
+            continue
+        tier = infer_source_tier(url)
+        out.append({
+            "title": title,
+            "abstract": snippet,
+            "pubdate": "",
+            "url": url,
+            "source": tier,
+            "source_tier": tier,
+            "provider": "serper",
+            "retrieval_tier": "serper",
+            "evidence_content_type": "search_snippet",
+        })
+    return out
+
+
+def retrieve_serper_evidence(
+    search_query_en: str,
+    retmax: int = CANDIDATE_POOL_SIZE,
+) -> list[dict]:
+    """search_query_en ile Serper.dev organic arama. Sayfa gövdesi çekilmez."""
+    q = (search_query_en or "").strip()
+    if not q:
+        return []
+    key = (os.environ.get("SERPER_API_KEY") or "").strip()
+    if not key:
+        print("[evidence] SERPER_API_KEY yok — Serper atlandı")
+        return []
     try:
-        import numpy as np
-        claim_vec = embedder.encode([claim_text])[0]
-        cand_vecs = embedder.encode(texts)
-        norms = np.linalg.norm(cand_vecs, axis=1) * np.linalg.norm(claim_vec) + 1e-9
-        sims = (cand_vecs @ claim_vec) / norms
-        ranked = sorted(zip(candidates, sims), key=lambda pair: -pair[1])
-        return [c for c, _ in ranked[:top_k]]
-    except Exception as e:
-        print(f"[evidence] dense rerank hatası ({e}), sparse sıralamayla devam ediliyor")
-        return candidates[:top_k]
+        r = requests.post(
+            SERPER_SEARCH,
+            headers={"X-API-KEY": key, "Content-Type": "application/json"},
+            json={"q": q, "num": retmax},
+            timeout=15,
+        )
+        r.raise_for_status()
+        return parse_serper_search_json(r.json())
+    except (requests.RequestException, ValueError) as e:
+        print(f"[evidence] Serper hatası: {e}")
+        return []
 
 
 def retrieve_pubmed_evidence(claim_text: str, search_query_en: str | None = None,

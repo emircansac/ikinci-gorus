@@ -1,0 +1,1332 @@
+{
+  "generated_at": "2026-08-17T13:37:38.339398+00:00",
+  "extraction_version": "v2.1",
+  "videos": {
+    "jP5XF06OLbo": {
+      "before": [
+        {
+          "claim_id": 276,
+          "timestamp_sec": 2,
+          "claim_text": "Kalça kemiğini kıran her dört yaşlı kişiden biri eski bağımsızlığına asla kavuşamaz",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 277,
+          "timestamp_sec": 14,
+          "claim_text": "Sabah aç karnına içilen sade kahve kasları aç bırakarak düşme riskini artırır",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 278,
+          "timestamp_sec": 26,
+          "claim_text": "Sabah kahvesine eklenen 8 laboratuvar onaylı malzeme kas gücünü ve dengeyi sonsuza dek korur",
+          "category": "mucize-ürün",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 279,
+          "timestamp_sec": 47,
+          "claim_text": "Uyandıktan sonraki 20 dakikalık pencerede vücudu besinsiz bırakmak yıllar içinde kas kaybına yol açan sessiz hasar biriktirir",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 280,
+          "timestamp_sec": 178,
+          "claim_text": "Sarkopeni yaşlanmaya bağlı kas kütlesi ve kas gücünün kademeli kaybıdır",
+          "category": "tanı",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 281,
+          "timestamp_sec": 211,
+          "claim_text": "Madrid'deki Ramon y Cajal Üniversite Hastanesi araştırmasına göre evde bağımsız yaşayan 65 yaş üstü bireylerin %29'undan fazlasında ileri derecede sarkopeni tespit edildi",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 282,
+          "timestamp_sec": 298,
+          "claim_text": "Düşmeye bağlı kalça kırığı yaşayan her dört yaşlıdan biri eski bağımsızlığına tam olarak kavuşamaz",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 283,
+          "timestamp_sec": 312,
+          "claim_text": "Kas dokusu 75 veya 80 yaşında bile doğru uyarıcılarla yeniden inşa edilebilir",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 284,
+          "timestamp_sec": 327,
+          "claim_text": "Yaşlanmayla birlikte anabolik direnç ortaya çıkar ve vücut kas yapmak için daha fazla ve kaliteli besine ihtiyaç duyar",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 285,
+          "timestamp_sec": 389,
+          "claim_text": "Seylan tarçını kasya tarçınından 250 kat daha az kumarin içerir",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 286,
+          "timestamp_sec": 423,
+          "claim_text": "Kasya tarçınının günlük düzenli kullanımı kumarin birikimi nedeniyle karaciğer hasarına yol açabilir",
+          "category": "diğer",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 287,
+          "timestamp_sec": 434,
+          "claim_text": "Kasya tarçını kan sulandırıcı ilaçlarla etkileşime girme riski taşır",
+          "category": "diğer",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 288,
+          "timestamp_sec": 469,
+          "claim_text": "Seylan tarçını hücresel insülin duyarlılığını artırarak glikoz taşıyıcı proteinleri harekete geçirir ve şekerin kaslara taşınmasını sağlar",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 289,
+          "timestamp_sec": 514,
+          "claim_text": "Günde yarım çay kaşığı seylan tarçını tüketilmelidir, çeyreği sabah kahveye çeyreği de akşam öğününe eklenmeli",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 290,
+          "timestamp_sec": 582,
+          "claim_text": "Kakao içindeki flavonoller nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 291,
+          "timestamp_sec": 610,
+          "claim_text": "Kakaodaki flavonoller ileri yaştaki bireylerde damar genişletici (vazodilatör) etkiye sahiptir ve alt ekstremite dolaşım sorunlarına faydalıdır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 292,
+          "timestamp_sec": 626,
+          "claim_text": "Sabah kahvesine 1-2 yemek kaşığı saf kakao tozu eklemek dolaşımı iyileştirir.",
+          "category": "tedavi",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 293,
+          "timestamp_sec": 689,
+          "claim_text": "MCT yağı bağırsaklardan hızla emilip karaciğerde neredeyse anında ketona dönüştürülür.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 294,
+          "timestamp_sec": 692,
+          "claim_text": "Ketonlar beyin ve kaslar için insüline ihtiyaç duymadan kullanılabilen bir enerji kaynağıdır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 295,
+          "timestamp_sec": 747,
+          "claim_text": "MCT yağı ilk kullanıma yarım çay kaşığı ile başlanıp bir hafta içinde kademeli olarak yemek kaşığına çıkarılmalıdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 296,
+          "timestamp_sec": 783,
+          "claim_text": "LDL kolesterolü yüksek olanlar veya karaciğer rahatsızlığı olanlar MCT yağı kullanmadan önce doktora danışmalıdır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 297,
+          "timestamp_sec": 830,
+          "claim_text": "Proteinsiz bir kahvaltı, vücudun kas dokusunu parçalamasına yol açar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 298,
+          "timestamp_sec": 918,
+          "claim_text": "Bir içecek porsiyonunda kas sağlığı için en az 5-8 gram protein bulunmalıdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 299,
+          "timestamp_sec": 1067,
+          "claim_text": "Günde 10-15 gram hidrolize kolajen 12 hafta düzenli kullanıldığında eklem ağrılarını belirgin ölçüde azaltır.",
+          "category": "doz",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 300,
+          "timestamp_sec": 1078,
+          "claim_text": "60-78 yaş arası katılımcılarla yapılan bir çalışmada 12 hafta hidrolize kolajen kullanımı diz ve kalça ağrılarını kontrol grubuna kıyasla %41 azaltmıştır.",
+          "category": "tedavi",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 301,
+          "timestamp_sec": 1057,
+          "claim_text": "50 yaşından sonra vücudun doğal kolajen üretimi keskin biçimde düşer ve bu düşüş her 10 yılda hızlanır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 302,
+          "timestamp_sec": 894,
+          "claim_text": "Kemik yoğunluğu azaldığında kasın tutunduğu zemin zayıflar ve kas zayıflığı kırık riskini artırır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 303,
+          "timestamp_sec": 1078,
+          "claim_text": "60-78 yaş katılımcılarla yapılan bir çalışmada 12 hafta hidrolize kolajen kullanan grupta diz ve kalça ağrılarında kontrol grubuna göre %41 azalma bildirilmiştir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 304,
+          "timestamp_sec": 1113,
+          "claim_text": "Kolajen içeren kremler kıkırdağa ulaşacak kadar derine nüfuz edemez.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 305,
+          "timestamp_sec": 1120,
+          "claim_text": "Jelibon veya hap formundaki kolajen takviyelerinin dozu tedavi edici etki yaratamayacak kadar düşüktür.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 306,
+          "timestamp_sec": 1163,
+          "claim_text": "Lösin adlı amino asit kaslarda protein sentezini başlatan ana tetikleyicidir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 307,
+          "timestamp_sec": 1176,
+          "claim_text": "İleri yaştaki bireylerde kas protein sentezi şalterinin açılması için tek seferde yaklaşık 3 gram lösin gereklidir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 308,
+          "timestamp_sec": 1184,
+          "claim_text": "Peynir altı suyu proteini gram başına en yüksek lösin yoğunluğuna sahiptir ve bunu kan dolaşımına en hızlı ulaştırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 309,
+          "timestamp_sec": 1216,
+          "claim_text": "3 gramlık lösin eşiği yaşlanmayla ortaya çıkan anabolik direnci kırmanın tek yoludur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 310,
+          "timestamp_sec": 1243,
+          "claim_text": "60 yaş üstü kişilerin kahvaltıda 20-30 gram yüksek kaliteli protein tüketmesi kas kütlesinin korunmasında kanıtlanmış en güçlü beslenme değişikliğidir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 311,
+          "timestamp_sec": 1340,
+          "claim_text": "Zerdeçal tek başına tüketildiğinde bağırsak kurkuminin sadece %1-2'sini emebilir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 312,
+          "timestamp_sec": 1361,
+          "claim_text": "Karabiberdeki piperin, kurkuminin kana geçiş oranını 2000 kata kadar artırır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 313,
+          "timestamp_sec": 1385,
+          "claim_text": "Kurkumin yağda çözünen bir madde olduğu için MCT yağı emilimini en üst düzeye çıkarır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 314,
+          "timestamp_sec": 1419,
+          "claim_text": "Kurkumin proinflamatuvar molekülleri engelleyerek kronik inflamasyonu azaltır ve insülin reseptörlerinin yeniden çalışmasını sağlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 315,
+          "timestamp_sec": 1435,
+          "claim_text": "62-76 yaş katılımcılarla yapılan bir çalışmada 12 hafta karabiberli zerdeçal kullanan grupta inflamasyon belirteçleri düşük ve kas eklem ağrıları azalmış bulunmuştur.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 316,
+          "timestamp_sec": 1505,
+          "claim_text": "Kahve klorojenik asit ve polifenoller sayesinde hücreleri oksidatif hasara karşı korur.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 317,
+          "timestamp_sec": 1518,
+          "claim_text": "Makul dozlarda kafein nöromüsküler sinir-kas fonksiyonlarını geliştirir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 318,
+          "timestamp_sec": 1543,
+          "claim_text": "Ölçülü kahve tüketimi Alzheimer ve Parkinson gibi nörodejeneratif hastalıklara yakalanma riskini azaltır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 319,
+          "timestamp_sec": 1553,
+          "claim_text": "Kahve tüketimi insülin duyarlılığını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 320,
+          "timestamp_sec": 1560,
+          "claim_text": "Günde 3 fincandan fazla kahve içmek veya saat 15:00'ten sonra kahve tüketmek kortizolü sürekli yüksek tutar ve kas erimesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 321,
+          "timestamp_sec": 1735,
+          "claim_text": "Böbrekleri sağlıklı yaşlı bireylerde önerilen günlük protein alımı vücut ağırlığının kilogramı başına 1 ila 1.2 gram arasındadır",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 322,
+          "timestamp_sec": 1719,
+          "claim_text": "Proteinin böbrekleri çürüttüğü iddiası, ciddi böbrek rahatsızlığı olan hastaların verilerinden yanlış genellenmiş bir mittir",
+          "category": "diğer",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 323,
+          "timestamp_sec": 1794,
+          "claim_text": "60 yaşındaki bir kişinin sadece kahvaltıda ihtiyacı olan protein miktarı 20 ila 30 gramdır",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 324,
+          "timestamp_sec": 1579,
+          "claim_text": "Belirtilmeyen bir faktörün (bağlamdan hareketsizlik/uykusuzluk) kas erimesine (sarkopeni) neden olduğu kanıtlanmıştır",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 325,
+          "timestamp_sec": 1584,
+          "claim_text": "Kaliteli gece uykusu kas onarımı için en hayati anlardan biridir",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 326,
+          "timestamp_sec": 1762,
+          "claim_text": "Yıllar boyunca biriken protein açığı, ileri yaşlarda sarkopeninin bir numaralı sebebidir",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 327,
+          "timestamp_sec": 1815,
+          "claim_text": "Kahveye peynir altı suyu proteini, kolajen ve proteinli süt eklenerek kahvaltıdaki protein miktarı 5 dakikada 4 gramdan 25-30 grama çıkarılabilir",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 328,
+          "timestamp_sec": 1937,
+          "claim_text": "Kahveye eklenen MCT yağı ve seylan tarçını, enerji artışı ve yorgunluğu azaltma sağlar",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 329,
+          "timestamp_sec": 2007,
+          "claim_text": "Peynir altı suyu proteini, seylan tarçını ve hidrolize kolajen birlikte kas yapımını, insülin duyarlılığını ve eklem korumasını aynı anda sağlar",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 330,
+          "timestamp_sec": 2028,
+          "claim_text": "Karabiberli zerdeçal, hidrolize kolajen ve seylan tarçını eklem ağrıları ve iltihaplanma sorunlarını azaltır",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 331,
+          "timestamp_sec": 2035,
+          "claim_text": "Peynir altı suyu proteini kaslar üzerinde en hızlı etkiyi yaratan maddedir",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 332,
+          "timestamp_sec": 1747,
+          "claim_text": "70 kilo ağırlığındaki bir kişinin günde 70 ila 84 gram protein alması gerekir",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 333,
+          "timestamp_sec": 2144,
+          "claim_text": "Kahveye peynir altı suyu proteini eklemek kas kaybını durdurur.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 334,
+          "timestamp_sec": 2166,
+          "claim_text": "Seylan tarçını, zerdeçal, karabiber ve kakao ucuz ve aylarca kullanılabilecek ekonomik ürünlerdir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 335,
+          "timestamp_sec": 2185,
+          "claim_text": "Televizyonlarda satılan mucize takviyelerin bilimsel hiçbir kanıtı yoktur.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 336,
+          "timestamp_sec": 2219,
+          "claim_text": "Zerdeçal (kurkumin) kan sulandırıcı kullanan hastalarda ilacın etkisini hafifçe artırabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 337,
+          "timestamp_sec": 2231,
+          "claim_text": "MCT yağı çok yüksek LDL kolesterolü veya karaciğer sorunu olan kişiler için uygun olmayabilir.",
+          "category": "önleme",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 338,
+          "timestamp_sec": 2256,
+          "claim_text": "MCT yağı ve protein tüketiminin ilk 1-2 hafta içinde sabah yorgunluğunu azalttığı hissedilir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 339,
+          "timestamp_sec": 2268,
+          "claim_text": "Kolajen tüketimi 6-8 hafta içinde eklem ağrılarını azaltır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 340,
+          "timestamp_sec": 2278,
+          "claim_text": "8-12 hafta arasında kas kütlesinde ve fiziksel güçte artış görülür.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 341,
+          "timestamp_sec": 2369,
+          "claim_text": "Sarkopeni (kas erimesi) doğru besinlerle durdurulabilir ve geri çevrilebilir.",
+          "category": "tedavi",
+          "initial_risk": "high",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 342,
+          "timestamp_sec": 2379,
+          "claim_text": "Seylan tarçını insülin duyarlılığını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 343,
+          "timestamp_sec": 2382,
+          "claim_text": "Kakao kan dolaşımını açar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 344,
+          "timestamp_sec": 2389,
+          "claim_text": "Hidrolize kolajen eklemleri yağlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 345,
+          "timestamp_sec": 2397,
+          "claim_text": "Karabiberli zerdeçal iltihapları kurutur (azaltır).",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        },
+        {
+          "claim_id": 346,
+          "timestamp_sec": 2361,
+          "claim_text": "Uyandıktan hemen sonra aç karna kahve içmek, vücudun kendini onarmak için en aç olduğu fırsatı kaçırmaktır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v1"
+        }
+      ],
+      "after": [
+        {
+          "claim_id": 1242,
+          "timestamp_sec": 2,
+          "claim_text": "İleri yaşta kalça kırığı geçiren her dört kişiden biri eski bağımsızlığına kavuşamaz.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1243,
+          "timestamp_sec": 14,
+          "claim_text": "Sabah aç karnına sade kahve içmek kas kaybını hızlandıran gizli bir tehlikedir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1244,
+          "timestamp_sec": 47,
+          "claim_text": "Uyandıktan sonraki ilk 20 dakika içinde besin alınmaması yıllar içinde kas kaybına yol açan kalıcı hasar biriktirir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1245,
+          "timestamp_sec": 62,
+          "claim_text": "Sabah kahvesine eklenen bilimsel olarak kanıtlanmış doğal bileşenler kas kaybı sürecini tersine çevirebilir.",
+          "category": "mucize-ürün",
+          "initial_risk": "high",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1246,
+          "timestamp_sec": 178,
+          "claim_text": "Sarkopeni, yaşlanmaya bağlı olarak kas kütlesi ve kas gücünün kademeli kaybıdır.",
+          "category": "tanı",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1247,
+          "timestamp_sec": 219,
+          "claim_text": "Madrid Ramón y Cajal Üniversite Hastanesi araştırmasına göre kendi evinde bağımsız yaşayan 65 yaş üstü bireylerin %29'undan fazlasında teşhis edilmemiş ileri derecede sarkopeni bulunmuştur.",
+          "category": "tanı",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1248,
+          "timestamp_sec": 283,
+          "claim_text": "Kas zayıflığı düşme riskini katlanarak artırır ve 65 yaş sonrası kalça kırığı ömür boyu bağımlılığa yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1249,
+          "timestamp_sec": 312,
+          "claim_text": "Kas dokusu 75-80 yaşında bile doğru uyarıcılarla yeniden inşa edilebilir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1250,
+          "timestamp_sec": 327,
+          "claim_text": "Yaşlanmayla birlikte anabolik direnç oluşur ve vücut kas yapımı için daha fazla ve kaliteli besine ihtiyaç duyar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1251,
+          "timestamp_sec": 389,
+          "claim_text": "Seylan tarçını kasya tarçınına göre 250 kat daha az kumarin içerir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1252,
+          "timestamp_sec": 423,
+          "claim_text": "Kasya tarçınının düzenli günlük tüketimi karaciğerde kumarin birikimine ve karaciğer hasarına yol açabilir.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1253,
+          "timestamp_sec": 434,
+          "claim_text": "Kasya tarçını kan sulandırıcı ilaçlarla etkileşime girme riski taşır.",
+          "category": "mekanizma",
+          "initial_risk": "high",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1254,
+          "timestamp_sec": 469,
+          "claim_text": "Seylan tarçını insülin duyarlılığını artırarak kas hücrelerine glikoz taşınmasını iyileştirir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1255,
+          "timestamp_sec": 514,
+          "claim_text": "Günde yarım çay kaşığı seylan tarçını tüketilmesi önerilir; çeyreği sabah kahveye, çeyreği öğleden sonra veya akşam karbonhidratlı öğüne eklenmelidir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1256,
+          "timestamp_sec": 582,
+          "claim_text": "Kakao içindeki flavonol bileşikleri nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1257,
+          "timestamp_sec": 610,
+          "claim_text": "Kakaodaki flavanoller ileri yaştaki bireylerde kanıtlanmış bir vazodilatör (damar genişletici) etkiye sahiptir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1258,
+          "timestamp_sec": 626,
+          "claim_text": "Sabah kahvesine 1-2 yemek kaşığı saf kakao tozu eklenmesi damar sağlığı için yeterlidir.",
+          "category": "doz",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1259,
+          "timestamp_sec": 685,
+          "claim_text": "MCT yağı bağırsaklardan hızlı emilir ve karaciğer tarafından neredeyse anında ketonlara dönüştürülür.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1260,
+          "timestamp_sec": 692,
+          "claim_text": "Ketonlar beyin ve kaslar için insüline ihtiyaç duymadan kullanılabilen, glikoza kıyasla daha istikrarlı bir enerji kaynağıdır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1261,
+          "timestamp_sec": 747,
+          "claim_text": "MCT yağı kullanımına ilk gün yarım küçük çay kaşığı ile başlanmalı, bir hafta sonra tatlı kaşığına, sonra yemek kaşığına çıkarılmalıdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1262,
+          "timestamp_sec": 784,
+          "claim_text": "Yüksek LDL kolesterolü veya bilinen karaciğer rahatsızlığı olanlar MCT yağı kullanmadan önce doktora danışmalıdır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1263,
+          "timestamp_sec": 867,
+          "claim_text": "Kahvaltıda yeterli protein alınmazsa vücut hayatta kalmak için kendi kas dokusunu parçalamaya başlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1264,
+          "timestamp_sec": 918,
+          "claim_text": "Kas sağlığı için içilen bir süt/protein içeceğinin porsiyonunda en az 5-8 gram protein olmalıdır.",
+          "category": "doz",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1265,
+          "timestamp_sec": 932,
+          "claim_text": "61 yaşındaki bir hastanın günlük yürüyüş yapmasına rağmen düşük proteinli kahvaltı (4 gramın altında) nedeniyle kas gücü kaybı yaşadığı, diyetine peynir altı suyu proteini, proteinli süt ve hidrolize kolajen eklenmesinin ardından 8 hafta sonra bacak gücünde belirgin iyileşme bildirdiği vaka anlatılmıştır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1266,
+          "timestamp_sec": 1057,
+          "claim_text": "Vücudun doğal kolajen üretimi 50 yaşından sonra keskin bir düşüşe geçer ve bu düşüş her 10 yılda hızlanır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1267,
+          "timestamp_sec": 1067,
+          "claim_text": "Günde 10-15 gram hidrolize kolajen kullanımı, 12 haftalık düzenli kullanım sonucunda eklem ağrılarını belirgin ölçüde azaltmaktadır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1268,
+          "timestamp_sec": 1078,
+          "claim_text": "60-78 yaş arası katılımcılarla yapılan bir çalışmada, 12 hafta hidrolize kolajen kullanan grubun diz ve kalça ağrılarında kontrol grubuna kıyasla %41 azalma bildirdiği görülmüştür.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1269,
+          "timestamp_sec": 894,
+          "claim_text": "Kemik yoğunluğu azaldığında kasın tutunacağı zemin zayıflar ve kas zayıfladığında kemik düşme/kırıklara karşı korumasız kalır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1270,
+          "timestamp_sec": 1113,
+          "claim_text": "Kolajen içeren kremler kıkırdağa ulaşacak kadar derine nüfuz edemez.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1271,
+          "timestamp_sec": 1120,
+          "claim_text": "Jelibon veya hap formundaki kolajen takviyelerinin dozu düşük olduğu için tedavi edici etkisi neredeyse sıfırdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1272,
+          "timestamp_sec": 1166,
+          "claim_text": "Lösin amino asidi kaslarda protein sentezini başlatan ana tetikleyicidir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1273,
+          "timestamp_sec": 1178,
+          "claim_text": "İleri yaştaki bireylerde kas protein sentezi şalterinin açılması için tek seferde yaklaşık 3 gram lösine ihtiyaç vardır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1274,
+          "timestamp_sec": 1218,
+          "claim_text": "3 gramlık lösin eşiği, yaşlanmayla ortaya çıkan anabolik direnci kırmanın tek yoludur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1275,
+          "timestamp_sec": 1247,
+          "claim_text": "60 yaş üstü kişilerin kahvaltıda 20-30 gram yüksek kaliteli protein tüketmesi kas kütlesinin korunmasında en güçlü beslenme değişikliğidir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1276,
+          "timestamp_sec": 1343,
+          "claim_text": "Kurkumin tek başına tüketildiğinde bağırsakta sadece %1-2 oranında emilir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1277,
+          "timestamp_sec": 1359,
+          "claim_text": "Karabiberdeki piperin, kurkumini parçalayan enzimleri durdurarak kurkuminin kana geçiş oranını 2000 kata kadar artırır.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1278,
+          "timestamp_sec": 1376,
+          "claim_text": "Zerdeçal karabibersiz kullanıldığında etkisi neredeyse yoktur, bu yüzden asla karabibersiz kullanılmamalıdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1279,
+          "timestamp_sec": 1387,
+          "claim_text": "Kurkumin yağda çözünen bir madde olduğundan MCT yağı ile birlikte alındığında emilimi en üst düzeye çıkar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1280,
+          "timestamp_sec": 1421,
+          "claim_text": "Kurkumin proinflamatuvar molekülleri engelleyerek kronik düşük dereceli inflamasyonu azaltır ve bu sarkopeni mekanizmasına karşı etkilidir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1281,
+          "timestamp_sec": 1439,
+          "claim_text": "62-76 yaş arası katılımcılarda 12 hafta karabiberli zerdeçal kullanımı inflamasyon belirteçlerini düşürmüş ve egzersiz sonrası kas eklem ağrılarını azaltmıştır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1282,
+          "timestamp_sec": 1508,
+          "claim_text": "Kahvedeki klorojenik asit ve polifenoller hücreleri yaşlanmaya bağlı oksidatif hasara karşı korur.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1283,
+          "timestamp_sec": 1521,
+          "claim_text": "Makul dozda kafein nöromüsküler sinir-kas fonksiyonlarını geliştirerek denge ve refleksi iyileştirir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1284,
+          "timestamp_sec": 1543,
+          "claim_text": "Ölçülü kahve tüketimi Alzheimer ve Parkinson gibi nörodejeneratif hastalıklara yakalanma riskini azaltır.",
+          "category": "önleme",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1285,
+          "timestamp_sec": 1553,
+          "claim_text": "Ölçülü kahve tüketimi insülin duyarlılığını artırır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1286,
+          "timestamp_sec": 1560,
+          "claim_text": "Günde 3 fincandan fazla veya öğleden sonra saat 15:00'ten sonra kahve içmek kortizolü sürekli yüksek tutarak kas erimesine neden olur.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1287,
+          "timestamp_sec": 1579,
+          "claim_text": "Belirtilmeyen bir faktörün kas erimesine neden olduğu bilimsel olarak kanıtlanmıştır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1288,
+          "timestamp_sec": 1584,
+          "claim_text": "Kaliteli gece uykusu kas onarımı için hayati önem taşır.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1289,
+          "timestamp_sec": 1589,
+          "claim_text": "Günde 2-3 fincan kahve, en geç öğleden sonra içilmelidir.",
+          "category": "doz",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1290,
+          "timestamp_sec": 1628,
+          "claim_text": "Kahvaltıda yeterli protein, kaliteli yağ, iltihap sökücü bileşikler ve kan şekerini dengeleyici maddeler bulunmalıdır.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1291,
+          "timestamp_sec": 1656,
+          "claim_text": "Sekiz malzeme eklenmiş kahve, kasları koruyan metabolik bir zırha dönüştürülebilir.",
+          "category": "mucize-ürün",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1292,
+          "timestamp_sec": 1674,
+          "claim_text": "Kasların gelişip korunabilmesi için mekanik uyarı (egzersiz) gereklidir, beslenme tek başına yeterli değildir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1293,
+          "timestamp_sec": 1693,
+          "claim_text": "Sandalyeden 10 kez kalkıp oturmak, günde 20 dakika yürümek veya merdiven kullanmak kaslara onarım sinyali göndermeye yeterlidir.",
+          "category": "önleme",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1294,
+          "timestamp_sec": 1719,
+          "claim_text": "Proteinin böbrekleri çürüttüğü iddiası bir efsanedir ve sadece böbrek hastalarına özgü verilerden yanlış genellenmiştir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1295,
+          "timestamp_sec": 1733,
+          "claim_text": "Böbrekleri sağlıklı yaşlı bireylerde önerilen günlük protein alımı vücut ağırlığının kilogramı başına 1-1.2 gram arasındadır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1296,
+          "timestamp_sec": 1762,
+          "claim_text": "Yıllar içinde biriken protein açığı sarkopeninin bir numaralı sebebidir.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1297,
+          "timestamp_sec": 1787,
+          "claim_text": "Geleneksel Türk kahvaltısı (peynir, zeytinyağlı ekmek, domates, meyve, çay/kahve) yaklaşık 4-6 gram protein içerir.",
+          "category": "diğer",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1298,
+          "timestamp_sec": 1796,
+          "claim_text": "60 yaşındaki bir bireyin kahvaltıda ihtiyacı olan protein miktarı 20-30 gramdır.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1299,
+          "timestamp_sec": 1812,
+          "claim_text": "Kahveye peynir altı suyu proteini, kolajen ve proteinli süt eklenerek kahvaltı proteini 5 dakikada 4 gramdan 25-30 grama çıkarılabilir.",
+          "category": "doz",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1300,
+          "timestamp_sec": 1866,
+          "claim_text": "Vaka: 64 yaşındaki bir hastanın kahvaltı proteini 5 gramdı, kahvesine peynir altı suyu proteini ve kolajen eklenip 10 hafta sonra fiziksel performansı belirgin şekilde iyileşti.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1301,
+          "timestamp_sec": 1912,
+          "claim_text": "Vaka: 72 yaşındaki bir hastanın kahvaltısı sıfır protein içeriyordu, kahvesine peynir altı suyu proteini, MCT yağı ve tarçın eklenince bir ay içinde enerjisi arttı ve yogaya geri döndü.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1302,
+          "timestamp_sec": 1999,
+          "claim_text": "Kas kütlesini korumak için peynir altı suyu proteini, seylan tarçını ve hidrolize kolajen kombinasyonu kas yapımını, insülin duyarlılığını ve eklem korumasını aynı anda sağlar.",
+          "category": "mekanizma",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1303,
+          "timestamp_sec": 2015,
+          "claim_text": "MCT yağı, saf kakao ve peynir altı suyu proteini kombinasyonu enerjiyi artırıp yorgunluğu azaltır.",
+          "category": "mucize-ürün",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1304,
+          "timestamp_sec": 2023,
+          "claim_text": "Karabiberli zerdeçal, hidrolize kolajen ve seylan tarçını kombinasyonu eklem ağrısı ve iltihaplanmayı azaltır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1305,
+          "timestamp_sec": 2035,
+          "claim_text": "Peynir altı suyu proteini kaslar üzerinde en hızlı etkiyi yaratan maddedir.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1306,
+          "timestamp_sec": 2144,
+          "claim_text": "Kahveye sadece peynir altı suyu proteini eklemek, kas kaybını durdurmak için yapılabilecek en önemli ve en büyük değişikliktir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1307,
+          "timestamp_sec": 2256,
+          "claim_text": "İlk 1-2 hafta içinde MCT yağı ve proteinin etkisiyle sabah yorgunluğu kaybolur ve güne daha enerjik başlanır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1308,
+          "timestamp_sec": 2268,
+          "claim_text": "6-8 hafta içinde kolajen sayesinde merdiven çıkarken veya yürürken eklem ağrıları azalır.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1309,
+          "timestamp_sec": 2278,
+          "claim_text": "8-12 hafta arasında kas kütlesi ve fiziksel güç artışı, günlük aktivitelerde (poşet taşıma, sandalyeden kalkma) fark edilir hale gelir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1310,
+          "timestamp_sec": 2369,
+          "claim_text": "Sarkopeni kaderdir değildir; hangi yaşta olursa olsun doğru besinlerle kas erimesi durdurulabilir ve geri çevrilebilir.",
+          "category": "tedavi",
+          "initial_risk": "medium",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1311,
+          "timestamp_sec": 2381,
+          "claim_text": "Kakao kan dolaşımını açar.",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        },
+        {
+          "claim_id": 1312,
+          "timestamp_sec": 2395,
+          "claim_text": "Karabiberli zerdeçal iltihapları kurutur (azaltır).",
+          "category": "mekanizma",
+          "initial_risk": "low",
+          "extraction_version": "v2.1"
+        }
+      ],
+      "compare": {
+        "before_count": 71,
+        "after_count": 71,
+        "kept_exact": 4,
+        "removed_from_active": [
+          "3 gramlık lösin eşiği yaşlanmayla ortaya çıkan anabolik direnci kırmanın tek yoludur.",
+          "50 yaşından sonra vücudun doğal kolajen üretimi keskin biçimde düşer ve bu düşüş her 10 yılda hızlanır.",
+          "60 yaş üstü kişilerin kahvaltıda 20-30 gram yüksek kaliteli protein tüketmesi kas kütlesinin korunmasında kanıtlanmış en güçlü beslenme değişikliğidir.",
+          "60 yaşındaki bir kişinin sadece kahvaltıda ihtiyacı olan protein miktarı 20 ila 30 gramdır",
+          "60-78 yaş arası katılımcılarla yapılan bir çalışmada 12 hafta hidrolize kolajen kullanımı diz ve kalça ağrılarını kontrol grubuna kıyasla %41 azaltmıştır.",
+          "60-78 yaş katılımcılarla yapılan bir çalışmada 12 hafta hidrolize kolajen kullanan grupta diz ve kalça ağrılarında kontrol grubuna göre %41 azalma bildirilmiştir.",
+          "62-76 yaş katılımcılarla yapılan bir çalışmada 12 hafta karabiberli zerdeçal kullanan grupta inflamasyon belirteçleri düşük ve kas eklem ağrıları azalmış bulunmuştur.",
+          "70 kilo ağırlığındaki bir kişinin günde 70 ila 84 gram protein alması gerekir",
+          "8-12 hafta arasında kas kütlesinde ve fiziksel güçte artış görülür.",
+          "belirtilmeyen bir faktörün (bağlamdan hareketsizlik/uykusuzluk) kas erimesine (sarkopeni) neden olduğu kanıtlanmıştır",
+          "bir içecek porsiyonunda kas sağlığı için en az 5-8 gram protein bulunmalıdır.",
+          "böbrekleri sağlıklı yaşlı bireylerde önerilen günlük protein alımı vücut ağırlığının kilogramı başına 1 ila 1.2 gram arasındadır",
+          "düşmeye bağlı kalça kırığı yaşayan her dört yaşlıdan biri eski bağımsızlığına tam olarak kavuşamaz",
+          "günde 10-15 gram hidrolize kolajen 12 hafta düzenli kullanıldığında eklem ağrılarını belirgin ölçüde azaltır.",
+          "günde 3 fincandan fazla kahve içmek veya saat 15:00'ten sonra kahve tüketmek kortizolü sürekli yüksek tutar ve kas erimesine neden olur.",
+          "günde yarım çay kaşığı seylan tarçını tüketilmelidir, çeyreği sabah kahveye çeyreği de akşam öğününe eklenmeli",
+          "hidrolize kolajen eklemleri yağlar.",
+          "i̇leri yaştaki bireylerde kas protein sentezi şalterinin açılması için tek seferde yaklaşık 3 gram lösin gereklidir.",
+          "jelibon veya hap formundaki kolajen takviyelerinin dozu tedavi edici etki yaratamayacak kadar düşüktür.",
+          "kahve klorojenik asit ve polifenoller sayesinde hücreleri oksidatif hasara karşı korur.",
+          "kahve tüketimi insülin duyarlılığını artırır.",
+          "kahveye eklenen mct yağı ve seylan tarçını, enerji artışı ve yorgunluğu azaltma sağlar",
+          "kahveye peynir altı suyu proteini eklemek kas kaybını durdurur.",
+          "kahveye peynir altı suyu proteini, kolajen ve proteinli süt eklenerek kahvaltıdaki protein miktarı 5 dakikada 4 gramdan 25-30 grama çıkarılabilir",
+          "kakao içindeki flavonoller nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır",
+          "kakaodaki flavonoller ileri yaştaki bireylerde damar genişletici (vazodilatör) etkiye sahiptir ve alt ekstremite dolaşım sorunlarına faydalıdır.",
+          "kaliteli gece uykusu kas onarımı için en hayati anlardan biridir",
+          "kalça kemiğini kıran her dört yaşlı kişiden biri eski bağımsızlığına asla kavuşamaz",
+          "karabiberdeki piperin, kurkuminin kana geçiş oranını 2000 kata kadar artırır.",
+          "karabiberli zerdeçal, hidrolize kolajen ve seylan tarçını eklem ağrıları ve iltihaplanma sorunlarını azaltır",
+          "kas dokusu 75 veya 80 yaşında bile doğru uyarıcılarla yeniden inşa edilebilir",
+          "kasya tarçını kan sulandırıcı ilaçlarla etkileşime girme riski taşır",
+          "kasya tarçınının günlük düzenli kullanımı kumarin birikimi nedeniyle karaciğer hasarına yol açabilir",
+          "kemik yoğunluğu azaldığında kasın tutunduğu zemin zayıflar ve kas zayıflığı kırık riskini artırır.",
+          "ketonlar beyin ve kaslar için insüline ihtiyaç duymadan kullanılabilen bir enerji kaynağıdır.",
+          "kolajen tüketimi 6-8 hafta içinde eklem ağrılarını azaltır.",
+          "kurkumin proinflamatuvar molekülleri engelleyerek kronik inflamasyonu azaltır ve insülin reseptörlerinin yeniden çalışmasını sağlar.",
+          "kurkumin yağda çözünen bir madde olduğu için mct yağı emilimini en üst düzeye çıkarır.",
+          "ldl kolesterolü yüksek olanlar veya karaciğer rahatsızlığı olanlar mct yağı kullanmadan önce doktora danışmalıdır.",
+          "lösin adlı amino asit kaslarda protein sentezini başlatan ana tetikleyicidir.",
+          "madrid'deki ramon y cajal üniversite hastanesi araştırmasına göre evde bağımsız yaşayan 65 yaş üstü bireylerin %29'undan fazlasında ileri derecede sarkopeni tespit edildi",
+          "makul dozlarda kafein nöromüsküler sinir-kas fonksiyonlarını geliştirir.",
+          "mct yağı bağırsaklardan hızla emilip karaciğerde neredeyse anında ketona dönüştürülür.",
+          "mct yağı ilk kullanıma yarım çay kaşığı ile başlanıp bir hafta içinde kademeli olarak yemek kaşığına çıkarılmalıdır.",
+          "mct yağı ve protein tüketiminin ilk 1-2 hafta içinde sabah yorgunluğunu azalttığı hissedilir.",
+          "mct yağı çok yüksek ldl kolesterolü veya karaciğer sorunu olan kişiler için uygun olmayabilir.",
+          "peynir altı suyu proteini gram başına en yüksek lösin yoğunluğuna sahiptir ve bunu kan dolaşımına en hızlı ulaştırır.",
+          "peynir altı suyu proteini kaslar üzerinde en hızlı etkiyi yaratan maddedir",
+          "peynir altı suyu proteini, seylan tarçını ve hidrolize kolajen birlikte kas yapımını, insülin duyarlılığını ve eklem korumasını aynı anda sağlar",
+          "proteinin böbrekleri çürüttüğü iddiası, ciddi böbrek rahatsızlığı olan hastaların verilerinden yanlış genellenmiş bir mittir",
+          "proteinsiz bir kahvaltı, vücudun kas dokusunu parçalamasına yol açar.",
+          "sabah aç karnına içilen sade kahve kasları aç bırakarak düşme riskini artırır",
+          "sabah kahvesine 1-2 yemek kaşığı saf kakao tozu eklemek dolaşımı iyileştirir.",
+          "sabah kahvesine eklenen 8 laboratuvar onaylı malzeme kas gücünü ve dengeyi sonsuza dek korur",
+          "sarkopeni (kas erimesi) doğru besinlerle durdurulabilir ve geri çevrilebilir.",
+          "sarkopeni yaşlanmaya bağlı kas kütlesi ve kas gücünün kademeli kaybıdır",
+          "seylan tarçını hücresel insülin duyarlılığını artırarak glikoz taşıyıcı proteinleri harekete geçirir ve şekerin kaslara taşınmasını sağlar",
+          "seylan tarçını insülin duyarlılığını artırır.",
+          "seylan tarçını kasya tarçınından 250 kat daha az kumarin içerir",
+          "seylan tarçını, zerdeçal, karabiber ve kakao ucuz ve aylarca kullanılabilecek ekonomik ürünlerdir.",
+          "televizyonlarda satılan mucize takviyelerin bilimsel hiçbir kanıtı yoktur.",
+          "uyandıktan hemen sonra aç karna kahve içmek, vücudun kendini onarmak için en aç olduğu fırsatı kaçırmaktır.",
+          "uyandıktan sonraki 20 dakikalık pencerede vücudu besinsiz bırakmak yıllar içinde kas kaybına yol açan sessiz hasar biriktirir",
+          "yaşlanmayla birlikte anabolik direnç ortaya çıkar ve vücut kas yapmak için daha fazla ve kaliteli besine ihtiyaç duyar",
+          "yıllar boyunca biriken protein açığı, ileri yaşlarda sarkopeninin bir numaralı sebebidir",
+          "zerdeçal (kurkumin) kan sulandırıcı kullanan hastalarda ilacın etkisini hafifçe artırabilir.",
+          "zerdeçal tek başına tüketildiğinde bağırsak kurkuminin sadece %1-2'sini emebilir."
+        ],
+        "added": [
+          "3 gramlık lösin eşiği, yaşlanmayla ortaya çıkan anabolik direnci kırmanın tek yoludur.",
+          "6-8 hafta içinde kolajen sayesinde merdiven çıkarken veya yürürken eklem ağrıları azalır.",
+          "60 yaş üstü kişilerin kahvaltıda 20-30 gram yüksek kaliteli protein tüketmesi kas kütlesinin korunmasında en güçlü beslenme değişikliğidir.",
+          "60 yaşındaki bir bireyin kahvaltıda ihtiyacı olan protein miktarı 20-30 gramdır.",
+          "60-78 yaş arası katılımcılarla yapılan bir çalışmada, 12 hafta hidrolize kolajen kullanan grubun diz ve kalça ağrılarında kontrol grubuna kıyasla %41 azalma bildirdiği görülmüştür.",
+          "61 yaşındaki bir hastanın günlük yürüyüş yapmasına rağmen düşük proteinli kahvaltı (4 gramın altında) nedeniyle kas gücü kaybı yaşadığı, diyetine peynir altı suyu proteini, proteinli süt ve hidrolize kolajen eklenmesinin ardından 8 hafta sonra bacak gücünde belirgin iyileşme bildirdiği vaka anlatılmıştır.",
+          "62-76 yaş arası katılımcılarda 12 hafta karabiberli zerdeçal kullanımı inflamasyon belirteçlerini düşürmüş ve egzersiz sonrası kas eklem ağrılarını azaltmıştır.",
+          "8-12 hafta arasında kas kütlesi ve fiziksel güç artışı, günlük aktivitelerde (poşet taşıma, sandalyeden kalkma) fark edilir hale gelir.",
+          "belirtilmeyen bir faktörün kas erimesine neden olduğu bilimsel olarak kanıtlanmıştır.",
+          "böbrekleri sağlıklı yaşlı bireylerde önerilen günlük protein alımı vücut ağırlığının kilogramı başına 1-1.2 gram arasındadır.",
+          "geleneksel türk kahvaltısı (peynir, zeytinyağlı ekmek, domates, meyve, çay/kahve) yaklaşık 4-6 gram protein içerir.",
+          "günde 10-15 gram hidrolize kolajen kullanımı, 12 haftalık düzenli kullanım sonucunda eklem ağrılarını belirgin ölçüde azaltmaktadır.",
+          "günde 2-3 fincan kahve, en geç öğleden sonra içilmelidir.",
+          "günde 3 fincandan fazla veya öğleden sonra saat 15:00'ten sonra kahve içmek kortizolü sürekli yüksek tutarak kas erimesine neden olur.",
+          "günde yarım çay kaşığı seylan tarçını tüketilmesi önerilir; çeyreği sabah kahveye, çeyreği öğleden sonra veya akşam karbonhidratlı öğüne eklenmelidir.",
+          "i̇leri yaşta kalça kırığı geçiren her dört kişiden biri eski bağımsızlığına kavuşamaz.",
+          "i̇leri yaştaki bireylerde kas protein sentezi şalterinin açılması için tek seferde yaklaşık 3 gram lösine ihtiyaç vardır.",
+          "i̇lk 1-2 hafta içinde mct yağı ve proteinin etkisiyle sabah yorgunluğu kaybolur ve güne daha enerjik başlanır.",
+          "jelibon veya hap formundaki kolajen takviyelerinin dozu düşük olduğu için tedavi edici etkisi neredeyse sıfırdır.",
+          "kahvaltıda yeterli protein alınmazsa vücut hayatta kalmak için kendi kas dokusunu parçalamaya başlar.",
+          "kahvaltıda yeterli protein, kaliteli yağ, iltihap sökücü bileşikler ve kan şekerini dengeleyici maddeler bulunmalıdır.",
+          "kahvedeki klorojenik asit ve polifenoller hücreleri yaşlanmaya bağlı oksidatif hasara karşı korur.",
+          "kahveye peynir altı suyu proteini, kolajen ve proteinli süt eklenerek kahvaltı proteini 5 dakikada 4 gramdan 25-30 grama çıkarılabilir.",
+          "kahveye sadece peynir altı suyu proteini eklemek, kas kaybını durdurmak için yapılabilecek en önemli ve en büyük değişikliktir.",
+          "kakao içindeki flavonol bileşikleri nitrik oksit üretimini tetikleyerek damar esnekliğini ve kas dokusuna kan akışını artırır.",
+          "kakaodaki flavanoller ileri yaştaki bireylerde kanıtlanmış bir vazodilatör (damar genişletici) etkiye sahiptir.",
+          "kaliteli gece uykusu kas onarımı için hayati önem taşır.",
+          "karabiberdeki piperin, kurkumini parçalayan enzimleri durdurarak kurkuminin kana geçiş oranını 2000 kata kadar artırır.",
+          "karabiberli zerdeçal, hidrolize kolajen ve seylan tarçını kombinasyonu eklem ağrısı ve iltihaplanmayı azaltır.",
+          "kas dokusu 75-80 yaşında bile doğru uyarıcılarla yeniden inşa edilebilir.",
+          "kas kütlesini korumak için peynir altı suyu proteini, seylan tarçını ve hidrolize kolajen kombinasyonu kas yapımını, insülin duyarlılığını ve eklem korumasını aynı anda sağlar.",
+          "kas sağlığı için içilen bir süt/protein içeceğinin porsiyonunda en az 5-8 gram protein olmalıdır.",
+          "kas zayıflığı düşme riskini katlanarak artırır ve 65 yaş sonrası kalça kırığı ömür boyu bağımlılığa yol açabilir.",
+          "kasların gelişip korunabilmesi için mekanik uyarı (egzersiz) gereklidir, beslenme tek başına yeterli değildir.",
+          "kasya tarçını kan sulandırıcı ilaçlarla etkileşime girme riski taşır.",
+          "kasya tarçınının düzenli günlük tüketimi karaciğerde kumarin birikimine ve karaciğer hasarına yol açabilir.",
+          "kemik yoğunluğu azaldığında kasın tutunacağı zemin zayıflar ve kas zayıfladığında kemik düşme/kırıklara karşı korumasız kalır.",
+          "ketonlar beyin ve kaslar için insüline ihtiyaç duymadan kullanılabilen, glikoza kıyasla daha istikrarlı bir enerji kaynağıdır.",
+          "kurkumin proinflamatuvar molekülleri engelleyerek kronik düşük dereceli inflamasyonu azaltır ve bu sarkopeni mekanizmasına karşı etkilidir.",
+          "kurkumin tek başına tüketildiğinde bağırsakta sadece %1-2 oranında emilir.",
+          "kurkumin yağda çözünen bir madde olduğundan mct yağı ile birlikte alındığında emilimi en üst düzeye çıkar.",
+          "lösin amino asidi kaslarda protein sentezini başlatan ana tetikleyicidir.",
+          "madrid ramón y cajal üniversite hastanesi araştırmasına göre kendi evinde bağımsız yaşayan 65 yaş üstü bireylerin %29'undan fazlasında teşhis edilmemiş ileri derecede sarkopeni bulunmuştur.",
+          "makul dozda kafein nöromüsküler sinir-kas fonksiyonlarını geliştirerek denge ve refleksi iyileştirir.",
+          "mct yağı bağırsaklardan hızlı emilir ve karaciğer tarafından neredeyse anında ketonlara dönüştürülür.",
+          "mct yağı kullanımına ilk gün yarım küçük çay kaşığı ile başlanmalı, bir hafta sonra tatlı kaşığına, sonra yemek kaşığına çıkarılmalıdır.",
+          "mct yağı, saf kakao ve peynir altı suyu proteini kombinasyonu enerjiyi artırıp yorgunluğu azaltır.",
+          "peynir altı suyu proteini kaslar üzerinde en hızlı etkiyi yaratan maddedir.",
+          "proteinin böbrekleri çürüttüğü iddiası bir efsanedir ve sadece böbrek hastalarına özgü verilerden yanlış genellenmiştir.",
+          "sabah aç karnına sade kahve içmek kas kaybını hızlandıran gizli bir tehlikedir.",
+          "sabah kahvesine 1-2 yemek kaşığı saf kakao tozu eklenmesi damar sağlığı için yeterlidir.",
+          "sabah kahvesine eklenen bilimsel olarak kanıtlanmış doğal bileşenler kas kaybı sürecini tersine çevirebilir.",
+          "sandalyeden 10 kez kalkıp oturmak, günde 20 dakika yürümek veya merdiven kullanmak kaslara onarım sinyali göndermeye yeterlidir.",
+          "sarkopeni kaderdir değildir; hangi yaşta olursa olsun doğru besinlerle kas erimesi durdurulabilir ve geri çevrilebilir.",
+          "sarkopeni, yaşlanmaya bağlı olarak kas kütlesi ve kas gücünün kademeli kaybıdır.",
+          "sekiz malzeme eklenmiş kahve, kasları koruyan metabolik bir zırha dönüştürülebilir.",
+          "seylan tarçını insülin duyarlılığını artırarak kas hücrelerine glikoz taşınmasını iyileştirir.",
+          "seylan tarçını kasya tarçınına göre 250 kat daha az kumarin içerir.",
+          "uyandıktan sonraki ilk 20 dakika içinde besin alınmaması yıllar içinde kas kaybına yol açan kalıcı hasar biriktirir.",
+          "vaka: 64 yaşındaki bir hastanın kahvaltı proteini 5 gramdı, kahvesine peynir altı suyu proteini ve kolajen eklenip 10 hafta sonra fiziksel performansı belirgin şekilde iyileşti.",
+          "vaka: 72 yaşındaki bir hastanın kahvaltısı sıfır protein içeriyordu, kahvesine peynir altı suyu proteini, mct yağı ve tarçın eklenince bir ay içinde enerjisi arttı ve yogaya geri döndü.",
+          "vücudun doğal kolajen üretimi 50 yaşından sonra keskin bir düşüşe geçer ve bu düşüş her 10 yılda hızlanır.",
+          "yaşlanmayla birlikte anabolik direnç oluşur ve vücut kas yapımı için daha fazla ve kaliteli besine ihtiyaç duyar.",
+          "yüksek ldl kolesterolü veya bilinen karaciğer rahatsızlığı olanlar mct yağı kullanmadan önce doktora danışmalıdır.",
+          "yıllar içinde biriken protein açığı sarkopeninin bir numaralı sebebidir.",
+          "zerdeçal karabibersiz kullanıldığında etkisi neredeyse yoktur, bu yüzden asla karabibersiz kullanılmamalıdır.",
+          "ölçülü kahve tüketimi insülin duyarlılığını artırır."
+        ],
+        "before_dup_clusters": 0,
+        "after_dup_clusters": 0,
+        "before_risk": {
+          "low": 23,
+          "medium": 40,
+          "high": 8
+        },
+        "after_risk": {
+          "medium": 38,
+          "high": 4,
+          "low": 29
+        },
+        "before_category": {
+          "diğer": 8,
+          "mekanizma": 35,
+          "mucize-ürün": 1,
+          "tanı": 2,
+          "doz": 10,
+          "tedavi": 12,
+          "önleme": 3
+        },
+        "after_category": {
+          "tanı": 3,
+          "mekanizma": 35,
+          "mucize-ürün": 3,
+          "diğer": 2,
+          "doz": 12,
+          "önleme": 4,
+          "tedavi": 12
+        },
+        "promote": {
+          "archived": 71,
+          "inserted": 71,
+          "extraction_version": "v2.1",
+          "verdict_carryover": {
+            "matched": 4,
+            "archived_with_verdict": 6,
+            "active_without_verdict": 71,
+            "unmatched_archived": 2
+          }
+        }
+      }
+    }
+  }
+}

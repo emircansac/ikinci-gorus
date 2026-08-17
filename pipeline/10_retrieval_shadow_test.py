@@ -5,9 +5,13 @@ Kullanım:
     ./venv/bin/python pipeline/10_retrieval_shadow_test.py
     ./venv/bin/python pipeline/10_retrieval_shadow_test.py --claim-ids 652,654,663,681,689,695
     ./venv/bin/python pipeline/10_retrieval_shadow_test.py --v2
+    ./venv/bin/python pipeline/10_retrieval_shadow_test.py --cascade
+    ./venv/bin/python pipeline/10_retrieval_shadow_test.py --live-serper
+    ./venv/bin/python pipeline/10_retrieval_shadow_test.py --live-serper --claim-ids 752,663,745,653,746,667
 """
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -17,9 +21,12 @@ sys.path.append(str(Path(__file__).parent.parent))
 from utils.db import get_conn
 from utils.evidence_retrieval import (
     CANDIDATE_POOL_SIZE,
+    ESCALATE_PACKAGE_SIZE,
     FINAL_EVIDENCE_COUNT,
     PUBMED_EFETCH,
     apply_key_term_filter,
+    assess_evidence_sufficiency,
+    collect_native_candidates,
     expand_query_variants,
     europepmc_candidates,
     medlineplus_candidates,
@@ -27,6 +34,7 @@ from utils.evidence_retrieval import (
     pubmed_search_hit_count,
     retrieve_guideline_snippets,
     retrieve_hybrid_evidence,
+    retrieve_serper_evidence,
     _dense_rerank,
     _merge_candidates,
     _pubmed_candidates_from_query,
@@ -37,8 +45,47 @@ from utils.nutrition_lookup import is_nutrition_quantity_claim, lookup_nutrition
 DEFAULT_SAMPLE = [652, 654, 663, 681, 689, 695]
 # Bu turun no_evidence / NLI<0.75 kümesinden 8 iddia (MADDE 1 URL'leri dahil)
 V2_SAMPLE = [745, 752, 653, 663, 652, 746, 667, 678]
+# 11_nli_shadow_test.DEFAULT_VIDEO_IDS ile aynı — escalated kohort
+NLI_COHORT_VIDEO_IDS = ("P4m9F9mykQ8", "odZgEDFDmbE", "bZsorXWeLhM")
+LIVE_SERPER_DEFAULT = [662, 684, 686, 746, 752, 663]
 OUT_PATH = Path(__file__).parent.parent / "data" / "retrieval_shadow_test.json"
 OUT_PATH_V2 = Path(__file__).parent.parent / "data" / "retrieval_shadow_test_v2.json"
+OUT_PATH_CASCADE = Path(__file__).parent.parent / "data" / "retrieval_shadow_test_cascade.json"
+OUT_PATH_LIVE_SERPER = Path(__file__).parent.parent / "data" / "retrieval_shadow_test_live_serper.json"
+
+SERPER_PROXY_LABEL = (
+    "gerçek Serper sonucu değil, Claude'un geçmiş web_search seçimine dayalı "
+    "yaklaşık üst sınır"
+)
+WEB_SEARCH_CITE_FLAGS = ("web_search_override", "web_search_only")
+DEBUG_LOG = Path(__file__).parent.parent / "data" / "factcheck_debug.jsonl"
+
+
+def _load_cite_sources() -> dict[int, str]:
+    """Son factcheck_debug.jsonl kaydındaki cite_source (DB flags bu kohortta boş)."""
+    out: dict[int, str] = {}
+    if not DEBUG_LOG.exists():
+        return out
+    with DEBUG_LOG.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            cid = rec.get("claim_id")
+            cite = rec.get("cite_source")
+            if cite is None:
+                cite = (rec.get("calibrated") or {}).get("cite_source")
+            if cid is None or not cite:
+                continue
+            try:
+                out[int(cid)] = str(cite)
+            except (TypeError, ValueError):
+                continue
+    return out
 
 # MADDE 2 canlı XML kanıtı: bilinen PublicationType etiketleri
 M2_PROOF_PMIDS = {
@@ -52,18 +99,50 @@ def _load_claims(conn, claim_ids: list[int]) -> list[dict]:
     placeholders = ",".join("?" * len(claim_ids))
     rows = conn.execute(f"""
         SELECT c.claim_id, c.claim_text, c.search_query_en, c.category, c.initial_risk,
+               c.video_id,
                vr.source_url AS stored_source_url,
                vr.source_tier AS stored_source_tier,
                vr.final_verdict AS stored_verdict,
                vr.confidence AS stored_confidence,
                vr.nli_evidence_snippet,
-               vr.nli_confidence
+               vr.nli_confidence,
+               vr.calibration_flags,
+               vr.escalated
         FROM claims c
         LEFT JOIN verdicts vr ON vr.claim_id = c.claim_id
         WHERE c.claim_id IN ({placeholders})
         ORDER BY c.claim_id
     """, claim_ids).fetchall()
     return [dict(r) for r in rows]
+
+
+def _load_nli_cohort(conn, video_ids: tuple[str, ...] = NLI_COHORT_VIDEO_IDS) -> list[dict]:
+    """11_nli_shadow_test._load_cohort ile aynı filtre: escalated=1 + final_verdict."""
+    placeholders = ",".join("?" * len(video_ids))
+    rows = conn.execute(f"""
+        SELECT c.claim_id, c.claim_text, c.search_query_en, c.category, c.initial_risk,
+               c.video_id,
+               vr.source_url AS stored_source_url,
+               vr.source_tier AS stored_source_tier,
+               vr.final_verdict AS stored_verdict,
+               vr.confidence AS stored_confidence,
+               vr.nli_evidence_snippet,
+               vr.nli_confidence,
+               vr.calibration_flags,
+               vr.escalated
+        FROM claims c
+        JOIN verdicts vr ON vr.claim_id = c.claim_id
+        WHERE c.video_id IN ({placeholders})
+          AND vr.escalated = 1 AND vr.final_verdict IS NOT NULL
+        ORDER BY c.claim_id
+    """, video_ids).fetchall()
+    cites = _load_cite_sources()
+    out = []
+    for r in rows:
+        d = dict(r)
+        d["cite_source"] = cites.get(d["claim_id"])
+        out.append(d)
+    return out
 
 
 def evaluate_claim(row: dict) -> dict:
@@ -259,6 +338,300 @@ def _v2_delta(results: list[dict]) -> dict:
     }
 
 
+def _sufficiency_dict(suff) -> dict:
+    return {
+        "sufficient": suff.sufficient,
+        "relevance_ok": suff.relevance_ok,
+        "quality_ok": suff.quality_ok,
+        "reason": suff.reason,
+        "best_tier": suff.best_tier,
+        "kept_count": suff.kept_count,
+        "max_rerank_score": suff.max_rerank_score,
+    }
+
+
+def _used_web_search(flags: str | None, cite_source: str | None = None) -> bool:
+    if cite_source in WEB_SEARCH_CITE_FLAGS:
+        return True
+    parts = {p.strip() for p in (flags or "").split(",") if p.strip()}
+    return any(f in parts for f in WEB_SEARCH_CITE_FLAGS)
+
+
+def evaluate_cascade_offline(row: dict) -> dict:
+    """A: native canlı + Serper katmanı DB source_url proxy (karar değil)."""
+    text = row["claim_text"] or ""
+    query = row.get("search_query_en") or ""
+    if is_nutrition_quantity_claim(text):
+        nut = lookup_nutrition_evidence(text)
+        if nut:
+            native = [{**x, "retrieval_tier": x.get("retrieval_tier") or "native",
+                       "evidence_content_type": x.get("evidence_content_type") or "abstract"}
+                      for x in nut]
+            native_suff = assess_evidence_sufficiency(native, text, query)
+            return _cascade_row(row, native, ["nutrition_db"], native_suff)
+    native, path_parts = collect_native_candidates(text, query, row.get("category"))
+    native_suff = assess_evidence_sufficiency(native, text, query)
+    return _cascade_row(row, native, path_parts, native_suff)
+
+
+def _cascade_row(row, native, path_parts, native_suff) -> dict:
+    text = row["claim_text"] or ""
+    query = row.get("search_query_en") or ""
+    serper_invoked = not native_suff.sufficient
+
+    proxy_suff = None
+    proxy_url = (row.get("stored_source_url") or "").strip()
+    if serper_invoked:
+        if proxy_url:
+            proxy_cand = [{
+                "title": proxy_url,
+                "abstract": (row.get("nli_evidence_snippet") or "")[:800],
+                "url": proxy_url,
+                "retrieval_tier": "serper",
+                "evidence_content_type": "search_snippet",
+            }]
+            merged = _merge_candidates(native, proxy_cand)
+            proxy_suff = assess_evidence_sufficiency(merged, text, query)
+        else:
+            proxy_suff = assess_evidence_sufficiency([], text, query)
+
+    return {
+        "claim_id": row["claim_id"],
+        "video_id": row.get("video_id"),
+        "claim_text": text[:140],
+        "search_query_en": query,
+        "native_path": "+".join(path_parts) if path_parts else "none",
+        "native_candidate_count": len(native),
+        "native": _sufficiency_dict(native_suff),
+        "serper_invoked": serper_invoked,
+        "proxy_source_url": proxy_url or None,
+        "proxy": _sufficiency_dict(proxy_suff) if proxy_suff is not None else None,
+        "baseline_used_web_search": _used_web_search(
+            row.get("calibration_flags"), row.get("cite_source")
+        ),
+        "cite_source": row.get("cite_source"),
+        "stored_source_tier": row.get("stored_source_tier"),
+    }
+
+
+def _cascade_summary(results: list[dict]) -> dict:
+    n = len(results)
+    native_sufficient = sum(1 for r in results if r["native"]["sufficient"])
+    serper_invoked = sum(1 for r in results if r["serper_invoked"])
+    proxy_sufficient = sum(
+        1 for r in results
+        if r["serper_invoked"] and r.get("proxy") and r["proxy"]["sufficient"]
+    )
+    still_need_web = sum(
+        1 for r in results
+        if r["serper_invoked"] and not (r.get("proxy") and r["proxy"]["sufficient"])
+    )
+    cites_present = sum(1 for r in results if r.get("cite_source"))
+    web_from_cite = sum(
+        1 for r in results
+        if r.get("cite_source") in WEB_SEARCH_CITE_FLAGS
+    )
+    # Bu kohort escalated=1: Claude web_search aracı her çağrıda açık.
+    # cite_source seyrekse baseline = 1.0 (araç-açık escalate oranı).
+    if cites_present >= max(10, n // 2):
+        baseline_rate = round(web_from_cite / n, 3)
+        baseline_note = (
+            f"cite_source debug log ({cites_present}/{n}); "
+            "web_search_override|web_search_only payı"
+        )
+    else:
+        baseline_rate = 1.0
+        baseline_note = (
+            "Kohort filtresi escalated=1 — Claude web_search aracı her iddiada açık "
+            f"(cite_source yalnızca {cites_present}/{n} kayıtta dolu, oran için kullanılmadı)."
+        )
+
+    rescue_proxy = (proxy_sufficient / serper_invoked) if serper_invoked else None
+
+    examples = {
+        "relevance_ok_false": next(
+            (r["claim_id"] for r in results if r["native"]["relevance_ok"] is False),
+            None,
+        ),
+        "quality_ok_false": next(
+            (r["claim_id"] for r in results
+             if r["native"]["relevance_ok"] and not r["native"]["quality_ok"]),
+            None,
+        ),
+        "native_sufficient_true": next(
+            (r["claim_id"] for r in results if r["native"]["sufficient"]),
+            None,
+        ),
+    }
+    example_rows = []
+    for key, cid in examples.items():
+        if cid is None:
+            continue
+        row = next(r for r in results if r["claim_id"] == cid)
+        example_rows.append({"kind": key, **row})
+
+    return {
+        "n": n,
+        "native_sufficient": native_sufficient,
+        "serper_invoked": serper_invoked,
+        "serper_sufficient_offline_proxy": proxy_sufficient,
+        "serper_rescue_rate_offline_proxy": (
+            round(rescue_proxy, 3) if rescue_proxy is not None else None
+        ),
+        "serper_rescue_rate_offline_proxy_label": SERPER_PROXY_LABEL,
+        "decision_note": (
+            "Bu proxy karar verici değildir. Asıl serper_rescue_rate için "
+            "--live-serper (B) bakın."
+        ),
+        "baseline_web_search_escalation_rate": baseline_rate,
+        "baseline_web_search_escalation_note": baseline_note,
+        "new_web_search_escalation_rate": {
+            "rate": round(still_need_web / n, 3) if n else None,
+            "count": still_need_web,
+            "estimated_from_offline_proxy": True,
+            "note": (
+                "Karar verici değil; B'deki canlı serper_rescue_rate ile çelişirse B geçerli."
+            ),
+        },
+        "sufficiency_examples": example_rows,
+    }
+
+
+def _print_cascade(summary: dict, out_path: Path) -> None:
+    print("[cascade A] kohort (offline proxy — KARAR DEĞİL)")
+    print(f"  n={summary['n']} native_sufficient={summary['native_sufficient']} "
+          f"serper_invoked={summary['serper_invoked']}")
+    print(f"  baseline_web_search_escalation_rate={summary['baseline_web_search_escalation_rate']}")
+    if summary.get("baseline_web_search_escalation_note"):
+        print(f"  baseline_note: {summary['baseline_web_search_escalation_note']}")
+    print(f"  serper_rescue_rate_offline_proxy={summary['serper_rescue_rate_offline_proxy']}")
+    print(f"  ETİKET: {summary['serper_rescue_rate_offline_proxy_label']}")
+    print(f"  {summary['decision_note']}")
+    est = summary["new_web_search_escalation_rate"]
+    print(f"  new_web_search_escalation_rate={est['rate']} "
+          f"(estimated_from_offline_proxy={est['estimated_from_offline_proxy']})")
+    for ex in summary.get("sufficiency_examples") or []:
+        nat = ex["native"]
+        print(f"  örnek [{ex['kind']}] claim_id={ex['claim_id']} "
+              f"relevance_ok={nat['relevance_ok']} quality_ok={nat['quality_ok']} "
+              f"sufficient={nat['sufficient']} reason={nat['reason']}")
+    print(f"[cascade A] rapor -> {out_path}")
+
+
+def evaluate_live_serper(row: dict) -> dict:
+    """B: native assess → gerçek Serper API → aynı assess. Karar verici sayı."""
+    text = row["claim_text"] or ""
+    query = row.get("search_query_en") or ""
+    native, path_parts = collect_native_candidates(text, query, row.get("category"))
+    native_suff = assess_evidence_sufficiency(native, text, query)
+    serper_invoked = not native_suff.sufficient
+
+    serper_items: list[dict] = []
+    merged_suff = None
+    path = list(path_parts)
+    if serper_invoked:
+        serper_items = retrieve_serper_evidence(query)
+        merged = _merge_candidates(native, serper_items)
+        merged_suff = assess_evidence_sufficiency(merged, text, query)
+        if serper_items:
+            path.append("serper")
+        pool = merged
+    else:
+        pool = native
+
+    filtered, _meta = apply_key_term_filter(pool, query, text)
+    package = _dense_rerank(text, filtered or pool, ESCALATE_PACKAGE_SIZE)
+    hy_path = "+".join(path) if path else "none"
+    field_proof = []
+    for item in package[:5]:
+        field_proof.append({
+            "title": (item.get("title") or "")[:100],
+            "url": item.get("url"),
+            "retrieval_tier": item.get("retrieval_tier"),
+            "source_tier": item.get("source_tier") or item.get("source"),
+            "evidence_content_type": item.get("evidence_content_type"),
+            "provider": item.get("provider"),
+        })
+
+    serper_sufficient = bool(serper_invoked and merged_suff and merged_suff.sufficient)
+
+    return {
+        "claim_id": row["claim_id"],
+        "video_id": row.get("video_id"),
+        "claim_text": text[:140],
+        "search_query_en": query,
+        "native_path": "+".join(path_parts) if path_parts else "none",
+        "native": _sufficiency_dict(native_suff),
+        "serper_invoked": serper_invoked,
+        "serper_raw_count": len(serper_items),
+        "after_serper": _sufficiency_dict(merged_suff) if merged_suff is not None else None,
+        "serper_sufficient": serper_sufficient,
+        "hybrid_path": hy_path,
+        "package_field_proof": field_proof,
+        "fields_ok": all(
+            p.get("retrieval_tier") in ("native", "serper")
+            and p.get("source_tier")
+            and p.get("evidence_content_type") in ("abstract", "search_snippet")
+            for p in field_proof
+        ) if field_proof else False,
+    }
+
+
+def _live_serper_summary(results: list[dict]) -> dict:
+    n = len(results)
+    native_sufficient = sum(1 for r in results if r["native"]["sufficient"])
+    serper_invoked = sum(1 for r in results if r["serper_invoked"])
+    serper_sufficient = sum(1 for r in results if r["serper_invoked"] and r["serper_sufficient"])
+    key_present = bool((os.environ.get("SERPER_API_KEY") or "").strip())
+    if not key_present:
+        rescue = None
+        decision_note = (
+            "SERPER_API_KEY yok — serper_rescue_rate ölçülemedi (0 yazılmaz). "
+            ".env'e anahtarı ekleyip --live-serper tekrar çalıştırın. "
+            "A'daki offline proxy karar değildir."
+        )
+    else:
+        rescue = (serper_sufficient / serper_invoked) if serper_invoked else None
+        decision_note = (
+            "Asıl karar verici sayı: canlı serper_rescue_rate. "
+            "A'daki offline proxy üst sınırdır, karar değildir."
+        )
+    return {
+        "n": n,
+        "native_sufficient": native_sufficient,
+        "serper_invoked": serper_invoked,
+        "serper_sufficient": serper_sufficient if key_present else None,
+        "serper_rescue_rate": round(rescue, 3) if rescue is not None else None,
+        "serper_api_key_present": key_present,
+        "decision_note": decision_note,
+        "fields_ok_count": sum(1 for r in results if r.get("fields_ok")),
+    }
+
+
+def _print_live_serper(summary: dict, results: list[dict], out_path: Path) -> None:
+    print("[live B] KARAR — canlı Serper")
+    print(f"  n={summary['n']} native_sufficient={summary['native_sufficient']} "
+          f"serper_invoked={summary['serper_invoked']} "
+          f"serper_sufficient={summary['serper_sufficient']}")
+    print(f"  serper_rescue_rate={summary['serper_rescue_rate']}"
+          f"{'' if summary.get('serper_api_key_present') else '  (ölçülemedi, anahtar yok)'}")
+    print(f"  {summary['decision_note']}")
+    for r in results:
+        nat = r["native"]
+        print(
+            f"  [{r['claim_id']}] native_suff={nat['sufficient']} "
+            f"rel={nat['relevance_ok']} qual={nat['quality_ok']} "
+            f"reason={nat['reason']} serper_invoked={r['serper_invoked']} "
+            f"serper_suff={r['serper_sufficient']} path={r['hybrid_path']}"
+        )
+        for p in (r.get("package_field_proof") or [])[:3]:
+            print(
+                f"      tier={p.get('retrieval_tier')} source={p.get('source_tier')} "
+                f"content={p.get('evidence_content_type')} url={p.get('url')}"
+            )
+    print(f"[live B] rapor -> {out_path}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--claim-ids", default="")
@@ -266,9 +639,62 @@ def main():
                     help="odZg no_evidence snippet'li tüm iddiaları test et")
     ap.add_argument("--v2", action="store_true",
                     help="4 maddeyi sırayla ölç, data/retrieval_shadow_test_v2.json yaz")
+    ap.add_argument("--cascade", action="store_true",
+                    help="NLI kohortu (~104) native+offline Serper proxy (A, karar değil)")
+    ap.add_argument("--live-serper", action="store_true",
+                    help="5-6 iddiada canlı Serper zinciri (B, karar verici serper_rescue_rate)")
     args = ap.parse_args()
 
     conn = get_conn()
+
+    if args.cascade:
+        claims = _load_nli_cohort(conn)
+        conn.close()
+        print(f"[cascade A] kohort: {len(claims)} escalated iddia "
+              f"({', '.join(NLI_COHORT_VIDEO_IDS)})")
+        results = [evaluate_cascade_offline(c) for c in claims]
+        summary = _cascade_summary(results)
+        report = {
+            "mode": "cascade_offline_proxy",
+            "video_ids": list(NLI_COHORT_VIDEO_IDS),
+            "cohort_filter": "escalated=1 AND final_verdict IS NOT NULL",
+            "serper_layer": "offline_proxy_from_stored_source_url",
+            "serper_rescue_rate_offline_proxy_label": SERPER_PROXY_LABEL,
+            "summary": summary,
+            "results": results,
+        }
+        OUT_PATH_CASCADE.parent.mkdir(parents=True, exist_ok=True)
+        OUT_PATH_CASCADE.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        _print_cascade(summary, OUT_PATH_CASCADE)
+        if not args.live_serper:
+            return
+        conn = get_conn()
+
+    if args.live_serper:
+        if args.claim_ids:
+            claim_ids = [int(x.strip()) for x in args.claim_ids.split(",") if x.strip()]
+        else:
+            claim_ids = list(LIVE_SERPER_DEFAULT)
+        claims = _load_claims(conn, claim_ids)
+        conn.close()
+        print(f"[live B] canlı Serper: {len(claims)} iddia {claim_ids}")
+        results = [evaluate_live_serper(c) for c in claims]
+        summary = _live_serper_summary(results)
+        report = {
+            "mode": "live_serper",
+            "claim_ids": claim_ids,
+            "summary": summary,
+            "results": results,
+        }
+        OUT_PATH_LIVE_SERPER.parent.mkdir(parents=True, exist_ok=True)
+        OUT_PATH_LIVE_SERPER.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        _print_live_serper(summary, results, OUT_PATH_LIVE_SERPER)
+        return
+
     if args.from_no_evidence:
         rows = conn.execute("""
             SELECT c.claim_id FROM claims c
