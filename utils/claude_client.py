@@ -306,7 +306,9 @@ Kurallar:
 - Bileşik iddialar (örn. "X hem A hem B etkisi yapar"): bileşenlerden biri \
   güçlü kanıtla desteklenirken diğeri desteklenmiyor/zayıf kanıtlıysa \
   final_verdict="tartışmalı" ver. TÜM bileşenler aynı yönde (hepsi destekli \
-  VEYA hepsi çürütülmüş) değilse asla "doğrulanmış" veya "yanlış" verme.
+  VEYA hepsi çürütülmüş) değilse asla "doğrulanmış" veya "yanlış" verme. \
+  Kullanıcı paketinde "Bileşen kanıt haritası" varsa o kademeleri kullan; \
+  yoksa bileşenleri kendin ayır.
 - Besin miktarı iddialarında Wikipedia değil USDA / ulusal gıda bileşimi \
   tablosu kullan. Karşılaştırmalı iddia ("X, Y'den düşük potasyum") ancak \
   her iki besinin değeri kaynakta varsa "doğrulanmış/yanlış" olabilir.
@@ -392,6 +394,17 @@ NO_DIRECT_EVIDENCE_NOTE = (
     "Bu iddia için pakette muhtemelen doğrudan kanıt yok. "
     "'belirsiz' olarak değerlendirmeyi düşün; gereksiz yere aramaya devam etme."
 )
+JSON_RETRY_USER_SUFFIX = (
+    "\n\n[JSON RETRY] Yalnızca geçerli JSON döndür; açıklama metni veya markdown "
+    "code fence (```) ekleme. reasoning içindeki çift tırnakları \\\" ile escape et."
+)
+
+ESCALATE_MAX_TOKENS = 2000
+VALID_ESCALATE_VERDICTS = frozenset({"doğrulanmış", "yanlış", "tartışmalı", "belirsiz"})
+REQUIRED_ESCALATE_FIELDS = (
+    "final_verdict", "confidence", "reasoning", "source_url",
+    "source_directness", "evidence_stance", "source_tier",
+)
 
 
 def _escalate_user_notes(
@@ -408,7 +421,32 @@ def _escalate_user_notes(
     return "\n\n" + "\n".join(notes)
 
 
-def _format_evidence_package(claim_text: str, evidence: list[dict]) -> str:
+def _format_component_map_note(component_evidence_map: dict | None) -> str:
+    comps = (component_evidence_map or {}).get("components") or []
+    if len(comps) < 2:
+        return ""
+    labels = "ABCDEFGHIJ"
+    lines = ["", "Bileşen kanıt haritası (aynı paket, yeni arama yok):"]
+    for i, row in enumerate(comps):
+        letter = labels[i] if i < len(labels) else str(i + 1)
+        text = (row.get("text") or "").strip()
+        if len(text) > 180:
+            text = text[:180] + "…"
+        tier = row.get("tier") or "none"
+        kept = row.get("kept", 0)
+        lines.append(f'- [{letter}] "{text}" → tier={tier} (kept={kept})')
+    lines.append(
+        "Bileşenler farklı kademedeyse mevcut bileşik-iddia kuralına uy "
+        "(final_verdict=tartışmalı; tümü aynı yönde değilse doğrulanmış/yanlış verme)."
+    )
+    return "\n".join(lines)
+
+
+def _format_evidence_package(
+    claim_text: str,
+    evidence: list[dict],
+    component_evidence_map: dict | None = None,
+) -> str:
     lines = [
         f"İddia: {claim_text}",
         "",
@@ -452,7 +490,65 @@ def _format_evidence_package(claim_text: str, evidence: list[dict]) -> str:
         if abstract:
             lines.append(f"    {abstract}")
         lines.append("")
-    return "\n".join(lines).strip()
+    body = "\n".join(lines).strip()
+    return body + _format_component_map_note(component_evidence_map)
+
+
+def classify_parse_failure(
+    full_text: str,
+    stop_reason: str | None,
+    parsed: dict | None,
+) -> tuple[str | None, str | None]:
+    """
+    Parse başarısızlık kategorisi. (None, None) = başarılı parse + şema OK.
+    Kategoriler: truncated, invalid_json, schema_validation, missing_field,
+    wrong_enum, unknown.
+    """
+    if parsed is not None:
+        missing = [
+            f for f in REQUIRED_ESCALATE_FIELDS
+            if f not in parsed or parsed.get(f) is None
+        ]
+        if missing:
+            return "missing_field", f"missing or empty: {missing}"
+        verdict = parsed.get("final_verdict")
+        if verdict not in VALID_ESCALATE_VERDICTS:
+            return "wrong_enum", f"final_verdict={verdict!r}"
+        try:
+            conf = float(parsed.get("confidence"))
+            if not (0.0 <= conf <= 1.0):
+                return "schema_validation", f"confidence out of range: {conf}"
+        except (TypeError, ValueError):
+            return "schema_validation", f"confidence not numeric: {parsed.get('confidence')!r}"
+        return None, None
+
+    if stop_reason == "max_tokens":
+        return "truncated", "stop_reason=max_tokens"
+
+    text = (full_text or "").strip()
+    if not text:
+        return "missing_field", "empty response"
+    if "{" not in text:
+        return "invalid_json", "no JSON object in response"
+
+    stripped = text.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+    start = stripped.find("{")
+    end = stripped.rfind("}")
+    if start == -1:
+        return "invalid_json", "no opening brace"
+    chunk = stripped[start:end + 1] if end != -1 else stripped[start:]
+    try:
+        json.loads(chunk)
+    except json.JSONDecodeError as e:
+        if stop_reason == "max_tokens" or end == -1:
+            return "truncated", str(e)
+        return "invalid_json", str(e)
+    return "unknown", "extract_json failed but json.loads succeeded"
+
+
+def _merge_usage(a: dict, b: dict) -> dict:
+    keys = ("input_tokens", "output_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")
+    return {k: int(a.get(k) or 0) + int(b.get(k) or 0) for k in keys}
 
 
 def build_escalate_params(
@@ -462,17 +558,24 @@ def build_escalate_params(
     force_package_only: bool = False,
     specificity_tier: str | None = None,
     epistemic_class: str | None = None,
+    json_retry: bool = False,
+    component_evidence_map: dict | None = None,
 ) -> dict:
     """Messages API params — senkron ve Batch aynı gövdeyi kullanır."""
     package = list(evidence or [])[:5]
     if package:
-        user_content = _format_evidence_package(claim_text, package)
+        user_content = _format_evidence_package(
+            claim_text, package, component_evidence_map,
+        )
     else:
         user_content = f"İddiayı değerlendir: {claim_text}"
+        user_content += _format_component_map_note(component_evidence_map)
     user_content += _escalate_user_notes(specificity_tier, epistemic_class)
+    if json_retry:
+        user_content += JSON_RETRY_USER_SUFFIX
     params: dict = {
         "model": MODEL,
-        "max_tokens": 2000,
+        "max_tokens": ESCALATE_MAX_TOKENS,
         "system": _cached_system(FACTCHECK_ESCALATION_SYSTEM),
         "messages": [{"role": "user", "content": user_content}],
         "thinking": {"type": "disabled"},
@@ -490,6 +593,7 @@ def build_batch_request(
     force_package_only: bool = False,
     specificity_tier: str | None = None,
     epistemic_class: str | None = None,
+    component_evidence_map: dict | None = None,
 ) -> dict:
     """Anthropic Message Batches öğesi: {custom_id, params}."""
     custom_id = str(claim_id)
@@ -500,6 +604,7 @@ def build_batch_request(
         "params": build_escalate_params(
             claim_text, evidence, force_package_only=force_package_only,
             specificity_tier=specificity_tier, epistemic_class=epistemic_class,
+            component_evidence_map=component_evidence_map,
         ),
     }
 
@@ -518,24 +623,90 @@ def _content_text(message) -> str:
     return "\n".join(parts).strip()
 
 
-def parse_escalate_response(resp) -> dict:
+def parse_escalate_response(resp, *, max_tokens: int | None = None) -> dict:
     """
     Messages API (senkron veya batch succeeded.message) → factcheck JSON.
-    cite_source LLM'den okunmaz.
+    cite_source LLM'den okunmaz. Parse meta alanları debug log için eklenir.
     """
     full_text = _content_text(resp)
+    stop_reason = getattr(resp, "stop_reason", None)
     parsed = _extract_json(full_text)
-    if parsed is None:
-        print(f"[claude] escalate_factcheck JSON parse hatası. Ham çıktı: {full_text[:300]}")
+    category, err = classify_parse_failure(full_text, stop_reason, parsed)
+    meta = {
+        "stop_reason": stop_reason,
+        "max_tokens": max_tokens,
+        "raw_output_last_200": full_text[-200:] if full_text else "",
+    }
+    if category:
+        meta["parse_failure_category"] = category
+        meta["parse_error"] = err
+        meta["raw_output_on_fail"] = full_text
+        print(
+            f"[claude] escalate_factcheck JSON parse hatası ({category}): {err}. "
+            f"Ham: {full_text[:300]}"
+        )
         return {
             "final_verdict": None,
             "confidence": None,
             "reasoning": "LLM çıktısı parse edilemedi — insan gözden geçirmeli",
             "source_url": "",
             "parse_failed": True,
+            **meta,
         }
     parsed.pop("cite_source", None)
-    return parsed
+    return {**parsed, **meta}
+
+
+def escalate_with_parse_retry(
+    *,
+    message=None,
+    claim_text: str,
+    evidence: list[dict] | None = None,
+    force_package_only: bool = False,
+    specificity_tier: str | None = None,
+    epistemic_class: str | None = None,
+    component_evidence_map: dict | None = None,
+) -> tuple[dict, dict]:
+    """
+    İlk parse başarısızsa aynı kanıt paketiyle temperature=0 JSON-only retry.
+    message verilmişse batch sonucu parse edilir; retry senkron API çağrısıdır.
+    """
+    kw = dict(
+        claim_text=claim_text,
+        evidence=evidence,
+        force_package_only=force_package_only,
+        specificity_tier=specificity_tier,
+        epistemic_class=epistemic_class,
+        component_evidence_map=component_evidence_map,
+    )
+    params = build_escalate_params(**kw)
+    max_tokens = params["max_tokens"]
+    if message is not None:
+        resp = message
+        usage = _usage_dict(getattr(message, "usage", None))
+    else:
+        resp = _call_with_retry(**params)
+        usage = _usage_dict(getattr(resp, "usage", None))
+
+    result = parse_escalate_response(resp, max_tokens=max_tokens)
+    if not result.get("parse_failed"):
+        return result, usage
+
+    first_category = result.get("parse_failure_category")
+    print(
+        f"[claude] parse retry (category={first_category}, "
+        f"package_only={force_package_only})"
+    )
+    retry_params = build_escalate_params(**kw, json_retry=True)
+    retry_resp = _call_with_retry(**retry_params)
+    usage = _merge_usage(usage, _usage_dict(getattr(retry_resp, "usage", None)))
+    retry_result = parse_escalate_response(
+        retry_resp, max_tokens=retry_params["max_tokens"]
+    )
+    retry_result["parse_retry"] = True
+    retry_result["parse_retry_first_category"] = first_category
+    retry_result["parse_retry_succeeded"] = not retry_result.get("parse_failed")
+    return retry_result, usage
 
 
 def escalate_factcheck(
@@ -545,6 +716,7 @@ def escalate_factcheck(
     force_package_only: bool = False,
     specificity_tier: str | None = None,
     epistemic_class: str | None = None,
+    component_evidence_map: dict | None = None,
 ) -> dict:
     """
     NLI ilk filtresi 'belirsiz'/'düşük güven' dediğinde, ya da initial_risk=high
@@ -556,13 +728,16 @@ def escalate_factcheck(
 
     cite_source LLM JSON'undan okunmaz — çağıran calibrate_factcheck atar.
     """
-    resp = _call_with_retry(
-        **build_escalate_params(
-            claim_text, evidence, force_package_only=force_package_only,
-            specificity_tier=specificity_tier, epistemic_class=epistemic_class,
-        )
+    result, _ = escalate_with_parse_retry(
+        message=None,
+        claim_text=claim_text,
+        evidence=evidence,
+        force_package_only=force_package_only,
+        specificity_tier=specificity_tier,
+        epistemic_class=epistemic_class,
+        component_evidence_map=component_evidence_map,
     )
-    return parse_escalate_response(resp)
+    return result
 
 
 def submit_message_batch(requests: list[dict]):

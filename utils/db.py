@@ -68,6 +68,8 @@ def _migrate_columns(conn):
         ("verdicts", "calibration_flags", "TEXT"),
         ("verdicts", "library_match", "INTEGER DEFAULT 0"),
         ("verdicts", "auto_accepted", "INTEGER DEFAULT 0"),
+        ("verdicts", "would_auto_accept_v1", "INTEGER DEFAULT 0"),
+        ("verdicts", "would_auto_accept_reason", "TEXT"),
     )
     for table, col, typedef in migrations:
         try:

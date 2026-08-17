@@ -1,0 +1,103 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[factcheck] yeniden değerlendirilecek: 30 iddia ([251, 258, 354, 744, 773, 822, 826, 860, 878, 899, 909, 911, 927, 950, 992, 1005, 1026, 1031, 1071, 1120, 1121, 1172, 1177, 1201, 1207, 1214, 1246, 1273, 1301, 1305])
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7355.12it/s]
+Loading weights:   0%|          | 0/202 [00:00<?, ?it/s]Loading weights: 100%|██████████| 202/202 [00:00<00:00, 8085.21it/s]
+[evidence] alaka filtresi: 4 aday elendi (terimler=['edema', 'face', 'legs', 'thyroid', 'cortisol', 'evaluation'], kalan=11)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+  [927] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['sudden', 'floaters', 'onset', 'retinal', 'tear', 'gözde'], kalan=21)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [1071] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [1207] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed+europepmc (5 parça)
+  [251] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed+europepmc+medlineplus (5 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+  [258] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [354] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 4 aday elendi (terimler=['diurnal', 'variation', 'glucose', 'tolerance', 'i̇nsülin', 'duyarlılığı'], kalan=21)
+[evidence] hibrit yol: pubmed+europepmc+medlineplus (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [773] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['nigella', 'sativa', 'case', 'report', 'sleep', 'duration'], kalan=15)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [826] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 4 aday elendi (terimler=['neck', 'posture', 'exercise', 'weeks', 'facial', 'swelling'], kalan=21)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+  [878] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 7 aday elendi (terimler=['pitting', 'edema', 'self', 'test', 'skin', 'recoil'], kalan=5)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [899] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 7 aday elendi (terimler=['posture', 'correction', 'versus', 'topical', 'cream', 'skin'], kalan=1)
+[evidence] hibrit yol: pubmed_mesh+europepmc (1 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [1005] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed+europepmc (5 parça)
+  [1031] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['lymphatic', 'fluid', 'stasis', 'physical', 'activity', 'mechanism'], kalan=21)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+  [1172] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+  [1177] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['diuretics', 'ineffective', 'lymphedema', 'dokularda', 'biriken', 'sıvı'], kalan=9)
+[evidence] hibrit yol: europepmc (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [1201] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+  [1214] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [1273] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 7 aday elendi (terimler=['whey', 'protein', 'mct', 'mcts', 'medium-chain', 'orta zincirli'], kalan=13)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [1301] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 6 aday elendi (terimler=['kiwi', 'kiwifruit', 'actinidin', 'kivi', 'glycemic', 'index'], kalan=8)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [744] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['nigella', 'sativa', 'vitamin', 'zinc', 'çörek', 'otu'], kalan=19)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+  [822] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 4 aday elendi (terimler=['platysma', 'tension', 'jowl', 'sagging', 'mechanism', 'platisma'], kalan=4)
+[evidence] hibrit yol: europepmc (4 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+  [860] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 5 aday elendi (terimler=['anthocyanins', 'capillary', 'wall', 'strength', 'permeability', 'yaban'], kalan=5)
+[evidence] hibrit yol: europepmc (5 parça)
+[evidence] strong_match — web_search kapalı (specificity_ok=True)
+  [909] batch kuyruğu (force_package_only=True)
+[evidence] alaka filtresi: 3 aday elendi (terimler=['manual', 'lymphatic', 'drainage', 'facial', 'massage', 'periorbital'], kalan=15)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [911] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [950] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed+europepmc (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [992] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed+europepmc+medlineplus (5 parça)
+  [1026] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 4 aday elendi (terimler=['collagen', 'collagenous', 'kolajen', 'kolagen', 'decline', 'aging'], kalan=16)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [1120] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 6 aday elendi (terimler=['intra', 'abdominal', 'constipation', 'venous', 'insufficiency', 'kronik'], kalan=19)
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [1121] batch kuyruğu (force_package_only=False)
+[evidence] hibrit yol: pubmed+europepmc (5 parça)
+  [1246] batch kuyruğu (force_package_only=False)
+[evidence] alaka filtresi: 1 aday elendi (terimler=['whey', 'protein', 'fastest', 'muscle', 'synthesis', 'peynir'], kalan=11)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+  [1305] batch kuyruğu (force_package_only=False)
+[batch] gönderildi id=msgbatch_01TtRfUPQcppAvcLfC3htxSB n=30 status=in_progress
+[batch] kayıt: /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/pending_batches.json
+
+[factcheck] 0 iddia işlendi, 0 iddia hata verdi (tekrar denenecek).
+[factcheck] ham reasoning -> /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/factcheck_debug.jsonl
+[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).

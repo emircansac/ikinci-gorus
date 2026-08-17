@@ -1,0 +1,433 @@
+{
+  "seed": 42,
+  "claim_ids": [
+    248,
+    253,
+    357,
+    362,
+    377,
+    627,
+    759,
+    763,
+    775,
+    798,
+    801,
+    805,
+    810,
+    813,
+    828,
+    848,
+    857,
+    859,
+    869,
+    880,
+    901,
+    948,
+    954,
+    956,
+    957,
+    971,
+    978,
+    980,
+    1001,
+    1006,
+    1028,
+    1033,
+    1041,
+    1043,
+    1072,
+    1089,
+    1098,
+    1113,
+    1115,
+    1129,
+    1163,
+    1166,
+    1168,
+    1183,
+    1193,
+    1264,
+    1292,
+    1295,
+    1297,
+    1303
+  ],
+  "targets": {
+    "medium": 25,
+    "low": 19,
+    "high": 6
+  },
+  "selected": [
+    {
+      "claim_id": 248,
+      "claim_text": "Yaşlanmayla birlikte anabolik direnç gelişir, bu nedenle yaşlı bir vücudun kas sentezini başlatmak için genç bir bedene göre tek seferde daha fazla proteine ihtiyacı vardır.",
+      "initial_risk": "medium",
+      "video_id": "UnsXi4CBAjU",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 253,
+      "claim_text": "Kollarsız bir sandalyeden elleri kullanmadan günde 2-3 kez 10 tekrar ayağa kalkma egzersizi bacak kaslarını güçlendirmenin en etkili yoludur.",
+      "initial_risk": "low",
+      "video_id": "UnsXi4CBAjU",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 357,
+      "claim_text": "74 yaş civarındaki kişilere pancar suyuna dayalı yüksek nitrat içeren kahvaltı verildiğinde birkaç gün sonra çekilen beyin MR'larında hafıza ve karar vermeden sorumlu bölgelere giden kan akışında nokta atışı artış görüldü.",
+      "initial_risk": "medium",
+      "video_id": "QBlBHEf0jm4",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 362,
+      "claim_text": "Pancardaki nitrat ısıya dayanıklıdır ve pişirme ile yok olmaz.",
+      "initial_risk": "low",
+      "video_id": "QBlBHEf0jm4",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 377,
+      "claim_text": "Bu pancar rutininin haftada en az 4-5 gün uygulanması gerekir.",
+      "initial_risk": "medium",
+      "video_id": "QBlBHEf0jm4",
+      "category": "doz"
+    },
+    {
+      "claim_id": 627,
+      "claim_text": "Demir, sinir liflerini kaplayan miyelin kılıfının sentezi için kritik bir mineraldir ve dopamin ile serotonin gibi nörotransmitterlerin üretiminde doğrudan rol oynar.",
+      "initial_risk": "medium",
+      "video_id": "P4m9F9mykQ8",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 759,
+      "claim_text": "Meyveye chia veya keten tohumu eklemek şekerin kana karışma hızını (glisemik indeksi) yavaşlatır ama toplam karbonhidrat miktarını (glisemik yükü) düşürmez.",
+      "initial_risk": "medium",
+      "video_id": "bZsorXWeLhM",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 763,
+      "claim_text": "Muzu yeşil veya tam olgunlaşma noktasında, koyu leke oluşmadan, yarım porsiyon halinde ve protein kaynağıyla birlikte tüketmek kan şekeri kontrolü için önerilir.",
+      "initial_risk": "medium",
+      "video_id": "bZsorXWeLhM",
+      "category": "doz"
+    },
+    {
+      "claim_id": 775,
+      "claim_text": "Meyve içeren bir öğün sonrası 10-15 dakikalık hafif tempolu yürüyüş, kasların insüline gerek kalmadan glikoz alımını artırarak kan şekeri zirvesini düşürür.",
+      "initial_risk": "low",
+      "video_id": "bZsorXWeLhM",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 798,
+      "claim_text": "Portakalın suyu sıkılmadan tam haliyle yenmesi gerektiği belirtiliyor.",
+      "initial_risk": "low",
+      "video_id": "bZsorXWeLhM",
+      "category": "diğer"
+    },
+    {
+      "claim_id": 801,
+      "claim_text": "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek, sonrasında yürüyüş yapmak ve miktarı kontrol etmek kan şekeri etkisini azaltır.",
+      "initial_risk": "medium",
+      "video_id": "bZsorXWeLhM",
+      "category": "önleme"
+    },
+    {
+      "claim_id": 805,
+      "claim_text": "Kadim tıp, binlerce yıldır uykusuzluk ve sinirsel yorgunluk için özel bir tohum kullanmıştır.",
+      "initial_risk": "medium",
+      "video_id": "rHEf_LBFi3k",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 810,
+      "claim_text": "Gıdalardaki triptofan amino asidi kan dolaşımından beyne ulaşarak serotonine, ardından melatonine dönüşür.",
+      "initial_risk": "low",
+      "video_id": "rHEf_LBFi3k",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 813,
+      "claim_text": "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini ve çinko gibi vitaminlere ihtiyaç duyar.",
+      "initial_risk": "medium",
+      "video_id": "rHEf_LBFi3k",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 828,
+      "claim_text": "Çörek otu tohumlarının dış kabuğu sert olduğundan bütün yutulduğunda sindirilemeden vücuttan atılır, bu yüzden en az 30 saniye çiğnenmeli veya öğütülmelidir.",
+      "initial_risk": "medium",
+      "video_id": "rHEf_LBFi3k",
+      "category": "doz"
+    },
+    {
+      "claim_id": 848,
+      "claim_text": "Reçeteli uyku ilacı kullananlar bu doğal kürü ilaca ek destek olarak kullanabilir ancak ilacı kendi başlarına bırakmamalıdır.",
+      "initial_risk": "high",
+      "video_id": "rHEf_LBFi3k",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 857,
+      "claim_text": "Baş 8 cm öne eğildiğinde boyun kaslarının taşıdığı yük 27 kilogramı aşar.",
+      "initial_risk": "medium",
+      "video_id": "ut7LN1iLSGA",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 859,
+      "claim_text": "Bozulmuş boyun duruşu platisma kasını aşağı çekerek çene hattındaki sarkmaya doğrudan mekanik olarak neden olur.",
+      "initial_risk": "medium",
+      "video_id": "ut7LN1iLSGA",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 869,
+      "claim_text": "Topikal kremler ve serumlar sadece cildin yüzey tabakalarında etki eder ve derin fasya tabakasına (SMAS) ulaşamaz.",
+      "initial_risk": "low",
+      "video_id": "ut7LN1iLSGA",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 880,
+      "claim_text": "3-6 ay arasında yanlış duruşa bağlı yapısal değişim kalıcı hal alır.",
+      "initial_risk": "low",
+      "video_id": "ut7LN1iLSGA",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 901,
+      "claim_text": "Akşam saat 6'dan sonra işlenmiş gıdalardaki gizli sodyum tüketimi, vücudun sıvı tutmasına ve gece boyunca gözaltı bölgesinde sıvı birikimine yol açar.",
+      "initial_risk": "medium",
+      "video_id": "WtJzVPZroiY",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 948,
+      "claim_text": "Agresif kalori kısıtlaması kortizolü daha da yükselterek göbek yağı kilidini daha sıkı hale getirir.",
+      "initial_risk": "high",
+      "video_id": "n6vtphTbq9k",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 954,
+      "claim_text": "Normal açlık insülin değeri mililitrede 2 ile 5 mikroünite arasındadır; 6-10 arası erken direnç sinyali, üzeri ciddi kabul edilir.",
+      "initial_risk": "high",
+      "video_id": "n6vtphTbq9k",
+      "category": "doz"
+    },
+    {
+      "claim_id": 956,
+      "claim_text": "Gecikmiş mide boşalması, kronik kortizol bozulmasının belgelenmiş bir sonucudur ve insülin problemini daha karmaşık hale getirir.",
+      "initial_risk": "medium",
+      "video_id": "n6vtphTbq9k",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 957,
+      "claim_text": "Gece 2-4 arasında uyanıp uykuya dalamama durumu, kortizolün zirve yaptığı biyolojik bir savunma tepkisidir.",
+      "initial_risk": "low",
+      "video_id": "n6vtphTbq9k",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 971,
+      "claim_text": "Yatmadan önce yapılan 10 dakikalık progresif kas gevşemesi, sinir sistemine güvenlik sinyali vererek gece kortizolünün düşmesine yardımcı olur.",
+      "initial_risk": "low",
+      "video_id": "n6vtphTbq9k",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 978,
+      "claim_text": "Retinol, peptit ve hyaluronik asit içeren kremler sadece epidermiste etkilidir ve derinin 1 cm altındaki kas/bağ dokusuna ulaşamaz.",
+      "initial_risk": "low",
+      "video_id": "eiB05V3HVes",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 980,
+      "claim_text": "Hızlı kilo verme, çene altındaki destekleyici yağ yastığının erimesine neden olarak boynun daha kırışık ve kötü görünmesine yol açabilir.",
+      "initial_risk": "low",
+      "video_id": "eiB05V3HVes",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1001,
+      "claim_text": "Yan yatarak uyumak yüzün döndüğü taraftaki boyun kaslarını sıkıştırarak yıllar içinde boyun sarkmasını asimetrik şekilde artırır.",
+      "initial_risk": "low",
+      "video_id": "eiB05V3HVes",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1006,
+      "claim_text": "Ayşe Hanım vaka örneğinde, rutine başladıktan 8 hafta sonra çenesiyle boğazı arasındaki sarkık açıda gözle görülür ve ölçülebilir bir toparlanma oluştu.",
+      "initial_risk": "high",
+      "video_id": "eiB05V3HVes",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 1028,
+      "claim_text": "İnsan bağırsağında sayıları 38 trilyonu bulan bir mikroorganizma ekosistemi bulunur.",
+      "initial_risk": "low",
+      "video_id": "3bZ0Ew2BiLI",
+      "category": "diğer"
+    },
+    {
+      "claim_id": 1033,
+      "claim_text": "Bağırsak florası bozukluğu düzeltilmeden yüksek doz biyotin takviyesi almak saç dökülmesini tedavi etmede etkisizdir.",
+      "initial_risk": "medium",
+      "video_id": "3bZ0Ew2BiLI",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 1041,
+      "claim_text": "C vitamini kaynağı (limon veya kırmızı biber) ile birlikte tüketmek demir emilimini artırır.",
+      "initial_risk": "low",
+      "video_id": "3bZ0Ew2BiLI",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1043,
+      "claim_text": "Tiroid bezi saç hücrelerinin bölünme ve keratin üretme hızını belirler.",
+      "initial_risk": "medium",
+      "video_id": "3bZ0Ew2BiLI",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1072,
+      "claim_text": "Çevresel görüşte yanıp sönen ışık çakmaları retina yırtılması veya ayrılmasına işaret edebilir.",
+      "initial_risk": "high",
+      "video_id": "A2p88jcmeJY",
+      "category": "tanı"
+    },
+    {
+      "claim_id": 1089,
+      "claim_text": "Retina hasarına asıl neden olanın açlık kan şekeri değil, yemek sonrası ani yükselen tokluk kan şekeri olduğu iddia edilmektedir.",
+      "initial_risk": "medium",
+      "video_id": "A2p88jcmeJY",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1098,
+      "claim_text": "Yemeklerde önce lifli sebze ve protein, en sonda karbonhidrat tüketmek şekerin kana karışma hızını yaklaşık yarı yarıya düşürür.",
+      "initial_risk": "medium",
+      "video_id": "A2p88jcmeJY",
+      "category": "önleme"
+    },
+    {
+      "claim_id": 1113,
+      "claim_text": "Bacak venlerindeki kapakçıklar zamanla yorulup tam kapanamayınca kan geriye sızar ve bölgede birikerek basınç artışına yol açar.",
+      "initial_risk": "low",
+      "video_id": "Iw1akJ5SQgM",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1115,
+      "claim_text": "Bacağın sadece bir tarafında aniden gelişen belirgin şişlik derin ven trombozu (pıhtı) işareti olabilir.",
+      "initial_risk": "high",
+      "video_id": "Iw1akJ5SQgM",
+      "category": "tanı"
+    },
+    {
+      "claim_id": 1129,
+      "claim_text": "Flavonoidler damar duvarları ve kapakçıkların dayanıklılığını doğrudan korur, eksikliği zamanla damarları zayıflatır",
+      "initial_risk": "medium",
+      "video_id": "Iw1akJ5SQgM",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1163,
+      "claim_text": "Bacak venöz kapakçıklarının zayıflaması kanın kalbe geri dönüşünü zorlaştırarak damar çeperlerinden sıvı sızmasına neden olur.",
+      "initial_risk": "low",
+      "video_id": "K7YdDLCZmW0",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1166,
+      "claim_text": "Tedavi edilmeyen lenf kaynaklı ödem yıllar içinde ayak sırtı cildinin çimdiklenemeyecek kadar kalınlaşmasına yol açabilir.",
+      "initial_risk": "medium",
+      "video_id": "K7YdDLCZmW0",
+      "category": "tanı"
+    },
+    {
+      "claim_id": 1168,
+      "claim_text": "Başka hastalık belirtisi göstermeyen ve kronik akşam şişkinliği yaşayan 60 yaş üstü bireylerin çoğu lenfatik kategoride yer alır.",
+      "initial_risk": "medium",
+      "video_id": "K7YdDLCZmW0",
+      "category": "tanı"
+    },
+    {
+      "claim_id": 1183,
+      "claim_text": "Kanda düşük albümin seviyesi yaşlı yetişkinlerde görülen doku şişliklerinin gizli nedenlerinden biridir.",
+      "initial_risk": "medium",
+      "video_id": "K7YdDLCZmW0",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1193,
+      "claim_text": "Ayak bileğinden dize doğru kalbe yönelik nazik cilt sıvazlama hareketi (evde uygulanan lenf drenaj masajı) sıvıların lenf kılcallarına taşınmasına yardımcı olur.",
+      "initial_risk": "medium",
+      "video_id": "K7YdDLCZmW0",
+      "category": "tedavi"
+    },
+    {
+      "claim_id": 1264,
+      "claim_text": "Kas sağlığı için içilen bir süt/protein içeceğinin porsiyonunda en az 5-8 gram protein olmalıdır.",
+      "initial_risk": "low",
+      "video_id": "jP5XF06OLbo",
+      "category": "doz"
+    },
+    {
+      "claim_id": 1292,
+      "claim_text": "Kasların gelişip korunabilmesi için mekanik uyarı (egzersiz) gereklidir, beslenme tek başına yeterli değildir.",
+      "initial_risk": "low",
+      "video_id": "jP5XF06OLbo",
+      "category": "mekanizma"
+    },
+    {
+      "claim_id": 1295,
+      "claim_text": "Böbrekleri sağlıklı yaşlı bireylerde önerilen günlük protein alımı vücut ağırlığının kilogramı başına 1-1.2 gram arasındadır.",
+      "initial_risk": "medium",
+      "video_id": "jP5XF06OLbo",
+      "category": "doz"
+    },
+    {
+      "claim_id": 1297,
+      "claim_text": "Geleneksel Türk kahvaltısı (peynir, zeytinyağlı ekmek, domates, meyve, çay/kahve) yaklaşık 4-6 gram protein içerir.",
+      "initial_risk": "low",
+      "video_id": "jP5XF06OLbo",
+      "category": "diğer"
+    },
+    {
+      "claim_id": 1303,
+      "claim_text": "MCT yağı, saf kakao ve peynir altı suyu proteini kombinasyonu enerjiyi artırıp yorgunluğu azaltır.",
+      "initial_risk": "medium",
+      "video_id": "jP5XF06OLbo",
+      "category": "mucize-ürün"
+    }
+  ],
+  "video_distribution": {
+    "UnsXi4CBAjU": 2,
+    "QBlBHEf0jm4": 3,
+    "P4m9F9mykQ8": 1,
+    "bZsorXWeLhM": 5,
+    "rHEf_LBFi3k": 5,
+    "ut7LN1iLSGA": 4,
+    "WtJzVPZroiY": 1,
+    "n6vtphTbq9k": 5,
+    "eiB05V3HVes": 4,
+    "3bZ0Ew2BiLI": 4,
+    "A2p88jcmeJY": 3,
+    "Iw1akJ5SQgM": 3,
+    "K7YdDLCZmW0": 5,
+    "jP5XF06OLbo": 5
+  },
+  "risk_distribution": {
+    "medium": 25,
+    "low": 19,
+    "high": 6
+  }
+}

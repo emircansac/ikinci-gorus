@@ -1,0 +1,33 @@
+[
+  {
+    "claim_id": 813,
+    "final_verdict": "doğrulanmış",
+    "confidence": 0.774,
+    "reasoning": "NLI ilk filtresi: SUPPORTS (güven 0.77); LLM'e escalate edilmedi.",
+    "cite_source": null,
+    "calibration_flags": "",
+    "escalated": 0,
+    "nli_label": "SUPPORTS",
+    "nli_confidence": 0.774,
+    "had_component_map": false,
+    "component_tiers": [],
+    "reasoning_mentions_components": false
+  },
+  {
+    "claim_id": 1043,
+    "final_verdict": "tartışmalı",
+    "confidence": 0.45,
+    "reasoning": "Kanıtlar, tiroid hormonunun ve reseptörlerinin (TRα1/TRβ) saç folikülü kök hücre fonksiyonunu ve foliküler hücre proliferasyonunu düzenlediğini güçlü şekilde destekliyor; TR eksikliği olan farelerde saç döngüsü bozuk ve foliküler hücre çoğalması azalmış bulunmuş. Ancak 'keratin üretme hızını belirler' kısmı doğrudan test edilmemiş; TSH'nin keratin K5 gen ekspresyonunu değiştirdiği gösterilse de bu TSH'ye ait ayrı bir mekanizma olup tiroid hormonunun keratin üretim hızını 'belirlediği' iddiasını doğrudan kanıtlamıyor. İddia 'belirler' gibi kesin ve tek yönlü bir nedensellik öne sürüyor, oysa kanıt kümesi düzenleyici/etkileyici bir rol gösteriyor ve bileşenlerden biri (hücre bölünmesi) güçlü, diğeri (keratin üretim hızı) dolaylı/zayıf destekli; bu nedenle bileşik iddia karışık kanıt düzeyinde kalıyor.",
+    "cite_source": "retrieval_cited",
+    "calibration_flags": "retrieval_cited,specificity_tier:supportive",
+    "escalated": 1,
+    "nli_label": "SUPPORTS",
+    "nli_confidence": 0.542,
+    "had_component_map": true,
+    "component_tiers": [
+      "supportive",
+      "background"
+    ],
+    "reasoning_mentions_components": true
+  }
+]

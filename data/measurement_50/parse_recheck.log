@@ -1,0 +1,28 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[factcheck] yeniden değerlendirilecek: 3 iddia ([810, 1265, 357])
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8073.30it/s]
+Loading weights:   0%|          | 0/202 [00:00<?, ?it/s]Loading weights: 100%|██████████| 202/202 [00:00<00:00, 7720.87it/s]
+[evidence] alaka filtresi: 1 aday elendi (terimler=['beetroot', 'beet', 'pancar', 'juice', 'nitrate', 'elderly'], kalan=19)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+[evidence] strong_match — web_search kapalı (specificity_ok=True)
+  [claude] usage input=7622 output=568 cache_write=1395 cache_read=0
+  [357] tartışmalı conf=0.40 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia, muhtemelen Wake Forest Üniversitesi'nin (Presley ve ark., Nitric Oxide 2011) yaşlılarda pancar suyu sonrası fMRI ile frontal lob perfüzyonunda bölgesel artış gösterdiği pilot çalışmaya atıfta bulunuyor gibi görünüyor, ancak sunulan p
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,package_only_forced,specificity_tier:direct
+[evidence] alaka filtresi: 1 aday elendi (terimler=['whey', 'protein', 'collagen', 'collagenous', 'kolajen', 'kolagen'], kalan=19)
+[evidence] hibrit yol: pubmed_mesh+europepmc (5 parça)
+[evidence] epistemic=no_direct_evidence_expected
+  [claude] usage input=16675 output=578 cache_write=4119 cache_read=0
+  [1265] belirsiz conf=0.20 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki kaynaklar yaşlı erkeklerde protein takviyesi, direnç egzersizi ve kas protein sentezi üzerine genel araştırmalardır; ancak hiçbiri bu spesifik vaka anlatısını (61 yaşındaki hastanın düşük proteinli kahvaltısı, günlük yürüyüşü, pey
+           kalibrasyon: retrieval_cited,specificity_tier:background,no_direct_evidence_expected
+[evidence] hibrit yol: pubmed+europepmc (5 parça)
+[evidence] strong_match — web_search kapalı (specificity_ok=True)
+  [claude] usage input=11200 output=482 cache_write=0 cache_read=1395
+  [810] doğrulanmış conf=0.72 tier=primary_study cite=retrieval_cited path=pubmed+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Triptofan-serotonin-melatonin yolağı iyi kurulmuş bir biyokimyasal döngüdür: triptofan kan-beyin bariyerini geçerek beyinde serotonine, serotonin de N-asetilserotonin üzerinden melatonine dönüştürülür. [1] ve [4] numaralı çalışmalar (Trypto
+           kalibrasyon: retrieval_cited,package_only_forced,specificity_tier:direct
+
+[factcheck] 3 iddia işlendi, 0 iddia hata verdi (tekrar denenecek).
+[factcheck] ham reasoning -> /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/factcheck_debug.jsonl
+[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).

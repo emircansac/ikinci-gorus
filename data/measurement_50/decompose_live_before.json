@@ -1,0 +1,26 @@
+[
+  {
+    "claim_id": 813,
+    "claim_text": "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini ve çinko gibi vitaminlere ihtiyaç duyar.",
+    "final_verdict": "tartışmalı",
+    "confidence": 0.45,
+    "reasoning": "Kanıtlar B6'nın (pyridoksal-5-fosfat formunda) triptofanı serotonine çeviren aromatik L-amino asit dekarboksilaz enziminin doğrudan kofaktörü olduğunu güçlü şekilde destekliyor; StatPearls ve diğer kaynaklar bunu açıkça belirtiyor. Ancak triptofan hidroksilaz esas olarak tetrahidrobiyopterin, moleküler oksijen ve demir gerektiriyor; magnezyum eksikliğinin bu enzimi 'inhibe edebileceği' belirtiliyor ama bu doğrudan bir kofaktör ilişkisi değil, dolaylı bir düzenleyici etki. Çinko için serotonin/melatonin sentez enzimlerinin doğrudan kofaktörü olduğuna dair kanıt bulunamadı; ayrıca iddia magnezyum ve çinkoyu yanlışlıkla 'vitamin' olarak sınıflandırıyor. Bileşik iddianın bir kısmı (B6) güçlü destekli, diğer kısımları (magnezyum, çinko doğrudan kofaktör olarak) zayıf/dolaylı kanıtlı olduğu için 'tartışmalı' uygun.",
+    "calibration_flags": "tier_url:encyclopedia->primary_study,web_search_override,specificity_tier:supportive",
+    "cite_source": "web_search_override",
+    "evidence_stance": "mixed",
+    "source_directness": "direct",
+    "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK545168/"
+  },
+  {
+    "claim_id": 1043,
+    "claim_text": "Tiroid bezi saç hücrelerinin bölünme ve keratin üretme hızını belirler.",
+    "final_verdict": "tartışmalı",
+    "confidence": 0.55,
+    "reasoning": "Kanıtlar tiroid hormonunun kıl folikülü kök hücre fonksiyonunu ve foliküler hücre proliferasyonunu etkilediğini, tiroid reseptörü olmayan farelerde kıl büyümesinin bozulduğunu gösteriyor; bu proliferasyon bileşenini destekler. Ancak iddianın 'keratin üretme hızını belirler' kısmı için paketteki kanıt daha zayıf—TSH çalışmasında yalnızca K5 gen ifadesinin değiştiği belirtiliyor, bu genel keratin sentez hızının tiroid tarafından 'belirlendiği' anlamına gelmez; ayrıca 'belirler' ifadesi tek düzenleyici faktör olduğunu ima ederken büyüme hormonu gibi başka hormonların da rol oynadığı görülüyor. Bileşik iddianın bir kısmı (hücre bölünmesi/proliferasyon) güçlü destekli, diğer kısmı (keratin üretim hızının belirlenmesi) zayıf/dolaylı kanıtlı olduğundan 'tartışmalı' uygundur.",
+    "calibration_flags": "default_conf,retrieval_cited,specificity_tier:supportive",
+    "cite_source": "retrieval_cited",
+    "evidence_stance": "mixed",
+    "source_directness": "direct",
+    "source_url": "https://pubmed.ncbi.nlm.nih.gov/25254665/"
+  }
+]

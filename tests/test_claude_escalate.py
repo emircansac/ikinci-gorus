@@ -11,6 +11,7 @@ from utils.claude_client import (
     WEB_SEARCH_TOOL,
     SUPPORTIVE_PACKAGE_NOTE,
     NO_DIRECT_EVIDENCE_NOTE,
+    _format_evidence_package,
 )
 
 _FAKE_JSON = {
@@ -65,6 +66,65 @@ def test_escalate_attaches_web_search_by_default(monkeypatch):
     assert captured["system"][0]["cache_control"] == {"type": "ephemeral"}
 
 
+def test_classify_parse_failure_invalid_json_unescaped_quotes():
+    from utils.claude_client import classify_parse_failure
+    bad = '{"final_verdict": "doğrulanmış", "reasoning": "foo "bar" baz"}'
+    cat, err = classify_parse_failure(bad, "end_turn", None)
+    assert cat == "invalid_json"
+    assert err
+
+
+def test_classify_parse_failure_prose_no_json():
+    from utils.claude_client import classify_parse_failure
+    cat, err = classify_parse_failure("Bu iddia spesifik bir vaka hakkında.", "end_turn", None)
+    assert cat == "invalid_json"
+    assert "no JSON" in err
+
+
+def test_classify_parse_failure_truncated_stop_reason():
+    from utils.claude_client import classify_parse_failure
+    cat, err = classify_parse_failure('{"final_verdict": "belirsiz",', "max_tokens", None)
+    assert cat == "truncated"
+
+
+def test_classify_parse_failure_wrong_enum():
+    from utils.claude_client import classify_parse_failure
+    parsed = {
+        "final_verdict": "maybe",
+        "confidence": 0.5,
+        "reasoning": "x",
+        "source_url": "https://example.com",
+        "source_directness": "direct",
+        "evidence_stance": "supports",
+        "source_tier": "primary_study",
+    }
+    cat, err = classify_parse_failure("{}", "end_turn", parsed)
+    assert cat == "wrong_enum"
+
+
+def test_escalate_parse_retry_on_invalid_json(monkeypatch):
+    calls = []
+
+    def fake_call(**kwargs):
+        calls.append(kwargs)
+        if len(calls) == 1:
+            return SimpleNamespace(
+                content=[SimpleNamespace(text='not json at all')],
+                stop_reason="end_turn",
+                usage=None,
+            )
+        return _fake_resp()
+
+    monkeypatch.setattr("utils.claude_client._call_with_retry", fake_call)
+    out = escalate_factcheck("test claim", evidence=[], force_package_only=True)
+    assert len(calls) == 2
+    assert "temperature" not in calls[1]
+    assert "[JSON RETRY]" in calls[1]["messages"][0]["content"]
+    assert out["final_verdict"] == "tartışmalı"
+    assert out.get("parse_retry") is True
+    assert out.get("parse_retry_succeeded") is True
+
+
 def test_batch_request_schema_custom_id_and_params():
     req = build_batch_request(
         1284,
@@ -80,7 +140,7 @@ def test_batch_request_schema_custom_id_and_params():
     assert req["custom_id"] == "1284"
     params = req["params"]
     assert params["model"]
-    assert params["max_tokens"] == 2000
+    assert params["max_tokens"] == 2000  # ESCALATE_MAX_TOKENS
     assert params["messages"][0]["role"] == "user"
     assert isinstance(params["messages"][0]["content"], str)
     assert params["system"][0]["cache_control"] == {"type": "ephemeral"}
@@ -198,3 +258,54 @@ def test_summarize_cache_roles_write_read_both():
     assert out["n_write_only"] == 1
     assert out["n_read_only"] == 1
     assert out["n_none"] == 1
+
+
+def test_format_package_includes_component_map():
+    cmap = {
+        "components": [
+            {"text": "A bileşeni glisemi yavaş yükselir", "tier": "direct", "kept": 4},
+            {"text": "B bileşeni insülin duyarlılığı artar", "tier": "background", "kept": 5},
+        ]
+    }
+    out = _format_evidence_package(
+        "bileşik iddia",
+        [{
+            "title": "Protein study",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/1/",
+            "abstract": "Glycemic response.",
+        }],
+        cmap,
+    )
+    assert "Bileşen kanıt haritası" in out
+    assert "tier=direct" in out
+    assert "tier=background" in out
+    assert "[A]" in out and "[B]" in out
+
+
+def test_escalate_passes_component_map_into_user_message(monkeypatch):
+    captured = {}
+
+    def fake_call(**kwargs):
+        captured.update(kwargs)
+        return _fake_resp()
+
+    monkeypatch.setattr("utils.claude_client._call_with_retry", fake_call)
+    escalate_factcheck(
+        "test claim",
+        evidence=[{
+            "title": "T",
+            "abstract": "x",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/1/",
+        }],
+        force_package_only=True,
+        component_evidence_map={
+            "components": [
+                {"text": "alt A uzun metin burada yeter", "tier": "supportive", "kept": 3},
+                {"text": "alt B uzun metin burada yeter", "tier": "none", "kept": 0},
+            ]
+        },
+    )
+    content = captured["messages"][0]["content"]
+    assert "Bileşen kanıt haritası" in content
+    assert "tier=supportive" in content
+    assert "tier=none" in content

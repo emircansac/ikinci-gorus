@@ -1,0 +1,47 @@
+{
+  "357": {
+    "input_tokens": 7622,
+    "output_tokens": 584,
+    "max_tokens": 2000,
+    "stop_reason": "end_turn",
+    "evidence_count": 5,
+    "evidence_chars": 15875,
+    "parse_error": "",
+    "category": "ok",
+    "last200": " paket bunu içermiyor.\",\n  \"source_url\": \"https://pubmed.ncbi.nlm.nih.gov/29693564/\",\n  \"source_directness\": \"indirect\",\n  \"evidence_stance\": \"insufficient\",\n  \"source_tier\": \"systematic_review\"\n}\n```"
+  },
+  "1168": {
+    "input_tokens": 2919,
+    "output_tokens": 440,
+    "max_tokens": 2000,
+    "stop_reason": "end_turn",
+    "evidence_count": 5,
+    "evidence_chars": 7121,
+    "parse_error": "",
+    "category": "ok",
+    "last200": "a değerlendirme yapılamaz.\",\n  \"source_url\": \"https://pubmed.ncbi.nlm.nih.gov/34672792/\",\n  \"source_directness\": \"indirect\",\n  \"evidence_stance\": \"insufficient\",\n  \"source_tier\": \"primary_study\"\n}\n```"
+  },
+  "810": {
+    "input_tokens": 11200,
+    "output_tokens": 515,
+    "max_tokens": 2000,
+    "stop_reason": "end_turn",
+    "evidence_count": 5,
+    "evidence_chars": 21754,
+    "parse_error": "Expecting ',' delimiter: line 4 column 602 (char 659)",
+    "category": "invalid_json",
+    "last200": "ış), güven tam maksimumda değil.\",\n  \"source_url\": \"https://pubmed.ncbi.nlm.nih.gov/42352934/\",\n  \"source_directness\": \"direct\",\n  \"evidence_stance\": \"supports\",\n  \"source_tier\": \"primary_study\"\n}\n```"
+  },
+  "1265": {
+    "input_tokens": 105778,
+    "output_tokens": 1719,
+    "max_tokens": 2000,
+    "stop_reason": "end_turn (sync, log)",
+    "evidence_count": 5,
+    "evidence_chars": 31894,
+    "parse_error": "no JSON object in response",
+    "category": "invalid_json",
+    "last200": "ağlanan kanıt paketindeki çalışmaların hiçbiri bu spesifik vakayı doğrudan ele almıyor. Bu genel randomize kontrollü çalışmalar ve mekanistik araştırmalar olup, tek bir hastanın 8 haftalık takibini iç",
+    "note": "jP5 sync — web_search mode (NOT package_only)"
+  }
+}

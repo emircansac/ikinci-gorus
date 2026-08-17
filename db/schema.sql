@@ -77,6 +77,8 @@ CREATE TABLE IF NOT EXISTS verdicts (
     calibration_flags   TEXT,       -- virgülle: inverted_verdict, default_conf, tier_cap:encyclopedia, …
     human_reviewed      INTEGER DEFAULT 0,   -- yalnızca utils/review.py (gerçek insan onayı)
     auto_accepted       INTEGER DEFAULT 0,   -- otomasyon: incelemeye gerek yok kararı
+    would_auto_accept_v1 INTEGER DEFAULT 0,  -- shadow: v1 bandı aday (davranışı etkilemez)
+    would_auto_accept_reason TEXT,           -- shadow: v1 False ise ilk kırılan koşul
     reviewer_note        TEXT,
     library_match       INTEGER DEFAULT 0,   -- verified_claim_library auto-eşleşme
     verified_at         TEXT DEFAULT (datetime('now')),

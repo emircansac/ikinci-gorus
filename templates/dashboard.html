@@ -200,6 +200,22 @@
   .claim-reasoning{
     margin:8px 0 6px; color:var(--text); font-size:12.5px; line-height:1.45;
   }
+  .reviewer-focus{
+    margin:0 0 8px; padding:8px 10px; border-radius:6px;
+    background:var(--magenta-dim); border:1px solid var(--magenta);
+    font-size:12.5px; line-height:1.45;
+  }
+  .reviewer-focus-label{
+    font-family:var(--mono); font-size:10px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.04em; color:var(--magenta);
+    margin-bottom:4px;
+  }
+  .reviewer-focus-meta{
+    font-family:var(--mono); font-size:10px; color:var(--text-muted); margin-top:6px;
+  }
+  .reviewer-focus-meta .risk-yuksek{color:var(--red);}
+  .reviewer-focus-meta .risk-orta{color:var(--yellow);}
+  .reviewer-focus-meta .risk-dusuk{color:var(--teal);}
   .claim-cal-flag{
     font-family:var(--mono); font-size:10px; color:var(--yellow); margin-top:4px;
   }
@@ -453,6 +469,11 @@ function isPendingReview(c){
   return c.human_reviewed === 0 || c.human_reviewed === false || c.human_reviewed === '0';
 }
 
+function riskLevelClass(level){
+  const map = {"yüksek":"yuksek", "orta":"orta", "düşük":"dusuk"};
+  return map[level] || "orta";
+}
+
 function renderClaimStreamItem(c, opts){
   const isArchiveView = opts?.archiveView;
   const vCls = verdictClass(c.final_verdict);
@@ -467,6 +488,15 @@ function renderClaimStreamItem(c, opts){
     : '';
   return `
   <article class="claim-stream-item v-${vCls}" data-claim-id="${esc(c.claim_id)}" tabindex="0" role="button">
+    ${!isArchiveView && pending && c.reviewer_check_point ? `
+    <div class="reviewer-focus">
+      <div class="reviewer-focus-label">İncelenecek nokta</div>
+      <div>${esc(c.reviewer_check_point)}</div>
+      <div class="reviewer-focus-meta">
+        ${c.reviewer_risk_level ? `<span class="risk-${riskLevelClass(c.reviewer_risk_level)}">risk: ${esc(c.reviewer_risk_level)}</span>` : ''}
+        ${c.reviewer_source_note ? `<span>${c.reviewer_risk_level ? ' · ' : ''}${esc(c.reviewer_source_note)}</span>` : ''}
+      </div>
+    </div>` : ''}
     <p class="claim-stream-text">${esc(c.claim_text)}</p>
     <div class="claim-stream-meta">
       <span class="claim-stream-verdict ${vCls}">${vMark.sym} ${esc(verdictLabel)}</span>

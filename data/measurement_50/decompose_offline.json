@@ -1,0 +1,1829 @@
+{
+  "ids": [
+    357,
+    801,
+    813,
+    901,
+    956,
+    978,
+    1006,
+    1043,
+    1129,
+    1168
+  ],
+  "n": 10,
+  "n_split_ok": 10,
+  "n_tier_gap": 2,
+  "rows": [
+    {
+      "claim_id": 357,
+      "skipped": false,
+      "claim_text": "74 yaş civarındaki kişilere pancar suyuna dayalı yüksek nitrat içeren kahvaltı verildiğinde birkaç gün sonra çekilen beyin MR'larında hafıza ve karar vermeden sorumlu bölgelere giden kan akışında nokta atışı artış görüldü.",
+      "n_evidence": 5,
+      "parts": [
+        "74 yaş civarındaki kişilere pancar suyuna dayalı yüksek nitrat içeren kahvaltı verildiğinde birkaç gün sonra çekilen beyin MR'larında hafıza",
+        "karar vermeden sorumlu bölgelere giden kan akışında nokta atışı artış görüldü"
+      ],
+      "split_ok": true,
+      "whole_tier": "direct",
+      "job_specificity_tier": "direct",
+      "components": [
+        {
+          "text": "74 yaş civarındaki kişilere pancar suyuna dayalı yüksek nitrat içeren kahvaltı verildiğinde birkaç gün sonra çekilen beyin MR'larında hafıza",
+          "tier": "direct",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Caloric Restriction (CR) Plus High-Nitrate Beetroot Juice Does Not Amplify CR-Induced Metabolic Adaptation and Improves Vascular and Cognitive Functions in Overweight Adults: A 14-Day Pilot Randomised Trial.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/36839248/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nitric Oxide Pathways in Neurovascular Coupling Under Normal and Stress Conditions in the Brain: Strategies to Rescue Aberrant Coupling and Improve Cerebral Blood Flow.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34744769/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Effects of increased nitrate intake from beetroot juice on blood markers of oxidative stress and inflammation in older adults with hypertension.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38972612/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Cerebral Blood Flow Measurements in Adults: A Review on the Effects of Dietary Factors and Exercise.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29693564/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "No effect of nitrate-rich beetroot juice on microvascular function and blood pressure in younger and older individuals: a randomised, placebo-controlled double-blind pilot study.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/35352014/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "karar vermeden sorumlu bölgelere giden kan akışında nokta atışı artış görüldü",
+          "tier": "direct",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Caloric Restriction (CR) Plus High-Nitrate Beetroot Juice Does Not Amplify CR-Induced Metabolic Adaptation and Improves Vascular and Cognitive Functions in Overweight Adults: A 14-Day Pilot Randomised Trial.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/36839248/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nitric Oxide Pathways in Neurovascular Coupling Under Normal and Stress Conditions in the Brain: Strategies to Rescue Aberrant Coupling and Improve Cerebral Blood Flow.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34744769/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Effects of increased nitrate intake from beetroot juice on blood markers of oxidative stress and inflammation in older adults with hypertension.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38972612/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Cerebral Blood Flow Measurements in Adults: A Review on the Effects of Dietary Factors and Exercise.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29693564/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "No effect of nitrate-rich beetroot juice on microvascular function and blood pressure in younger and older individuals: a randomised, placebo-controlled double-blind pilot study.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/35352014/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "74 yaş civarındaki kişilere pancar suyuna dayalı yüksek nitrat içeren kahvaltı verildiğinde birkaç gün sonra çekilen beyin MR'larında hafıza ve karar vermeden sorumlu bölgelere giden kan akışında nokta atışı artış görüldü.",
+          "tier": "direct",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Caloric Restriction (CR) Plus High-Nitrate Beetroot Juice Does Not Amplify CR-Induced Metabolic Adaptation and Improves Vascular and Cognitive Functions in Overweight Adults: A 14-Day Pilot Randomised Trial.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/36839248/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nitric Oxide Pathways in Neurovascular Coupling Under Normal and Stress Conditions in the Brain: Strategies to Rescue Aberrant Coupling and Improve Cerebral Blood Flow.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34744769/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Effects of increased nitrate intake from beetroot juice on blood markers of oxidative stress and inflammation in older adults with hypertension.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38972612/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Cerebral Blood Flow Measurements in Adults: A Review on the Effects of Dietary Factors and Exercise.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29693564/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "No effect of nitrate-rich beetroot juice on microvascular function and blood pressure in younger and older individuals: a randomised, placebo-controlled double-blind pilot study.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/35352014/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "74 yaş civarındaki kişilere pancar suyuna dayalı yüksek nitrat içeren kahvaltı verildiğinde birkaç gün sonra çekilen beyin MR'larında hafıza",
+            "tier": "direct",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Caloric Restriction (CR) Plus High-Nitrate Beetroot Juice Does Not Amplify CR-Induced Metabolic Adaptation and Improves Vascular and Cognitive Functions in Overweight Adults: A 14-Day Pilot Randomised Trial.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/36839248/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Nitric Oxide Pathways in Neurovascular Coupling Under Normal and Stress Conditions in the Brain: Strategies to Rescue Aberrant Coupling and Improve Cerebral Blood Flow.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/34744769/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Effects of increased nitrate intake from beetroot juice on blood markers of oxidative stress and inflammation in older adults with hypertension.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/38972612/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Cerebral Blood Flow Measurements in Adults: A Review on the Effects of Dietary Factors and Exercise.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29693564/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "No effect of nitrate-rich beetroot juice on microvascular function and blood pressure in younger and older individuals: a randomised, placebo-controlled double-blind pilot study.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/35352014/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "karar vermeden sorumlu bölgelere giden kan akışında nokta atışı artış görüldü",
+            "tier": "direct",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Caloric Restriction (CR) Plus High-Nitrate Beetroot Juice Does Not Amplify CR-Induced Metabolic Adaptation and Improves Vascular and Cognitive Functions in Overweight Adults: A 14-Day Pilot Randomised Trial.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/36839248/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Nitric Oxide Pathways in Neurovascular Coupling Under Normal and Stress Conditions in the Brain: Strategies to Rescue Aberrant Coupling and Improve Cerebral Blood Flow.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/34744769/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Effects of increased nitrate intake from beetroot juice on blood markers of oxidative stress and inflammation in older adults with hypertension.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/38972612/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Cerebral Blood Flow Measurements in Adults: A Review on the Effects of Dietary Factors and Exercise.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29693564/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "No effect of nitrate-rich beetroot juice on microvascular function and blood pressure in younger and older individuals: a randomised, placebo-controlled double-blind pilot study.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/35352014/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 801,
+      "skipped": false,
+      "claim_text": "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek, sonrasında yürüyüş yapmak ve miktarı kontrol etmek kan şekeri etkisini azaltır.",
+      "n_evidence": 5,
+      "parts": [
+        "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek, sonrasında yürüyüş yapmak",
+        "miktarı kontrol etmek kan şekeri etkisini azaltır"
+      ],
+      "split_ok": true,
+      "whole_tier": "background",
+      "job_specificity_tier": "background",
+      "components": [
+        {
+          "text": "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek, sonrasında yürüyüş yapmak",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Efficacy of a low-carbohydrate diet combined with exercise on glycemic control and metabolic health in type 2 diabetes mellitus: A systematic review and meta-analysis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41417571/",
+              "source_tier": "systematic_review"
+            },
+            {
+              "title": "Effects of different types of meals on postprandial glycaemia in healthy subjects.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39451188/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Integrative Strategies for Preventing and Managing Metabolic Syndrome: The Impact of Exercise and Diet on Oxidative Stress Reduction-A Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40430185/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nutritional and Physicochemical Characteristics of Innovative High Energy and Protein Fruit- and Date-Based Bars.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/37509869/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The role of nutrition in non-alcoholic fatty liver disease: Pathophysiology and management.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/32077594/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "miktarı kontrol etmek kan şekeri etkisini azaltır",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Efficacy of a low-carbohydrate diet combined with exercise on glycemic control and metabolic health in type 2 diabetes mellitus: A systematic review and meta-analysis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41417571/",
+              "source_tier": "systematic_review"
+            },
+            {
+              "title": "Effects of different types of meals on postprandial glycaemia in healthy subjects.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39451188/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Integrative Strategies for Preventing and Managing Metabolic Syndrome: The Impact of Exercise and Diet on Oxidative Stress Reduction-A Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40430185/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nutritional and Physicochemical Characteristics of Innovative High Energy and Protein Fruit- and Date-Based Bars.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/37509869/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The role of nutrition in non-alcoholic fatty liver disease: Pathophysiology and management.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/32077594/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek, sonrasında yürüyüş yapmak ve miktarı kontrol etmek kan şekeri etkisini azaltır.",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Efficacy of a low-carbohydrate diet combined with exercise on glycemic control and metabolic health in type 2 diabetes mellitus: A systematic review and meta-analysis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41417571/",
+              "source_tier": "systematic_review"
+            },
+            {
+              "title": "Effects of different types of meals on postprandial glycaemia in healthy subjects.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39451188/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Integrative Strategies for Preventing and Managing Metabolic Syndrome: The Impact of Exercise and Diet on Oxidative Stress Reduction-A Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40430185/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nutritional and Physicochemical Characteristics of Innovative High Energy and Protein Fruit- and Date-Based Bars.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/37509869/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The role of nutrition in non-alcoholic fatty liver disease: Pathophysiology and management.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/32077594/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Yüksek glisemik yüklü meyveleri protein veya yağla birleştirmek, günün erken saatlerinde tüketmek, sonrasında yürüyüş yapmak",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Efficacy of a low-carbohydrate diet combined with exercise on glycemic control and metabolic health in type 2 diabetes mellitus: A systematic review and meta-analysis.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41417571/",
+                "source_tier": "systematic_review"
+              },
+              {
+                "title": "Effects of different types of meals on postprandial glycaemia in healthy subjects.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39451188/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Integrative Strategies for Preventing and Managing Metabolic Syndrome: The Impact of Exercise and Diet on Oxidative Stress Reduction-A Review.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40430185/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Nutritional and Physicochemical Characteristics of Innovative High Energy and Protein Fruit- and Date-Based Bars.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/37509869/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "The role of nutrition in non-alcoholic fatty liver disease: Pathophysiology and management.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/32077594/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "miktarı kontrol etmek kan şekeri etkisini azaltır",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Efficacy of a low-carbohydrate diet combined with exercise on glycemic control and metabolic health in type 2 diabetes mellitus: A systematic review and meta-analysis.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41417571/",
+                "source_tier": "systematic_review"
+              },
+              {
+                "title": "Effects of different types of meals on postprandial glycaemia in healthy subjects.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39451188/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Integrative Strategies for Preventing and Managing Metabolic Syndrome: The Impact of Exercise and Diet on Oxidative Stress Reduction-A Review.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40430185/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Nutritional and Physicochemical Characteristics of Innovative High Energy and Protein Fruit- and Date-Based Bars.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/37509869/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "The role of nutrition in non-alcoholic fatty liver disease: Pathophysiology and management.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/32077594/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 813,
+      "skipped": false,
+      "claim_text": "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini ve çinko gibi vitaminlere ihtiyaç duyar.",
+      "n_evidence": 5,
+      "parts": [
+        "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini",
+        "çinko gibi vitaminlere ihtiyaç duyar"
+      ],
+      "split_ok": true,
+      "whole_tier": "supportive",
+      "job_specificity_tier": "supportive",
+      "components": [
+        {
+          "text": "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini",
+          "tier": "supportive",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "A Comprehensive Review of Nutritional Influences on the Serotonergic System.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40998119/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "[Nutrition in improving sleep quality and fighting insomnia].",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40728459/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "B Vitamins",
+              "url": "https://medlineplus.gov/bvitamins.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Nutritional supplements in depressive disorders.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29171639/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impact of Supplementation and Nutritional Interventions on Pathogenic Processes of Mood Disorders: A Review of the Evidence.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/33652997/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "çinko gibi vitaminlere ihtiyaç duyar",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "A Comprehensive Review of Nutritional Influences on the Serotonergic System.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40998119/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "[Nutrition in improving sleep quality and fighting insomnia].",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40728459/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "B Vitamins",
+              "url": "https://medlineplus.gov/bvitamins.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Nutritional supplements in depressive disorders.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29171639/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impact of Supplementation and Nutritional Interventions on Pathogenic Processes of Mood Disorders: A Review of the Evidence.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/33652997/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": true,
+      "map": {
+        "whole": {
+          "text": "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini ve çinko gibi vitaminlere ihtiyaç duyar.",
+          "tier": "supportive",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "A Comprehensive Review of Nutritional Influences on the Serotonergic System.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40998119/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "[Nutrition in improving sleep quality and fighting insomnia].",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40728459/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "B Vitamins",
+              "url": "https://medlineplus.gov/bvitamins.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Nutritional supplements in depressive disorders.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29171639/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impact of Supplementation and Nutritional Interventions on Pathogenic Processes of Mood Disorders: A Review of the Evidence.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/33652997/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Triptofanı serotonine ve melatonine dönüştüren enzimler magnezyum, B6 vitamini",
+            "tier": "supportive",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "A Comprehensive Review of Nutritional Influences on the Serotonergic System.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40998119/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "[Nutrition in improving sleep quality and fighting insomnia].",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40728459/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "B Vitamins",
+                "url": "https://medlineplus.gov/bvitamins.html",
+                "source_tier": "guideline"
+              },
+              {
+                "title": "Nutritional supplements in depressive disorders.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29171639/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Impact of Supplementation and Nutritional Interventions on Pathogenic Processes of Mood Disorders: A Review of the Evidence.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/33652997/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "çinko gibi vitaminlere ihtiyaç duyar",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "A Comprehensive Review of Nutritional Influences on the Serotonergic System.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40998119/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "[Nutrition in improving sleep quality and fighting insomnia].",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40728459/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "B Vitamins",
+                "url": "https://medlineplus.gov/bvitamins.html",
+                "source_tier": "guideline"
+              },
+              {
+                "title": "Nutritional supplements in depressive disorders.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29171639/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Impact of Supplementation and Nutritional Interventions on Pathogenic Processes of Mood Disorders: A Review of the Evidence.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/33652997/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 901,
+      "skipped": false,
+      "claim_text": "Akşam saat 6'dan sonra işlenmiş gıdalardaki gizli sodyum tüketimi, vücudun sıvı tutmasına ve gece boyunca gözaltı bölgesinde sıvı birikimine yol açar.",
+      "n_evidence": 5,
+      "parts": [
+        "Akşam saat 6'dan sonra işlenmiş gıdalardaki gizli sodyum tüketimi, vücudun sıvı tutmasına",
+        "gece boyunca gözaltı bölgesinde sıvı birikimine yol açar"
+      ],
+      "split_ok": true,
+      "whole_tier": "background",
+      "job_specificity_tier": "background",
+      "components": [
+        {
+          "text": "Akşam saat 6'dan sonra işlenmiş gıdalardaki gizli sodyum tüketimi, vücudun sıvı tutmasına",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Mechanism of attenuated thirst in aging: role of central volume receptors.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/9039003/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impact of sodium citrate ingestion during recovery after dehydrating exercise on rehydration and subsequent 40-km cycling time-trial performance in the heat.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29324186/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Sodium",
+              "url": "https://medlineplus.gov/sodium.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "A Single Urine Sodium Measurement May Validly Estimate 24-hour Urine Sodium Excretion in Patients With an Ileostomy.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/30985012/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Elite Kenyan endurance runners are hydrated day-to-day with ad libitum fluid intake.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/18460986/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "gece boyunca gözaltı bölgesinde sıvı birikimine yol açar",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Mechanism of attenuated thirst in aging: role of central volume receptors.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/9039003/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impact of sodium citrate ingestion during recovery after dehydrating exercise on rehydration and subsequent 40-km cycling time-trial performance in the heat.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29324186/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Sodium",
+              "url": "https://medlineplus.gov/sodium.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "A Single Urine Sodium Measurement May Validly Estimate 24-hour Urine Sodium Excretion in Patients With an Ileostomy.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/30985012/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Elite Kenyan endurance runners are hydrated day-to-day with ad libitum fluid intake.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/18460986/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Akşam saat 6'dan sonra işlenmiş gıdalardaki gizli sodyum tüketimi, vücudun sıvı tutmasına ve gece boyunca gözaltı bölgesinde sıvı birikimine yol açar.",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Mechanism of attenuated thirst in aging: role of central volume receptors.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/9039003/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impact of sodium citrate ingestion during recovery after dehydrating exercise on rehydration and subsequent 40-km cycling time-trial performance in the heat.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29324186/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Sodium",
+              "url": "https://medlineplus.gov/sodium.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "A Single Urine Sodium Measurement May Validly Estimate 24-hour Urine Sodium Excretion in Patients With an Ileostomy.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/30985012/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Elite Kenyan endurance runners are hydrated day-to-day with ad libitum fluid intake.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/18460986/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Akşam saat 6'dan sonra işlenmiş gıdalardaki gizli sodyum tüketimi, vücudun sıvı tutmasına",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Mechanism of attenuated thirst in aging: role of central volume receptors.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/9039003/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Impact of sodium citrate ingestion during recovery after dehydrating exercise on rehydration and subsequent 40-km cycling time-trial performance in the heat.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29324186/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Sodium",
+                "url": "https://medlineplus.gov/sodium.html",
+                "source_tier": "guideline"
+              },
+              {
+                "title": "A Single Urine Sodium Measurement May Validly Estimate 24-hour Urine Sodium Excretion in Patients With an Ileostomy.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/30985012/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Elite Kenyan endurance runners are hydrated day-to-day with ad libitum fluid intake.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/18460986/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "gece boyunca gözaltı bölgesinde sıvı birikimine yol açar",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Mechanism of attenuated thirst in aging: role of central volume receptors.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/9039003/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Impact of sodium citrate ingestion during recovery after dehydrating exercise on rehydration and subsequent 40-km cycling time-trial performance in the heat.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29324186/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Sodium",
+                "url": "https://medlineplus.gov/sodium.html",
+                "source_tier": "guideline"
+              },
+              {
+                "title": "A Single Urine Sodium Measurement May Validly Estimate 24-hour Urine Sodium Excretion in Patients With an Ileostomy.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/30985012/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Elite Kenyan endurance runners are hydrated day-to-day with ad libitum fluid intake.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/18460986/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 956,
+      "skipped": false,
+      "claim_text": "Gecikmiş mide boşalması, kronik kortizol bozulmasının belgelenmiş bir sonucudur ve insülin problemini daha karmaşık hale getirir.",
+      "n_evidence": 5,
+      "parts": [
+        "Gecikmiş mide boşalması, kronik kortizol bozulmasının belgelenmiş bir sonucudur",
+        "insülin problemini daha karmaşık hale getirir"
+      ],
+      "split_ok": true,
+      "whole_tier": "background",
+      "job_specificity_tier": "background",
+      "components": [
+        {
+          "text": "Gecikmiş mide boşalması, kronik kortizol bozulmasının belgelenmiş bir sonucudur",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 2,
+          "candidates": [
+            {
+              "title": "Dissecting the causal link between transient hypoglycemic coma and gut-brain axis imbalance - implications for diarrhea pathogenesis: A case report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41578550/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Therapeutic nutrition strategies for the shared pathophysiology of obesity and sleep-disordered breathings.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41353362/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "insülin problemini daha karmaşık hale getirir",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 4,
+          "candidates": [
+            {
+              "title": "Diabetes Type 1",
+              "url": "https://medlineplus.gov/diabetestype1.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Prediabetes",
+              "url": "https://medlineplus.gov/prediabetes.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Therapeutic nutrition strategies for the shared pathophysiology of obesity and sleep-disordered breathings.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41353362/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Metabolic Syndrome",
+              "url": "https://medlineplus.gov/metabolicsyndrome.html",
+              "source_tier": "guideline"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Gecikmiş mide boşalması, kronik kortizol bozulmasının belgelenmiş bir sonucudur ve insülin problemini daha karmaşık hale getirir.",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Dissecting the causal link between transient hypoglycemic coma and gut-brain axis imbalance - implications for diarrhea pathogenesis: A case report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41578550/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Diabetes Type 1",
+              "url": "https://medlineplus.gov/diabetestype1.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Prediabetes",
+              "url": "https://medlineplus.gov/prediabetes.html",
+              "source_tier": "guideline"
+            },
+            {
+              "title": "Therapeutic nutrition strategies for the shared pathophysiology of obesity and sleep-disordered breathings.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41353362/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Metabolic Syndrome",
+              "url": "https://medlineplus.gov/metabolicsyndrome.html",
+              "source_tier": "guideline"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Gecikmiş mide boşalması, kronik kortizol bozulmasının belgelenmiş bir sonucudur",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 2,
+            "candidates": [
+              {
+                "title": "Dissecting the causal link between transient hypoglycemic coma and gut-brain axis imbalance - implications for diarrhea pathogenesis: A case report.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41578550/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Therapeutic nutrition strategies for the shared pathophysiology of obesity and sleep-disordered breathings.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41353362/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "insülin problemini daha karmaşık hale getirir",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 4,
+            "candidates": [
+              {
+                "title": "Diabetes Type 1",
+                "url": "https://medlineplus.gov/diabetestype1.html",
+                "source_tier": "guideline"
+              },
+              {
+                "title": "Prediabetes",
+                "url": "https://medlineplus.gov/prediabetes.html",
+                "source_tier": "guideline"
+              },
+              {
+                "title": "Therapeutic nutrition strategies for the shared pathophysiology of obesity and sleep-disordered breathings.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41353362/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Metabolic Syndrome",
+                "url": "https://medlineplus.gov/metabolicsyndrome.html",
+                "source_tier": "guideline"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 978,
+      "skipped": false,
+      "claim_text": "Retinol, peptit ve hyaluronik asit içeren kremler sadece epidermiste etkilidir ve derinin 1 cm altındaki kas/bağ dokusuna ulaşamaz.",
+      "n_evidence": 5,
+      "parts": [
+        "Retinol, peptit ve hyaluronik asit içeren kremler sadece epidermiste etkilidir",
+        "derinin 1 cm altındaki kas/bağ dokusuna ulaşamaz"
+      ],
+      "split_ok": true,
+      "whole_tier": "background",
+      "job_specificity_tier": "background",
+      "components": [
+        {
+          "text": "Retinol, peptit ve hyaluronik asit içeren kremler sadece epidermiste etkilidir",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Cellular, immunologic and biochemical characterization of topical retinoic acid-treated human skin.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/1673698/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Novel Cyclized Hexapeptide-9 Outperforms Retinol Against Skin Aging: A Randomized, Double-Blinded, Active- and Vehicle-Controlled Clinical Trial.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40586182/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Topical retinol attenuates stress-induced ageing signs in human skin ex vivo, throughEGFR activation viaEGF, but notERK andAP-1 activation.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29704879/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Mechanically Induced Skin Renewal: Evidence-Based Insights Into Clinical, Structural and Inflammatory Changes Activated by Microneedling, Microdermabrasion and Microvibration.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42152593/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nanotechnology-based drug formulation and delivery systems for skin medical aesthetic dermatology: mechanisms, applications, and safety.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42064808/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "derinin 1 cm altındaki kas/bağ dokusuna ulaşamaz",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Cellular, immunologic and biochemical characterization of topical retinoic acid-treated human skin.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/1673698/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Novel Cyclized Hexapeptide-9 Outperforms Retinol Against Skin Aging: A Randomized, Double-Blinded, Active- and Vehicle-Controlled Clinical Trial.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40586182/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Topical retinol attenuates stress-induced ageing signs in human skin ex vivo, throughEGFR activation viaEGF, but notERK andAP-1 activation.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29704879/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Mechanically Induced Skin Renewal: Evidence-Based Insights Into Clinical, Structural and Inflammatory Changes Activated by Microneedling, Microdermabrasion and Microvibration.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42152593/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nanotechnology-based drug formulation and delivery systems for skin medical aesthetic dermatology: mechanisms, applications, and safety.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42064808/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Retinol, peptit ve hyaluronik asit içeren kremler sadece epidermiste etkilidir ve derinin 1 cm altındaki kas/bağ dokusuna ulaşamaz.",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Cellular, immunologic and biochemical characterization of topical retinoic acid-treated human skin.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/1673698/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Novel Cyclized Hexapeptide-9 Outperforms Retinol Against Skin Aging: A Randomized, Double-Blinded, Active- and Vehicle-Controlled Clinical Trial.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40586182/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Topical retinol attenuates stress-induced ageing signs in human skin ex vivo, throughEGFR activation viaEGF, but notERK andAP-1 activation.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29704879/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Mechanically Induced Skin Renewal: Evidence-Based Insights Into Clinical, Structural and Inflammatory Changes Activated by Microneedling, Microdermabrasion and Microvibration.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42152593/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Nanotechnology-based drug formulation and delivery systems for skin medical aesthetic dermatology: mechanisms, applications, and safety.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42064808/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Retinol, peptit ve hyaluronik asit içeren kremler sadece epidermiste etkilidir",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Cellular, immunologic and biochemical characterization of topical retinoic acid-treated human skin.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/1673698/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Novel Cyclized Hexapeptide-9 Outperforms Retinol Against Skin Aging: A Randomized, Double-Blinded, Active- and Vehicle-Controlled Clinical Trial.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40586182/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Topical retinol attenuates stress-induced ageing signs in human skin ex vivo, throughEGFR activation viaEGF, but notERK andAP-1 activation.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29704879/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Mechanically Induced Skin Renewal: Evidence-Based Insights Into Clinical, Structural and Inflammatory Changes Activated by Microneedling, Microdermabrasion and Microvibration.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42152593/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Nanotechnology-based drug formulation and delivery systems for skin medical aesthetic dermatology: mechanisms, applications, and safety.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42064808/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "derinin 1 cm altındaki kas/bağ dokusuna ulaşamaz",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Cellular, immunologic and biochemical characterization of topical retinoic acid-treated human skin.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/1673698/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Novel Cyclized Hexapeptide-9 Outperforms Retinol Against Skin Aging: A Randomized, Double-Blinded, Active- and Vehicle-Controlled Clinical Trial.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40586182/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Topical retinol attenuates stress-induced ageing signs in human skin ex vivo, throughEGFR activation viaEGF, but notERK andAP-1 activation.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/29704879/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Mechanically Induced Skin Renewal: Evidence-Based Insights Into Clinical, Structural and Inflammatory Changes Activated by Microneedling, Microdermabrasion and Microvibration.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42152593/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Nanotechnology-based drug formulation and delivery systems for skin medical aesthetic dermatology: mechanisms, applications, and safety.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42064808/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 1006,
+      "skipped": false,
+      "claim_text": "Ayşe Hanım vaka örneğinde, rutine başladıktan 8 hafta sonra çenesiyle boğazı arasındaki sarkık açıda gözle görülür ve ölçülebilir bir toparlanma oluştu.",
+      "n_evidence": 5,
+      "parts": [
+        "Ayşe Hanım vaka örneğinde, rutine başladıktan 8 hafta sonra çenesiyle boğazı arasındaki sarkık açıda gözle görülür",
+        "ölçülebilir bir toparlanma oluştu"
+      ],
+      "split_ok": true,
+      "whole_tier": "background",
+      "job_specificity_tier": "background",
+      "components": [
+        {
+          "text": "Ayşe Hanım vaka örneğinde, rutine başladıktan 8 hafta sonra çenesiyle boğazı arasındaki sarkık açıda gözle görülür",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Face-neck lifting and ancillary procedures: A series of 203 cases.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/30278509/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Chin Tuck Exercise and Obstructive Sleep Apnea: A Case Report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41050640/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "A 13-Year Long-Term Follow-Up of a Case Report With Continued Improvement in Severe Chronic Neck and Head Pain Alleviated With Chiropractic BioPhysics® Spinal Rehabilitation Protocols.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38680820/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Exercise-induced laryngomalacia.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/7598366/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Effects of an exercise program plus manual therapy in a patient with failed neck surgery syndrome: A case report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/36775521/",
+              "source_tier": "case_report"
+            }
+          ]
+        },
+        {
+          "text": "ölçülebilir bir toparlanma oluştu",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Face-neck lifting and ancillary procedures: A series of 203 cases.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/30278509/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Chin Tuck Exercise and Obstructive Sleep Apnea: A Case Report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41050640/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "A 13-Year Long-Term Follow-Up of a Case Report With Continued Improvement in Severe Chronic Neck and Head Pain Alleviated With Chiropractic BioPhysics® Spinal Rehabilitation Protocols.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38680820/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Exercise-induced laryngomalacia.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/7598366/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Effects of an exercise program plus manual therapy in a patient with failed neck surgery syndrome: A case report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/36775521/",
+              "source_tier": "case_report"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Ayşe Hanım vaka örneğinde, rutine başladıktan 8 hafta sonra çenesiyle boğazı arasındaki sarkık açıda gözle görülür ve ölçülebilir bir toparlanma oluştu.",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Face-neck lifting and ancillary procedures: A series of 203 cases.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/30278509/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Chin Tuck Exercise and Obstructive Sleep Apnea: A Case Report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41050640/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "A 13-Year Long-Term Follow-Up of a Case Report With Continued Improvement in Severe Chronic Neck and Head Pain Alleviated With Chiropractic BioPhysics® Spinal Rehabilitation Protocols.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38680820/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Exercise-induced laryngomalacia.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/7598366/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Effects of an exercise program plus manual therapy in a patient with failed neck surgery syndrome: A case report.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/36775521/",
+              "source_tier": "case_report"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Ayşe Hanım vaka örneğinde, rutine başladıktan 8 hafta sonra çenesiyle boğazı arasındaki sarkık açıda gözle görülür",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Face-neck lifting and ancillary procedures: A series of 203 cases.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/30278509/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Chin Tuck Exercise and Obstructive Sleep Apnea: A Case Report.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41050640/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "A 13-Year Long-Term Follow-Up of a Case Report With Continued Improvement in Severe Chronic Neck and Head Pain Alleviated With Chiropractic BioPhysics® Spinal Rehabilitation Protocols.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/38680820/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Exercise-induced laryngomalacia.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/7598366/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Effects of an exercise program plus manual therapy in a patient with failed neck surgery syndrome: A case report.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/36775521/",
+                "source_tier": "case_report"
+              }
+            ]
+          },
+          {
+            "text": "ölçülebilir bir toparlanma oluştu",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Face-neck lifting and ancillary procedures: A series of 203 cases.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/30278509/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Chin Tuck Exercise and Obstructive Sleep Apnea: A Case Report.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41050640/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "A 13-Year Long-Term Follow-Up of a Case Report With Continued Improvement in Severe Chronic Neck and Head Pain Alleviated With Chiropractic BioPhysics® Spinal Rehabilitation Protocols.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/38680820/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Exercise-induced laryngomalacia.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/7598366/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Effects of an exercise program plus manual therapy in a patient with failed neck surgery syndrome: A case report.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/36775521/",
+                "source_tier": "case_report"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 1043,
+      "skipped": false,
+      "claim_text": "Tiroid bezi saç hücrelerinin bölünme ve keratin üretme hızını belirler.",
+      "n_evidence": 5,
+      "parts": [
+        "Tiroid bezi saç hücrelerinin bölünme",
+        "keratin üretme hızını belirler"
+      ],
+      "split_ok": true,
+      "whole_tier": "supportive",
+      "job_specificity_tier": "supportive",
+      "components": [
+        {
+          "text": "Tiroid bezi saç hücrelerinin bölünme",
+          "tier": "supportive",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Thyroid hormone signaling controls hair follicle stem cell function.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25657324/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Human female hair follicles are a direct, nonclassical target for thyroid-stimulating hormone.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/19052559/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Growth Hormone and the Human Hair Follicle.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34948002/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impaired hair growth and wound healing in mice lacking thyroid hormone receptors.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25254665/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The Skin Microenvironment: A Dynamic Regulator of Hair Follicle Development, Cycling and Disease.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41008641/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "keratin üretme hızını belirler",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Thyroid hormone signaling controls hair follicle stem cell function.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25657324/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Human female hair follicles are a direct, nonclassical target for thyroid-stimulating hormone.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/19052559/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Growth Hormone and the Human Hair Follicle.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34948002/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impaired hair growth and wound healing in mice lacking thyroid hormone receptors.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25254665/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The Skin Microenvironment: A Dynamic Regulator of Hair Follicle Development, Cycling and Disease.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41008641/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": true,
+      "map": {
+        "whole": {
+          "text": "Tiroid bezi saç hücrelerinin bölünme ve keratin üretme hızını belirler.",
+          "tier": "supportive",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "Thyroid hormone signaling controls hair follicle stem cell function.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25657324/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Human female hair follicles are a direct, nonclassical target for thyroid-stimulating hormone.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/19052559/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Growth Hormone and the Human Hair Follicle.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34948002/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Impaired hair growth and wound healing in mice lacking thyroid hormone receptors.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25254665/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The Skin Microenvironment: A Dynamic Regulator of Hair Follicle Development, Cycling and Disease.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41008641/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Tiroid bezi saç hücrelerinin bölünme",
+            "tier": "supportive",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Thyroid hormone signaling controls hair follicle stem cell function.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/25657324/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Human female hair follicles are a direct, nonclassical target for thyroid-stimulating hormone.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/19052559/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Growth Hormone and the Human Hair Follicle.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/34948002/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Impaired hair growth and wound healing in mice lacking thyroid hormone receptors.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/25254665/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "The Skin Microenvironment: A Dynamic Regulator of Hair Follicle Development, Cycling and Disease.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41008641/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "keratin üretme hızını belirler",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "Thyroid hormone signaling controls hair follicle stem cell function.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/25657324/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Human female hair follicles are a direct, nonclassical target for thyroid-stimulating hormone.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/19052559/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Growth Hormone and the Human Hair Follicle.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/34948002/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Impaired hair growth and wound healing in mice lacking thyroid hormone receptors.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/25254665/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "The Skin Microenvironment: A Dynamic Regulator of Hair Follicle Development, Cycling and Disease.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41008641/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 1129,
+      "skipped": false,
+      "claim_text": "Flavonoidler damar duvarları ve kapakçıkların dayanıklılığını doğrudan korur, eksikliği zamanla damarları zayıflatır",
+      "n_evidence": 5,
+      "parts": [
+        "Flavonoidler damar duvarları",
+        "kapakçıkların dayanıklılığını doğrudan korur, eksikliği zamanla damarları zayıflatır"
+      ],
+      "split_ok": true,
+      "whole_tier": "background",
+      "job_specificity_tier": "background",
+      "components": [
+        {
+          "text": "Flavonoidler damar duvarları",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "The Roles of Oxidative Stress and Red Blood Cells in the Pathology of the Varicose Vein.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39769165/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The Use of Plants That Seal Blood Vessels in Preparations Applied Topically to the Skin: A Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40363780/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Efficacy and mechanism of escin in improving the tissue microenvironment of blood vessel walls via anti-inflammatory and anticoagulant effects: Implications for clinical practice.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41245382/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Innovative Approaches and Future Directions in the Management and Understanding of Varicose Veins: A Systematic Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39421653/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Combined Effects of Diosmin, Hesperidin, &lt;i&gt;Ruscus aculeatus&lt;/i&gt;, &lt;i&gt;Ananas comosus&lt;/i&gt;, and Bromelain on Endothelial Function and Gut Barrier Integrity In Vitro.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41226574/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "kapakçıkların dayanıklılığını doğrudan korur, eksikliği zamanla damarları zayıflatır",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "The Roles of Oxidative Stress and Red Blood Cells in the Pathology of the Varicose Vein.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39769165/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The Use of Plants That Seal Blood Vessels in Preparations Applied Topically to the Skin: A Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40363780/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Efficacy and mechanism of escin in improving the tissue microenvironment of blood vessel walls via anti-inflammatory and anticoagulant effects: Implications for clinical practice.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41245382/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Innovative Approaches and Future Directions in the Management and Understanding of Varicose Veins: A Systematic Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39421653/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Combined Effects of Diosmin, Hesperidin, &lt;i&gt;Ruscus aculeatus&lt;/i&gt;, &lt;i&gt;Ananas comosus&lt;/i&gt;, and Bromelain on Endothelial Function and Gut Barrier Integrity In Vitro.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41226574/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Flavonoidler damar duvarları ve kapakçıkların dayanıklılığını doğrudan korur, eksikliği zamanla damarları zayıflatır",
+          "tier": "background",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "The Roles of Oxidative Stress and Red Blood Cells in the Pathology of the Varicose Vein.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39769165/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "The Use of Plants That Seal Blood Vessels in Preparations Applied Topically to the Skin: A Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40363780/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Efficacy and mechanism of escin in improving the tissue microenvironment of blood vessel walls via anti-inflammatory and anticoagulant effects: Implications for clinical practice.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41245382/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Innovative Approaches and Future Directions in the Management and Understanding of Varicose Veins: A Systematic Review.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39421653/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Combined Effects of Diosmin, Hesperidin, &lt;i&gt;Ruscus aculeatus&lt;/i&gt;, &lt;i&gt;Ananas comosus&lt;/i&gt;, and Bromelain on Endothelial Function and Gut Barrier Integrity In Vitro.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41226574/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Flavonoidler damar duvarları",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "The Roles of Oxidative Stress and Red Blood Cells in the Pathology of the Varicose Vein.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39769165/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "The Use of Plants That Seal Blood Vessels in Preparations Applied Topically to the Skin: A Review.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40363780/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Efficacy and mechanism of escin in improving the tissue microenvironment of blood vessel walls via anti-inflammatory and anticoagulant effects: Implications for clinical practice.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41245382/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Innovative Approaches and Future Directions in the Management and Understanding of Varicose Veins: A Systematic Review.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39421653/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Combined Effects of Diosmin, Hesperidin, &lt;i&gt;Ruscus aculeatus&lt;/i&gt;, &lt;i&gt;Ananas comosus&lt;/i&gt;, and Bromelain on Endothelial Function and Gut Barrier Integrity In Vitro.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41226574/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "kapakçıkların dayanıklılığını doğrudan korur, eksikliği zamanla damarları zayıflatır",
+            "tier": "background",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "The Roles of Oxidative Stress and Red Blood Cells in the Pathology of the Varicose Vein.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39769165/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "The Use of Plants That Seal Blood Vessels in Preparations Applied Topically to the Skin: A Review.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40363780/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Efficacy and mechanism of escin in improving the tissue microenvironment of blood vessel walls via anti-inflammatory and anticoagulant effects: Implications for clinical practice.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41245382/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Innovative Approaches and Future Directions in the Management and Understanding of Varicose Veins: A Systematic Review.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39421653/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Combined Effects of Diosmin, Hesperidin, &lt;i&gt;Ruscus aculeatus&lt;/i&gt;, &lt;i&gt;Ananas comosus&lt;/i&gt;, and Bromelain on Endothelial Function and Gut Barrier Integrity In Vitro.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/41226574/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": 1168,
+      "skipped": false,
+      "claim_text": "Başka hastalık belirtisi göstermeyen ve kronik akşam şişkinliği yaşayan 60 yaş üstü bireylerin çoğu lenfatik kategoride yer alır.",
+      "n_evidence": 5,
+      "parts": [
+        "Başka hastalık belirtisi göstermeyen",
+        "kronik akşam şişkinliği yaşayan 60 yaş üstü bireylerin çoğu lenfatik kategoride yer alır"
+      ],
+      "split_ok": true,
+      "whole_tier": "direct",
+      "job_specificity_tier": "direct",
+      "components": [
+        {
+          "text": "Başka hastalık belirtisi göstermeyen",
+          "tier": "direct",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "A rare case of sporotrichosis in a patient with late latent syphilis and diabetes mellitus: immunological aspects of sporotrichosis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42245121/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Lipedema: Clinical Features, Diagnosis, and Management.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40386000/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "LIMPRINT in Italy.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34672792/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Primary and Recurrent Erysipelas-Epidemiological Patterns in a Single-Centre Retrospective Analysis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40806921/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Elderly Onset Primary Intestinal Lymphangiectasia-A Rare Case.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39850090/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        {
+          "text": "kronik akşam şişkinliği yaşayan 60 yaş üstü bireylerin çoğu lenfatik kategoride yer alır",
+          "tier": "supportive",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "A rare case of sporotrichosis in a patient with late latent syphilis and diabetes mellitus: immunological aspects of sporotrichosis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42245121/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Lipedema: Clinical Features, Diagnosis, and Management.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40386000/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "LIMPRINT in Italy.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34672792/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Primary and Recurrent Erysipelas-Epidemiological Patterns in a Single-Centre Retrospective Analysis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40806921/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Elderly Onset Primary Intestinal Lymphangiectasia-A Rare Case.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39850090/",
+              "source_tier": "primary_study"
+            }
+          ]
+        }
+      ],
+      "tier_gap": false,
+      "map": {
+        "whole": {
+          "text": "Başka hastalık belirtisi göstermeyen ve kronik akşam şişkinliği yaşayan 60 yaş üstü bireylerin çoğu lenfatik kategoride yer alır.",
+          "tier": "direct",
+          "reason": "ok",
+          "kept": 5,
+          "candidates": [
+            {
+              "title": "A rare case of sporotrichosis in a patient with late latent syphilis and diabetes mellitus: immunological aspects of sporotrichosis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42245121/",
+              "source_tier": "case_report"
+            },
+            {
+              "title": "Lipedema: Clinical Features, Diagnosis, and Management.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40386000/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "LIMPRINT in Italy.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34672792/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Primary and Recurrent Erysipelas-Epidemiological Patterns in a Single-Centre Retrospective Analysis.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40806921/",
+              "source_tier": "primary_study"
+            },
+            {
+              "title": "Elderly Onset Primary Intestinal Lymphangiectasia-A Rare Case.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39850090/",
+              "source_tier": "primary_study"
+            }
+          ]
+        },
+        "components": [
+          {
+            "text": "Başka hastalık belirtisi göstermeyen",
+            "tier": "direct",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "A rare case of sporotrichosis in a patient with late latent syphilis and diabetes mellitus: immunological aspects of sporotrichosis.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42245121/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Lipedema: Clinical Features, Diagnosis, and Management.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40386000/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "LIMPRINT in Italy.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/34672792/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Primary and Recurrent Erysipelas-Epidemiological Patterns in a Single-Centre Retrospective Analysis.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40806921/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Elderly Onset Primary Intestinal Lymphangiectasia-A Rare Case.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39850090/",
+                "source_tier": "primary_study"
+              }
+            ]
+          },
+          {
+            "text": "kronik akşam şişkinliği yaşayan 60 yaş üstü bireylerin çoğu lenfatik kategoride yer alır",
+            "tier": "supportive",
+            "reason": "ok",
+            "kept": 5,
+            "candidates": [
+              {
+                "title": "A rare case of sporotrichosis in a patient with late latent syphilis and diabetes mellitus: immunological aspects of sporotrichosis.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42245121/",
+                "source_tier": "case_report"
+              },
+              {
+                "title": "Lipedema: Clinical Features, Diagnosis, and Management.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40386000/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "LIMPRINT in Italy.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/34672792/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Primary and Recurrent Erysipelas-Epidemiological Patterns in a Single-Centre Retrospective Analysis.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/40806921/",
+                "source_tier": "primary_study"
+              },
+              {
+                "title": "Elderly Onset Primary Intestinal Lymphangiectasia-A Rare Case.",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/39850090/",
+                "source_tier": "primary_study"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

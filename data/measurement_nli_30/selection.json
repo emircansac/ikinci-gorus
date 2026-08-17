@@ -1,0 +1,253 @@
+{
+  "seed": 43,
+  "n": 30,
+  "targets": {
+    "high": 3,
+    "medium": 15,
+    "low": 12
+  },
+  "claim_ids": [
+    251,
+    258,
+    354,
+    744,
+    773,
+    822,
+    826,
+    860,
+    878,
+    899,
+    909,
+    911,
+    927,
+    950,
+    992,
+    1005,
+    1026,
+    1031,
+    1071,
+    1120,
+    1121,
+    1172,
+    1177,
+    1201,
+    1207,
+    1214,
+    1246,
+    1273,
+    1301,
+    1305
+  ],
+  "selected": [
+    {
+      "claim_id": 251,
+      "claim_text": "Kaslara hareket sinyali verilmezse, yeterli beslenmeye rağmen vücut kasları gereksiz görüp eritmeye başlar.",
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "video_id": "UnsXi4CBAjU"
+    },
+    {
+      "claim_id": 258,
+      "claim_text": "Sarkopeni (kas kaybı) genellikle yağ birikiminin arkasına saklanır, bu yüzden kilo değişmese bile kas kaybı yaşanabilir.",
+      "initial_risk": "medium",
+      "category": "tanı",
+      "video_id": "UnsXi4CBAjU"
+    },
+    {
+      "claim_id": 354,
+      "claim_text": "Kırmızı pancarın damar sistemini desteklediği MR sonuçlarıyla kanıtlanmıştır.",
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "video_id": "QBlBHEf0jm4"
+    },
+    {
+      "claim_id": 744,
+      "claim_text": "Kivinin glisemik indeksi 38, glisemik yükü 9'dur.",
+      "initial_risk": "low",
+      "category": "tanı",
+      "video_id": "bZsorXWeLhM"
+    },
+    {
+      "claim_id": 773,
+      "claim_text": "İnsülin duyarlılığı sabah saatlerinde daha yüksek, öğleden sonra ve akşam saatlerinde daha düşüktür, bu nedenle aynı meyve sabah yenildiğinde daha kontrollü glisemik yanıt oluşturur.",
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "video_id": "bZsorXWeLhM"
+    },
+    {
+      "claim_id": 822,
+      "claim_text": "Çörek otu, B vitamini ve çinko gibi uyku düzenini destekleyen besin öğelerini içerir.",
+      "initial_risk": "low",
+      "category": "diğer",
+      "video_id": "rHEf_LBFi3k"
+    },
+    {
+      "claim_id": 826,
+      "claim_text": "Vaka: 2 hafta çörek otu tüketimi sonrası hastanın uyku süresi 5. günde sabah 4'e, 10. günde sabah 6'ya uzamıştır.",
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "video_id": "rHEf_LBFi3k"
+    },
+    {
+      "claim_id": 860,
+      "claim_text": "Platisma kasının çene hattındaki sarkma, deri gevşemesi değil kas gerginliği nedeniyle oluşan mekanik bir çekilmedir.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "ut7LN1iLSGA"
+    },
+    {
+      "claim_id": 878,
+      "claim_text": "2-3 haftalık tutarlı pratik sonrasında boyun arkasındaki sıkışma azalır ve sabahları yüzdeki şişlik ile ağırlık hissi kaybolur.",
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "video_id": "ut7LN1iLSGA"
+    },
+    {
+      "claim_id": 899,
+      "claim_text": "Göz altı derisine iki parmakla 5 saniye bastırıp bırakarak yapılan basit bir 'pitting' testiyle evde sıvı birikimi teşhis edilebilir; derinin eski haline dönme süresi sıvı birikiminin derecesini gösterir.",
+      "initial_risk": "medium",
+      "category": "tanı",
+      "video_id": "WtJzVPZroiY"
+    },
+    {
+      "claim_id": 909,
+      "claim_text": "Yaban mersini ve böğürtlen gibi koyu renkli orman meyvelerindeki antosyaninler kılcal damar duvarlarını güçlendirerek gözaltına sıvı sızıntısını yavaşlatır.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "WtJzVPZroiY"
+    },
+    {
+      "claim_id": 911,
+      "claim_text": "Sabah kalkmadan önce göz iç köşesinden elmacık kemiğine doğru yapılan lenf masajı, lenf sıvısının doğal akış yönünü takip ederek sabah şişliğinin mekanik olarak tahliyesini destekler.",
+      "initial_risk": "low",
+      "category": "tedavi",
+      "video_id": "WtJzVPZroiY"
+    },
+    {
+      "claim_id": 927,
+      "claim_text": "Yüz ve bacaklarda geçmeyen inatçı şişliklerin diğer semptomlarla birlikte görülmesi acil klinik değerlendirme gerektirir.",
+      "initial_risk": "high",
+      "category": "tanı",
+      "video_id": "n6vtphTbq9k"
+    },
+    {
+      "claim_id": 950,
+      "claim_text": "Vaka: 67 yaşındaki bir danışan 4 ay boyunca günlük kaloriyi 2000'den 1400'e düşürüp günlük 45 dakika yürüyüş yaptığı halde sadece 2 kilo verebilmiştir.",
+      "initial_risk": "low",
+      "category": "tanı",
+      "video_id": "n6vtphTbq9k"
+    },
+    {
+      "claim_id": 992,
+      "claim_text": "Başın öne doğru eğik durması (öne kayık duruş) boyun kaslarına ekstra yük bindirir ve platizma ile hiyoid bölgesi kaslarının işlevsiz kalıp gevşemesine yol açar.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "eiB05V3HVes"
+    },
+    {
+      "claim_id": 1005,
+      "claim_text": "Boyundaki mekanik baskıyı (öne eğik duruş) azaltmak en pahalı kremlerden bile daha etkili bir sarkma önleme yöntemidir.",
+      "initial_risk": "medium",
+      "category": "önleme",
+      "video_id": "eiB05V3HVes"
+    },
+    {
+      "claim_id": 1026,
+      "claim_text": "Bağırsaklarda yaklaşık 38 trilyon bakteri bulunur ve bu mikroorganizmalar vitamin üretimi, bağışıklık dengesi ve iltihap kontrolü sağlar.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "3bZ0Ew2BiLI"
+    },
+    {
+      "claim_id": 1031,
+      "claim_text": "Artan bağırsak geçirgenliği (leaky gut) durumunda bakteri parçacıkları ve toksinler kan dolaşımına sızar ve düşük seviyeli kronik iltihaplanmaya yol açar.",
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "video_id": "3bZ0Ew2BiLI"
+    },
+    {
+      "claim_id": 1071,
+      "claim_text": "Gözde daha önce olmayan çok sayıda siyah nokta veya uçuşan cismin aniden belirmesi ciddi bir durumdur.",
+      "initial_risk": "high",
+      "category": "tanı",
+      "video_id": "A2p88jcmeJY"
+    },
+    {
+      "claim_id": 1120,
+      "claim_text": "40 yaşından sonra, özellikle 60'lı yaşlara doğru vücuttaki kolajen üretiminin azalması damar duvarı ve kapakçıkların zayıflamasına neden olur.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "Iw1akJ5SQgM"
+    },
+    {
+      "claim_id": 1121,
+      "claim_text": "Kronik kabızlık, sürekli öksürük veya karın bölgesindeki fazla kilo gibi karın içi basıncını artıran durumlar bu baskıyı bacak damarlarına ileterek kapakçıkları zayıflatır.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "Iw1akJ5SQgM"
+    },
+    {
+      "claim_id": 1172,
+      "claim_text": "Lenfatik sıvı tahliyesi yavaşlaması hiçbir ilaçla düzeltilemeyen, fiziksel hareket eksikliğine bağlı bir durumdur.",
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "video_id": "K7YdDLCZmW0"
+    },
+    {
+      "claim_id": 1177,
+      "claim_text": "İşlenmiş gıdalardaki gizli sodyum tüketimi vücutta su tutulmasına neden olarak lenf ödemini kötüleştirir; her fazladan gram tuz yaklaşık dört bardak suyun vücutta tutulmasına yol açar.",
+      "initial_risk": "medium",
+      "category": "mekanizma",
+      "video_id": "K7YdDLCZmW0"
+    },
+    {
+      "claim_id": 1201,
+      "claim_text": "Dokularda biriken sıvı kaynaklı ödemde idrar söktürücü ilaçlar her zaman beklenen rahatlamayı yaratmaz.",
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "video_id": "K7YdDLCZmW0"
+    },
+    {
+      "claim_id": 1207,
+      "claim_text": "Bir bacakta birkaç saat içinde aniden gelişen, kızarıklık, sıcaklık ve şiddetli ağrı eşlik eden şiddetli şişlik derin ven trombozuna işaret edebilir.",
+      "initial_risk": "high",
+      "category": "tanı",
+      "video_id": "K7YdDLCZmW0"
+    },
+    {
+      "claim_id": 1214,
+      "claim_text": "Lenfatik kaynaklı ödem parmakla bastırıldığında çukur bırakan yumuşak bir şişlik olarak ayak sırtında yoğunlaşır.",
+      "initial_risk": "medium",
+      "category": "tanı",
+      "video_id": "K7YdDLCZmW0"
+    },
+    {
+      "claim_id": 1246,
+      "claim_text": "Sarkopeni, yaşlanmaya bağlı olarak kas kütlesi ve kas gücünün kademeli kaybıdır.",
+      "initial_risk": "low",
+      "category": "tanı",
+      "video_id": "jP5XF06OLbo"
+    },
+    {
+      "claim_id": 1273,
+      "claim_text": "İleri yaştaki bireylerde kas protein sentezi şalterinin açılması için tek seferde yaklaşık 3 gram lösine ihtiyaç vardır.",
+      "initial_risk": "medium",
+      "category": "doz",
+      "video_id": "jP5XF06OLbo"
+    },
+    {
+      "claim_id": 1301,
+      "claim_text": "Vaka: 72 yaşındaki bir hastanın kahvaltısı sıfır protein içeriyordu, kahvesine peynir altı suyu proteini, MCT yağı ve tarçın eklenince bir ay içinde enerjisi arttı ve yogaya geri döndü.",
+      "initial_risk": "medium",
+      "category": "tedavi",
+      "video_id": "jP5XF06OLbo"
+    },
+    {
+      "claim_id": 1305,
+      "claim_text": "Peynir altı suyu proteini kaslar üzerinde en hızlı etkiyi yaratan maddedir.",
+      "initial_risk": "low",
+      "category": "mekanizma",
+      "video_id": "jP5XF06OLbo"
+    }
+  ]
+}

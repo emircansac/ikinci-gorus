@@ -1,0 +1,19 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[factcheck] yeniden değerlendirilecek: 2 iddia ([813, 1043])
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6480.38it/s]
+Loading weights:   0%|          | 0/202 [00:00<?, ?it/s]Loading weights: 100%|██████████| 202/202 [00:00<00:00, 7441.48it/s]
+[evidence] alaka filtresi: 1 aday elendi (terimler=['magnesium', 'vitamin', 'zinc', 'tryptophan', 'conversion', 'enzyme'], kalan=14)
+[evidence] hibrit yol: europepmc+medlineplus (5 parça)
+  [813] doğrulanmış conf=0.77 tier=primary_study cite=— path=europepmc+medlineplus direct=indirect stance=supports (esc=0) 🔴 İNSAN ONAYI BEKLİYOR
+           NLI ilk filtresi: SUPPORTS (güven 0.77); LLM'e escalate edilmedi.
+[evidence] hibrit yol: pubmed_mesh+europepmc+medlineplus (5 parça)
+[evidence] supportive — web_search açık, paket öncelikli (tier=supportive)
+[evidence] bileşen haritası: supportive(kept=5), background(kept=5)
+  [claude] usage input=7522 output=569 cache_write=4176 cache_read=0
+  [1043] tartışmalı conf=0.45 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc+medlineplus direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar, tiroid hormonunun ve reseptörlerinin (TRα1/TRβ) saç folikülü kök hücre fonksiyonunu ve foliküler hücre proliferasyonunu düzenlediğini güçlü şekilde destekliyor; TR eksikliği olan farelerde saç döngüsü bozuk ve foliküler hücre çoğa
+           kalibrasyon: retrieval_cited,specificity_tier:supportive
+
+[factcheck] 2 iddia işlendi, 0 iddia hata verdi (tekrar denenecek).
+[factcheck] ham reasoning -> /Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/data/factcheck_debug.jsonl
+[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).

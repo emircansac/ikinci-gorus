@@ -9,7 +9,15 @@ from utils.evidence_retrieval import (
     classify_evidence_expectation,
     classify_specificity_tier,
     collect_specificity_nli_scores,
+    component_has_tier_gap,
     filter_candidates_by_key_terms,
+    key_terms_from_query,
+    parse_europepmc_search_json,
+    parse_medlineplus_xml,
+    parse_pubmed_efetch_xml,
+    parse_serper_search_json,
+    retrieve_hybrid_evidence,
+    score_component_evidence,
     key_terms_from_query,
     parse_europepmc_search_json,
     parse_medlineplus_xml,
@@ -457,6 +465,42 @@ def test_specificity_uses_highest_rerank_score(monkeypatch):
     assert suff.strong_match is True
     assert suff.specificity_tier == "direct"
     assert seen == ["High score blueberry insulin abstract."]
+
+
+def test_score_component_evidence_tier_gap(monkeypatch):
+    claim = (
+        "Protein ve yağ birlikte tüketildiğinde glisemi daha yavaş yükselir "
+        "ve yürüyüş sonrası insülin duyarlılığı artar."
+    )
+    query = "protein fat glycemic walking insulin"
+
+    def fake_nli(claim_text, _evidence):
+        if "glisemi" in (claim_text or ""):
+            return _nli("SUPPORTS", 0.9)
+        return _nli("NOT_ENOUGH_INFO", 0.4)
+
+    monkeypatch.setattr("utils.nli.nli_check", fake_nli)
+    cand = {
+        "title": "Protein fat and postprandial glycemia; walking insulin sensitivity",
+        "abstract": (
+            "Protein and fat slow glycemic rise. Walking after meals improves "
+            "insulin sensitivity in adults."
+        ),
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11111111/",
+        "source_tier": "primary_study",
+        "publication_types": ["Journal Article"],
+        "rerank_score": 0.8,
+    }
+    out = score_component_evidence(claim, [cand], query)
+    assert out
+    assert len(out["components"]) == 2
+    assert out["components"][0]["tier"] == "direct"
+    assert out["components"][1]["tier"] == "background"
+    assert component_has_tier_gap(out["components"]) is True
+
+
+def test_score_component_evidence_skips_non_compound():
+    assert score_component_evidence("Çay ve kahve uyku kaçırır.", [], "tea coffee") == {}
 
 
 def test_classify_specificity_tier_four_levels():

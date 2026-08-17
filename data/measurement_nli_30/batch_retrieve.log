@@ -1,0 +1,197 @@
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=30, succeeded=0)
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=30, succeeded=0)
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=30, succeeded=0)
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=30, succeeded=0)
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=30, succeeded=0)
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=in_progress counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=30, succeeded=0)
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=ended counts=MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=0, succeeded=30)
+  [1214] usage write=29975 read=33809 input=3095 output=970
+  [1214] tartışmalı conf=0.45 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın 'ayak sırtında yoğunlaşma' kısmı literatürde iyi desteklenir: lenfödemin en tipik bulgularından biri şişliğin ayak parmakları ve ayak sırtına yayılması olarak tanımlanır ve Stemmer işareti tam da bu bölgede değerlendirilir. Ancak '
+           kalibrasyon: web_search_override,specificity_tier:supportive
+  [251] usage write=11206 read=8238 input=4112 output=595
+  [251] doğrulanmış conf=0.70 tier=primary_study cite=retrieval_cited path=pubmed+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar, kaslara hareket/nöral aktivasyon sinyali gitmemesinin (disuse/unloading) beslenme durumundan bağımsız olarak kas atrofisine yol açtığını gösteriyor; kas kütlesi protein sentezi ve yıkımı dengesine bağlıdır ve bu denge yük azaldığı
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,specificity_tier:background
+  [911] usage write=21499 read=8238 input=3390 output=857
+  [911] tartışmalı conf=0.35 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           PubMed'deki klinik çalışmalar manuel lenfatik drenajın (MLD) cerrahi sonrası ödem, lenfödem gibi patolojik durumlarda etkinliğini destekliyor; örneğin bir çalışma MLD'nin yara sonrası şişliği azaltmada rol oynadığını gösteriyor, ancak bunla
+           kalibrasyon: web_search_override,specificity_tier:background
+  [1207] usage write=21899 read=8238 input=3021 output=1106
+  [1207] tartışmalı conf=0.45 tier=encyclopedia cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kaynaklar DVT'de bacakta şişlik, kızarıklık, sıcaklık ve ağrının klasik semptom üçlüsü olduğunu ve bunların saatler içinde ani başlayabileceğini destekliyor. Wikipedia'nın tıbbi kaynaklara dayalı özeti, semptomların tipik olarak saatler vey
+           kalibrasyon: tier_cap:encyclopedia,encyclopedia_binary_verdict,web_search_override,specificity_tier:background
+[claude] escalate_factcheck JSON parse hatası (invalid_json): Expecting ',' delimiter: line 4 column 412 (char 465). Ham: {
+  "final_verdict": "belirsiz",
+  "confidence": 0.3,
+  "reasoning": "Paketteki kaynaklar antosiyaninlerin genel antioksidan, bağırsak mikrobiyomu ve kardiyovasküler etkilerine odaklanıyor; hiçbiri 'göz'e özgü kılcal damar sızıntısı veya oküler mikrosirkülasyon ile ilgili doğrudan bir bulgu sunmuyor
+[claude] parse retry (category=invalid_json, package_only=True)
+Traceback (most recent call last):
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/pipeline/03_factcheck.py", line 901, in <module>
+    main()
+    ~~~~^^
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/pipeline/03_factcheck.py", line 540, in main
+    _run_batch_retrieve(conn, args)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/pipeline/03_factcheck.py", line 469, in _run_batch_retrieve
+    raw_result, usage = escalate_with_parse_retry(
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        message=message,
+        ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        epistemic_class=job.get("epistemic_class"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/utils/claude_client.py", line 666, in escalate_with_parse_retry
+    retry_resp = _call_with_retry(**retry_params)
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/utils/claude_client.py", line 126, in _call_with_retry
+    resp = client.messages.create(**kwargs)
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/venv/lib/python3.13/site-packages/anthropic/_utils/_utils.py", line 294, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/venv/lib/python3.13/site-packages/anthropic/resources/messages/messages.py", line 1048, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<30 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/venv/lib/python3.13/site-packages/anthropic/_base_client.py", line 1536, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyne/Desktop/yapay zeka doktorlar/health_misinfo_monitor (1)/venv/lib/python3.13/site-packages/anthropic/_base_client.py", line 1195, in request
+    raise self._make_status_error_from_response(response) from None
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011Ce8gXsCmtaAMVZL2kkaae'}
+[batch] msgbatch_01TtRfUPQcppAvcLfC3htxSB status=ended
+  [1214] usage write=29975 read=33809 input=3095 output=970
+  [1214] tartışmalı conf=0.45 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın 'ayak sırtında yoğunlaşma' kısmı literatürde iyi desteklenir: lenfödemin en tipik bulgularından biri şişliğin ayak parmakları ve ayak sırtına yayılması olarak tanımlanır ve Stemmer işareti tam da bu bölgede değerlendirilir. Ancak '
+           kalibrasyon: web_search_override,specificity_tier:supportive
+  [251] usage write=11206 read=8238 input=4112 output=595
+  [251] doğrulanmış conf=0.70 tier=primary_study cite=retrieval_cited path=pubmed+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıtlar, kaslara hareket/nöral aktivasyon sinyali gitmemesinin (disuse/unloading) beslenme durumundan bağımsız olarak kas atrofisine yol açtığını gösteriyor; kas kütlesi protein sentezi ve yıkımı dengesine bağlıdır ve bu denge yük azaldığı
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,specificity_tier:background
+  [911] usage write=21499 read=8238 input=3390 output=857
+  [911] tartışmalı conf=0.35 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           PubMed'deki klinik çalışmalar manuel lenfatik drenajın (MLD) cerrahi sonrası ödem, lenfödem gibi patolojik durumlarda etkinliğini destekliyor; örneğin bir çalışma MLD'nin yara sonrası şişliği azaltmada rol oynadığını gösteriyor, ancak bunla
+           kalibrasyon: web_search_override,specificity_tier:background
+  [1207] usage write=21899 read=8238 input=3021 output=1106
+  [1207] tartışmalı conf=0.45 tier=encyclopedia cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kaynaklar DVT'de bacakta şişlik, kızarıklık, sıcaklık ve ağrının klasik semptom üçlüsü olduğunu ve bunların saatler içinde ani başlayabileceğini destekliyor. Wikipedia'nın tıbbi kaynaklara dayalı özeti, semptomların tipik olarak saatler vey
+           kalibrasyon: tier_cap:encyclopedia,encyclopedia_binary_verdict,web_search_override,specificity_tier:background
+[claude] escalate_factcheck JSON parse hatası (invalid_json): Expecting ',' delimiter: line 4 column 412 (char 465). Ham: {
+  "final_verdict": "belirsiz",
+  "confidence": 0.3,
+  "reasoning": "Paketteki kaynaklar antosiyaninlerin genel antioksidan, bağırsak mikrobiyomu ve kardiyovasküler etkilerine odaklanıyor; hiçbiri 'göz'e özgü kılcal damar sızıntısı veya oküler mikrosirkülasyon ile ilgili doğrudan bir bulgu sunmuyor
+[claude] parse retry (category=invalid_json, package_only=True)
+  [claude] usage input=3081 output=469 cache_write=1395 cache_read=0
+  [909] usage write=2790 read=0 input=6090 output=926 retry=ok
+  [909] belirsiz conf=0.30 tier=primary_study cite=retrieval_cited path=europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki kaynaklar antosiyaninlerin genel antioksidan, mikrovasküler inflamasyon ve bağırsak sağlığı üzerine etkilerinden bahsediyor (özellikle [2] ve [4] flavonoidlerin damar geçirgenliği ve mast hücresi aracılı mikrovasküler inflamasyon 
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,package_only_forced,specificity_tier:direct
+  [899] usage write=28894 read=35091 input=4550 output=1280
+  [899] tartışmalı conf=0.35 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Standart pitting testi (parmakla belirli bir süre bastırıp bırakma ve iyileşme süresine göre derece belirleme) tıbbi literatürde ve klinik protokollerde iyi tanımlanmış bir yöntemdir; örneğin Cleveland Clinic 'to do this test, they'll gentl
+           kalibrasyon: web_search_override,specificity_tier:background
+  [744] usage write=29603 read=33955 input=4989 output=790
+  [744] tartışmalı conf=0.40 tier=other cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kaynaklar kivi için tek bir kesin GI/GL değeri vermiyor; çeşide, kökene ve çalışmaya göre değişkenlik gösteriyor. foodstruct.com'a göre Avustralya kivisi için GI 58, Yeni Zelanda kivisi için 47±4, Taiwan çalışmasına göre Sarı (Golden) kivi 
+           kalibrasyon: web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [1246] usage write=15237 read=8238 input=7579 output=616
+  [1246] doğrulanmış conf=0.85 tier=primary_study cite=web_search_override path=pubmed+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki kaynaklar sarkopeniyi tam olarak bu şekilde tanımlıyor: kas kütlesi kaybının yanı sıra kas gücü/fonksiyon kaybını da içeren, yaşlanmayla ilişkili kademeli bir süreç. Örneğin Cruz-Jentoft ve benzeri kaynaklar sarkopeniyi 'progressi
+           kalibrasyon: tier_url:systematic_review->primary_study,web_search_override,specificity_tier:background
+  [992] usage write=29573 read=34623 input=4900 output=982
+  [992] tartışmalı conf=0.40 tier=primary_study cite=web_search_override path=pubmed+europepmc direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Boyun kaslarına ekstra yük binmesi kısmı literatürle uyumlu; ancak platizma/hiyoid bölgesi kaslarının 'işlevsiz kalıp gevşediği' iddiası kanıtla ters yönde. Fizyoterapi/anatomi kaynakları FHP'de suprahiyoid kasların gerildiğini ve yutma sır
+           kalibrasyon: web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [1201] usage write=17411 read=8238 input=3175 output=713
+  [1201] doğrulanmış conf=0.65 tier=other cite=web_search_override path=europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           UpToDate'in 'Causes and treatment of refractory edema in adults' başlıklı klinik derlemesi, ödemli hastaların genellikle diyet sodyum kısıtlaması, altta yatan hastalığın tedavisi ve diüretik tedavisine yanıt verdiğini ancak bazı hastaların 
+           kalibrasyon: tier_url:guideline->other,tier_cap:other,web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [773] usage write=20883 read=8238 input=6317 output=975
+  [773] doğrulanmış conf=0.72 tier=primary_study cite=web_search_override path=pubmed+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki [3] normal kilolu bireylerde akşam saatlerinde (1800) glukoz toleransının sabaha (0800) göre anlamlı derecede düştüğünü gösteriyor: KGs değeri sabah 2.98, akşam 1.86 (p<0.002), azalmanın nedeni de insülin etkisindeki düşüş olarak 
+           kalibrasyon: web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [822] usage write=28507 read=32507 input=2519 output=1080
+  [822] tartışmalı conf=0.40 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Çörek otunun B vitaminleri (B1, B2, niasin) ve çinko içerdiği bileşim analizleriyle desteklenmektedir; örneğin bir derleme çörek otunun tiamin, riboflavin, niasin gibi B vitaminleri bakımından zengin olduğunu belirtir. Ayrıca çinko ve bazı 
+           kalibrasyon: web_search_override,specificity_tier:supportive
+  [860] usage write=17982 read=8238 input=2652 output=937
+  [860] yanlış conf=0.68 tier=primary_study cite=web_search_override path=europepmc direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia, çene hattı sarkmasının SADECE kas gerginliği/mekanik çekilme nedeniyle oluştuğunu ve deri gevşemesinin rolünü inkar ediyor; ancak kanıtlar bunun çok faktörlü bir süreç olduğunu gösteriyor. StatPearls'e göre platisma bantlarının neden
+           kalibrasyon: tier_url:other->primary_study,web_search_override,specificity_tier:supportive
+  [1071] usage write=19500 read=8238 input=4115 output=546
+  [1071] doğrulanmış conf=0.65 tier=other cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           NEI'nin resmi retina dekolmanı sayfası, ani ve çok sayıda yeni uçuşan cismin (floater) retina dekolmanının önemli bir belirtisi olduğunu ve bu durumda hemen doktora veya acil servise başvurulması gerektiğini açıkça belirtiyor. JAMA'da yayın
+           kalibrasyon: tier_url:guideline->other,tier_cap:other,web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [1026] usage write=23303 read=8238 input=6606 output=683
+  [1026] doğrulanmış conf=0.78 tier=primary_study cite=web_search_override path=pubmed+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Sender ve ark.'nın PLoS Biology'de yayımlanan revize hücre sayımı çalışması, 70 kg referans insanda bağırsakta yaklaşık 38 trilyon bakteri bulunduğunu doğrudan hesaplamıştır; bu, güncel bilimsel konsensüsün rakamıdır. Ayrıca sistematik derl
+           kalibrasyon: web_search_override,specificity_tier:background
+  [1005] usage write=17692 read=8238 input=1125 output=774
+  [1005] belirsiz conf=0.20 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Kanıt paketi ve ek aramalar, öne eğik duruşun (forward head posture) boyun kaslarına binen mekanik yükü artırdığını ve postür düzeltici egzersizlerin craniovertebral açıyı iyileştirdiğini gösteriyor; ayrıca bazı ticari boyun kremlerinin RCT
+           kalibrasyon: web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [1301] usage write=20166 read=8238 input=5191 output=1111
+  [1301] belirsiz conf=0.20 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia, tekil ve doğrulanamaz bir vaka anlatımı (bir hastanın kahvaltı değişikliği sonrası bir ay içinde enerji artışı ve yogaya dönüşü) şeklinde sunulmuş; bu tür bireysel anekdotlar bilimsel literatürde doğrudan test edilemez ve doğrulanama
+           kalibrasyon: web_search_override,specificity_tier:background
+  [950] usage write=23962 read=8238 input=9271 output=887
+  [950] belirsiz conf=0.30 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Pakette ve web aramasında bu spesifik vakayı (67 yaş, 2000'den 1400 kcal'e düşüş, günlük 45 dk yürüyüş, 4 ayda sadece 2 kg kayıp) doğrudan doğrulayan ya da çürüten bir kaynak yok. Literatür, kalori kısıtlaması sırasında beklenenden daha az 
+           kalibrasyon: web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [1031] usage write=0 read=4119 input=27298 output=382
+  [1031] doğrulanmış conf=0.72 tier=primary_study cite=retrieval_cited path=pubmed+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Birden fazla derleme/narrative review makalesi, artmış bağırsak geçirgenliğinin (leaky gut) bakteriyel ürünlerin (LPS, endotoksin, bakteri metabolitleri) dolaşıma geçmesine ve bunun sistemik/kronik inflamasyona yol açtığını doğrudan ele alı
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,specificity_tier:background
+  [878] usage write=24029 read=8238 input=8036 output=1060
+  [878] tartışmalı conf=0.35 tier=other cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın boyun sıkışması bileşeni, düzenli boyun/omuz germe ve güçlendirme egzersizlerinin 2-4 hafta içinde boyun ağrısı, gerginlik ve disabiliteyi azalttığını gösteren RCT'lerle kısmen destekleniyor; örneğin ofis çalışanlarında 4 haftalık 
+           kalibrasyon: tier_url:primary_study->other,web_search_override,specificity_tier:background
+  [1305] usage write=18667 read=8238 input=3060 output=1631
+  [1305] doğrulanmış conf=0.68 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Klasik karşılaştırmalı çalışmalar (whey hydrolysate vs kazein vs soya) whey proteinin diğer yaygın protein kaynaklarına kıyasla en hızlı sindirilip kan amino asit/lösin düzeyini en hızlı yükselttiğini ve kas protein sentezini akut olarak en
+           kalibrasyon: web_search_override,specificity_tier:background
+  [1273] usage write=22964 read=8238 input=7722 output=684
+  [1273] doğrulanmış conf=0.72 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Zaromskyte ve ark.'nın sistematik derlemesi, leusin tetikleyici hipotezini 29 çalışma üzerinden değerlendirmiş ve inceleme sonuçlarına göre kas protein sentezinin maksimal uyarılması için özellikle yaşlı yetişkinlerde tek öğünde yaklaşık 3 
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,specificity_tier:background
+  [1121] usage write=25692 read=8238 input=8539 output=692
+  [1121] doğrulanmış conf=0.65 tier=other cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           AAFP'nin (American Academy of Family Physicians) klinik derlemesi, kronik kabızlık, kronik öksürük ve obeziteyi variköz venlerin yerleşik risk faktörleri olarak sayıyor ve mekanizmayı kronik olarak yükselmiş karın içi basıncın bacak venleri
+           kalibrasyon: tier_url:guideline->other,tier_cap:other,web_search_override,specificity_tier:background,no_direct_evidence_expected
+  [826] usage write=21665 read=8238 input=5208 output=868
+  [826] belirsiz conf=0.20 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=indirect stance=insufficient (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia, tek bir hastaya ait çok spesifik sayısal detaylar içeren bir vaka raporu niteliğinde (5. günde saat 4'e, 10. günde saat 6'ya uzama). Bulunan literatürde Nigella sativa/black cumin özütlerinin (örn. BCO-5/BlaQmax) uyku üzerinde olumlu
+           kalibrasyon: web_search_override,specificity_tier:background
+  [354] usage write=23643 read=8238 input=5367 output=824
+  [354] tartışmalı conf=0.40 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc direct=indirect stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki MRI kullanılan çalışma, beetroot suyunun karaciğer kan akışı ve glukoz homeostazını incelediğini gösteriyor: MRI ile portal ven akışı ve hızı değerlendirilmiş ve nitrat alımı sonrası plazma nitrat düzeyinde anlamlı artış bulunmuş.
+           kalibrasyon: retrieval_cited,specificity_tier:background
+  [258] usage write=20099 read=8238 input=4519 output=715
+  [258] doğrulanmış conf=0.68 tier=primary_study cite=retrieval_cited path=pubmed+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Sarkopenik obezite literatürü, kas kütlesi kaybının artan yağ kütlesiyle eş zamanlı gerçekleşebildiğini ve bu durumun toplam vücut ağırlığında belirgin bir değişiklik olmadan (veya kilo alımıyla maskelenerek) fark edilmeden ilerleyebildiğin
+           kalibrasyon: tier_url:systematic_review->primary_study,retrieval_cited,specificity_tier:supportive
+  [1120] usage write=28055 read=32516 input=4736 output=1434
+  [1120] yanlış conf=0.72 tier=primary_study cite=web_search_override path=pubmed_mesh+europepmc direct=direct stance=contradicts (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddia, 40'lı-60'lı yaşlarda kolajen ÜRETİMİNİN AZALMASININ damar duvarı ve kapakçıkları zayıflattığını öne sürüyor, ancak arteriyel yaşlanma literatürü tam tersini gösteriyor: arter duvarında yaşla kolajen miktarı artıyor, elastin azalıyor 
+           kalibrasyon: tier_url:systematic_review->primary_study,web_search_override,specificity_tier:background
+  [1172] usage write=20999 read=8238 input=3635 output=2627
+  [1172] tartışmalı conf=0.40 tier=other cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=mixed (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           İddianın 'ilaçla düzeltilemez' kısmı kaynaklarca büyük ölçüde destekleniyor (mevcut tedaviler palyatif, kompresyon/fizik tedaviye dayalı, kür yok), ancak 'tek nedeni fiziksel hareketsizliktir' ifadesi yanlış bir basitleştirme. Cleveland Cli
+           kalibrasyon: tier_url:encyclopedia->other,web_search_override,specificity_tier:supportive
+  [927] usage write=23415 read=4119 input=2953 output=823
+  [927] doğrulanmış conf=0.60 tier=other cite=web_search_override path=pubmed_mesh+europepmc+medlineplus direct=direct stance=supports (esc=1) 🔴 İNSAN ONAYI BEKLİYOR
+           Paketteki PubMed vaka raporları (myxedema, Hailey-Hailey, polinöropati) spesifik nadir hastalık örnekleri olup iddianın genel önermesini doğrudan test etmiyor; bu nedenle web_search ile ek kaynak arandı. Duke Health kaynağı yüz/bacak şişliğ
+           kalibrasyon: web_search_override,specificity_tier:supportive
+  [1177] usage write=36461 read=67640 input=6594 output=2049
+  [1177] tartışmalı conf=0.35 tier=primary_study cite=retrieval_cited path=pubmed_mesh+europepmc+medlineplus direct=direct stance=mixed (esc=1) ✓
+           İddia iki farklı önerme içeriyor: (1) genel mekanizma olarak yüksek sodyumun lenfödemi kötüleştirmesi hasta eğitim materyallerinde (örn. lymphedema diyet rehberleri) yaygın kabul görüyor, ancak bilimsel literatürde sodyumun vücut sıvı hacmi
+           kalibrasyon: retrieval_cited,specificity_tier:background
+[batch] uygulandı msgbatch_01TtRfUPQcppAvcLfC3htxSB: ok=30 failed=0 usage={'input_tokens': 170364, 'output_tokens': 29617, 'cache_creation_input_tokens': 645771, 'cache_read_input_tokens': 443139}
+[batch] cache custom_id: write>0=29 read>0=29 both=28 write_only=1 read_only=1 none=0

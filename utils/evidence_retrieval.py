@@ -633,6 +633,68 @@ def assess_evidence_sufficiency(
     )
 
 
+COMPONENT_STRONG_TIERS = frozenset({"direct", "supportive"})
+COMPONENT_WEAK_TIERS = frozenset({"background", "none"})
+
+
+def _candidate_brief(candidate: dict) -> dict:
+    return {
+        "title": (candidate.get("title") or "").strip(),
+        "url": (candidate.get("url") or "").strip(),
+        "source_tier": (
+            (candidate.get("source_tier") or candidate.get("source") or "").strip()
+            or _candidate_source_tier(candidate)
+        ),
+    }
+
+
+def _score_claim_against_pool(
+    text: str,
+    candidates: list[dict],
+    search_query_en: str | None,
+) -> dict:
+    suff = assess_evidence_sufficiency(candidates, text, search_query_en)
+    kept, _meta = filter_candidates_by_key_terms(
+        candidates, search_query_en or "", text
+    )
+    return {
+        "text": text,
+        "tier": suff.specificity_tier,
+        "reason": suff.reason,
+        "kept": suff.kept_count,
+        "candidates": [_candidate_brief(c) for c in kept],
+    }
+
+
+def component_has_tier_gap(component_rows: list[dict]) -> bool:
+    """Biri direct/supportive, diğeri background/none — decomposition yeni bilgi ekliyor."""
+    tiers = {(row.get("tier") or "none") for row in component_rows}
+    return bool(tiers & COMPONENT_STRONG_TIERS) and bool(tiers & COMPONENT_WEAK_TIERS)
+
+
+def score_component_evidence(
+    claim_text: str,
+    candidates: list[dict] | None,
+    search_query_en: str | None = None,
+) -> dict:
+    """
+    Aynı retrieval adaylarını her alt-iddia için yeniden puanla. Yeni arama yok.
+    Bileşik değilse {}.
+    """
+    from utils.reviewer_summary import decompose_claim_for_retrieval
+
+    parts = decompose_claim_for_retrieval(claim_text or "")
+    if len(parts) < 2:
+        return {}
+    pool = list(candidates or [])
+    return {
+        "whole": _score_claim_against_pool(claim_text, pool, search_query_en),
+        "components": [
+            _score_claim_against_pool(part, pool, search_query_en) for part in parts
+        ],
+    }
+
+
 def _tag_native_item(item: dict) -> dict:
     out = dict(item)
     out.setdefault("retrieval_tier", "native")

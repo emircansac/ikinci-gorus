@@ -81,8 +81,9 @@ def carryover_verdicts(conn, video_id: str) -> dict:
                 claim_id, nli_label, nli_confidence, nli_evidence_snippet,
                 escalated, final_verdict, confidence, source_url,
                 reasoning, source_directness, evidence_stance, source_tier,
-                calibration_flags, human_reviewed, auto_accepted, reviewer_note, verified_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                calibration_flags, human_reviewed, auto_accepted, reviewer_note,
+                would_auto_accept_v1, would_auto_accept_reason, verified_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
         """, (
             target_id,
             src["nli_label"],
@@ -100,6 +101,8 @@ def carryover_verdicts(conn, video_id: str) -> dict:
             src["human_reviewed"],
             src["auto_accepted"] if "auto_accepted" in src.keys() else 0,
             src["reviewer_note"],
+            src["would_auto_accept_v1"] if "would_auto_accept_v1" in src.keys() else 0,
+            src["would_auto_accept_reason"] if "would_auto_accept_reason" in src.keys() else None,
         ))
         used.add(target_id)
         matched += 1

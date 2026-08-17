@@ -43,9 +43,8 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 from utils.db import get_conn
 from utils.claude_client import (
-    escalate_factcheck,
+    escalate_with_parse_retry,
     build_batch_request,
-    parse_escalate_response,
     submit_message_batch,
     retrieve_message_batch,
     iter_batch_results,
@@ -61,6 +60,7 @@ from utils.evidence_retrieval import (
     assess_evidence_sufficiency,
     collect_specificity_nli_scores,
     classify_evidence_expectation,
+    score_component_evidence,
     FINAL_EVIDENCE_COUNT,
     EPISTEMIC_NO_DIRECT,
 )
@@ -72,6 +72,7 @@ from utils.factcheck_review import (
     review_flags as _review_flags,
     PACKAGE_ONLY_FORCED_FLAG,
 )
+from utils.reviewer_summary import would_auto_accept_v1
 
 ROOT = Path(__file__).parent.parent
 DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
@@ -157,19 +158,56 @@ def _save_pending_batches(data: dict) -> None:
     )
 
 
+def _shadow_row(
+    *,
+    claim_text,
+    category,
+    initial_risk,
+    final,
+    cite_source=None,
+    specificity_tier=None,
+    nli_label=None,
+    nli_conf=None,
+    escalated=None,
+    parse_failed=False,
+) -> dict:
+    return {
+        "claim_text": claim_text,
+        "category": category,
+        "initial_risk": initial_risk,
+        "final_verdict": final.get("final_verdict"),
+        "reasoning": final.get("reasoning"),
+        "evidence_stance": final.get("evidence_stance"),
+        "source_directness": final.get("source_directness"),
+        "calibration_flags": final.get("calibration_flags"),
+        "cite_source": cite_source,
+        "specificity_tier": specificity_tier,
+        "nli_label": nli_label,
+        "nli_confidence": nli_conf,
+        "escalated": escalated,
+        "parse_failed": parse_failed,
+    }
+
+
 def _write_verdict(conn, *, claim_id, nli_label, nli_conf, nli_snippet, escalated_flag,
-                   final, human_reviewed, auto_accepted, library_match) -> None:
+                   final, human_reviewed, auto_accepted, library_match,
+                   shadow_row: dict | None = None) -> None:
+    would_accept, would_reason = (
+        would_auto_accept_v1(shadow_row) if shadow_row else (False, "shadow_context_missing")
+    )
     conn.execute("""
         INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
                                escalated, final_verdict, confidence, source_url,
                                reasoning, source_directness, evidence_stance, source_tier,
-                               calibration_flags, human_reviewed, auto_accepted, library_match)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                               calibration_flags, human_reviewed, auto_accepted, library_match,
+                               would_auto_accept_v1, would_auto_accept_reason)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (claim_id, nli_label, nli_conf, nli_snippet, escalated_flag,
           final["final_verdict"], final["confidence"], final["source_url"],
           final["reasoning"], final["source_directness"], final["evidence_stance"],
           final["source_tier"], final["calibration_flags"],
-          human_reviewed, auto_accepted, library_match))
+          human_reviewed, auto_accepted, library_match,
+          1 if would_accept else 0, would_reason or None))
     conn.commit()
 
 
@@ -194,6 +232,7 @@ def _finalize_escalated(
     usage=None,
     specificity_tier="none",
     epistemic_class=None,
+    component_evidence_map=None,
 ) -> None:
     """Mevcut senkron escalate sonrası yol — kalibrasyon/needs_human değişmez."""
     parse_failed = bool(raw_result.get("parse_failed"))
@@ -226,6 +265,7 @@ def _finalize_escalated(
         "strong_match": strong_match,
         "specificity_tier": specificity_tier,
         "epistemic_class": epistemic_class,
+        "component_evidence_map": component_evidence_map,
         "raw": {
             "final_verdict": raw_result.get("final_verdict"),
             "confidence": raw_result.get("confidence"),
@@ -245,6 +285,15 @@ def _finalize_escalated(
             "cite_source": calibrated.get("cite_source"),
         },
         "usage": usage,
+        "parse_failed": parse_failed,
+        "parse_failure_category": raw_result.get("parse_failure_category"),
+        "parse_error": raw_result.get("parse_error"),
+        "stop_reason": raw_result.get("stop_reason"),
+        "max_tokens": raw_result.get("max_tokens"),
+        "raw_output_last_200": raw_result.get("raw_output_last_200"),
+        "parse_retry": raw_result.get("parse_retry"),
+        "parse_retry_succeeded": raw_result.get("parse_retry_succeeded"),
+        "parse_retry_first_category": raw_result.get("parse_retry_first_category"),
     })
     _merge_library_review_flag(final, library_review_hit)
     apply_verdict_reasoning_mismatch(final)
@@ -272,6 +321,18 @@ def _finalize_escalated(
         human_reviewed=human_reviewed,
         auto_accepted=auto_accepted,
         library_match=library_match,
+        shadow_row=_shadow_row(
+            claim_text=claim_text,
+            category=category,
+            initial_risk=initial_risk,
+            final=final,
+            cite_source=calibrated.get("cite_source"),
+            specificity_tier=specificity_tier,
+            nli_label=nli_label,
+            nli_conf=nli_conf,
+            escalated=1,
+            parse_failed=parse_failed,
+        ),
     )
     flag = "🔴 İNSAN ONAYI BEKLİYOR" if needs_human else "✓"
     conf_s = f"{final['confidence']:.2f}" if final["confidence"] is not None else "—"
@@ -317,6 +378,7 @@ def _flush_batch_submit(jobs: list[dict], args) -> None:
             force_package_only=bool(j.get("force_package_only")),
             specificity_tier=j.get("specificity_tier"),
             epistemic_class=j.get("epistemic_class"),
+            component_evidence_map=j.get("component_evidence_map"),
         )
         for j in jobs
     ]
@@ -407,16 +469,26 @@ def _run_batch_retrieve(conn, args) -> None:
                 print(f"  [{cid}] batch result type={rtype} — atlandı")
                 failed += 1
                 continue
-            usage = _usage_dict(getattr(message, "usage", None))
+            batch_usage = _usage_dict(getattr(message, "usage", None))
+            raw_result, usage = escalate_with_parse_retry(
+                message=message,
+                claim_text=job["claim_text"],
+                evidence=job.get("evidence"),
+                force_package_only=bool(job.get("force_package_only")),
+                specificity_tier=job.get("specificity_tier"),
+                epistemic_class=job.get("epistemic_class"),
+                component_evidence_map=job.get("component_evidence_map"),
+            )
             usage_by_custom_id[cid] = usage
             print(
                 f"  [{cid}] usage write={usage.get('cache_creation_input_tokens')} "
                 f"read={usage.get('cache_read_input_tokens')} "
                 f"input={usage.get('input_tokens')} output={usage.get('output_tokens')}"
+                + (f" retry={'ok' if raw_result.get('parse_retry_succeeded') else 'no'}"
+                   if raw_result.get("parse_retry") else "")
             )
             for key in usage_sum:
                 usage_sum[key] += int(usage.get(key) or 0)
-            raw_result = parse_escalate_response(message)
             _finalize_escalated(conn, raw_result=raw_result, usage=usage, **{
                 k: job[k] for k in (
                     "claim_id", "claim_text", "category", "initial_risk", "evidence",
@@ -425,7 +497,8 @@ def _run_batch_retrieve(conn, args) -> None:
                     "library_review_hit", "library_match",
                 )
             }, specificity_tier=job.get("specificity_tier") or "none",
-               epistemic_class=job.get("epistemic_class"))
+               epistemic_class=job.get("epistemic_class"),
+               component_evidence_map=job.get("component_evidence_map"))
             ok += 1
         cache_summary = summarize_cache_roles(usage_by_custom_id)
         rec["applied"] = True
@@ -578,18 +651,26 @@ def main():
                 calibration_flags=final.get("calibration_flags"),
             )
             human_reviewed, auto_accepted = _review_flags(needs_human=needs_human)
-            conn.execute("""
-                INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
-                                       escalated, final_verdict, confidence, source_url,
-                                       reasoning, source_directness, evidence_stance, source_tier,
-                                       calibration_flags, human_reviewed, auto_accepted, library_match)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (claim_id, None, None, "(verified_claim_library eşleşmesi)", escalated_flag,
-                  final["final_verdict"], final["confidence"], final["source_url"],
-                  final["reasoning"], final["source_directness"], final["evidence_stance"],
-                  final["source_tier"], final["calibration_flags"],
-                  human_reviewed, auto_accepted, library_match))
-            conn.commit()
+            _write_verdict(
+                conn,
+                claim_id=claim_id,
+                nli_label=None,
+                nli_conf=None,
+                nli_snippet="(verified_claim_library eşleşmesi)",
+                escalated_flag=escalated_flag,
+                final=final,
+                human_reviewed=human_reviewed,
+                auto_accepted=auto_accepted,
+                library_match=library_match,
+                shadow_row=_shadow_row(
+                    claim_text=claim_text,
+                    category=category,
+                    initial_risk=initial_risk,
+                    final=final,
+                    escalated=escalated_flag,
+                    parse_failed=False,
+                ),
+            )
             ok += 1
             print(f"  [{claim_id}] {final['final_verdict']} (kütüphane) library_match=1")
             continue
@@ -616,18 +697,26 @@ def main():
                     extra_needs_human=bool(nut_result.get("needs_human")),
                 )
                 human_reviewed, auto_accepted = _review_flags(needs_human=needs_human)
-                conn.execute("""
-                    INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
-                                           escalated, final_verdict, confidence, source_url,
-                                           reasoning, source_directness, evidence_stance, source_tier,
-                                           calibration_flags, human_reviewed, auto_accepted, library_match)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (claim_id, None, None, f"({final.get('source_tier') or 'nutrition'})", 0,
-                      final["final_verdict"], final["confidence"], final["source_url"],
-                      final["reasoning"], final["source_directness"], final["evidence_stance"],
-                      final["source_tier"], final.get("calibration_flags", ""),
-                      human_reviewed, auto_accepted, 0))
-                conn.commit()
+                _write_verdict(
+                    conn,
+                    claim_id=claim_id,
+                    nli_label=None,
+                    nli_conf=None,
+                    nli_snippet=f"({final.get('source_tier') or 'nutrition'})",
+                    escalated_flag=0,
+                    final=final,
+                    human_reviewed=human_reviewed,
+                    auto_accepted=auto_accepted,
+                    library_match=0,
+                    shadow_row=_shadow_row(
+                        claim_text=claim_text,
+                        category=category,
+                        initial_risk=initial_risk,
+                        final=final,
+                        escalated=0,
+                        parse_failed=False,
+                    ),
+                )
                 ok += 1
                 flag = "🔴 İNSAN ONAYI BEKLİYOR" if needs_human else "✓"
                 print(f"  [{claim_id}] {final['final_verdict']} ({final.get('source_tier')}) {flag}")
@@ -684,6 +773,17 @@ def main():
                     )
                 if epistemic_class:
                     print(f"[evidence] epistemic={epistemic_class}")
+                component_map = score_component_evidence(
+                    claim_text, evidence or [], search_query_en,
+                )
+                if component_map:
+                    comps = component_map.get("components") or []
+                    print(
+                        "[evidence] bileşen haritası: "
+                        + ", ".join(
+                            f"{c.get('tier')}(kept={c.get('kept')})" for c in comps
+                        )
+                    )
                 job = {
                     "claim_id": claim_id,
                     "claim_text": claim_text,
@@ -696,6 +796,7 @@ def main():
                     "strong_match": None if suff is None else suff.strong_match,
                     "specificity_tier": specificity_tier,
                     "epistemic_class": epistemic_class,
+                    "component_evidence_map": component_map or None,
                     "nli_label": nli_label,
                     "nli_conf": nli_conf,
                     "nli_snippet": nli_snippet,
@@ -706,6 +807,10 @@ def main():
                     "library_match": library_match,
                 }
                 job["evidence"] = json.loads(json.dumps(job["evidence"], default=str))
+                if job.get("component_evidence_map"):
+                    job["component_evidence_map"] = json.loads(
+                        json.dumps(job["component_evidence_map"], default=str)
+                    )
                 if args.batch_submit:
                     batch_jobs.append(job)
                     print(
@@ -713,11 +818,16 @@ def main():
                         f"(force_package_only={force_package_only})"
                     )
                     continue
-                raw_result = escalate_factcheck(
-                    claim_text, evidence=evidence, force_package_only=force_package_only,
-                    specificity_tier=specificity_tier, epistemic_class=epistemic_class,
+                raw_result, usage = escalate_with_parse_retry(
+                    message=None,
+                    claim_text=claim_text,
+                    evidence=evidence,
+                    force_package_only=force_package_only,
+                    specificity_tier=specificity_tier,
+                    epistemic_class=epistemic_class,
+                    component_evidence_map=job.get("component_evidence_map"),
                 )
-                _finalize_escalated(conn, raw_result=raw_result, **job)
+                _finalize_escalated(conn, raw_result=raw_result, usage=usage, **job)
                 ok += 1
                 continue
             else:
@@ -762,18 +872,30 @@ def main():
             calibration_flags=final.get("calibration_flags"),
         )
         human_reviewed, auto_accepted = _review_flags(needs_human=needs_human)
-        conn.execute("""
-            INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
-                                   escalated, final_verdict, confidence, source_url,
-                                   reasoning, source_directness, evidence_stance, source_tier,
-                                   calibration_flags, human_reviewed, auto_accepted, library_match)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (claim_id, nli_label, nli_conf, nli_snippet, escalated_flag,
-              final["final_verdict"], final["confidence"], final["source_url"],
-              final["reasoning"], final["source_directness"], final["evidence_stance"],
-              final["source_tier"], final["calibration_flags"],
-              human_reviewed, auto_accepted, library_match))
-        conn.commit()
+        _write_verdict(
+            conn,
+            claim_id=claim_id,
+            nli_label=nli_label,
+            nli_conf=nli_conf,
+            nli_snippet=nli_snippet,
+            escalated_flag=escalated_flag,
+            final=final,
+            human_reviewed=human_reviewed,
+            auto_accepted=auto_accepted,
+            library_match=library_match,
+            shadow_row=_shadow_row(
+                claim_text=claim_text,
+                category=category,
+                initial_risk=initial_risk,
+                final=final,
+                cite_source=calibrated.get("cite_source") if calibrated else None,
+                specificity_tier=locals().get("specificity_tier"),
+                nli_label=nli_label,
+                nli_conf=nli_conf,
+                escalated=escalated_flag,
+                parse_failed=parse_failed,
+            ),
+        )
         ok += 1
         flag = "🔴 İNSAN ONAYI BEKLİYOR" if needs_human else "✓"
         conf_s = f"{final['confidence']:.2f}" if final["confidence"] is not None else "—"

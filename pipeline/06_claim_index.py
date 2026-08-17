@@ -24,6 +24,7 @@ from utils.db import get_conn
 from utils.suspicion import compute_suspicion, compute_priority
 from utils.text_similarity import get_cluster_members, get_cluster_members_embedding
 from utils.factcheck_calibrate import calibrate_factcheck
+from utils.reviewer_summary import build_reviewer_summary
 
 # Claim metinleri comment'lerden farklı — aynı fikri farklı cümle yapısıyla ifade
 # edebilirler (LLM'in çıkardığı önerme, videodan videoya paslanmaz). Bu yüzden
@@ -52,7 +53,8 @@ def build_flat_index(conn) -> pd.DataFrame:
             ch.name AS channel_name,
             v.title AS video_title, v.published_at AS video_published_at,
             vr.final_verdict, vr.confidence, vr.source_url, vr.human_reviewed, vr.reviewer_note, vr.escalated,
-            vr.reasoning, vr.source_directness, vr.evidence_stance, vr.source_tier, vr.calibration_flags
+            vr.reasoning, vr.source_directness, vr.evidence_stance, vr.source_tier, vr.calibration_flags,
+            vr.nli_label, vr.nli_evidence_snippet
         FROM claims cl
         LEFT JOIN verdicts vr ON vr.claim_id = cl.claim_id
         LEFT JOIN videos v ON v.video_id = cl.video_id
@@ -81,6 +83,20 @@ def build_flat_index(conn) -> pd.DataFrame:
             export_flags = stored_flags
         score, note = compute_suspicion(
             cal["final_verdict"], cal["confidence"], parse_failed=parse_failed)
+        summary_input = {
+            "final_verdict": cal["final_verdict"],
+            "reasoning": cal["reasoning"] or r["reasoning"],
+            "calibration_flags": export_flags,
+            "category": r["category"],
+            "initial_risk": r["initial_risk"],
+            "claim_text": r["claim_text"],
+            "evidence_stance": cal["evidence_stance"],
+            "source_directness": cal["source_directness"],
+            "cite_source": cal.get("cite_source"),
+            "nli_label": r["nli_label"],
+            "nli_evidence_snippet": r["nli_evidence_snippet"],
+        }
+        reviewer = build_reviewer_summary(summary_input)
         records.append({
             "claim_id": r["claim_id"],
             "claim_text": r["claim_text"],
@@ -106,6 +122,9 @@ def build_flat_index(conn) -> pd.DataFrame:
             "evidence_stance": cal["evidence_stance"],
             "source_tier": cal["source_tier"],
             "calibration_flags": export_flags,
+            "reviewer_check_point": reviewer["check_point"],
+            "reviewer_risk_level": reviewer["risk_level"],
+            "reviewer_source_note": reviewer["source_note"],
         })
     return pd.DataFrame(records)
 
