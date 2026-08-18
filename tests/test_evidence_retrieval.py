@@ -617,7 +617,7 @@ def test_hybrid_skips_serper_when_native_sufficient(monkeypatch):
     monkeypatch.setattr("utils.evidence_retrieval._attach_rerank_scores", lambda text, c: c)
     monkeypatch.setattr("utils.evidence_retrieval._dense_rerank", lambda text, c, k: c[:k])
 
-    ev, path = retrieve_hybrid_evidence(BLUEBERRY_CLAIM, BLUEBERRY_QUERY)
+    ev, path, _meta = retrieve_hybrid_evidence(BLUEBERRY_CLAIM, BLUEBERRY_QUERY)
     assert called["n"] == 0
     assert "serper" not in path
     assert ev
@@ -659,7 +659,7 @@ def test_hybrid_calls_serper_when_native_insufficient(monkeypatch):
     monkeypatch.setattr("utils.evidence_retrieval._attach_rerank_scores", lambda text, c: c)
     monkeypatch.setattr("utils.evidence_retrieval._dense_rerank", lambda text, c, k: c[:k])
 
-    ev, path = retrieve_hybrid_evidence(BLUEBERRY_CLAIM, BLUEBERRY_QUERY)
+    ev, path, _meta = retrieve_hybrid_evidence(BLUEBERRY_CLAIM, BLUEBERRY_QUERY)
     assert called["n"] == 1
     assert "serper" in path
     assert any(e.get("retrieval_tier") == "serper" for e in ev)

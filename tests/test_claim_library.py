@@ -86,5 +86,5 @@ def test_663_no_guideline_false_positive(monkeypatch):
     query = "zucchini water content hydration kidney"
     snippets = retrieve_guideline_snippets(query, "mekanizma", claim_text=text)
     assert snippets == []
-    ev, path = retrieve_hybrid_evidence(text, query, "mekanizma", include_serper=False)
+    ev, path, _meta = retrieve_hybrid_evidence(text, query, "mekanizma", include_serper=False)
     assert path != "guideline" or not ev

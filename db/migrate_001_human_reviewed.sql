@@ -23,6 +23,9 @@ WHERE source_directness = 'indirect'
   AND human_reviewed = 0
   AND (reviewer_note IS NULL OR TRIM(reviewer_note) = '');
 
+-- Güvenlik bayraklı otomasyon: utils/db.py _reconcile_stale_auto_accepted()
+-- (claim 709 tipi — drug_interaction kuralı öncesi fact-check edilmiş kayıtlar)
+
 -- Origin artık human_reviewed=1 olmayan kütüphane kayıtlarını sil
 DELETE FROM verified_claim_library
 WHERE origin_claim_id IN (

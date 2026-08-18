@@ -7,6 +7,8 @@ from utils.factcheck_review import (
     is_drug_interaction_claim,
     compute_needs_human,
     apply_verdict_reasoning_mismatch,
+    apply_compound_component_cap,
+    COMPOUND_TIER_MISMATCH_FLAG,
     review_flags,
     VERDICT_REASONING_MISMATCH_FLAG,
 )
@@ -137,3 +139,39 @@ def test_package_only_forced_always_needs_human():
         source_directness="direct",
         calibration_flags="retrieval_cited",
     )
+
+
+def test_compound_tier_mismatch_caps_doğrulanmış():
+    """#1284: Alzheimer supportive + Parkinson direct → tartışmalı."""
+    final = {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.82,
+        "reasoning": "Her iki hastalık için destek var.",
+        "calibration_flags": "",
+    }
+    component_map = {
+        "components": [
+            {"text": "Ölçülü kahve tüketimi Alzheimer", "tier": "supportive", "kept": 3},
+            {"text": "Parkinson riskini azaltır", "tier": "direct", "kept": 2},
+        ]
+    }
+    assert apply_compound_component_cap(final, component_map)
+    assert final["final_verdict"] == "tartışmalı"
+    assert COMPOUND_TIER_MISMATCH_FLAG in final["calibration_flags"]
+
+
+def test_compound_same_tier_no_cap():
+    final = {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.82,
+        "reasoning": "Her iki bileşen direct.",
+        "calibration_flags": "",
+    }
+    component_map = {
+        "components": [
+            {"text": "A", "tier": "direct", "kept": 2},
+            {"text": "B", "tier": "direct", "kept": 2},
+        ]
+    }
+    assert not apply_compound_component_cap(final, component_map)
+    assert final["final_verdict"] == "doğrulanmış"

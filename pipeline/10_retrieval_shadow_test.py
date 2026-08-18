@@ -162,7 +162,7 @@ def evaluate_claim(row: dict) -> dict:
     guidelines = retrieve_guideline_snippets(query, category, claim_text=text)
     nutrition = lookup_nutrition_evidence(text) if is_nutrition_quantity_claim(text) else []
 
-    hybrid, path = retrieve_hybrid_evidence(text, query, category)
+    hybrid, path, _meta = retrieve_hybrid_evidence(text, query, category)
 
     found = bool(hybrid)
     return {

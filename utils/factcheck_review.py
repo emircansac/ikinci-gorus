@@ -7,6 +7,7 @@ HIGH_RISK_HUMAN_REVIEW_CATEGORIES = {"tedavi", "doz", "mucize-ürün", "tanı"}
 
 VERDICT_REASONING_MISMATCH_FLAG = "verdict_reasoning_mismatch"
 PACKAGE_ONLY_FORCED_FLAG = "package_only_forced"
+COMPOUND_TIER_MISMATCH_FLAG = "compound_tier_mismatch"
 BINARY_VERDICTS_FOR_MISMATCH = frozenset({"doğrulanmış", "yanlış"})
 
 _DRUG_INTERACTION_RE = re.compile(
@@ -20,6 +21,30 @@ _DRUG_INTERACTION_RE = re.compile(
 
 def is_drug_interaction_claim(claim_text: str) -> bool:
     return bool(_DRUG_INTERACTION_RE.search(claim_text or ""))
+
+
+def security_risk_triggers(
+    *,
+    category: str | None,
+    initial_risk: str | None,
+    claim_text: str,
+    calibration_flags: str | None = None,
+) -> list[str]:
+    """Otomatik kabulde olmaması gereken hassas/yüksek risk sinyalleri."""
+    flags = {f.strip() for f in (calibration_flags or "").split(",") if f.strip()}
+    triggers: list[str] = []
+    cat = (category or "").strip()
+    if cat in HIGH_RISK_HUMAN_REVIEW_CATEGORIES:
+        triggers.append(f"kategori={cat}")
+    if (initial_risk or "").strip() == "high":
+        triggers.append("initial_risk=high")
+    if is_drug_interaction_claim(claim_text):
+        triggers.append("drug_interaction")
+    if VERDICT_REASONING_MISMATCH_FLAG in flags:
+        triggers.append("verdict_reasoning_mismatch")
+    if PACKAGE_ONLY_FORCED_FLAG in flags:
+        triggers.append("package_only_forced")
+    return triggers
 
 
 def apply_verdict_reasoning_mismatch(final: dict) -> bool:
@@ -37,6 +62,30 @@ def apply_verdict_reasoning_mismatch(final: dict) -> bool:
     if VERDICT_REASONING_MISMATCH_FLAG in flags:
         return True
     flags.add(VERDICT_REASONING_MISMATCH_FLAG)
+    final["calibration_flags"] = ",".join(sorted(flags))
+    return True
+
+
+def apply_compound_component_cap(
+    final: dict,
+    component_evidence_map: dict | None,
+) -> bool:
+    """
+    Bileşik iddiada alt-bileşen specificity tier'ları farklıysa binary verdict'i
+    tartışmalı'ya indir (prompt kuralının sunucu tarafı yedeği).
+    """
+    comps = (component_evidence_map or {}).get("components") or []
+    if len(comps) < 2:
+        return False
+    tiers = {(c.get("tier") or "none").strip() or "none" for c in comps}
+    if len(tiers) <= 1:
+        return False
+    verdict = final.get("final_verdict")
+    if verdict not in BINARY_VERDICTS_FOR_MISMATCH:
+        return False
+    final["final_verdict"] = "tartışmalı"
+    flags = {f.strip() for f in (final.get("calibration_flags") or "").split(",") if f.strip()}
+    flags.add(COMPOUND_TIER_MISMATCH_FLAG)
     final["calibration_flags"] = ",".join(sorted(flags))
     return True
 

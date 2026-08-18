@@ -2,6 +2,9 @@
 import sqlite3
 from pathlib import Path
 
+from utils.factcheck_review import security_risk_triggers
+from utils.evidence_topic_cache import ensure_topic_cache_table
+
 DB_PATH = Path(__file__).parent.parent / "data" / "monitor.db"
 SCHEMA_PATH = Path(__file__).parent.parent / "db" / "schema.sql"
 
@@ -53,6 +56,38 @@ def _migrate_human_reviewed_semantics(conn):
     conn.commit()
 
 
+def _reconcile_stale_auto_accepted(conn):
+    """
+    Güvenlik kuralları sonradan eklendiğinde kalan auto_accepted=1 satırları düzelt.
+    (claim 709 tipi — drug_interaction kuralı öncesi fact-check edilmiş kayıtlar)
+    """
+    rows = conn.execute("""
+        SELECT c.claim_id, c.claim_text, c.category, c.initial_risk,
+               v.calibration_flags, v.human_reviewed, v.reviewer_note
+        FROM claims c
+        JOIN verdicts v ON v.claim_id = c.claim_id
+        WHERE v.auto_accepted = 1
+          AND v.human_reviewed = 0
+          AND (v.reviewer_note IS NULL OR TRIM(v.reviewer_note) = '')
+    """).fetchall()
+    fixed: list[int] = []
+    for row in rows:
+        r = dict(row)
+        if security_risk_triggers(
+            category=r.get("category"),
+            initial_risk=r.get("initial_risk"),
+            claim_text=r.get("claim_text") or "",
+            calibration_flags=r.get("calibration_flags"),
+        ):
+            conn.execute(
+                "UPDATE verdicts SET auto_accepted = 0 WHERE claim_id = ?",
+                (int(r["claim_id"]),),
+            )
+            fixed.append(int(r["claim_id"]))
+    if fixed:
+        conn.commit()
+
+
 def _migrate_columns(conn):
     """Mevcut DB'lere sonradan eklenen sütunlar — duplicate column hataları yutulur."""
     migrations = (
@@ -78,6 +113,8 @@ def _migrate_columns(conn):
             pass
     conn.commit()
     _migrate_human_reviewed_semantics(conn)
+    _reconcile_stale_auto_accepted(conn)
+    ensure_topic_cache_table(conn)
     conn.execute("""
         UPDATE claims SET extraction_version = 'v1'
         WHERE extraction_version IS NULL

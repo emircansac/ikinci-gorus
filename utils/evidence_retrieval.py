@@ -104,6 +104,31 @@ ENTITY_SYNONYMS = {
     "cabbage": ("cabbage", "lahana"),
     "beetroot": ("beetroot", "beet", "pancar"),
     "beet": ("beetroot", "beet", "pancar"),
+    "pancar": ("beetroot", "beet", "pancar"),
+    "ıspanak": ("spinach", "ıspanak", "ispanak"),
+    "ispanak": ("spinach", "ıspanak", "ispanak"),
+    "spinach": ("spinach", "ıspanak", "ispanak"),
+    "kabak": ("zucchini", "courgette", "squash", "kabak"),
+    "zucchini": ("zucchini", "courgette", "squash", "kabak"),
+    "domates": ("domates", "tomato", "tomatoes"),
+    "tomato": ("domates", "tomato", "tomatoes"),
+    "tomatoes": ("domates", "tomato", "tomatoes"),
+    "lahana": ("cabbage", "lahana"),
+    "cabbage": ("cabbage", "lahana"),
+    "salatalık": ("cucumber", "salatalık", "salatalik"),
+    "salatalik": ("cucumber", "salatalık", "salatalik"),
+    "cucumber": ("cucumber", "salatalık", "salatalik"),
+    "gfr": ("gfr", "glomerular", "filtration"),
+    "potasyum": ("potasyum", "potassium"),
+    "potassium": ("potasyum", "potassium"),
+    "fosfor": ("fosfor", "phosphorus", "phosphate"),
+    "phosphorus": ("fosfor", "phosphorus", "phosphate"),
+    "phosphate": ("fosfor", "phosphorus", "phosphate"),
+    "oksalat": ("oksalat", "oxalate", "oxalates"),
+    "oxalate": ("oksalat", "oxalate", "oxalates"),
+    "oxalates": ("oksalat", "oxalate", "oxalates"),
+    "homosistein": ("homosistein", "homocysteine"),
+    "homocysteine": ("homosistein", "homocysteine"),
     "cinnamon": ("cinnamon", "cinnamomum", "tarçın", "tarcin"),
     "tarçın": ("cinnamon", "cinnamomum", "tarçın", "tarcin"),
     "collagen": ("collagen", "collagenous", "kolajen", "kolagen"),
@@ -699,6 +724,7 @@ def _tag_native_item(item: dict) -> dict:
     out = dict(item)
     out.setdefault("retrieval_tier", "native")
     out.setdefault("evidence_content_type", "abstract")
+    out.setdefault("evidence_source", "live")
     return out
 
 
@@ -757,63 +783,135 @@ def retrieve_hybrid_evidence(
     include_europe_pmc: bool = True,
     include_medlineplus: bool = True,
     include_serper: bool = True,
-) -> tuple[list[dict], str]:
+    origin_claim_id: int | None = None,
+    skip_live_retrieval: bool = False,
+    use_topic_cache: bool = True,
+    write_topic_cache: bool = True,
+    conn=None,
+) -> tuple[list[dict], str, dict]:
     """
-    Hibrit kanıt getirme: besin DB → PubMed (çoklu sorgu) → Europe PMC →
-    MedlinePlus → kılavuz fallback → (yetersizse) Serper.
+    Hibrit kanıt getirme: topic cache → besin DB → PubMed → … → Serper.
 
-    Dönüş: (evidence_list, retrieval_path)
-    retrieval_path: nutrition_db | usda_cache_static | pubmed | pubmed_mesh |
-                    europepmc | medlineplus | guideline | serper | none
-                    (birden fazla kaynak `+` ile birleşir)
+    Dönüş: (evidence_list, retrieval_path, meta)
+    meta: topic_key, cache_candidates, live_candidates, cache_in_final, live_in_final
     """
+    from utils.evidence_topic_cache import (
+        lookup_topic_cache,
+        store_topic_cache,
+        topic_key_for_claim,
+    )
     from utils.nutrition_lookup import is_nutrition_quantity_claim, lookup_nutrition_evidence
 
-    if is_nutrition_quantity_claim(claim_text):
+    meta: dict = {
+        "topic_key": None,
+        "cache_candidates": 0,
+        "live_candidates": 0,
+        "cache_in_final": 0,
+        "live_in_final": 0,
+    }
+
+    topic_key = topic_key_for_claim(
+        claim_text, category, search_query_en=search_query_en
+    )
+    meta["topic_key"] = topic_key
+
+    db_conn = conn
+    own_conn = None
+    if topic_key and db_conn is None:
+        from utils.db import get_conn
+        own_conn = get_conn()
+        db_conn = own_conn
+
+    cache_items: list[dict] = []
+    if topic_key and use_topic_cache and db_conn is not None:
+        cache_items = lookup_topic_cache(db_conn, topic_key)
+        meta["cache_candidates"] = len(cache_items)
+
+    if is_nutrition_quantity_claim(claim_text) and not skip_live_retrieval:
         nut = lookup_nutrition_evidence(claim_text)
         if nut:
             tagged = [_tag_native_item(x) for x in nut]
-            return tagged, nut[0].get("source") or "nutrition_db"
+            merged = _merge_candidates(cache_items, tagged) if cache_items else tagged
+            if topic_key and db_conn is not None and write_topic_cache:
+                store_topic_cache(db_conn, topic_key, tagged, origin_claim_id)
+            meta["live_candidates"] = len(tagged)
+            meta["live_in_final"] = sum(
+                1 for e in merged if e.get("evidence_source") == "live"
+            )
+            meta["cache_in_final"] = sum(
+                1 for e in merged if e.get("evidence_source") == "cache"
+            )
+            if own_conn:
+                own_conn.close()
+            return merged, nut[0].get("source") or "nutrition_db", meta
 
     if not search_query_en:
         print("[evidence] uyarı: search_query_en yok, ham iddia metniyle aranıyor")
     query = search_query_en or claim_text
 
-    candidates, path_parts = collect_native_candidates(
-        claim_text, query, category,
-        include_europe_pmc=include_europe_pmc,
-        include_medlineplus=include_medlineplus,
-    )
-    _attach_rerank_scores(claim_text, candidates)
+    path_parts: list[str] = []
+    if cache_items:
+        path_parts.append("topic_cache")
 
-    native_suff = assess_evidence_sufficiency(candidates, claim_text, query)
-    if not native_suff.sufficient and include_serper:
-        print(
-            f"[evidence] native yetersiz (reason={native_suff.reason} "
-            f"relevance_ok={native_suff.relevance_ok} "
-            f"quality_ok={native_suff.quality_ok}) — Serper"
+    live_candidates: list[dict] = []
+    if skip_live_retrieval:
+        candidates = list(cache_items)
+    else:
+        live_candidates, native_paths = collect_native_candidates(
+            claim_text, query, category,
+            include_europe_pmc=include_europe_pmc,
+            include_medlineplus=include_medlineplus,
         )
-        serper = retrieve_serper_evidence(query)
-        if serper:
-            candidates = _merge_candidates(candidates, serper)
-            path_parts.append("serper")
-            _attach_rerank_scores(claim_text, candidates)
-            serper_suff = assess_evidence_sufficiency(candidates, claim_text, query)
-            if serper_suff.sufficient:
-                print(
-                    f"[evidence] Serper yeterli (reason={serper_suff.reason} "
-                    f"best_tier={serper_suff.best_tier})"
+        path_parts.extend(native_paths)
+        meta["live_candidates"] = len(live_candidates)
+
+        native_suff = assess_evidence_sufficiency(live_candidates, claim_text, query)
+        if not native_suff.sufficient and include_serper:
+            print(
+                f"[evidence] native yetersiz (reason={native_suff.reason} "
+                f"relevance_ok={native_suff.relevance_ok} "
+                f"quality_ok={native_suff.quality_ok}) — Serper"
+            )
+            serper = retrieve_serper_evidence(query)
+            if serper:
+                for s in serper:
+                    s.setdefault("evidence_source", "live")
+                live_candidates = _merge_candidates(live_candidates, serper)
+                path_parts.append("serper")
+                meta["live_candidates"] = len(live_candidates)
+                _attach_rerank_scores(claim_text, live_candidates)
+                serper_suff = assess_evidence_sufficiency(
+                    live_candidates, claim_text, query
                 )
-            else:
-                print(
-                    f"[evidence] Serper sonrası hâlâ yetersiz "
-                    f"(reason={serper_suff.reason} "
-                    f"relevance_ok={serper_suff.relevance_ok} "
-                    f"quality_ok={serper_suff.quality_ok}) — Claude web_search güvenlik ağı"
-                )
+                if serper_suff.sufficient:
+                    print(
+                        f"[evidence] Serper yeterli (reason={serper_suff.reason} "
+                        f"best_tier={serper_suff.best_tier})"
+                    )
+                else:
+                    print(
+                        f"[evidence] Serper sonrası hâlâ yetersiz "
+                        f"(reason={serper_suff.reason} "
+                        f"relevance_ok={serper_suff.relevance_ok} "
+                        f"quality_ok={serper_suff.quality_ok}) — Claude web_search güvenlik ağı"
+                    )
+
+        if topic_key and db_conn is not None and live_candidates and write_topic_cache:
+            store_topic_cache(db_conn, topic_key, live_candidates, origin_claim_id)
+
+        candidates = (
+            _merge_candidates(cache_items, live_candidates)
+            if cache_items else live_candidates
+        )
+        _attach_rerank_scores(claim_text, candidates)
 
     if not candidates:
-        return [], "none"
+        if own_conn:
+            own_conn.close()
+        return [], "none", meta
+
+    if skip_live_retrieval:
+        _attach_rerank_scores(claim_text, candidates)
 
     filtered, filt_meta = apply_key_term_filter(candidates, query, claim_text)
     if filt_meta.get("weak_fallback"):
@@ -828,10 +926,20 @@ def retrieve_hybrid_evidence(
             f"(terimler={filt_meta['terms'][:6]}, kalan={filt_meta['kept']})"
         )
     if not filtered:
-        return [], "+".join(path_parts) if path_parts else "none"
+        if own_conn:
+            own_conn.close()
+        return [], "+".join(path_parts) if path_parts else "none", meta
 
     ranked = _dense_rerank(claim_text, filtered, ESCALATE_PACKAGE_SIZE)
-    return ranked, "+".join(path_parts) if path_parts else "none"
+    meta["cache_in_final"] = sum(
+        1 for e in ranked if e.get("evidence_source") == "cache"
+    )
+    meta["live_in_final"] = sum(
+        1 for e in ranked if e.get("evidence_source") == "live"
+    )
+    if own_conn:
+        own_conn.close()
+    return ranked, "+".join(path_parts) if path_parts else "none", meta
 
 
 def _pubmed_search_ids(query_en: str, retmax: int) -> list[str]:
@@ -1136,6 +1244,79 @@ def medlineplus_candidates(query_en: str, retmax: int = 5) -> list[dict]:
     return merged[:retmax]
 
 
+def _approx_tokens(text: str) -> int:
+    return max(1, int(len((text or "").split()) * 1.3))
+
+
+def _split_abstract_chunks(text: str, max_words: int = 120) -> list[str]:
+    text = re.sub(r"\s+", " ", (text or "").strip())
+    if not text:
+        return []
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    chunks: list[str] = []
+    buf: list[str] = []
+    buf_words = 0
+    for sent in sentences:
+        w = len(sent.split())
+        if buf and buf_words + w > max_words:
+            chunks.append(" ".join(buf))
+            buf = [sent]
+            buf_words = w
+        else:
+            buf.append(sent)
+            buf_words += w
+    if buf:
+        chunks.append(" ".join(buf))
+    return chunks or [text]
+
+
+def best_evidence_snippet(
+    claim_text: str,
+    abstract: str,
+    *,
+    min_tokens: int = 500,
+    max_tokens: int = 1000,
+) -> str:
+    """
+    Tam abstract yerine iddiaya (cosine) en yakın 500–1000 token alt-parça.
+    Embedder yoksa ilk max_tokens kelimeye düşer.
+    """
+    abstract = (abstract or "").strip()
+    if not abstract:
+        return ""
+    chunks = _split_abstract_chunks(abstract)
+    if len(chunks) == 1 and _approx_tokens(chunks[0]) <= max_tokens:
+        return chunks[0]
+
+    embedder = _get_embedder()
+    if embedder is None or len(chunks) == 1:
+        words = abstract.split()
+        cap = int(max_tokens / 1.3)
+        return " ".join(words[:cap])
+
+    import numpy as np
+    claim_vec = embedder.encode([claim_text])[0]
+    chunk_vecs = embedder.encode(chunks)
+    norms = np.linalg.norm(chunk_vecs, axis=1) * np.linalg.norm(claim_vec) + 1e-9
+    sims = (chunk_vecs @ claim_vec) / norms
+    order = sorted(range(len(chunks)), key=lambda i: sims[i], reverse=True)
+
+    picked: list[str] = []
+    total = 0
+    for idx in order:
+        piece = chunks[idx]
+        t = _approx_tokens(piece)
+        if total + t > max_tokens and picked:
+            break
+        picked.append(piece)
+        total += t
+        if total >= min_tokens:
+            break
+    if not picked:
+        return chunks[order[0]]
+    return " ".join(picked)
+
+
 @lru_cache(maxsize=1)
 def _get_embedder():
     """
@@ -1260,7 +1441,7 @@ def retrieve_pubmed_evidence(claim_text: str, search_query_en: str | None = None
 
     Önce retrieve_hybrid_evidence dener; boşsa eski tek-sorgu PubMed yoluna düşer.
     """
-    evidence, path = retrieve_hybrid_evidence(claim_text, search_query_en, category)
+    evidence, path, _meta = retrieve_hybrid_evidence(claim_text, search_query_en, category)
     if evidence:
         if path != "pubmed":
             print(f"[evidence] hibrit yol: {path} ({len(evidence)} parça)")

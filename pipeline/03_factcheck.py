@@ -50,6 +50,8 @@ from utils.claude_client import (
     iter_batch_results,
     _usage_dict,
     summarize_cache_roles,
+    resolve_max_search_calls,
+    count_web_search_calls,
 )
 from utils.factcheck_calibrate import calibrate_factcheck
 from utils.extraction_store import ACTIVE_CLAIM_WHERE
@@ -69,6 +71,7 @@ from utils.factcheck_review import (
     is_drug_interaction_claim,
     compute_needs_human,
     apply_verdict_reasoning_mismatch,
+    apply_compound_component_cap,
     review_flags as _review_flags,
     PACKAGE_ONLY_FORCED_FLAG,
 )
@@ -233,6 +236,7 @@ def _finalize_escalated(
     specificity_tier="none",
     epistemic_class=None,
     component_evidence_map=None,
+    max_search_calls=None,
 ) -> None:
     """Mevcut senkron escalate sonrası yol — kalibrasyon/needs_human değişmez."""
     parse_failed = bool(raw_result.get("parse_failed"))
@@ -250,6 +254,7 @@ def _finalize_escalated(
             final[k] = calibrated.get(k)
     _merge_package_only_flag(final, force_package_only)
     _merge_tier_flags(final, specificity_tier, epistemic_class)
+    apply_compound_component_cap(final, component_evidence_map)
     if force_package_only and not parse_failed:
         calibrated["needs_human"] = True
         calibrated["calibration_flags"] = final.get("calibration_flags") or ""
@@ -285,6 +290,8 @@ def _finalize_escalated(
             "cite_source": calibrated.get("cite_source"),
         },
         "usage": usage,
+        "web_search_call_count": raw_result.get("web_search_call_count"),
+        "max_search_calls": raw_result.get("max_search_calls") or max_search_calls,
         "parse_failed": parse_failed,
         "parse_failure_category": raw_result.get("parse_failure_category"),
         "parse_error": raw_result.get("parse_error"),
@@ -379,6 +386,7 @@ def _flush_batch_submit(jobs: list[dict], args) -> None:
             specificity_tier=j.get("specificity_tier"),
             epistemic_class=j.get("epistemic_class"),
             component_evidence_map=j.get("component_evidence_map"),
+            max_search_calls=j.get("max_search_calls"),
         )
         for j in jobs
     ]
@@ -478,6 +486,7 @@ def _run_batch_retrieve(conn, args) -> None:
                 specificity_tier=job.get("specificity_tier"),
                 epistemic_class=job.get("epistemic_class"),
                 component_evidence_map=job.get("component_evidence_map"),
+                max_search_calls=job.get("max_search_calls"),
             )
             usage_by_custom_id[cid] = usage
             print(
@@ -498,7 +507,8 @@ def _run_batch_retrieve(conn, args) -> None:
                 )
             }, specificity_tier=job.get("specificity_tier") or "none",
                epistemic_class=job.get("epistemic_class"),
-               component_evidence_map=job.get("component_evidence_map"))
+               component_evidence_map=job.get("component_evidence_map"),
+               max_search_calls=job.get("max_search_calls"))
             ok += 1
         cache_summary = summarize_cache_roles(usage_by_custom_id)
         rec["applied"] = True
@@ -595,6 +605,7 @@ def main():
         library_match = 0
         evidence: list[dict] = []
         retrieval_path = ""
+        retrieval_meta: dict = {}
 
         lib_hit = lookup_library(conn, claim_text)
         library_review_hit = None
@@ -722,10 +733,30 @@ def main():
                 print(f"  [{claim_id}] {final['final_verdict']} ({final.get('source_tier')}) {flag}")
                 continue
 
-        evidence, retrieval_path = retrieve_hybrid_evidence(
-            claim_text, search_query_en=search_query_en, category=category)
+        evidence, retrieval_path, retrieval_meta = retrieve_hybrid_evidence(
+            claim_text,
+            search_query_en=search_query_en,
+            category=category,
+            origin_claim_id=claim_id,
+        )
+        if retrieval_meta.get("cache_candidates"):
+            print(
+                f"[evidence] topic_cache: {retrieval_meta['cache_candidates']} aday "
+                f"(topic_key={retrieval_meta.get('topic_key')})"
+            )
         if retrieval_path and retrieval_path != "pubmed":
             print(f"[evidence] hibrit yol: {retrieval_path} ({len(evidence)} parça)")
+        _append_debug_log({
+            "claim_id": claim_id,
+            "claim_text": claim_text,
+            "retrieval_path": retrieval_path,
+            "evidence_provenance": {
+                "topic_key": retrieval_meta.get("topic_key"),
+                "cache_candidates": retrieval_meta.get("cache_candidates", 0),
+                "cache_in_final": retrieval_meta.get("cache_in_final", 0),
+                "live_in_final": retrieval_meta.get("live_in_final", 0),
+            },
+        })
         if not args.skip_nli:
             if evidence:
                 nli_slice = evidence[:FINAL_EVIDENCE_COUNT]
@@ -773,6 +804,10 @@ def main():
                     )
                 if epistemic_class:
                     print(f"[evidence] epistemic={epistemic_class}")
+                max_search_calls = resolve_max_search_calls(
+                    initial_risk=initial_risk,
+                    nli_label=nli_label,
+                )
                 component_map = score_component_evidence(
                     claim_text, evidence or [], search_query_en,
                 )
@@ -796,6 +831,7 @@ def main():
                     "strong_match": None if suff is None else suff.strong_match,
                     "specificity_tier": specificity_tier,
                     "epistemic_class": epistemic_class,
+                    "max_search_calls": max_search_calls,
                     "component_evidence_map": component_map or None,
                     "nli_label": nli_label,
                     "nli_conf": nli_conf,
@@ -826,6 +862,7 @@ def main():
                     specificity_tier=specificity_tier,
                     epistemic_class=epistemic_class,
                     component_evidence_map=job.get("component_evidence_map"),
+                    max_search_calls=max_search_calls,
                 )
                 _finalize_escalated(conn, raw_result=raw_result, usage=usage, **job)
                 ok += 1

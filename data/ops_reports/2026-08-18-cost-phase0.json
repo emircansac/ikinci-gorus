@@ -1,0 +1,2163 @@
+{
+  "analysis_a": {
+    "batch": {
+      "per_claim": [
+        {
+          "claim_id": 1026,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 6606,
+            "output_tokens": 683,
+            "cache_creation_input_tokens": 23303,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1028,
+          "web_search_calls": 4,
+          "usage": {
+            "input_tokens": 7766,
+            "output_tokens": 1326,
+            "cache_creation_input_tokens": 43510,
+            "cache_read_input_tokens": 78452
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1031,
+          "web_search_calls": 0,
+          "usage": {
+            "input_tokens": 27298,
+            "output_tokens": 382,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1033,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3357,
+            "output_tokens": 1701,
+            "cache_creation_input_tokens": 30836,
+            "cache_read_input_tokens": 28072
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1041,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2767,
+            "output_tokens": 684,
+            "cache_creation_input_tokens": 22841,
+            "cache_read_input_tokens": 18756
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1043,
+          "web_search_calls": 0,
+          "usage": {
+            "input_tokens": 7348,
+            "output_tokens": 526,
+            "cache_creation_input_tokens": 4119,
+            "cache_read_input_tokens": 0
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1071,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 4115,
+            "output_tokens": 546,
+            "cache_creation_input_tokens": 19500,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1072,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 2378,
+            "output_tokens": 597,
+            "cache_creation_input_tokens": 13957,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1089,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2615,
+            "output_tokens": 862,
+            "cache_creation_input_tokens": 22332,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1098,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 5286,
+            "output_tokens": 611,
+            "cache_creation_input_tokens": 14021,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1113,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 2354,
+            "output_tokens": 472,
+            "cache_creation_input_tokens": 14372,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1115,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 3181,
+            "output_tokens": 423,
+            "cache_creation_input_tokens": 17523,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1120,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 4736,
+            "output_tokens": 1434,
+            "cache_creation_input_tokens": 28055,
+            "cache_read_input_tokens": 32516
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1121,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 8539,
+            "output_tokens": 692,
+            "cache_creation_input_tokens": 25692,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 610,
+          "web_search_calls": 4,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 1129,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3102,
+            "output_tokens": 1171,
+            "cache_creation_input_tokens": 30224,
+            "cache_read_input_tokens": 26172
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 627,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 3248,
+            "output_tokens": 692,
+            "cache_creation_input_tokens": 11388,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 636,
+          "web_search_calls": 1,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 642,
+          "web_search_calls": 4,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 643,
+          "web_search_calls": 2,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 644,
+          "web_search_calls": 1,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 645,
+          "web_search_calls": 2,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 1163,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 2673,
+            "output_tokens": 701,
+            "cache_creation_input_tokens": 10301,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1166,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 12684,
+            "output_tokens": 1017,
+            "cache_creation_input_tokens": 31662,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1168,
+          "web_search_calls": 0,
+          "usage": {
+            "input_tokens": 2919,
+            "output_tokens": 440,
+            "cache_creation_input_tokens": 1395,
+            "cache_read_input_tokens": 0
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1172,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3635,
+            "output_tokens": 2627,
+            "cache_creation_input_tokens": 20999,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1177,
+          "web_search_calls": 4,
+          "usage": {
+            "input_tokens": 6594,
+            "output_tokens": 2049,
+            "cache_creation_input_tokens": 36461,
+            "cache_read_input_tokens": 67640
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1183,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 11836,
+            "output_tokens": 1203,
+            "cache_creation_input_tokens": 31642,
+            "cache_read_input_tokens": 35036
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1193,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 4180,
+            "output_tokens": 748,
+            "cache_creation_input_tokens": 15408,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1201,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3175,
+            "output_tokens": 713,
+            "cache_creation_input_tokens": 17411,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1207,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3021,
+            "output_tokens": 1106,
+            "cache_creation_input_tokens": 21899,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1214,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3095,
+            "output_tokens": 970,
+            "cache_creation_input_tokens": 29975,
+            "cache_read_input_tokens": 33809
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1246,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 7579,
+            "output_tokens": 616,
+            "cache_creation_input_tokens": 15237,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 744,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 4989,
+            "output_tokens": 790,
+            "cache_creation_input_tokens": 29603,
+            "cache_read_input_tokens": 33955
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1264,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 6190,
+            "output_tokens": 1162,
+            "cache_creation_input_tokens": 36554,
+            "cache_read_input_tokens": 31841
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 759,
+          "web_search_calls": 5,
+          "usage": {
+            "input_tokens": 2856,
+            "output_tokens": 2322,
+            "cache_creation_input_tokens": 45469,
+            "cache_read_input_tokens": 94987
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 248,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2411,
+            "output_tokens": 755,
+            "cache_creation_input_tokens": 22327,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1273,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 7722,
+            "output_tokens": 684,
+            "cache_creation_input_tokens": 22964,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 251,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 4112,
+            "output_tokens": 595,
+            "cache_creation_input_tokens": 11206,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 763,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2981,
+            "output_tokens": 1041,
+            "cache_creation_input_tokens": 18837,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 253,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 2907,
+            "output_tokens": 728,
+            "cache_creation_input_tokens": 17121,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 258,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 4519,
+            "output_tokens": 715,
+            "cache_creation_input_tokens": 20099,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 773,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 6317,
+            "output_tokens": 975,
+            "cache_creation_input_tokens": 20883,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 775,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 8511,
+            "output_tokens": 746,
+            "cache_creation_input_tokens": 20956,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1292,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 13576,
+            "output_tokens": 633,
+            "cache_creation_input_tokens": 18264,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1295,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 2413,
+            "output_tokens": 566,
+            "cache_creation_input_tokens": 14282,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1297,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3544,
+            "output_tokens": 793,
+            "cache_creation_input_tokens": 23690,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1301,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 5191,
+            "output_tokens": 1111,
+            "cache_creation_input_tokens": 20166,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1303,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 1426,
+            "output_tokens": 757,
+            "cache_creation_input_tokens": 21118,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1305,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3060,
+            "output_tokens": 1631,
+            "cache_creation_input_tokens": 18667,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 798,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3934,
+            "output_tokens": 1005,
+            "cache_creation_input_tokens": 29386,
+            "cache_read_input_tokens": 32318
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 801,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 5840,
+            "output_tokens": 729,
+            "cache_creation_input_tokens": 17777,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 805,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3216,
+            "output_tokens": 975,
+            "cache_creation_input_tokens": 21308,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 810,
+          "web_search_calls": 0,
+          "usage": {
+            "input_tokens": 11200,
+            "output_tokens": 515,
+            "cache_creation_input_tokens": 1395,
+            "cache_read_input_tokens": 0
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 813,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 8656,
+            "output_tokens": 1019,
+            "cache_creation_input_tokens": 31136,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 822,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 2519,
+            "output_tokens": 1080,
+            "cache_creation_input_tokens": 28507,
+            "cache_read_input_tokens": 32507
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 826,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 5208,
+            "output_tokens": 868,
+            "cache_creation_input_tokens": 21665,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 828,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 7257,
+            "output_tokens": 1071,
+            "cache_creation_input_tokens": 38825,
+            "cache_read_input_tokens": 34295
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 848,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2615,
+            "output_tokens": 876,
+            "cache_creation_input_tokens": 22728,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 857,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3218,
+            "output_tokens": 2317,
+            "cache_creation_input_tokens": 28482,
+            "cache_read_input_tokens": 31943
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 859,
+          "web_search_calls": 1,
+          "usage": {
+            "input_tokens": 1001,
+            "output_tokens": 539,
+            "cache_creation_input_tokens": 5220,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 860,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2652,
+            "output_tokens": 937,
+            "cache_creation_input_tokens": 17982,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 354,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 5367,
+            "output_tokens": 824,
+            "cache_creation_input_tokens": 23643,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 357,
+          "web_search_calls": 0,
+          "usage": {
+            "input_tokens": 7622,
+            "output_tokens": 584,
+            "cache_creation_input_tokens": 1395,
+            "cache_read_input_tokens": 0
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 869,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 2297,
+            "output_tokens": 946,
+            "cache_creation_input_tokens": 26709,
+            "cache_read_input_tokens": 31277
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 360,
+          "web_search_calls": 1,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 362,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2962,
+            "output_tokens": 732,
+            "cache_creation_input_tokens": 20653,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 363,
+          "web_search_calls": 2,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 364,
+          "web_search_calls": 3,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 878,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 8036,
+            "output_tokens": 1060,
+            "cache_creation_input_tokens": 24029,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 368,
+          "web_search_calls": 4,
+          "usage": {},
+          "source": "cache"
+        },
+        {
+          "claim_id": 880,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 6924,
+            "output_tokens": 942,
+            "cache_creation_input_tokens": 27548,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 377,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3180,
+            "output_tokens": 1001,
+            "cache_creation_input_tokens": 32110,
+            "cache_read_input_tokens": 29228
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 899,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 4550,
+            "output_tokens": 1280,
+            "cache_creation_input_tokens": 28894,
+            "cache_read_input_tokens": 35091
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 901,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3081,
+            "output_tokens": 888,
+            "cache_creation_input_tokens": 22310,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 909,
+          "web_search_calls": 0,
+          "usage": {
+            "input_tokens": 6090,
+            "output_tokens": 926,
+            "cache_creation_input_tokens": 2790,
+            "cache_read_input_tokens": 0
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 911,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3390,
+            "output_tokens": 857,
+            "cache_creation_input_tokens": 21499,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 927,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2953,
+            "output_tokens": 823,
+            "cache_creation_input_tokens": 23415,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 948,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3184,
+            "output_tokens": 1805,
+            "cache_creation_input_tokens": 27226,
+            "cache_read_input_tokens": 32622
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 950,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 9271,
+            "output_tokens": 887,
+            "cache_creation_input_tokens": 23962,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 954,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3110,
+            "output_tokens": 883,
+            "cache_creation_input_tokens": 20731,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 956,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 2503,
+            "output_tokens": 1691,
+            "cache_creation_input_tokens": 24968,
+            "cache_read_input_tokens": 28391
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 957,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 2882,
+            "output_tokens": 1396,
+            "cache_creation_input_tokens": 29192,
+            "cache_read_input_tokens": 33475
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 971,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2926,
+            "output_tokens": 1033,
+            "cache_creation_input_tokens": 15959,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 978,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 3257,
+            "output_tokens": 1251,
+            "cache_creation_input_tokens": 31766,
+            "cache_read_input_tokens": 27389
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 980,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 2965,
+            "output_tokens": 719,
+            "cache_creation_input_tokens": 23663,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 992,
+          "web_search_calls": 3,
+          "usage": {
+            "input_tokens": 4900,
+            "output_tokens": 982,
+            "cache_creation_input_tokens": 29573,
+            "cache_read_input_tokens": 34623
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1001,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 3261,
+            "output_tokens": 1608,
+            "cache_creation_input_tokens": 23310,
+            "cache_read_input_tokens": 4119
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1005,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 1125,
+            "output_tokens": 774,
+            "cache_creation_input_tokens": 17692,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        },
+        {
+          "claim_id": 1006,
+          "web_search_calls": 2,
+          "usage": {
+            "input_tokens": 4870,
+            "output_tokens": 650,
+            "cache_creation_input_tokens": 22633,
+            "cache_read_input_tokens": 8238
+          },
+          "source": "cache"
+        }
+      ],
+      "histogram": {
+        "2": 41,
+        "3+": 26,
+        "0": 6,
+        "1": 17
+      },
+      "n_with_search_count": 90,
+      "n_batch_claims": 90,
+      "content_block_types": {},
+      "input_tokens_median": 3373.5,
+      "input_tokens_p90": 8511
+    },
+    "sync": {
+      "n_sync": 107,
+      "web_search_proxy_rate": 0.18691588785046728,
+      "expensive_six": [
+        {
+          "claim_id": 1243,
+          "input_tokens": 112864,
+          "web_search_proxy": false,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 1265,
+          "input_tokens": 105778,
+          "web_search_proxy": false,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 1255,
+          "input_tokens": 95195,
+          "web_search_proxy": true,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1267,
+          "input_tokens": 93980,
+          "web_search_proxy": true,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1247,
+          "input_tokens": 73075,
+          "web_search_proxy": true,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1262,
+          "input_tokens": 71019,
+          "web_search_proxy": true,
+          "cite_source": "web_search_override"
+        }
+      ],
+      "sync_rows": [
+        {
+          "claim_id": 654,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 655,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 656,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 661,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 681,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 682,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 683,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 684,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 685,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 687,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 688,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 689,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 699,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 700,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 703,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 704,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 707,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 708,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 651,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 652,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 657,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 658,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 659,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 662,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 664,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 666,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 668,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 669,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 670,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 674,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 675,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 677,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 686,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 690,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 691,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 696,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 697,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 698,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 701,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 702,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 705,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 706,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 709,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 712,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 653,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 663,
+          "web_search_proxy": true,
+          "input_tokens": null,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 667,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 671,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 672,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 676,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 678,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 679,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 680,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 693,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 694,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 695,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 710,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 711,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 713,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 660,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 665,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 722,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 748,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 767,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 768,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 781,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 782,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 784,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 725,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 727,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 731,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 733,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 735,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 737,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 745,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 746,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 750,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 752,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 754,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 755,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 757,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": null
+        },
+        {
+          "claim_id": 278,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 286,
+          "web_search_proxy": true,
+          "input_tokens": null,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 287,
+          "web_search_proxy": true,
+          "input_tokens": null,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 299,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 300,
+          "web_search_proxy": false,
+          "input_tokens": null,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 336,
+          "web_search_proxy": true,
+          "input_tokens": null,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1244,
+          "web_search_proxy": true,
+          "input_tokens": 30334,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1245,
+          "web_search_proxy": true,
+          "input_tokens": 57529,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1252,
+          "web_search_proxy": true,
+          "input_tokens": 33718,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1253,
+          "web_search_proxy": true,
+          "input_tokens": 35739,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1242,
+          "web_search_proxy": true,
+          "input_tokens": 59286,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1243,
+          "web_search_proxy": false,
+          "input_tokens": 112864,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 1247,
+          "web_search_proxy": true,
+          "input_tokens": 73075,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1248,
+          "web_search_proxy": true,
+          "input_tokens": 26763,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1254,
+          "web_search_proxy": true,
+          "input_tokens": 30125,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1255,
+          "web_search_proxy": true,
+          "input_tokens": 95195,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1261,
+          "web_search_proxy": true,
+          "input_tokens": 35473,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1262,
+          "web_search_proxy": true,
+          "input_tokens": 71019,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1263,
+          "web_search_proxy": true,
+          "input_tokens": 35615,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1267,
+          "web_search_proxy": true,
+          "input_tokens": 93980,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1268,
+          "web_search_proxy": true,
+          "input_tokens": 32432,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1271,
+          "web_search_proxy": true,
+          "input_tokens": 60071,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1281,
+          "web_search_proxy": false,
+          "input_tokens": 31911,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 1284,
+          "web_search_proxy": false,
+          "input_tokens": 27122,
+          "cite_source": "retrieval_cited"
+        },
+        {
+          "claim_id": 1256,
+          "web_search_proxy": true,
+          "input_tokens": 49259,
+          "cite_source": "web_search_override"
+        },
+        {
+          "claim_id": 1265,
+          "web_search_proxy": false,
+          "input_tokens": 105778,
+          "cite_source": "retrieval_cited"
+        }
+      ]
+    }
+  },
+  "analysis_b": {
+    "no_direct_n": 28,
+    "other_n": 173,
+    "no_direct_web_search_rate": 0.8928571428571429,
+    "other_web_search_rate": 0.37572254335260113,
+    "no_direct_verdicts": {
+      "belirsiz": 10,
+      "tartışmalı": 7,
+      "doğrulanmış": 10,
+      "yanlış": 1
+    },
+    "no_direct_dogrulanmis_rate": 0.35714285714285715,
+    "no_direct_input_median": 3357,
+    "other_input_median": 3784.5,
+    "no_direct_serper_n": 0,
+    "other_serper_n": 3,
+    "no_direct_batch_search_median": 2,
+    "other_batch_search_median": 2,
+    "rows_no_direct": [
+      {
+        "claim_id": 1247,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed",
+        "force_package_only": false,
+        "web_search_calls": null,
+        "input_tokens": 22945
+      },
+      {
+        "claim_id": 1248,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": null,
+        "input_tokens": 15068
+      },
+      {
+        "claim_id": 880,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 6924
+      },
+      {
+        "claim_id": 1183,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "pubmed+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 3,
+        "input_tokens": 11836
+      },
+      {
+        "claim_id": 253,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 1,
+        "input_tokens": 2907
+      },
+      {
+        "claim_id": 1033,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 3,
+        "input_tokens": 3357
+      },
+      {
+        "claim_id": 869,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 3,
+        "input_tokens": 2297
+      },
+      {
+        "claim_id": 801,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 5840
+      },
+      {
+        "claim_id": 859,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "europepmc",
+        "force_package_only": false,
+        "web_search_calls": 1,
+        "input_tokens": 1001
+      },
+      {
+        "claim_id": 1089,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 2615
+      },
+      {
+        "claim_id": 1041,
+        "web_search_proxy": false,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "pubmed+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 2767
+      },
+      {
+        "claim_id": 362,
+        "web_search_proxy": false,
+        "final_verdict": "yanlış",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 2962
+      },
+      {
+        "claim_id": 1297,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 3544
+      },
+      {
+        "claim_id": 857,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 3,
+        "input_tokens": 3218
+      },
+      {
+        "claim_id": 1303,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 1426
+      },
+      {
+        "claim_id": 848,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 2615
+      },
+      {
+        "claim_id": 1115,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 1,
+        "input_tokens": 3181
+      },
+      {
+        "claim_id": 1265,
+        "web_search_proxy": false,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": null,
+        "input_tokens": null
+      },
+      {
+        "claim_id": 744,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 3,
+        "input_tokens": 4989
+      },
+      {
+        "claim_id": 992,
+        "web_search_proxy": true,
+        "final_verdict": "tartışmalı",
+        "retrieval_path": "pubmed+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 3,
+        "input_tokens": 4900
+      },
+      {
+        "claim_id": 1201,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 3175
+      },
+      {
+        "claim_id": 773,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "pubmed+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 6317
+      },
+      {
+        "claim_id": 1071,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 4115
+      },
+      {
+        "claim_id": 1005,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 1125
+      },
+      {
+        "claim_id": 950,
+        "web_search_proxy": true,
+        "final_verdict": "belirsiz",
+        "retrieval_path": "pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 9271
+      },
+      {
+        "claim_id": 1121,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "pubmed_mesh+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": 2,
+        "input_tokens": 8539
+      },
+      {
+        "claim_id": 372,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "topic_cache+pubmed_mesh+europepmc",
+        "force_package_only": false,
+        "web_search_calls": null,
+        "input_tokens": 2937
+      },
+      {
+        "claim_id": 889,
+        "web_search_proxy": true,
+        "final_verdict": "doğrulanmış",
+        "retrieval_path": "topic_cache+pubmed+europepmc+medlineplus",
+        "force_package_only": false,
+        "web_search_calls": null,
+        "input_tokens": 4803
+      }
+    ]
+  },
+  "analysis_c": {
+    "reference_results": [
+      {
+        "claim_id": 752,
+        "expected_tier": "supportive",
+        "before_tier": "none",
+        "after_tier": "none",
+        "before_strong_match": false,
+        "after_strong_match": false,
+        "tier_changed": false,
+        "tier_ok": false,
+        "nli_before": null,
+        "nli_after": null,
+        "chars_before": 0,
+        "chars_after": 0
+      },
+      {
+        "claim_id": 1284,
+        "expected_tier": "direct",
+        "before_tier": "direct",
+        "after_tier": "direct",
+        "before_strong_match": true,
+        "after_strong_match": true,
+        "tier_changed": false,
+        "tier_ok": true,
+        "nli_before": {
+          "nli_label": "SUPPORTS",
+          "nli_confidence": 0.912,
+          "raw": {
+            "sequence": "In light of the fact that the number of elderly citizens in society is steadily increasing, the search for dietary factors which might prolong mental agility is growing in significance. Coffee, together with its main ingredient, caffeine, has been the focus of much attention from various researchers, as data on its beneficial effects on human health continue to accumulate. Most reports indicate that moderate coffee consumption may in fact lower the risk for common neurodegenerative conditions, i.e. Alzheimer's and Parkinson's diseases. Regardless, due to their complex pathogenesis as well as methodology of scientific research, the exact impact of coffee consumption remains to be fully elucidated. At present, it seems safe to inform the general public that coffee drinkers need not fear for their health. Possibly, in the future experts will recommend drinking coffee not only to satisfy individual taste preferences but also to decrease age-related mental deterioration.",
+            "labels": [
+              "destekliyor",
+              "yorum yapmıyor",
+              "çürütüyor"
+            ],
+            "scores": [
+              0.9116960763931274,
+              0.04898325726389885,
+              0.03932073339819908
+            ]
+          }
+        },
+        "nli_after": {
+          "nli_label": "SUPPORTS",
+          "nli_confidence": 0.912,
+          "raw": {
+            "sequence": "In light of the fact that the number of elderly citizens in society is steadily increasing, the search for dietary factors which might prolong mental agility is growing in significance. Coffee, together with its main ingredient, caffeine, has been the focus of much attention from various researchers, as data on its beneficial effects on human health continue to accumulate. Most reports indicate that moderate coffee consumption may in fact lower the risk for common neurodegenerative conditions, i.e. Alzheimer's and Parkinson's diseases. Regardless, due to their complex pathogenesis as well as methodology of scientific research, the exact impact of coffee consumption remains to be fully elucidated. At present, it seems safe to inform the general public that coffee drinkers need not fear for their health. Possibly, in the future experts will recommend drinking coffee not only to satisfy individual taste preferences but also to decrease age-related mental deterioration.",
+            "labels": [
+              "destekliyor",
+              "yorum yapmıyor",
+              "çürütüyor"
+            ],
+            "scores": [
+              0.9116960763931274,
+              0.04898325726389885,
+              0.03932073339819908
+            ]
+          }
+        },
+        "chars_before": 7031,
+        "chars_after": 7031
+      },
+      {
+        "claim_id": 745,
+        "expected_tier": "supportive",
+        "before_tier": "supportive",
+        "after_tier": "supportive",
+        "before_strong_match": false,
+        "after_strong_match": false,
+        "tier_changed": false,
+        "tier_ok": true,
+        "nli_before": {
+          "nli_label": "SUPPORTS",
+          "nli_confidence": 0.733,
+          "raw": {
+            "sequence": "To test the hypothesis that acute hypoglycemia induces endothelial dysfunction and inflammation through the generation of an oxidative stress. Moreover, to test if the antioxidant vitamin C can further improve the protective effects of glucagon-like peptide 1 (GLP-1) on endothelial dysfunction and inflammation during hypoglycemia in type 1 diabetes. A total of 20 type 1 diabetic patients underwent four experiments: a period of 2 h of acute hypoglycemia with or without infusion of GLP-1 or vitamin C or both. At baseline, after 1 and 2 h, glycemia, plasma nitrotyrosine, plasma 8-iso prostaglandin F2a (PGF2a), soluble intracellular adhesion molecule-1a (sICAM-1a), interleukin-6 (IL-6), and flow-mediated vasodilation were measured. At 2 h of hypoglycemia, flow-mediated vasodilation significantly decreased, while sICAM-1, 8-iso-PGF2a, nitrotyrosine, and IL-6 significantly increased. The simultaneous infusion of GLP-1 or vitamin C significantly attenuated all of these phenomena. Vitamin C was more effective. When GLP-1 and vitamin C were infused simultaneously, the deleterious effect of hypoglycemia was almost completely counterbalanced. At 2 h of hypoglycemia, flow-mediated vasodilation significantly decreased, while sICAM-1, 8-iso-PGF2a, nitrotyrosine, and IL-6 significantly increased. The simultaneous infusion of GLP-1 or vitamin C significantly attenuated all of these phenomena. Vitamin C was more effective. When GLP-1 and vitamin C were infused simultaneously, the deleterious effect of hypoglycemia was almost completely counterbalanced. This study shows that vitamin C infusion, during induced acute hypoglycemia, reduces the generation of oxidative stress and inflammation, improving endothelial dysfunction, in type 1 diabetes. Furthermore, the data support a protective ef",
+            "labels": [
+              "destekliyor",
+              "çürütüyor",
+              "yorum yapmıyor"
+            ],
+            "scores": [
+              0.7325693964958191,
+              0.24730455875396729,
+              0.020126042887568474
+            ]
+          }
+        },
+        "nli_after": {
+          "nli_label": "SUPPORTS",
+          "nli_confidence": 0.613,
+          "raw": {
+            "sequence": "This study shows that vitamin C infusion, during induced acute hypoglycemia, reduces the generation of oxidative stress and inflammation, improving endothelial dysfunction, in type 1 diabetes. Furthermore, the data support a protective effect of GLP-1 during acute hypoglycemia, but also suggest the presence of an endothelial resistance to the action of GLP-1, reasonably mediated by oxidative stress. To test the hypothesis that acute hypoglycemia induces endothelial dysfunction and inflammation through the generation of an oxidative stress. Moreover, to test if the antioxidant vitamin C can further improve the protective effects of glucagon-like peptide 1 (GLP-1) on endothelial dysfunction and inflammation during hypoglycemia in type 1 diabetes. A total of 20 type 1 diabetic patients underwent four experiments: a period of 2 h of acute hypoglycemia with or without infusion of GLP-1 or vitamin C or both. At baseline, after 1 and 2 h, glycemia, plasma nitrotyrosine, plasma 8-iso prostaglandin F2a (PGF2a), soluble intracellular adhesion molecule-1a (sICAM-1a), interleukin-6 (IL-6), and flow-mediated vasodilation were measured. At 2 h of hypoglycemia, flow-mediated vasodilation significantly decreased, while sICAM-1, 8-iso-PGF2a, nitrotyrosine, and IL-6 significantly increased. The simultaneous infusion of GLP-1 or vitamin C significantly attenuated all of these phenomena. Vitamin C was more effective. When GLP-1 and vitamin C were infused simultaneously, the deleterious effect of hypoglycemia was almost completely counterbalanced. At 2 h of hypoglycemia, flow-mediated vasodilation significantly decreased, while sICAM-1, 8-iso-PGF2a, nitrotyrosine, and IL-6 significantly increased. The simultaneous infusion of GLP-1 or vitamin C significantly attenuated all of these phenomen",
+            "labels": [
+              "destekliyor",
+              "çürütüyor",
+              "yorum yapmıyor"
+            ],
+            "scores": [
+              0.6128597855567932,
+              0.2576703727245331,
+              0.12946993112564087
+            ]
+          }
+        },
+        "chars_before": 6953,
+        "chars_after": 6953
+      },
+      {
+        "claim_id": 663,
+        "expected_tier": "background",
+        "before_tier": "background",
+        "after_tier": "background",
+        "before_strong_match": false,
+        "after_strong_match": false,
+        "tier_changed": false,
+        "tier_ok": true,
+        "nli_before": {
+          "nli_label": "NOT_ENOUGH_INFO",
+          "nli_confidence": 0.361,
+          "raw": {
+            "sequence": "Ensuring cats consume sufficient water to maintain their health is a common concern for cat owners. Despite the connection between water intake and animal health, the optimal water intake levels for cats are poorly understood. The present scoping review aimed to determine the extent to which cat hydration research has been conducted, the reported average daily water intake of cats, and whether their water intake requirements have been identified. Online databases were used to identify papers published between 1975 and 2025, from which we selected 32 publications written in English that provided the water intake of cats as an outcome variable. Across an assessment of five groups of healthy domestic cats, 23 to 51 mL/kg BW of total water was consumed daily. A further eight papers reported that cats consumed 70 to 293 mL of water daily. Urine specific gravity (USG) was the most reported physiological biomarker used to assess a cat's hydration status and is used to assist in the diagnosis of diabetes insipidus, glomerulonephritis, pyelonephritis, adrenal insufficiency, hepatic disease, and congestive heart failure. USG was frequently measured in conjunction with urine pH, volume (or output), calcium oxalate, struvite, and/or serum biochemistry and a complete blood count to evaluate gross kidney function. The water intake of cats was highly variable within and across studies. Still, it was influenced by factors such as diet format (wet or dry), dietary protein or amino acid content, salt, osmolytes, and water viscosity. The water intake of cats was not affected by fat content or water source type (static or flowing). Healthy cats that consumed 42 to 51 mL/kg BW of total water daily often had a USG <1.035, and this was achieved only when consuming a wet diet or a dry diet wit",
+            "labels": [
+              "yorum yapmıyor",
+              "destekliyor",
+              "çürütüyor"
+            ],
+            "scores": [
+              0.3611604571342468,
+              0.32628124952316284,
+              0.31255829334259033
+            ]
+          }
+        },
+        "nli_after": {
+          "nli_label": "NOT_ENOUGH_INFO",
+          "nli_confidence": 0.402,
+          "raw": {
+            "sequence": "Ensuring cats consume sufficient water to maintain their health is a common concern for cat owners. Despite the connection between water intake and animal health, the optimal water intake levels for cats are poorly understood. The present scoping review aimed to determine the extent to which cat hydration research has been conducted, the reported average daily water intake of cats, and whether their water intake requirements have been identified. Online databases were used to identify papers published between 1975 and 2025, from which we selected 32 publications written in English that provided the water intake of cats as an outcome variable. Across an assessment of five groups of healthy domestic cats, 23 to 51 mL/kg BW of total water was consumed daily. A further eight papers reported that cats consumed 70 to 293 mL of water daily. Urine specific gravity (USG) was the most reported physiological biomarker used to assess a cat's hydration status and is used to assist in the diagnosis of diabetes insipidus, glomerulonephritis, pyelonephritis, adrenal insufficiency, hepatic disease, and congestive heart failure. USG was frequently measured in conjunction with urine pH, volume (or output), calcium oxalate, struvite, and/or serum biochemistry and a complete blood count to evaluate gross kidney function. The water intake of cats was highly variable within and across studies. Five papers reported that healthy cats consumed 23 to 51 mL/kg of their body weight daily, and an additional eight papers reported that cats drank 70.0 to 293.0 mL of total water daily. Water intake did not appear to be affected by the amount of dietary fat or the mode of water delivery. In cats at a high risk of feline lower urinary disease and urolithiasis, consuming 42 to 51 L/kg BW of water may be b",
+            "labels": [
+              "yorum yapmıyor",
+              "destekliyor",
+              "çürütüyor"
+            ],
+            "scores": [
+              0.4016755521297455,
+              0.3140496015548706,
+              0.2842748463153839
+            ]
+          }
+        },
+        "chars_before": 8874,
+        "chars_after": 8143
+      },
+      {
+        "claim_id": 1243,
+        "expected_tier": "background",
+        "before_tier": "none",
+        "after_tier": "none",
+        "before_strong_match": false,
+        "after_strong_match": false,
+        "tier_changed": false,
+        "tier_ok": false,
+        "nli_before": null,
+        "nli_after": null,
+        "chars_before": 0,
+        "chars_after": 0
+      },
+      {
+        "claim_id": 1248,
+        "expected_tier": "background",
+        "before_tier": "background",
+        "after_tier": "background",
+        "before_strong_match": false,
+        "after_strong_match": false,
+        "tier_changed": false,
+        "tier_ok": true,
+        "nli_before": {
+          "nli_label": "SUPPORTS",
+          "nli_confidence": 0.387,
+          "raw": {
+            "sequence": "Older people with hip fractures are often malnourished at the time of fracture, which can have substantial influence on mortality and clinical outcomes, as well as functional outcome and quality of life. A close relationship between protein intake and muscle maintenance has been demonstrated. Skeletal muscle weakness is an independent risk factor for falls and fall-related injuries in the elderly and is an independent marker of prognosis. However, the effect of perioperative nutritional interventions on outcomes in elderly hip-fracture patients remains controversial. In this narrative review, an overview is presented of the existing literature on nutritional status and sarcopenia in elderly hip-fracture patients, clinical outcomes, and the effects of nutritional intervention on outcome and rehabilitation in this patient group.",
+            "labels": [
+              "destekliyor",
+              "çürütüyor",
+              "yorum yapmıyor"
+            ],
+            "scores": [
+              0.3871007263660431,
+              0.3545304834842682,
+              0.2583688199520111
+            ]
+          }
+        },
+        "nli_after": {
+          "nli_label": "SUPPORTS",
+          "nli_confidence": 0.387,
+          "raw": {
+            "sequence": "Older people with hip fractures are often malnourished at the time of fracture, which can have substantial influence on mortality and clinical outcomes, as well as functional outcome and quality of life. A close relationship between protein intake and muscle maintenance has been demonstrated. Skeletal muscle weakness is an independent risk factor for falls and fall-related injuries in the elderly and is an independent marker of prognosis. However, the effect of perioperative nutritional interventions on outcomes in elderly hip-fracture patients remains controversial. In this narrative review, an overview is presented of the existing literature on nutritional status and sarcopenia in elderly hip-fracture patients, clinical outcomes, and the effects of nutritional intervention on outcome and rehabilitation in this patient group.",
+            "labels": [
+              "destekliyor",
+              "çürütüyor",
+              "yorum yapmıyor"
+            ],
+            "scores": [
+              0.3871007263660431,
+              0.3545304834842682,
+              0.2583688199520111
+            ]
+          }
+        },
+        "chars_before": 7928,
+        "chars_after": 7115
+      }
+    ],
+    "n_tier_changed": 0,
+    "critical_broken": [],
+    "package_count_dist": {
+      "5": 84,
+      "4": 3,
+      "1": 2,
+      "2": 1
+    },
+    "package_chars_median": 8166.0,
+    "package_chars_p90": 10572,
+    "snippet_chars_median": 6992.0
+  },
+  "decision_a": "YAP (sync outlier odaklı)",
+  "decision_a_reason": "Batch histogram: 0=6 1=17 2=41 3+=26 (n=90); 3+ arama 29% (26/90); sync outlier 6/6 ≥70K token — max_search_calls=1 outlier maliyetini keser.",
+  "decision_b": "YAPMA",
+  "decision_b_reason": "Override 89% yüksek ama doğrulanmış 36% — web_search değer üretiyor, kör durdurma riskli.",
+  "decision_c": "YAP",
+  "decision_c_reason": "6/6 referans iddiada tier değişmedi — güvenli.",
+  "decision_a_tuple": [
+    "YAP (sync outlier odaklı)",
+    "Batch histogram: 0=6 1=17 2=41 3+=26 (n=90); 3+ arama 29% (26/90); sync outlier 6/6 ≥70K token — max_search_calls=1 outlier maliyetini keser."
+  ],
+  "decision_b_tuple": [
+    "YAPMA",
+    "Override 89% yüksek ama doğrulanmış 36% — web_search değer üretiyor, kör durdurma riskli."
+  ],
+  "decision_c_tuple": [
+    "YAP",
+    "6/6 referans iddiada tier değişmedi — güvenli."
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "seed": [
+    {
+      "claim_id": 362,
+      "topic_key": "pancar",
+      "rows": 5,
+      "source": "pending_batches"
+    }
+  ],
+  "cache_row_count": 5,
+  "test_results": [
+    {
+      "claim_id": 372,
+      "video_id": "QBlBHEf0jm4",
+      "topic_key": "pancar",
+      "entities": [
+        "pancar"
+      ],
+      "claim_snippet": "Büyük üniversiteler MRI (memre) cihazlarıyla pancarın beyin kan akışına etkisini kanıtlamıştır.",
+      "live_only": {
+        "n": 5,
+        "cache_in_pool": 0,
+        "live_in_pool": 5,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "background",
+        "reason": "ok",
+        "urls": [
+          "https://pubmed.ncbi.nlm.nih.gov/39253395/",
+          "https://pubmed.ncbi.nlm.nih.gov/35843050/",
+          "https://pubmed.ncbi.nlm.nih.gov/35268027/",
+          "https://pubmed.ncbi.nlm.nih.gov/40221237/",
+          "https://pubmed.ncbi.nlm.nih.gov/39940251/"
+        ]
+      },
+      "cache_only": {
+        "n": 5,
+        "cache_in_pool": 5,
+        "live_in_pool": 0,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "supportive",
+        "reason": "ok",
+        "urls": [
+          "https://pubmed.ncbi.nlm.nih.gov/1211733/",
+          "https://pubmed.ncbi.nlm.nih.gov/40255544/",
+          "https://pubmed.ncbi.nlm.nih.gov/37048318/",
+          "https://pubmed.ncbi.nlm.nih.gov/40724263/",
+          "https://pubmed.ncbi.nlm.nih.gov/38472804/"
+        ]
+      },
+      "hybrid": {
+        "n": 5,
+        "cache_in_pool": 0,
+        "live_in_pool": 5,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "background",
+        "reason": "ok",
+        "urls": [
+          "https://pubmed.ncbi.nlm.nih.gov/39253395/",
+          "https://pubmed.ncbi.nlm.nih.gov/35843050/",
+          "https://pubmed.ncbi.nlm.nih.gov/35268027/",
+          "https://pubmed.ncbi.nlm.nih.gov/40221237/",
+          "https://pubmed.ncbi.nlm.nih.gov/39940251/"
+        ]
+      },
+      "paths": {
+        "live": "pubmed_mesh+europepmc",
+        "cache": "topic_cache",
+        "hybrid": "topic_cache+pubmed_mesh+europepmc"
+      },
+      "meta": {
+        "cache_candidates_hybrid": 5,
+        "cache_in_final_hybrid": 0
+      },
+      "sufficiency_changed": false
+    },
+    {
+      "claim_id": 889,
+      "video_id": "WtJzVPZroiY",
+      "topic_key": "gfr",
+      "entities": [
+        "gfr"
+      ],
+      "claim_snippet": "40 yaşından sonra glomerüler filtrasyon hızı (GFR) her yıl yaklaşık %1 oranında azalır.",
+      "live_only": {
+        "n": 5,
+        "cache_in_pool": 0,
+        "live_in_pool": 5,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "background",
+        "reason": "ok",
+        "urls": [
+          "https://pubmed.ncbi.nlm.nih.gov/26308416/",
+          "https://pubmed.ncbi.nlm.nih.gov/40663401/",
+          "https://pubmed.ncbi.nlm.nih.gov/29960746/",
+          "https://pubmed.ncbi.nlm.nih.gov/41811969/",
+          "https://pubmed.ncbi.nlm.nih.gov/26123828/"
+        ]
+      },
+      "cache_only": {
+        "n": 0,
+        "cache_in_pool": 0,
+        "live_in_pool": 0,
+        "sufficient": false,
+        "strong_match": false,
+        "specificity_tier": "none",
+        "reason": "no_evidence",
+        "urls": []
+      },
+      "hybrid": {
+        "n": 5,
+        "cache_in_pool": 0,
+        "live_in_pool": 5,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "background",
+        "reason": "ok",
+        "urls": [
+          "https://pubmed.ncbi.nlm.nih.gov/26308416/",
+          "https://pubmed.ncbi.nlm.nih.gov/40663401/",
+          "https://pubmed.ncbi.nlm.nih.gov/29960746/",
+          "https://pubmed.ncbi.nlm.nih.gov/41811969/",
+          "https://pubmed.ncbi.nlm.nih.gov/26123828/"
+        ]
+      },
+      "paths": {
+        "live": "pubmed+europepmc+medlineplus",
+        "cache": "none",
+        "hybrid": "pubmed+europepmc+medlineplus"
+      },
+      "meta": {
+        "cache_candidates_hybrid": 0,
+        "cache_in_final_hybrid": 0
+      },
+      "sufficiency_changed": false
+    },
+    {
+      "claim_id": 907,
+      "video_id": "WtJzVPZroiY",
+      "topic_key": "potasyum,salatalık",
+      "entities": [
+        "potasyum",
+        "salatalık"
+      ],
+      "claim_snippet": "Salatalığın yüksek su ve potasyum içeriği fazla tuzu dengeler ve içindeki silika bağ dokusunu güçlen",
+      "live_only": {
+        "n": 5,
+        "cache_in_pool": 0,
+        "live_in_pool": 5,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "background",
+        "reason": "ok",
+        "urls": [
+          "https://medlineplus.gov/potassium.html",
+          "https://medlineplus.gov/minerals.html",
+          "https://pubmed.ncbi.nlm.nih.gov/41053195/",
+          "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "https://medlineplus.gov/radiationexposure.html"
+        ]
+      },
+      "cache_only": {
+        "n": 0,
+        "cache_in_pool": 0,
+        "live_in_pool": 0,
+        "sufficient": false,
+        "strong_match": false,
+        "specificity_tier": "none",
+        "reason": "no_evidence",
+        "urls": []
+      },
+      "hybrid": {
+        "n": 5,
+        "cache_in_pool": 0,
+        "live_in_pool": 5,
+        "sufficient": true,
+        "strong_match": false,
+        "specificity_tier": "background",
+        "reason": "ok",
+        "urls": [
+          "https://medlineplus.gov/potassium.html",
+          "https://medlineplus.gov/minerals.html",
+          "https://pubmed.ncbi.nlm.nih.gov/41053195/",
+          "https://medlineplus.gov/howtopreventhighbloodpressure.html",
+          "https://medlineplus.gov/radiationexposure.html"
+        ]
+      },
+      "paths": {
+        "live": "europepmc+medlineplus",
+        "cache": "none",
+        "hybrid": "europepmc+medlineplus"
+      },
+      "meta": {
+        "cache_candidates_hybrid": 0,
+        "cache_in_final_hybrid": 0
+      },
+      "sufficiency_changed": false
+    }
+  ]
+}

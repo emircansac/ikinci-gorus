@@ -138,3 +138,19 @@ CREATE TABLE IF NOT EXISTS verified_claim_library (
     origin_claim_id   INTEGER,
     created_at        TEXT DEFAULT (datetime('now'))
 );
+
+-- Topic evidence cache (kanıt only — verdict taşımaz)
+CREATE TABLE IF NOT EXISTS evidence_topic_cache (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    topic_key           TEXT NOT NULL,
+    source_url          TEXT NOT NULL,
+    title               TEXT,
+    abstract            TEXT,
+    source_tier         TEXT,
+    retrieval_tier      TEXT,
+    publication_types   TEXT,
+    fetched_at          TEXT DEFAULT (datetime('now')),
+    origin_claim_id     INTEGER,
+    UNIQUE(topic_key, source_url)
+);
+CREATE INDEX IF NOT EXISTS idx_topic_cache_key ON evidence_topic_cache(topic_key);

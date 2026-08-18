@@ -8,7 +8,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.claude_client import (
     escalate_factcheck,
     build_batch_request,
+    web_search_tool,
     WEB_SEARCH_TOOL,
+    resolve_max_search_calls,
     SUPPORTIVE_PACKAGE_NOTE,
     NO_DIRECT_EVIDENCE_NOTE,
     _format_evidence_package,
@@ -309,3 +311,26 @@ def test_escalate_passes_component_map_into_user_message(monkeypatch):
     assert "Bileşen kanıt haritası" in content
     assert "tier=supportive" in content
     assert "tier=none" in content
+
+
+def test_resolve_max_search_calls_defaults():
+    assert resolve_max_search_calls(initial_risk="medium", nli_label="SUPPORTS") == 1
+    assert resolve_max_search_calls(initial_risk="high") == 3
+    assert resolve_max_search_calls(initial_risk="low", nli_label="REFUTES") == 2
+
+
+def test_escalate_passes_max_uses_on_web_search(monkeypatch):
+    captured = {}
+
+    def fake_call(**kwargs):
+        captured.update(kwargs)
+        return _fake_resp()
+
+    monkeypatch.setattr("utils.claude_client._call_with_retry", fake_call)
+    escalate_factcheck("test claim", evidence=[], max_search_calls=2)
+    assert captured["tools"] == [web_search_tool(2)]
+
+
+def test_batch_request_includes_max_uses():
+    req = build_batch_request(99, "test", evidence=[], max_search_calls=1)
+    assert req["params"]["tools"] == [web_search_tool(1)]

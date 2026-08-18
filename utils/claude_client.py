@@ -24,6 +24,7 @@ from utils.claim_dedup import (
     dedupe_claims_local,
     dedupe_pipeline,
 )
+from utils.evidence_retrieval import best_evidence_snippet
 
 EXTRACTION_CHUNKS_DIR = Path(__file__).parent.parent / "data" / "extraction_chunks"
 SAVE_EXTRACTION_CHUNKS = os.environ.get("SAVE_EXTRACTION_CHUNKS", "").lower() in ("1", "true", "yes")
@@ -40,8 +41,50 @@ CLAIM_EXTRACTION_MAX_TOKENS = int(os.environ.get("CLAIM_MAX_TOKENS", "8192"))
 MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
 
 MAX_RETRIES = 3
-WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search"}
+DEFAULT_MAX_SEARCH_CALLS = 1
 BATCH_CUSTOM_ID_RE = re.compile(r"^[a-zA-Z0-9_-]{1,64}$")
+
+
+def web_search_tool(max_uses: int = DEFAULT_MAX_SEARCH_CALLS) -> dict:
+    """Anthropic web_search aracı; max_uses API düzeyinde arama üst sınırı."""
+    tool = {"type": "web_search_20250305", "name": "web_search"}
+    if max_uses is not None and max_uses > 0:
+        tool["max_uses"] = int(max_uses)
+    return tool
+
+
+# Geriye uyumluluk (testler / eski import)
+WEB_SEARCH_TOOL = web_search_tool(DEFAULT_MAX_SEARCH_CALLS)
+
+
+def resolve_max_search_calls(
+    *,
+    initial_risk: str | None = None,
+    nli_label: str | None = None,
+) -> int:
+    """Faz 0: varsayılan 1; yüksek risk veya NLI REFUTES → daha fazla arama."""
+    if (initial_risk or "").strip() == "high":
+        return 3
+    if (nli_label or "").strip() == "REFUTES":
+        return 2
+    return DEFAULT_MAX_SEARCH_CALLS
+
+
+def count_web_search_calls(message) -> int:
+    """message.content içindeki web_search tool_use / server_tool_use sayısı."""
+    content = getattr(message, "content", None)
+    if content is None and isinstance(message, dict):
+        content = message.get("content") or []
+    count = 0
+    for block in content or []:
+        btype = getattr(block, "type", None)
+        name = getattr(block, "name", None)
+        if btype is None and isinstance(block, dict):
+            btype = block.get("type")
+            name = block.get("name")
+        if btype in ("tool_use", "server_tool_use") and name == "web_search":
+            count += 1
+    return count
 
 
 def _cached_system(text: str) -> list[dict]:
@@ -459,7 +502,13 @@ def _format_evidence_package(
     for i, item in enumerate(evidence, 1):
         title = (item.get("title") or "").strip()
         url = (item.get("url") or "").strip()
-        abstract = (item.get("abstract") or "").strip()[:900]
+        abstract_raw = (item.get("abstract") or "").strip()
+        if abstract_raw:
+            abstract = best_evidence_snippet(claim_text, abstract_raw)
+            if len(abstract) > 4500:
+                abstract = abstract[:4500] + "…"
+        else:
+            abstract = ""
         lines.append(f"[{i}] {title}")
         lines.append(f"    url: {url}")
         r_tier = (item.get("retrieval_tier") or "").strip()
@@ -560,6 +609,7 @@ def build_escalate_params(
     epistemic_class: str | None = None,
     json_retry: bool = False,
     component_evidence_map: dict | None = None,
+    max_search_calls: int | None = DEFAULT_MAX_SEARCH_CALLS,
 ) -> dict:
     """Messages API params — senkron ve Batch aynı gövdeyi kullanır."""
     package = list(evidence or [])[:5]
@@ -581,7 +631,7 @@ def build_escalate_params(
         "thinking": {"type": "disabled"},
     }
     if not force_package_only:
-        params["tools"] = [WEB_SEARCH_TOOL]
+        params["tools"] = [web_search_tool(max_search_calls or DEFAULT_MAX_SEARCH_CALLS)]
     return params
 
 
@@ -594,6 +644,7 @@ def build_batch_request(
     specificity_tier: str | None = None,
     epistemic_class: str | None = None,
     component_evidence_map: dict | None = None,
+    max_search_calls: int | None = DEFAULT_MAX_SEARCH_CALLS,
 ) -> dict:
     """Anthropic Message Batches öğesi: {custom_id, params}."""
     custom_id = str(claim_id)
@@ -605,6 +656,7 @@ def build_batch_request(
             claim_text, evidence, force_package_only=force_package_only,
             specificity_tier=specificity_tier, epistemic_class=epistemic_class,
             component_evidence_map=component_evidence_map,
+            max_search_calls=max_search_calls,
         ),
     }
 
@@ -666,6 +718,7 @@ def escalate_with_parse_retry(
     specificity_tier: str | None = None,
     epistemic_class: str | None = None,
     component_evidence_map: dict | None = None,
+    max_search_calls: int | None = DEFAULT_MAX_SEARCH_CALLS,
 ) -> tuple[dict, dict]:
     """
     İlk parse başarısızsa aynı kanıt paketiyle temperature=0 JSON-only retry.
@@ -678,18 +731,24 @@ def escalate_with_parse_retry(
         specificity_tier=specificity_tier,
         epistemic_class=epistemic_class,
         component_evidence_map=component_evidence_map,
+        max_search_calls=max_search_calls,
     )
     params = build_escalate_params(**kw)
     max_tokens = params["max_tokens"]
+    search_calls = 0
     if message is not None:
         resp = message
         usage = _usage_dict(getattr(message, "usage", None))
+        search_calls += count_web_search_calls(message)
     else:
         resp = _call_with_retry(**params)
         usage = _usage_dict(getattr(resp, "usage", None))
+        search_calls += count_web_search_calls(resp)
 
     result = parse_escalate_response(resp, max_tokens=max_tokens)
     if not result.get("parse_failed"):
+        result["web_search_call_count"] = search_calls
+        result["max_search_calls"] = max_search_calls
         return result, usage
 
     first_category = result.get("parse_failure_category")
@@ -700,12 +759,15 @@ def escalate_with_parse_retry(
     retry_params = build_escalate_params(**kw, json_retry=True)
     retry_resp = _call_with_retry(**retry_params)
     usage = _merge_usage(usage, _usage_dict(getattr(retry_resp, "usage", None)))
+    search_calls += count_web_search_calls(retry_resp)
     retry_result = parse_escalate_response(
         retry_resp, max_tokens=retry_params["max_tokens"]
     )
     retry_result["parse_retry"] = True
     retry_result["parse_retry_first_category"] = first_category
     retry_result["parse_retry_succeeded"] = not retry_result.get("parse_failed")
+    retry_result["web_search_call_count"] = search_calls
+    retry_result["max_search_calls"] = max_search_calls
     return retry_result, usage
 
 
@@ -717,6 +779,7 @@ def escalate_factcheck(
     specificity_tier: str | None = None,
     epistemic_class: str | None = None,
     component_evidence_map: dict | None = None,
+    max_search_calls: int | None = DEFAULT_MAX_SEARCH_CALLS,
 ) -> dict:
     """
     NLI ilk filtresi 'belirsiz'/'düşük güven' dediğinde, ya da initial_risk=high
@@ -736,6 +799,7 @@ def escalate_factcheck(
         specificity_tier=specificity_tier,
         epistemic_class=epistemic_class,
         component_evidence_map=component_evidence_map,
+        max_search_calls=max_search_calls,
     )
     return result
 
