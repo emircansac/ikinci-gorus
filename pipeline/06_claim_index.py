@@ -129,27 +129,35 @@ def build_flat_index(conn) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
-def build_narrative_clusters(df: pd.DataFrame, method: str = "embedding") -> pd.DataFrame:
+def build_narrative_clusters(df: pd.DataFrame, method: str = "embedding") -> tuple[pd.DataFrame, str]:
     """
     Farklı kanallardaki BENZER iddiaları kümeler. Tek kanaldaki tek iddiadan çok,
     aynı yanlış anlatının kaç farklı kanalda tekrarlandığı asıl haber değeridir.
+
+    Dönüş: (clusters_df, embedding_clustering_status) — status "ok" | "failed: <sebep>"
+    (lexical fallback varsa `; lexical_fallback` eklenir).
     """
     scoreable = df[df["suspicion_score"].notna()].to_dict("records")
+    clustering_status = "ok"
     if method == "embedding":
-        clusters = get_cluster_members_embedding(
+        clusters, emb_status = get_cluster_members_embedding(
             scoreable, id_key="claim_id", text_key="claim_text",
             threshold=0.80,
         )
+        clustering_status = emb_status
         if not clusters:
             clusters = get_cluster_members(
                 scoreable, id_key="claim_id", text_key="claim_text",
                 threshold=CLAIM_CLUSTER_THRESHOLD,
             )
+            if str(emb_status).startswith("failed"):
+                clustering_status = f"{emb_status}; lexical_fallback"
     else:
         clusters = get_cluster_members(
             scoreable, id_key="claim_id", text_key="claim_text",
             threshold=CLAIM_CLUSTER_THRESHOLD,
         )
+        clustering_status = "ok (sequence/lexical)"
 
     cluster_rows = []
     for members in clusters:
@@ -172,8 +180,11 @@ def build_narrative_clusters(df: pd.DataFrame, method: str = "embedding") -> pd.
 
     cols = ["representative_claim", "channels_affected", "channel_names", "member_count",
             "avg_suspicion_score", "priority_score", "example_claim_ids"]
-    return pd.DataFrame(cluster_rows, columns=cols).sort_values("priority_score", ascending=False) if cluster_rows \
-        else pd.DataFrame(columns=cols)
+    df_out = (
+        pd.DataFrame(cluster_rows, columns=cols).sort_values("priority_score", ascending=False)
+        if cluster_rows else pd.DataFrame(columns=cols)
+    )
+    return df_out, clustering_status
 
 
 def build_video_index(conn, claims_df: pd.DataFrame) -> pd.DataFrame:
@@ -283,9 +294,13 @@ def main():
     active.to_csv(index_path, index=False)
     archived.to_csv(archive_path, index=False)
 
-    clusters_df = build_narrative_clusters(df, method=args.cluster_method)
+    clusters_df, clustering_status = build_narrative_clusters(df, method=args.cluster_method)
     clusters_path = export_dir / "narrative_clusters.csv"
     clusters_df.to_csv(clusters_path, index=False)
+
+    sidecar = Path(__file__).parent.parent / "data" / "ops_reports" / "embedding_clustering_status.txt"
+    sidecar.parent.mkdir(parents=True, exist_ok=True)
+    sidecar.write_text(clustering_status + "\n", encoding="utf-8")
 
     videos_df = build_video_index(conn, df)
     conn.close()
@@ -296,6 +311,7 @@ def main():
     print(f"[claim_index] {len(archived)} arşiv iddia -> {archive_path}")
     print(f"[claim_index] {len(unscored)} veri_eksik/henüz işlenmemiş (toplam {len(df)})")
     print(f"[claim_index] {len(clusters_df)} çapraz-kanal anlatı kümesi bulundu -> {clusters_path}")
+    print(f"[claim_index] embedding_clustering_status={clustering_status} -> {sidecar}")
     print(f"[claim_index] {len(videos_df)} video indekslendi -> {videos_path}")
 
     if not scored.empty:

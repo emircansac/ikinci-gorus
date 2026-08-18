@@ -11,6 +11,7 @@ from utils.factcheck_review import (
     COMPOUND_TIER_MISMATCH_FLAG,
     review_flags,
     VERDICT_REASONING_MISMATCH_FLAG,
+    security_risk_triggers,
 )
 
 
@@ -175,3 +176,74 @@ def test_compound_same_tier_no_cap():
     }
     assert not apply_compound_component_cap(final, component_map)
     assert final["final_verdict"] == "doğrulanmış"
+
+
+def test_compound_tier_mismatch_blocks_auto_accept_without_package_only():
+    """Farklı-tier bileşik, package_only_forced YOK → auto_accepted=0."""
+    final = {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.82,
+        "reasoning": "Her iki hastalık için destek var.",
+        "calibration_flags": "",
+    }
+    component_map = {
+        "components": [
+            {"text": "Ölçülü kahve tüketimi Alzheimer", "tier": "supportive", "kept": 3},
+            {"text": "Parkinson riskini azaltır", "tier": "direct", "kept": 2},
+        ]
+    }
+    assert apply_compound_component_cap(final, component_map)
+    assert COMPOUND_TIER_MISMATCH_FLAG in final["calibration_flags"]
+    assert "package_only_forced" not in (final.get("calibration_flags") or "")
+    triggers = security_risk_triggers(
+        category="diğer",
+        initial_risk="low",
+        claim_text="Ölçülü kahve Alzheimer ve Parkinson riskini azaltır.",
+        calibration_flags=final.get("calibration_flags"),
+    )
+    assert "compound_tier_mismatch" in triggers
+    needs_human = compute_needs_human(
+        category="diğer",
+        initial_risk="low",
+        claim_text="Ölçülü kahve Alzheimer ve Parkinson riskini azaltır.",
+        parse_failed=False,
+        final_verdict=final["final_verdict"],
+        escalated_flag=1,
+        calibrated={"needs_human": False},
+        source_directness="direct",
+        calibration_flags=final.get("calibration_flags"),
+    )
+    assert needs_human
+    _, auto_accepted = review_flags(needs_human=needs_human)
+    assert auto_accepted == 0
+
+
+def test_compound_same_tier_auto_accept_unchanged():
+    """Aynı-tier bileşik → cap yok, auto-accept adayı değişmez."""
+    final = {
+        "final_verdict": "doğrulanmış",
+        "confidence": 0.82,
+        "reasoning": "Her iki bileşen direct.",
+        "calibration_flags": "",
+    }
+    component_map = {
+        "components": [
+            {"text": "A", "tier": "direct", "kept": 2},
+            {"text": "B", "tier": "direct", "kept": 2},
+        ]
+    }
+    assert not apply_compound_component_cap(final, component_map)
+    needs_human = compute_needs_human(
+        category="diğer",
+        initial_risk="low",
+        claim_text="test",
+        parse_failed=False,
+        final_verdict=final["final_verdict"],
+        escalated_flag=0,
+        calibrated={},
+        source_directness="direct",
+        calibration_flags=final.get("calibration_flags"),
+    )
+    assert not needs_human
+    _, auto_accepted = review_flags(needs_human=needs_human)
+    assert auto_accepted == 1

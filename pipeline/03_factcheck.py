@@ -75,7 +75,7 @@ from utils.factcheck_review import (
     review_flags as _review_flags,
     PACKAGE_ONLY_FORCED_FLAG,
 )
-from utils.reviewer_summary import would_auto_accept_v1
+from utils.reviewer_summary import would_auto_accept_v1, compute_shadow_human_gates
 
 ROOT = Path(__file__).parent.parent
 DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
@@ -91,6 +91,8 @@ __all__ = [
 
 
 def _append_debug_log(record: dict) -> None:
+    if "logged_at" not in record:
+        record["logged_at"] = datetime.now(timezone.utc).isoformat()
     DEBUG_LOG.parent.mkdir(parents=True, exist_ok=True)
     with DEBUG_LOG.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
@@ -194,23 +196,35 @@ def _shadow_row(
 
 def _write_verdict(conn, *, claim_id, nli_label, nli_conf, nli_snippet, escalated_flag,
                    final, human_reviewed, auto_accepted, library_match,
-                   shadow_row: dict | None = None) -> None:
+                   shadow_row: dict | None = None, needs_human: bool = False) -> None:
     would_accept, would_reason = (
         would_auto_accept_v1(shadow_row) if shadow_row else (False, "shadow_context_missing")
+    )
+    gates = compute_shadow_human_gates(
+        final_verdict=final.get("final_verdict"),
+        confidence=final.get("confidence"),
+        calibration_flags=final.get("calibration_flags"),
+        needs_human=needs_human,
     )
     conn.execute("""
         INSERT OR REPLACE INTO verdicts (claim_id, nli_label, nli_confidence, nli_evidence_snippet,
                                escalated, final_verdict, confidence, source_url,
                                reasoning, source_directness, evidence_stance, source_tier,
                                calibration_flags, human_reviewed, auto_accepted, library_match,
-                               would_auto_accept_v1, would_auto_accept_reason)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                               would_auto_accept_v1, would_auto_accept_reason,
+                               would_require_human_verdict_gate, would_require_human_confidence_gate,
+                               would_require_human_compound_gate, would_auto_accept_after_all_gates)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (claim_id, nli_label, nli_conf, nli_snippet, escalated_flag,
           final["final_verdict"], final["confidence"], final["source_url"],
           final["reasoning"], final["source_directness"], final["evidence_stance"],
           final["source_tier"], final["calibration_flags"],
           human_reviewed, auto_accepted, library_match,
-          1 if would_accept else 0, would_reason or None))
+          1 if would_accept else 0, would_reason or None,
+          gates["would_require_human_verdict_gate"],
+          gates["would_require_human_confidence_gate"],
+          gates["would_require_human_compound_gate"],
+          gates["would_auto_accept_after_all_gates"]))
     conn.commit()
 
 
@@ -328,6 +342,7 @@ def _finalize_escalated(
         human_reviewed=human_reviewed,
         auto_accepted=auto_accepted,
         library_match=library_match,
+        needs_human=needs_human,
         shadow_row=_shadow_row(
             claim_text=claim_text,
             category=category,
@@ -595,6 +610,8 @@ def main():
         nli_check, should_escalate = _nli_check, _should_escalate
 
     ok, failed = 0, 0
+    retrieval_failed = 0
+    retrieval_failed_ids: list[int] = []
     batch_jobs: list[dict] = []
     for row in rows:
         claim_id, claim_text, search_query_en, category, initial_risk = (
@@ -673,6 +690,7 @@ def main():
                 human_reviewed=human_reviewed,
                 auto_accepted=auto_accepted,
                 library_match=library_match,
+                needs_human=needs_human,
                 shadow_row=_shadow_row(
                     claim_text=claim_text,
                     category=category,
@@ -719,6 +737,7 @@ def main():
                     human_reviewed=human_reviewed,
                     auto_accepted=auto_accepted,
                     library_match=0,
+                    needs_human=needs_human,
                     shadow_row=_shadow_row(
                         claim_text=claim_text,
                         category=category,
@@ -733,12 +752,24 @@ def main():
                 print(f"  [{claim_id}] {final['final_verdict']} ({final.get('source_tier')}) {flag}")
                 continue
 
-        evidence, retrieval_path, retrieval_meta = retrieve_hybrid_evidence(
-            claim_text,
-            search_query_en=search_query_en,
-            category=category,
-            origin_claim_id=claim_id,
-        )
+        try:
+            evidence, retrieval_path, retrieval_meta = retrieve_hybrid_evidence(
+                claim_text,
+                search_query_en=search_query_en,
+                category=category,
+                origin_claim_id=claim_id,
+            )
+        except Exception as e:
+            print(f"  [{claim_id}] !! retrieval hatası, atlandı (tekrar denenecek): {e}")
+            _append_debug_log({
+                "claim_id": claim_id,
+                "claim_text": claim_text,
+                "retrieval_failed": True,
+                "error": str(e),
+            })
+            retrieval_failed += 1
+            retrieval_failed_ids.append(int(claim_id))
+            continue
         if retrieval_meta.get("cache_candidates"):
             print(
                 f"[evidence] topic_cache: {retrieval_meta['cache_candidates']} aday "
@@ -920,6 +951,7 @@ def main():
             human_reviewed=human_reviewed,
             auto_accepted=auto_accepted,
             library_match=library_match,
+            needs_human=needs_human,
             shadow_row=_shadow_row(
                 claim_text=claim_text,
                 category=category,
@@ -950,6 +982,9 @@ def main():
         _flush_batch_submit(batch_jobs, args)
 
     print(f"\n[factcheck] {ok} iddia işlendi, {failed} iddia hata verdi (tekrar denenecek).")
+    if retrieval_failed:
+        ids_s = ", ".join(str(i) for i in retrieval_failed_ids)
+        print(f"[factcheck] {retrieval_failed} iddia retrieval hatasıyla atlandı: [{ids_s}]")
     print(f"[factcheck] ham reasoning -> {DEBUG_LOG}")
 
     conn.close()

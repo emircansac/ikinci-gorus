@@ -44,6 +44,8 @@ def security_risk_triggers(
         triggers.append("verdict_reasoning_mismatch")
     if PACKAGE_ONLY_FORCED_FLAG in flags:
         triggers.append("package_only_forced")
+    if COMPOUND_TIER_MISMATCH_FLAG in flags:
+        triggers.append("compound_tier_mismatch")
     return triggers
 
 
@@ -118,6 +120,7 @@ def compute_needs_human(
         or ("library_flag_review" in flags)
         or (VERDICT_REASONING_MISMATCH_FLAG in flags)
         or (PACKAGE_ONLY_FORCED_FLAG in flags)
+        or (COMPOUND_TIER_MISMATCH_FLAG in flags)
     )
 
 

@@ -11,6 +11,7 @@ from utils.factcheck_review import (
     HIGH_RISK_HUMAN_REVIEW_CATEGORIES,
     VERDICT_REASONING_MISMATCH_FLAG,
     PACKAGE_ONLY_FORCED_FLAG,
+    COMPOUND_TIER_MISMATCH_FLAG,
     is_drug_interaction_claim,
 )
 from utils.reasoning_patterns import PARTIAL_REASONING_RE
@@ -461,6 +462,45 @@ def would_auto_accept_v1(claim_row: dict) -> tuple[bool, str]:
         return False, "check_point:not_generic_fallback"
 
     return True, ""
+
+
+SHADOW_HUMAN_VERDICTS = frozenset({"tartışmalı", "belirsiz"})
+SHADOW_CONFIDENCE_GATE = 0.7
+
+
+def compute_shadow_human_gates(
+    *,
+    final_verdict: str | None,
+    confidence,
+    calibration_flags: str | None,
+    needs_human: bool,
+) -> dict[str, int]:
+    """
+    Shadow-only insan-onayı kapıları — üretim auto_accepted/needs_human DEĞİŞTİRMEZ.
+
+    would_require_human_compound_gate: flag var ama mevcut needs_human yakalamıyor
+    (madde 2 sonrası 0 çıkmalı; regresyon kanıtı).
+    """
+    flags = _parse_flags(calibration_flags)
+    verdict_gate = (final_verdict or "") in SHADOW_HUMAN_VERDICTS
+    try:
+        conf = float(confidence) if confidence is not None else None
+    except (TypeError, ValueError):
+        conf = None
+    confidence_gate = conf is not None and conf < SHADOW_CONFIDENCE_GATE
+    compound_gate = (COMPOUND_TIER_MISMATCH_FLAG in flags) and (not needs_human)
+    would_accept = (
+        (not verdict_gate)
+        and (not confidence_gate)
+        and (not compound_gate)
+        and (not needs_human)
+    )
+    return {
+        "would_require_human_verdict_gate": int(verdict_gate),
+        "would_require_human_confidence_gate": int(confidence_gate),
+        "would_require_human_compound_gate": int(compound_gate),
+        "would_auto_accept_after_all_gates": int(would_accept),
+    }
 
 
 def build_reviewer_summary(claim_row: dict) -> dict:

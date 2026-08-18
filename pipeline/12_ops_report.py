@@ -171,6 +171,35 @@ def _estimate_cost_usd(usage: dict | None, *, batch: bool) -> float | None:
     return inp * PRICE_SYNC_IN + out * PRICE_SYNC_OUT
 
 
+def _percentile(xs: list[float], p: float) -> float | None:
+    """Doğrusal interpolasyon; p in [0, 1]."""
+    if not xs:
+        return None
+    s = sorted(xs)
+    if len(s) == 1:
+        return float(s[0])
+    k = (len(s) - 1) * p
+    lo = int(k)
+    hi = min(lo + 1, len(s) - 1)
+    if lo == hi:
+        return float(s[lo])
+    frac = k - lo
+    return float(s[lo] + (s[hi] - s[lo]) * frac)
+
+
+def _embedding_clustering_status() -> str:
+    sidecar = OUT_DIR / "embedding_clustering_status.txt"
+    if sidecar.is_file():
+        text = sidecar.read_text(encoding="utf-8").strip()
+        if text:
+            return text
+    try:
+        import sentence_transformers  # noqa: F401
+    except ImportError as exc:
+        return f"failed: {exc}"
+    return "ok (probe: sentence-transformers import; sidecar yok — 06_claim_index çalıştırın)"
+
+
 def _offline_dedup_path(video_id: str) -> Path | None:
     p = ROOT / "data" / f"smoke_{video_id}" / "offline_dedup.json"
     return p if p.is_file() else None
@@ -269,7 +298,7 @@ def _fetch_claim_rows(
     if id_filters:
         clauses.append("(" + " OR ".join(id_filters) + ")")
     else:
-        clauses.append("v.claim_id IS NOT NULL")
+        clauses.append("vr.claim_id IS NOT NULL")
 
     if since:
         clauses.append("date(COALESCE(vr.verified_at, c.extracted_at)) >= date(?)")
@@ -286,6 +315,8 @@ def _fetch_claim_rows(
             vr.evidence_stance, vr.source_tier, vr.calibration_flags,
             vr.human_reviewed, vr.auto_accepted, vr.library_match,
             vr.would_auto_accept_v1, vr.would_auto_accept_reason,
+            vr.would_require_human_verdict_gate, vr.would_require_human_confidence_gate,
+            vr.would_require_human_compound_gate, vr.would_auto_accept_after_all_gates,
             vr.verified_at, vr.nli_label, vr.nli_confidence, vr.reasoning
         FROM claims c
         LEFT JOIN verdicts vr ON vr.claim_id = c.claim_id
@@ -348,6 +379,19 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
     costs: list[float] = []
     cost_sources = Counter()
     cache_retrieval_n = cache_hit_n = 0
+    search_counts: list[float] = []
+    retrieval_failed_n = 0
+    compound_mismatch_n = 0
+    shadow_accept_n = 0
+    shadow_verdict_n = 0
+    shadow_conf_n = 0
+    shadow_compound_n = 0
+
+    for r in rows:
+        cid = int(r["claim_id"])
+        rec = debug.get(cid)
+        if rec and rec.get("retrieval_failed"):
+            retrieval_failed_n += 1
 
     for r in verdicted:
         cid = int(r["claim_id"])
@@ -419,6 +463,23 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
 
         wa = int(r.get("would_auto_accept_v1") or 0)
         auto_accept["true" if wa else "false"] += 1
+        if int(r.get("would_auto_accept_after_all_gates") or 0):
+            shadow_accept_n += 1
+        if int(r.get("would_require_human_verdict_gate") or 0):
+            shadow_verdict_n += 1
+        if int(r.get("would_require_human_confidence_gate") or 0):
+            shadow_conf_n += 1
+        if int(r.get("would_require_human_compound_gate") or 0):
+            shadow_compound_n += 1
+        flag_set = {f.strip() for f in flags.split(",") if f.strip()}
+        if "compound_tier_mismatch" in flag_set:
+            compound_mismatch_n += 1
+
+        if rec and rec.get("web_search_call_count") is not None:
+            try:
+                search_counts.append(float(rec["web_search_call_count"]))
+            except (TypeError, ValueError):
+                pass
 
         usage = batch_usage.get(cid) or (rec or {}).get("usage")
         is_batch = cid in batch_usage or bool(
@@ -465,6 +526,21 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
         "avg_cost_usd": sum(costs) / len(costs) if costs else None,
         "n_cost_samples": len(costs),
         "cost_sources": dict(cost_sources),
+        "cost_p50": _percentile(costs, 0.50),
+        "cost_p90": _percentile(costs, 0.90),
+        "cost_p95": _percentile(costs, 0.95),
+        "cost_max": max(costs) if costs else None,
+        "search_p50": _percentile(search_counts, 0.50),
+        "search_p95": _percentile(search_counts, 0.95),
+        "search_max": max(search_counts) if search_counts else None,
+        "n_search_samples": len(search_counts),
+        "retrieval_failed_n": retrieval_failed_n,
+        "compound_tier_mismatch_n": compound_mismatch_n,
+        "would_auto_accept_after_all_gates_n": shadow_accept_n,
+        "would_require_human_verdict_gate_n": shadow_verdict_n,
+        "would_require_human_confidence_gate_n": shadow_conf_n,
+        "would_require_human_compound_gate_n": shadow_compound_n,
+        "embedding_clustering_status": _embedding_clustering_status(),
         "escalated_0_n": esc0_n,
         "would_auto_accept_v1": dict(auto_accept),
         "source_tier": dict(source_tier),
@@ -537,13 +613,10 @@ def _find_previous_report_file(report_dir: Path, before: date) -> Path | None:
     return prev_file
 
 
-def _load_previous_metrics(report_dir: Path, before: date) -> dict[str, float]:
-    """Önceki rapor tablosundan sayısal metrikleri çıkar."""
-    prev_file = _find_previous_report_file(report_dir, before)
-    if not prev_file:
+def _metrics_from_report_file(path: Path) -> dict[str, float]:
+    if not path.is_file():
         return {}
-
-    text = prev_file.read_text(encoding="utf-8")
+    text = path.read_text(encoding="utf-8")
     mapping: dict[str, float] = {}
     for line in text.splitlines():
         m = _VALUE_RE.match(line.strip())
@@ -554,6 +627,14 @@ def _load_previous_metrics(report_dir: Path, before: date) -> dict[str, float]:
         if parsed is not None:
             mapping[metric] = parsed
     return mapping
+
+
+def _load_previous_metrics(report_dir: Path, before: date) -> dict[str, float]:
+    """Önceki rapor tablosundan sayısal metrikleri çıkar."""
+    prev_file = _find_previous_report_file(report_dir, before)
+    if not prev_file:
+        return {}
+    return _metrics_from_report_file(prev_file)
 
 
 def _parse_failed_for_row(r: dict, rec: dict | None) -> bool:
@@ -781,6 +862,42 @@ def _render_report(
         f"| $/claim (tahmini) | {cost_val} | "
         f"{_fmt_delta(metrics.get('avg_cost_usd'), prev.get('$/claim (tahmini)'), is_money=True)} |"
     )
+    def _money(v):
+        return f"${v:.4f}" if v is not None else "—"
+
+    cost_spread = (
+        f"p50 {_money(metrics.get('cost_p50'))} / p90 {_money(metrics.get('cost_p90'))} / "
+        f"p95 {_money(metrics.get('cost_p95'))} / max {_money(metrics.get('cost_max'))}"
+        if metrics.get("n_cost_samples")
+        else "—"
+    )
+    lines.append(f"| $/claim p50/p90/p95/max | {cost_spread} | — |")
+    search_spread = (
+        f"p50 {_num(metrics.get('search_p50'), 1)} / p95 {_num(metrics.get('search_p95'), 1)} / "
+        f"max {_num(metrics.get('search_max'), 1)} (n={metrics.get('n_search_samples')})"
+        if metrics.get("n_search_samples")
+        else "—"
+    )
+    lines.append(f"| web_search_call_count p50/p95/max | {search_spread} | — |")
+    lines.append(f"| processed (verdict almış) | {metrics['n_verdicts']} | — |")
+    lines.append(f"| parse_failed | {metrics['parse_fail_n']} | — |")
+    lines.append(f"| retrieval_failed | {metrics.get('retrieval_failed_n', 0)} | — |")
+    lines.append(
+        f"| compound_tier_mismatch sayısı | {metrics.get('compound_tier_mismatch_n', 0)} | — |"
+    )
+    lines.append(
+        f"| would_auto_accept_after_all_gates | "
+        f"{metrics.get('would_auto_accept_after_all_gates_n', 0)} | — |"
+    )
+    lines.append(
+        f"| shadow gates (verdict/conf/compound) | "
+        f"{metrics.get('would_require_human_verdict_gate_n', 0)} / "
+        f"{metrics.get('would_require_human_confidence_gate_n', 0)} / "
+        f"{metrics.get('would_require_human_compound_gate_n', 0)} | — |"
+    )
+    lines.append(
+        f"| embedding_clustering_status | {metrics.get('embedding_clustering_status') or '—'} | — |"
+    )
     row("escalated=0 (NLI-only) sayısı", str(metrics["escalated_0_n"]), "escalated_0_n")
     wa = metrics["would_auto_accept_v1"]
     wa_val = f"true {wa.get('true', 0)}, false {wa.get('false', 0)}"
@@ -847,6 +964,12 @@ def main() -> None:
     parser.add_argument("--until", default=None, help="YYYY-MM-DD")
     parser.add_argument("--date", default=None, help="Rapor dosya tarihi YYYY-MM-DD (varsayılan: bugün)")
     parser.add_argument("--stdout", action="store_true", help="Dosyaya yazmadan stdout'a bas")
+    parser.add_argument("--out", default="", help="Rapor yazılacak yol (varsayılan: data/ops_reports/YYYY-MM-DD.md)")
+    parser.add_argument(
+        "--compare-to",
+        default="",
+        help="Karşılaştırılacak önceki rapor dosyası (varsayılan: önceki YYYY-MM-DD.md)",
+    )
     args = parser.parse_args()
 
     video_ids, claim_ids, scope_label = _resolve_scope(args)
@@ -877,9 +1000,15 @@ def main() -> None:
     metrics = _compute_metrics(rows, debug, batch_usage)
     metrics["_rows"] = rows
 
-    prev_file = _find_previous_report_file(OUT_DIR, report_date)
-    has_previous_report = prev_file is not None
-    prev = _load_previous_metrics(OUT_DIR, report_date)
+    prev_file = None
+    if args.compare_to:
+        prev_file = Path(args.compare_to)
+        has_previous_report = prev_file.is_file()
+        prev = _metrics_from_report_file(prev_file) if has_previous_report else {}
+    else:
+        prev_file = _find_previous_report_file(OUT_DIR, report_date)
+        has_previous_report = prev_file is not None
+        prev = _load_previous_metrics(OUT_DIR, report_date)
     signals = _collect_warning_signals(rows, debug, metrics)
     warnings = _build_warnings(
         metrics,
@@ -905,7 +1034,8 @@ def main() -> None:
         return
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = OUT_DIR / f"{report_date.isoformat()}.md"
+    out_path = Path(args.out) if args.out else OUT_DIR / f"{report_date.isoformat()}.md"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(body, encoding="utf-8")
     print(f"[ops_report] yazıldı: {out_path} (n_claims={metrics['n_claims']}, n_verdicts={metrics['n_verdicts']})")
 

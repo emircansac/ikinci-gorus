@@ -9,6 +9,7 @@ from utils.reviewer_summary import (
     decompose_claim_for_retrieval,
     is_compound_claim,
     would_auto_accept_v1,
+    compute_shadow_human_gates,
 )
 
 
@@ -233,3 +234,51 @@ def test_would_auto_accept_v1_blocks_mismatch():
     ok, reason = would_auto_accept_v1(row)
     assert ok is False
     assert "verdict_reasoning_mismatch" in reason
+
+
+def test_shadow_gates_verdict_and_confidence():
+    g = compute_shadow_human_gates(
+        final_verdict="tartışmalı",
+        confidence=0.62,
+        calibration_flags="",
+        needs_human=False,
+    )
+    assert g["would_require_human_verdict_gate"] == 1
+    assert g["would_require_human_confidence_gate"] == 1
+    assert g["would_require_human_compound_gate"] == 0
+    assert g["would_auto_accept_after_all_gates"] == 0
+
+
+def test_shadow_compound_gate_zero_when_needs_human_catches():
+    g = compute_shadow_human_gates(
+        final_verdict="tartışmalı",
+        confidence=0.9,
+        calibration_flags="compound_tier_mismatch",
+        needs_human=True,
+    )
+    assert g["would_require_human_compound_gate"] == 0
+    assert g["would_auto_accept_after_all_gates"] == 0
+
+
+def test_shadow_compound_gate_regression_when_needs_human_misses():
+    g = compute_shadow_human_gates(
+        final_verdict="doğrulanmış",
+        confidence=0.9,
+        calibration_flags="compound_tier_mismatch",
+        needs_human=False,
+    )
+    assert g["would_require_human_compound_gate"] == 1
+    assert g["would_auto_accept_after_all_gates"] == 0
+
+
+def test_shadow_would_auto_accept_after_all_gates():
+    g = compute_shadow_human_gates(
+        final_verdict="doğrulanmış",
+        confidence=0.85,
+        calibration_flags="",
+        needs_human=False,
+    )
+    assert g["would_require_human_verdict_gate"] == 0
+    assert g["would_require_human_confidence_gate"] == 0
+    assert g["would_require_human_compound_gate"] == 0
+    assert g["would_auto_accept_after_all_gates"] == 1

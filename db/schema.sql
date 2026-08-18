@@ -79,6 +79,10 @@ CREATE TABLE IF NOT EXISTS verdicts (
     auto_accepted       INTEGER DEFAULT 0,   -- otomasyon: incelemeye gerek yok kararı
     would_auto_accept_v1 INTEGER DEFAULT 0,  -- shadow: v1 bandı aday (davranışı etkilemez)
     would_auto_accept_reason TEXT,           -- shadow: v1 False ise ilk kırılan koşul
+    would_require_human_verdict_gate INTEGER DEFAULT 0,     -- shadow: tartışmalı/belirsiz
+    would_require_human_confidence_gate INTEGER DEFAULT 0,  -- shadow: confidence < 0.7
+    would_require_human_compound_gate INTEGER DEFAULT 0,    -- shadow: compound_tier_mismatch kaçtı
+    would_auto_accept_after_all_gates INTEGER DEFAULT 0,    -- shadow: tüm gate'ler kapalı + needs_human=0
     reviewer_note        TEXT,
     library_match       INTEGER DEFAULT 0,   -- verified_claim_library auto-eşleşme
     verified_at         TEXT DEFAULT (datetime('now')),

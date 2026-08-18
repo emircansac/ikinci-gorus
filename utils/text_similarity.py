@@ -78,12 +78,15 @@ def get_cluster_members_embedding(
     text_key: str,
     threshold: float = EMBEDDING_CLUSTER_THRESHOLD,
     min_length: int = 8,
-) -> list[list[dict]]:
+) -> tuple[list[list[dict]], str]:
     """
     Embedding cosine + lexical + sayısal/konu koruması ile single-linkage kümeleme.
     Dedup ile aynı birleşme kuralı (embedding_pair_linkable); paraphrase iddiaları
     yakalanırken şablonlu sayısal iddialar (şeftali/armut) yanlış birleşmez.
     Lexical eşik dedup'tan düşük (NARRATIVE_CLUSTER_LEXICAL) — paraphrase Jaccard ~0.13.
+
+    Dönüş: (kümeler, status) — status "ok" veya "failed: <sebep>".
+    Hata olursa kümeler [] ve status failed; çağıran "0 küme" ile "çalışmadı"yı ayırır.
     """
     from utils.claim_dedup import embed_texts, embedding_pair_linkable
 
@@ -92,7 +95,7 @@ def get_cluster_members_embedding(
     valid = [(it, normalize(it[text_key])) for it in items if it.get(text_key)]
     valid = [(it, t) for it, t in valid if len(t) >= min_length]
     if len(valid) < 2:
-        return []
+        return [], "ok"
 
     try:
         import numpy as np
@@ -100,7 +103,7 @@ def get_cluster_members_embedding(
         embs = embed_texts(texts)
     except Exception as exc:
         print(f"[cluster] embedding kümeleme atlandı: {exc}")
-        return []
+        return [], f"failed: {exc}"
 
     clusters: list[list[int]] = []
 
@@ -123,4 +126,4 @@ def get_cluster_members_embedding(
         else:
             clusters.append([idx])
 
-    return [[valid[i][0] for i in c] for c in clusters if len(c) > 1]
+    return [[valid[i][0] for i in c] for c in clusters if len(c) > 1], "ok"
