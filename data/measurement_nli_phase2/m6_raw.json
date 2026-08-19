@@ -1,0 +1,825 @@
+{
+  "sample_ids": [
+    262,
+    275,
+    793,
+    829,
+    835,
+    854,
+    858,
+    865,
+    891,
+    905,
+    913,
+    955,
+    960,
+    961,
+    966,
+    987,
+    990,
+    1000,
+    1003,
+    1044,
+    1047,
+    1060,
+    1077,
+    1082,
+    1096,
+    1152,
+    1171,
+    1181,
+    1200,
+    1222,
+    1229,
+    1250,
+    1258,
+    1274,
+    1282,
+    1285,
+    1291,
+    1294,
+    1296
+  ],
+  "results": [
+    {
+      "claim_id": 262,
+      "final_verdict": "doğrulanmış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.714,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.546,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.542,
+        "partial_caveat": false
+      },
+      "snippet_len": 1816,
+      "full_len": 1950,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 275,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.372,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.343,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.405,
+        "partial_caveat": true
+      },
+      "snippet_len": 2211,
+      "full_len": 2363,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 793,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.735,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.467,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.429,
+        "partial_caveat": false
+      },
+      "snippet_len": 1602,
+      "full_len": 1821,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 829,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.441,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.506,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.505,
+        "partial_caveat": false
+      },
+      "snippet_len": 1629,
+      "full_len": 1691,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 835,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.535,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.54,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.491,
+        "partial_caveat": false
+      },
+      "snippet_len": 1687,
+      "full_len": 1824,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 854,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.38,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.643,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.623,
+        "partial_caveat": true
+      },
+      "snippet_len": 1202,
+      "full_len": 1290,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 858,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.347,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.438,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.418,
+        "partial_caveat": true
+      },
+      "snippet_len": 1671,
+      "full_len": 1790,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 865,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.746,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.68,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.745,
+        "partial_caveat": false
+      },
+      "snippet_len": 1428,
+      "full_len": 1510,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 891,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.358,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.5,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.513,
+        "partial_caveat": false
+      },
+      "snippet_len": 1145,
+      "full_len": 1208,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 905,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.687,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.946,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.948,
+        "partial_caveat": false
+      },
+      "snippet_len": 1332,
+      "full_len": 1384,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 913,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.421,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.485,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.453,
+        "partial_caveat": true
+      },
+      "snippet_len": 1608,
+      "full_len": 1684,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 955,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.37,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.486,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.48,
+        "partial_caveat": false
+      },
+      "snippet_len": 1292,
+      "full_len": 1307,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 960,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.721,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.955,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.823,
+        "partial_caveat": false
+      },
+      "snippet_len": 1589,
+      "full_len": 1715,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 961,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.679,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.605,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.563,
+        "partial_caveat": false
+      },
+      "snippet_len": 1650,
+      "full_len": 1784,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 966,
+      "final_verdict": "belirsiz",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.382,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.791,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.639,
+        "partial_caveat": true
+      },
+      "snippet_len": 729,
+      "full_len": 860,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 987,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.359,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.38,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.387,
+        "partial_caveat": false
+      },
+      "snippet_len": 1161,
+      "full_len": 1199,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 990,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.364,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.391,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.361,
+        "partial_caveat": true
+      },
+      "snippet_len": 1667,
+      "full_len": 1763,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1000,
+      "final_verdict": "belirsiz",
+      "stored_nli": "NOT_ENOUGH_INFO",
+      "stored_conf": 0.719,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.754,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.739,
+        "partial_caveat": true
+      },
+      "snippet_len": 1608,
+      "full_len": 1654,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1003,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.687,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.856,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.868,
+        "partial_caveat": true
+      },
+      "snippet_len": 1537,
+      "full_len": 1582,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1044,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.433,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.429,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.436,
+        "partial_caveat": false
+      },
+      "snippet_len": 1929,
+      "full_len": 1990,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1047,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.728,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.697,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.573,
+        "partial_caveat": true
+      },
+      "snippet_len": 1172,
+      "full_len": 1247,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 1060,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.716,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.591,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.591,
+        "partial_caveat": false
+      },
+      "snippet_len": 120,
+      "full_len": 120,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 1077,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.358,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.346,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.358,
+        "partial_caveat": true
+      },
+      "snippet_len": 2695,
+      "full_len": 4582,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1082,
+      "final_verdict": "doğrulanmış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.912,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.381,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.395,
+        "partial_caveat": false
+      },
+      "snippet_len": 1025,
+      "full_len": 1046,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 1096,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.381,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.421,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.372,
+        "partial_caveat": true
+      },
+      "snippet_len": 1730,
+      "full_len": 1867,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 1152,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.741,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.588,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.656,
+        "partial_caveat": true
+      },
+      "snippet_len": 1527,
+      "full_len": 1588,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1171,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.368,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.428,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.494,
+        "partial_caveat": false
+      },
+      "snippet_len": 1673,
+      "full_len": 1742,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1181,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.735,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.615,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.661,
+        "partial_caveat": false
+      },
+      "snippet_len": 2380,
+      "full_len": 2435,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1200,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.741,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.588,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.656,
+        "partial_caveat": true
+      },
+      "snippet_len": 1527,
+      "full_len": 1588,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1222,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.477,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.474,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.486,
+        "partial_caveat": false
+      },
+      "snippet_len": 2212,
+      "full_len": 2360,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1229,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.386,
+      "evidence_basis": "proxy_relevance_exact_cited_not_tracked",
+      "snippet_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.389,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.379,
+        "partial_caveat": false
+      },
+      "snippet_len": 1757,
+      "full_len": 1934,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1250,
+      "final_verdict": "doğrulanmış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.755,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.958,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.941,
+        "partial_caveat": false
+      },
+      "snippet_len": 1503,
+      "full_len": 1616,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1258,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.453,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.359,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.39,
+        "partial_caveat": true
+      },
+      "snippet_len": 1450,
+      "full_len": 1594,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1274,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.39,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.378,
+        "partial_caveat": true
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.43,
+        "partial_caveat": true
+      },
+      "snippet_len": 1741,
+      "full_len": 1877,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1282,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.808,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.941,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.797,
+        "partial_caveat": false
+      },
+      "snippet_len": 1415,
+      "full_len": 1666,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1285,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.732,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.389,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.498,
+        "partial_caveat": false
+      },
+      "snippet_len": 2357,
+      "full_len": 2507,
+      "specificity_tier": "supportive"
+    },
+    {
+      "claim_id": 1291,
+      "final_verdict": "tartışmalı",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.624,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.58,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.592,
+        "partial_caveat": false
+      },
+      "snippet_len": 1538,
+      "full_len": 1687,
+      "specificity_tier": "direct"
+    },
+    {
+      "claim_id": 1294,
+      "final_verdict": "doğrulanmış",
+      "stored_nli": "REFUTES",
+      "stored_conf": 0.372,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.367,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "REFUTES",
+        "nli_confidence": 0.356,
+        "partial_caveat": false
+      },
+      "snippet_len": 1748,
+      "full_len": 1862,
+      "specificity_tier": "background"
+    },
+    {
+      "claim_id": 1296,
+      "final_verdict": "yanlış",
+      "stored_nli": "SUPPORTS",
+      "stored_conf": 0.439,
+      "evidence_basis": "cited_package_item",
+      "snippet_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.37,
+        "partial_caveat": false
+      },
+      "full_nli": {
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.352,
+        "partial_caveat": false
+      },
+      "snippet_len": 1606,
+      "full_len": 1705,
+      "specificity_tier": "background"
+    }
+  ]
+}

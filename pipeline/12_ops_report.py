@@ -576,6 +576,10 @@ def _fmt_delta(cur, prev, *, is_rate: bool = False, is_money: bool = False) -> s
 
 _VALUE_RE = re.compile(r"^\|\s*(?P<metric>.+?)\s*\|\s*(?P<value>[^|]+?)\s*\|", re.UNICODE)
 _NUM_LEAD_RE = re.compile(r"^\$?\s*([\d,]+(?:\.\d+)?)")
+_COST_SPREAD_RE = re.compile(
+    r"p50\s*\$?([\d.]+)\s*/\s*p90\s*\$?([\d.]+)\s*/\s*p95\s*\$?([\d.]+)\s*/\s*max\s*\$?([\d.]+)",
+    re.IGNORECASE,
+)
 
 
 def _parse_report_metric_value(raw_value: str) -> float | None:
@@ -613,6 +617,20 @@ def _find_previous_report_file(report_dir: Path, before: date) -> Path | None:
     return prev_file
 
 
+def _parse_cost_spread(raw_value: str) -> dict[str, float]:
+    """$/claim p50/p90/p95/max satırından kuyruk metriklerini çıkar."""
+    m = _COST_SPREAD_RE.search(raw_value or "")
+    if not m:
+        return {}
+    p50, p90, p95, mx = (float(x) for x in m.groups())
+    return {
+        "$/claim p50": p50,
+        "$/claim p90": p90,
+        "$/claim p95": p95,
+        "$/claim max": mx,
+    }
+
+
 def _metrics_from_report_file(path: Path) -> dict[str, float]:
     if not path.is_file():
         return {}
@@ -623,10 +641,32 @@ def _metrics_from_report_file(path: Path) -> dict[str, float]:
         if not m:
             continue
         metric = m.group("metric").strip()
-        parsed = _parse_report_metric_value(m.group("value"))
+        raw_value = m.group("value")
+        if metric.startswith("$/claim p50/p90/p95/max"):
+            mapping.update(_parse_cost_spread(raw_value))
+            continue
+        parsed = _parse_report_metric_value(raw_value)
         if parsed is not None:
             mapping[metric] = parsed
     return mapping
+
+
+def _claim_ids_scope_lines(scope_label: str, claim_ids: list[int]) -> list[str]:
+    """claim_ids başlık satırları — yalnızca test kohortunda measurement etiketi."""
+    if not claim_ids:
+        return []
+    n = len(claim_ids)
+    sorted_ids = sorted(claim_ids)
+    if scope_label.startswith("test"):
+        return [
+            f"**Measurement kohortları:** {n} id "
+            f"(measurement_50 + measurement_nli_30)",
+        ]
+    id_range = f"{sorted_ids[0]}–{sorted_ids[-1]}" if n > 1 else str(sorted_ids[0])
+    return [
+        f"**Claim ID filtresi:** {n} id (--claim-ids)",
+        f"**Claim ID aralığı:** {id_range}",
+    ]
 
 
 def _load_previous_metrics(report_dir: Path, before: date) -> dict[str, float]:
@@ -740,6 +780,26 @@ def _build_warnings(
             f"kaynak eşleme mekanizması zayıflamış olabilir."
         )
 
+    prev_p95 = prev.get("$/claim p95")
+    cur_p95 = metrics.get("cost_p95")
+    if prev_p95 and cur_p95 and prev_p95 > 0 and cur_p95 > prev_p95 * 1.5:
+        ratio = cur_p95 / prev_p95
+        warnings.append(
+            f"⚠️ $/claim p95: ${_num(cur_p95, 4)} (baseline ${_num(prev_p95, 4)}, "
+            f"×{ratio:.1f}) — kuyruk maliyeti belirgin yükseldi; birkaç pahalı iddia "
+            f"ortalamayı değil uç değerleri etkiliyor olabilir."
+        )
+
+    prev_max = prev.get("$/claim max")
+    cur_max = metrics.get("cost_max")
+    if prev_max and cur_max and prev_max > 0 and cur_max > prev_max * 3:
+        ratio = cur_max / prev_max
+        warnings.append(
+            f"⚠️ $/claim max: ${_num(cur_max, 4)} (baseline ${_num(prev_max, 4)}, "
+            f"×{ratio:.1f}) — tek iddia maliyetinde uç sapma; web arama token "
+            f"şişmesi veya cache miss kontrol edilmeli."
+        )
+
     return warnings
 
 
@@ -784,11 +844,7 @@ def _render_report(
     lines.append(f"**Kapsam:** {scope_label}")
     if video_ids:
         lines.append(f"**Videolar:** {', '.join(video_ids)}")
-    if claim_ids:
-        lines.append(
-            f"**Measurement kohortları:** {len(claim_ids)} id "
-            f"(measurement_50 + measurement_nli_30)"
-        )
+    lines.extend(_claim_ids_scope_lines(scope_label, claim_ids))
     if since or until:
         lines.append(f"**Tarih aralığı:** {since or '…'} → {until or '…'}")
     lines += [
@@ -926,17 +982,32 @@ def _render_report(
                 dedup_s = "n/a"
             lines.append(f"| {vid} | {fp} | {cnt} | {dedup_s} | {n_v} | {n_e} |")
 
+    notes: list[str] = []
+    # Dedup notu: video tablosundaki full_pipeline ayrımının açıklaması.
+    # Hücre zaten koşullu (evet → oran, hayır → n/a); not da yalnızca
+    # n/a satırı varken gösterilir — aksi halde yanıltıcı "kısmi örnekleme" iddiası.
+    has_partial_dedup = any(
+        not _has_full_dedup_pipeline(vid)
+        for vid in (metrics.get("claims_by_video") or {})
+    )
+    if has_partial_dedup:
+        notes.append(
+            "- **Dedup merge:** Yalnızca `full_pipeline=evet` satırları gerçek ölçümdür "
+            "(extraction_chunks veya smoke offline_dedup). `hayır` = measurement kohortundan "
+            "kısmi örnekleme; dedup hücresi **n/a** (0% anlamına gelmez)."
+        )
     spec_missing = metrics["specificity_tier"].get("(yok)", 0)
+    if spec_missing > 0:
+        notes.append(
+            f"- **specificity_tier=(yok) {spec_missing} iddia** "
+            f"({_pct(spec_missing / metrics['n_verdicts']) if metrics['n_verdicts'] else '—'}): "
+            "bu mekanizma eklenmeden önce fact-check edilmiş — kapsam metriği yalnızca "
+            "bundan sonraki turlar için anlamlı."
+        )
+    if notes:
+        lines += ["", "## Notlar", "", *notes]
+
     lines += [
-        "",
-        "## Notlar",
-        "",
-        f"- **Dedup merge:** Yalnızca `full_pipeline=evet` satırları gerçek ölçümdür "
-        f"(extraction_chunks veya smoke offline_dedup). `hayır` = measurement kohortundan "
-        f"kısmi örnekleme; dedup hücresi **n/a** (0% anlamına gelmez).",
-        f"- **specificity_tier=(yok) {spec_missing} iddia** ({_pct(spec_missing / metrics['n_verdicts']) if metrics['n_verdicts'] else '—'}): "
-        "bu mekanizma eklenmeden önce fact-check edilmiş — kapsam metriği yalnızca "
-        "bundan sonraki turlar için anlamlı.",
         "",
         "## Kaynaklar",
         "",

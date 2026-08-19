@@ -76,6 +76,11 @@ def should_escalate(
       - NLI güveni eşiğin altında -> escalate et
       - NLI 'NOT_ENOUGH_INFO' dediyse -> escalate et
       - SUPPORTS/REFUTES + yüksek güven olsa bile kanıtta kısmi/bileşik uyarı -> escalate et
+
+    UYARI: evidence_text, NLI'nın gördüğü çok-parça birleşik kanıt olmalı
+    (03_factcheck: FINAL_EVIDENCE_COUNT title+abstract join). Tek-parça
+    best_evidence_snippet'e indirgeme #1282 (parça 2 "however") ve #905
+    tipi caveat/collapse kontrolünü bozar — maliyet optimizasyonu olarak yapmayın.
     """
     if initial_risk == "high":
         return True

@@ -304,6 +304,35 @@ def _one_line_reason(
     return f"Model '{verdict}' dedi — kaynak ve gerekçe tutarlı mı bakın."
 
 
+def _partial_caveat_check_point(claim_row: dict) -> str | None:
+    """NLI yüksek güven + kanıt parçasında çekince → escalate gerekçesi."""
+    idx = claim_row.get("partial_caveat_matched_index")
+    if idx is None or idx == "":
+        return None
+    try:
+        idx_i = int(idx)
+    except (TypeError, ValueError):
+        return None
+    nli = (claim_row.get("nli_label") or "").strip()
+    try:
+        conf = (
+            float(claim_row["nli_confidence"])
+            if claim_row.get("nli_confidence") is not None
+            else None
+        )
+    except (TypeError, ValueError):
+        conf = None
+    if nli not in ("SUPPORTS", "REFUTES") or conf is None or conf < NLI_AUTO_ACCEPT_MIN_CONF:
+        return None
+    verb = "destekledi" if nli == "SUPPORTS" else "çürüttü"
+    phrase = (claim_row.get("partial_caveat_matched_phrase") or "").strip()
+    phrase_bit = f" ('{phrase}')" if phrase else ""
+    return (
+        f"Bu iddia NLI yüksek güvenle {verb} ama kanıtın {idx_i + 1}. parçasında "
+        f"bir çekince ifadesi{phrase_bit} bulundu, o yüzden gözden geçiriliyor."
+    )
+
+
 def _build_check_point(
     claim_row: dict,
     flags: set[str],
@@ -317,12 +346,15 @@ def _build_check_point(
     specificity_tier = _specificity_tier(claim_row, flags)
     final_verdict = claim_row.get("final_verdict")
 
+    caveat_point = _partial_caveat_check_point(claim_row)
     if VERDICT_REASONING_MISMATCH_FLAG in flags:
         snippet = _extract_mismatch_snippet(reasoning)
         point = (
             f"Verdict kendi gerekçesiyle tam örtüşmüyor — "
             f"{snippet} kısmının doğrudan kanıtı var mı, bakın."
         )
+    elif caveat_point:
+        point = caveat_point
     elif evidence_stance == "mixed" or is_compound_claim(claim_text, reasoning):
         point = (
             "Bileşik iddia — bileşenlerden biri destekleniyor, diğeri "
@@ -510,7 +542,8 @@ def build_reviewer_summary(claim_row: dict) -> dict:
     claim_row beklenen alanlar (eksik olanlar atlanır):
       final_verdict, reasoning, calibration_flags, category, initial_risk,
       claim_text, evidence_stance, source_directness, cite_source,
-      specificity_tier, nli_label, nli_evidence_snippet
+      specificity_tier, nli_label, nli_evidence_snippet,
+      nli_confidence, partial_caveat_matched_index, partial_caveat_matched_phrase
     """
     flags = _parse_flags(claim_row.get("calibration_flags"))
     final_verdict = claim_row.get("final_verdict")

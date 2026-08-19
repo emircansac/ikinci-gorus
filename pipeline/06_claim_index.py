@@ -15,6 +15,7 @@ Kullanım:
     python pipeline/06_claim_index.py --export-dir data/
 """
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -26,6 +27,9 @@ from utils.text_similarity import get_cluster_members, get_cluster_members_embed
 from utils.factcheck_calibrate import calibrate_factcheck
 from utils.reviewer_summary import build_reviewer_summary
 
+ROOT = Path(__file__).parent.parent
+DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
+
 # Claim metinleri comment'lerden farklı — aynı fikri farklı cümle yapısıyla ifade
 # edebilirler (LLM'in çıkardığı önerme, videodan videoya paslanmaz). Bu yüzden
 # yorum kümeleme eşiğinden (0.85) daha düşük bir eşik kullanıyoruz. Bu HÂLÂ salt
@@ -36,6 +40,25 @@ from utils.reviewer_summary import build_reviewer_summary
 CLAIM_CLUSTER_THRESHOLD = 0.55
 
 PLACEHOLDER_THUMB = "https://placehold.co/480x270/171C16/9BA396?text=Video"
+
+
+def _latest_debug_by_claim() -> dict[int, dict]:
+    out: dict[int, dict] = {}
+    if not DEBUG_LOG.is_file():
+        return out
+    with DEBUG_LOG.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            cid = rec.get("claim_id")
+            if cid is not None:
+                out[int(cid)] = rec
+    return out
 
 
 def thumbnail_url(video_id: str) -> str:
@@ -54,7 +77,7 @@ def build_flat_index(conn) -> pd.DataFrame:
             v.title AS video_title, v.published_at AS video_published_at,
             vr.final_verdict, vr.confidence, vr.source_url, vr.human_reviewed, vr.reviewer_note, vr.escalated,
             vr.reasoning, vr.source_directness, vr.evidence_stance, vr.source_tier, vr.calibration_flags,
-            vr.nli_label, vr.nli_evidence_snippet
+            vr.nli_label, vr.nli_confidence, vr.nli_evidence_snippet
         FROM claims cl
         LEFT JOIN verdicts vr ON vr.claim_id = cl.claim_id
         LEFT JOIN videos v ON v.video_id = cl.video_id
@@ -62,6 +85,7 @@ def build_flat_index(conn) -> pd.DataFrame:
     """).fetchall()
 
     records = []
+    debug_by_claim = _latest_debug_by_claim()
     for r in rows:
         parse_failed = (r["final_verdict"] is None and r["escalated"] == 1)
         # Eski kayıtlarda reasoning/stance boş olabilir; URL tabanlı koruma yine çalışır
@@ -83,6 +107,7 @@ def build_flat_index(conn) -> pd.DataFrame:
             export_flags = stored_flags
         score, note = compute_suspicion(
             cal["final_verdict"], cal["confidence"], parse_failed=parse_failed)
+        dbg = debug_by_claim.get(int(r["claim_id"])) or {}
         summary_input = {
             "final_verdict": cal["final_verdict"],
             "reasoning": cal["reasoning"] or r["reasoning"],
@@ -94,7 +119,10 @@ def build_flat_index(conn) -> pd.DataFrame:
             "source_directness": cal["source_directness"],
             "cite_source": cal.get("cite_source"),
             "nli_label": r["nli_label"],
+            "nli_confidence": r["nli_confidence"],
             "nli_evidence_snippet": r["nli_evidence_snippet"],
+            "partial_caveat_matched_index": dbg.get("partial_caveat_matched_index"),
+            "partial_caveat_matched_phrase": dbg.get("partial_caveat_matched_phrase"),
         }
         reviewer = build_reviewer_summary(summary_input)
         records.append({

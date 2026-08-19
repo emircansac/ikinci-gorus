@@ -334,3 +334,78 @@ def test_escalate_passes_max_uses_on_web_search(monkeypatch):
 def test_batch_request_includes_max_uses():
     req = build_batch_request(99, "test", evidence=[], max_search_calls=1)
     assert req["params"]["tools"] == [web_search_tool(1)]
+
+
+def test_count_web_search_calls_success_only_not_server_tool_use():
+    from utils.claude_client import count_web_search_calls
+
+    msg = SimpleNamespace(content=[
+        SimpleNamespace(type="text", text="intro"),
+        SimpleNamespace(type="server_tool_use", name="web_search"),
+        SimpleNamespace(type="server_tool_use", name="web_search"),
+        SimpleNamespace(type="web_search_tool_result", content="WebSearchResultBlock(...)"),
+        SimpleNamespace(
+            type="web_search_tool_result",
+            content="WebSearchToolResultError(error_code='max_uses_exceeded', type='web_search_tool_result_error')",
+        ),
+        SimpleNamespace(type="server_tool_use", name="web_search"),
+        SimpleNamespace(
+            type="web_search_tool_result",
+            content="WebSearchToolResultError(error_code='max_uses_exceeded', type='web_search_tool_result_error')",
+        ),
+    ])
+    assert count_web_search_calls(msg) == 1
+
+
+def test_count_web_search_calls_legacy_server_tool_use_fallback():
+    from utils.claude_client import count_web_search_calls
+
+    msg = SimpleNamespace(content=[
+        SimpleNamespace(type="server_tool_use", name="web_search"),
+        SimpleNamespace(type="server_tool_use", name="web_search"),
+    ])
+    assert count_web_search_calls(msg) == 2
+
+
+def test_official_web_search_requests_from_usage_dict():
+    from utils.claude_client import official_web_search_requests
+
+    assert official_web_search_requests(None) is None
+    assert official_web_search_requests({"input_tokens": 10}) is None
+    assert official_web_search_requests({
+        "server_tool_use": {"web_search_requests": 1, "web_fetch_requests": 0},
+    }) == 1
+    assert official_web_search_requests({
+        "server_tool_use": {"web_search_requests": 0},
+    }) == 0
+
+
+def test_official_web_search_requests_from_usage_object():
+    from utils.claude_client import official_web_search_requests
+
+    usage = SimpleNamespace(
+        server_tool_use=SimpleNamespace(web_search_requests=3, web_fetch_requests=0),
+    )
+    assert official_web_search_requests(usage) == 3
+
+
+def test_count_web_search_calls_unchanged_when_official_differs():
+    """Üretim sayacı usage alanını okumaz — 3 deneme / 1 başarı senaryosu aynı kalır."""
+    from utils.claude_client import count_web_search_calls, official_web_search_requests
+
+    msg = SimpleNamespace(
+        content=[
+            SimpleNamespace(type="server_tool_use", name="web_search"),
+            SimpleNamespace(type="web_search_tool_result", content="ok"),
+            SimpleNamespace(type="server_tool_use", name="web_search"),
+            SimpleNamespace(
+                type="web_search_tool_result",
+                content="WebSearchToolResultError(error_code='max_uses_exceeded')",
+            ),
+        ],
+        usage=SimpleNamespace(
+            server_tool_use=SimpleNamespace(web_search_requests=1),
+        ),
+    )
+    assert count_web_search_calls(msg) == 1
+    assert official_web_search_requests(msg.usage) == 1

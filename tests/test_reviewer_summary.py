@@ -142,6 +142,49 @@ def test_decompose_still_splits_clause_level_ve():
     assert "ulaşamaz" in parts[1]
 
 
+def test_partial_caveat_check_point_overrides_mixed_stance():
+    row = {
+        "final_verdict": "tartışmalı",
+        "reasoning": "Kanıt karışık.",
+        "calibration_flags": "retrieval_cited,package_only_forced,specificity_tier:direct",
+        "category": "mekanizma",
+        "initial_risk": "low",
+        "claim_text": "Kahvedeki klorojenik asit hücreleri oksidatif hasara karşı korur.",
+        "evidence_stance": "mixed",
+        "source_directness": "direct",
+        "cite_source": "retrieval_cited",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.808,
+        "partial_caveat_matched_index": 1,
+        "partial_caveat_matched_phrase": "However",
+    }
+    out = build_reviewer_summary(row)
+    assert "kanıtın 2. parçasında" in out["check_point"]
+    assert "However" in out["check_point"]
+    assert "gözden geçiriliyor" in out["check_point"]
+    assert "NLI yüksek güvenle destekledi" in out["check_point"]
+    assert "Bileşik iddia" not in out["check_point"]
+
+
+def test_partial_caveat_check_point_skips_low_nli_conf():
+    row = {
+        "final_verdict": "tartışmalı",
+        "reasoning": "Kanıt karışık.",
+        "calibration_flags": "retrieval_cited",
+        "category": "mekanizma",
+        "initial_risk": "low",
+        "claim_text": "Test",
+        "evidence_stance": "mixed",
+        "source_directness": "direct",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.44,
+        "partial_caveat_matched_index": 0,
+        "partial_caveat_matched_phrase": "however",
+    }
+    out = build_reviewer_summary(row)
+    assert "çekince ifadesi" not in out["check_point"]
+
+
 def test_nli_disagreement():
     row = {
         "final_verdict": "yanlış",

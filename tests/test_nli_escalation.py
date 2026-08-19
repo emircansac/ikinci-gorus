@@ -4,7 +4,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.nli import should_escalate
-from utils.reasoning_patterns import evidence_has_partial_caveat
+from utils.reasoning_patterns import (
+    evidence_has_partial_caveat,
+    locate_partial_caveat,
+    locate_partial_caveat_in_pieces,
+)
 
 
 def _nli(label: str, conf: float) -> dict:
@@ -52,3 +56,28 @@ def test_partial_rule_not_applied_when_no_evidence_text():
 
 def test_high_risk_always_escalates():
     assert should_escalate(_nli("SUPPORTS", 0.99), "high", evidence_text="clean support")
+
+
+def test_locate_partial_caveat_phrase_however():
+    text = (
+        "Oxidative stress in CKD. However, an excessive amount of ROS results in "
+        "oxidation of biological molecules."
+    )
+    assert locate_partial_caveat(text).lower() == "however"
+
+
+def test_locate_partial_caveat_in_pieces_index():
+    # #1282 regresyonu: caveat parça 2'de. Tek-parça snippet (pieces[:1]) kaçırır.
+    pieces = [
+        "Chlorogenic acid reduces oxidative damage in mesenchymal stem cells.",
+        (
+            "Epidemiological studies provide insights into coffee and cognition. "
+            "However, future research should focus on specific bioactive compounds."
+        ),
+        "Colonic metabolites of chlorogenic acid may counteract TNF-alpha inflammation.",
+    ]
+    loc = locate_partial_caveat_in_pieces(pieces)
+    assert loc["partial_caveat_matched_index"] == 1
+    assert loc["partial_caveat_matched_phrase"].lower() == "however"
+    assert evidence_has_partial_caveat(" ".join(pieces))
+    assert locate_partial_caveat_in_pieces(pieces[:1]) is None

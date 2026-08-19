@@ -1,0 +1,65 @@
+{
+  "batch_id": "msgbatch_01F28QrvWYa7S8GwjHwk1aZh",
+  "n": 100,
+  "match": 88,
+  "differ": 0,
+  "official_missing": 12,
+  "pairs": {
+    "2vs2": 32,
+    "1vs1": 45,
+    "0vsNone": 12,
+    "3vs3": 11
+  },
+  "focus": {
+    "620": {
+      "cid": 620,
+      "content": 1,
+      "official": 1,
+      "skip": false,
+      "match": true
+    },
+    "1241": {
+      "cid": 1241,
+      "content": 2,
+      "official": 2,
+      "skip": false,
+      "match": true
+    },
+    "376": {
+      "cid": 376,
+      "content": 1,
+      "official": 1,
+      "skip": false,
+      "match": true
+    },
+    "621": {
+      "cid": 621,
+      "content": 1,
+      "official": 1,
+      "skip": false,
+      "match": true
+    },
+    "649": {
+      "cid": 649,
+      "content": 2,
+      "official": 2,
+      "skip": false,
+      "match": true
+    },
+    "1039": {
+      "cid": 1039,
+      "content": 0,
+      "official": null,
+      "skip": false,
+      "match": false
+    },
+    "612": {
+      "cid": 612,
+      "content": 0,
+      "official": null,
+      "skip": false,
+      "match": false
+    }
+  },
+  "diffs": []
+}

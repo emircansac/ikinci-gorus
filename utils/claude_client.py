@@ -70,21 +70,73 @@ def resolve_max_search_calls(
     return DEFAULT_MAX_SEARCH_CALLS
 
 
+def _block_field(block, key: str):
+    val = getattr(block, key, None)
+    if val is None and isinstance(block, dict):
+        val = block.get(key)
+    return val
+
+
+def _is_web_search_result_error(block) -> bool:
+    """web_search_tool_result bloğu max_uses_exceeded vb. hata mı?"""
+    if _block_field(block, "type") != "web_search_tool_result":
+        return False
+    err = _block_field(block, "error")
+    if err is not None:
+        code = _block_field(err, "error_code") or _block_field(err, "code")
+        if code == "max_uses_exceeded":
+            return True
+    content = _block_field(block, "content")
+    text = str(content)
+    return "max_uses_exceeded" in text or "web_search_tool_result_error" in text.lower()
+
+
 def count_web_search_calls(message) -> int:
-    """message.content içindeki web_search tool_use / server_tool_use sayısı."""
+    """Başarılı web araması sayısı (max_uses_exceeded / tool hataları hariç).
+
+    server_tool_use sayımı YANLIŞTIR: max_uses aşıldıktan sonra model yine
+    server_tool_use üretebilir; karşılığı web_search_tool_result_error olur.
+    Gerçek arama = başarılı web_search_tool_result blokları.
+    """
     content = getattr(message, "content", None)
     if content is None and isinstance(message, dict):
         content = message.get("content") or []
-    count = 0
+    success = 0
+    legacy_tool_use = 0
     for block in content or []:
-        btype = getattr(block, "type", None)
-        name = getattr(block, "name", None)
-        if btype is None and isinstance(block, dict):
-            btype = block.get("type")
-            name = block.get("name")
-        if btype in ("tool_use", "server_tool_use") and name == "web_search":
-            count += 1
-    return count
+        btype = _block_field(block, "type")
+        name = _block_field(block, "name")
+        if btype == "web_search_tool_result":
+            if not _is_web_search_result_error(block):
+                success += 1
+        elif btype in ("tool_use", "server_tool_use") and name == "web_search":
+            legacy_tool_use += 1
+    if success:
+        return success
+    return legacy_tool_use
+
+
+def official_web_search_requests(usage) -> int | None:
+    """Faturalanan arama sayısı: usage.server_tool_use.web_search_requests.
+
+    count_web_search_calls() content bloklarını sayar; bu fonksiyon API usage
+    alanını okur. None = alan yok (eski SDK / usage eksik). Üretim sayacı değil.
+    """
+    if usage is None:
+        return None
+    if isinstance(usage, dict):
+        stu = usage.get("server_tool_use")
+    else:
+        stu = getattr(usage, "server_tool_use", None)
+    if stu is None:
+        return None
+    if isinstance(stu, dict):
+        val = stu.get("web_search_requests")
+    else:
+        val = getattr(stu, "web_search_requests", None)
+    if val is None:
+        return None
+    return int(val)
 
 
 def _cached_system(text: str) -> list[dict]:
@@ -736,19 +788,37 @@ def escalate_with_parse_retry(
     params = build_escalate_params(**kw)
     max_tokens = params["max_tokens"]
     search_calls = 0
+    official_sum = 0
+    official_seen = False
+
+    def _add_official(raw_usage) -> None:
+        nonlocal official_sum, official_seen
+        n = official_web_search_requests(raw_usage)
+        if n is not None:
+            official_sum += n
+            official_seen = True
+
     if message is not None:
         resp = message
-        usage = _usage_dict(getattr(message, "usage", None))
+        raw_usage = getattr(message, "usage", None)
+        usage = _usage_dict(raw_usage)
         search_calls += count_web_search_calls(message)
+        _add_official(raw_usage)
     else:
         resp = _call_with_retry(**params)
-        usage = _usage_dict(getattr(resp, "usage", None))
+        raw_usage = getattr(resp, "usage", None)
+        usage = _usage_dict(raw_usage)
         search_calls += count_web_search_calls(resp)
+        _add_official(raw_usage)
+
+    def _attach_search_counts(out: dict) -> None:
+        out["web_search_call_count"] = search_calls
+        out["max_search_calls"] = max_search_calls
+        out["web_search_requests_official"] = official_sum if official_seen else None
 
     result = parse_escalate_response(resp, max_tokens=max_tokens)
     if not result.get("parse_failed"):
-        result["web_search_call_count"] = search_calls
-        result["max_search_calls"] = max_search_calls
+        _attach_search_counts(result)
         return result, usage
 
     first_category = result.get("parse_failure_category")
@@ -758,16 +828,17 @@ def escalate_with_parse_retry(
     )
     retry_params = build_escalate_params(**kw, json_retry=True)
     retry_resp = _call_with_retry(**retry_params)
-    usage = _merge_usage(usage, _usage_dict(getattr(retry_resp, "usage", None)))
+    retry_raw_usage = getattr(retry_resp, "usage", None)
+    usage = _merge_usage(usage, _usage_dict(retry_raw_usage))
     search_calls += count_web_search_calls(retry_resp)
+    _add_official(retry_raw_usage)
     retry_result = parse_escalate_response(
         retry_resp, max_tokens=retry_params["max_tokens"]
     )
     retry_result["parse_retry"] = True
     retry_result["parse_retry_first_category"] = first_category
     retry_result["parse_retry_succeeded"] = not retry_result.get("parse_failed")
-    retry_result["web_search_call_count"] = search_calls
-    retry_result["max_search_calls"] = max_search_calls
+    _attach_search_counts(retry_result)
     return retry_result, usage
 
 

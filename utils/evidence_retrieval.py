@@ -1280,6 +1280,11 @@ def best_evidence_snippet(
     """
     Tam abstract yerine iddiaya (cosine) en yakın 500–1000 token alt-parça.
     Embedder yoksa ilk max_tokens kelimeye düşer.
+
+    NLI evidence_text / partial_caveat girdisi olarak KULLANMAYIN.
+    Claude escalate paketini kısaltmak için var. NLI+caveat çok-parça join
+    bekler; tek-parça snippet #1282/#905 güvenlik kontrolünü bozar
+    (pipeline/03_factcheck.py, utils/nli.should_escalate).
     """
     abstract = (abstract or "").strip()
     if not abstract:

@@ -66,6 +66,7 @@ from utils.evidence_retrieval import (
     FINAL_EVIDENCE_COUNT,
     EPISTEMIC_NO_DIRECT,
 )
+from utils.reasoning_patterns import locate_partial_caveat_in_pieces
 from utils.factcheck_review import (
     HIGH_RISK_HUMAN_REVIEW_CATEGORIES,
     is_drug_interaction_claim,
@@ -251,6 +252,8 @@ def _finalize_escalated(
     epistemic_class=None,
     component_evidence_map=None,
     max_search_calls=None,
+    partial_caveat_matched_index=None,
+    partial_caveat_matched_phrase=None,
 ) -> None:
     """Mevcut senkron escalate sonrası yol — kalibrasyon/needs_human değişmez."""
     parse_failed = bool(raw_result.get("parse_failed"))
@@ -305,6 +308,7 @@ def _finalize_escalated(
         },
         "usage": usage,
         "web_search_call_count": raw_result.get("web_search_call_count"),
+        "web_search_requests_official": raw_result.get("web_search_requests_official"),
         "max_search_calls": raw_result.get("max_search_calls") or max_search_calls,
         "parse_failed": parse_failed,
         "parse_failure_category": raw_result.get("parse_failure_category"),
@@ -315,6 +319,10 @@ def _finalize_escalated(
         "parse_retry": raw_result.get("parse_retry"),
         "parse_retry_succeeded": raw_result.get("parse_retry_succeeded"),
         "parse_retry_first_category": raw_result.get("parse_retry_first_category"),
+        **({
+            "partial_caveat_matched_index": partial_caveat_matched_index,
+            "partial_caveat_matched_phrase": partial_caveat_matched_phrase,
+        } if partial_caveat_matched_index is not None else {}),
     })
     _merge_library_review_flag(final, library_review_hit)
     apply_verdict_reasoning_mismatch(final)
@@ -523,7 +531,9 @@ def _run_batch_retrieve(conn, args) -> None:
             }, specificity_tier=job.get("specificity_tier") or "none",
                epistemic_class=job.get("epistemic_class"),
                component_evidence_map=job.get("component_evidence_map"),
-               max_search_calls=job.get("max_search_calls"))
+               max_search_calls=job.get("max_search_calls"),
+               partial_caveat_matched_index=job.get("partial_caveat_matched_index"),
+               partial_caveat_matched_phrase=job.get("partial_caveat_matched_phrase"))
             ok += 1
         cache_summary = summarize_cache_roles(usage_by_custom_id)
         rec["applied"] = True
@@ -617,6 +627,7 @@ def main():
         claim_id, claim_text, search_query_en, category, initial_risk = (
             row["claim_id"], row["claim_text"], row["search_query_en"], row["category"], row["initial_risk"])
         nli_label, nli_conf, nli_snippet = None, None, None
+        caveat_loc = None
         no_evidence_found = False
         do_escalate = True
         library_match = 0
@@ -790,12 +801,36 @@ def main():
         })
         if not args.skip_nli:
             if evidence:
+                # UYARI — NLI evidence_text'i tek-parça snippet'e indirmeyin.
+                # partial_caveat (should_escalate) bu birleşik metne bakıyor.
+                # #1282: caveat parça 2'deki "however"; top-item snippet kaçırırdı.
+                # #905: tek-parça NLI yüksek güvenle skip eder, Claude tartışmalı.
+                # Maliyet için best_evidence_snippet'e geçmek bu güvenlik kontrolünü bozar.
                 nli_slice = evidence[:FINAL_EVIDENCE_COUNT]
-                evidence_text = " ".join(f"{e['title']} {e.get('abstract', '')}".strip() for e in nli_slice)
+                piece_texts = [
+                    f"{e.get('title') or ''} {e.get('abstract') or ''}".strip()
+                    for e in nli_slice
+                ]
+                evidence_text = " ".join(piece_texts)
                 nli_result = nli_check(claim_text, evidence_text)
                 nli_label, nli_conf = nli_result["nli_label"], nli_result["nli_confidence"]
                 nli_snippet = evidence_text[:500]
                 do_escalate = should_escalate(nli_result, initial_risk, evidence_text=evidence_text)
+                caveat_loc = locate_partial_caveat_in_pieces(piece_texts)
+                if caveat_loc:
+                    _append_debug_log({
+                        "claim_id": claim_id,
+                        "claim_text": claim_text,
+                        "partial_caveat_matched_index": caveat_loc["partial_caveat_matched_index"],
+                        "partial_caveat_matched_phrase": caveat_loc["partial_caveat_matched_phrase"],
+                        "nli_label": nli_label,
+                        "nli_confidence": nli_conf,
+                    })
+                    print(
+                        f"[evidence] partial_caveat "
+                        f"index={caveat_loc['partial_caveat_matched_index']} "
+                        f"phrase={caveat_loc['partial_caveat_matched_phrase']!r}"
+                    )
             else:
                 no_evidence_found = True
                 do_escalate = True
@@ -867,6 +902,7 @@ def main():
                     "nli_label": nli_label,
                     "nli_conf": nli_conf,
                     "nli_snippet": nli_snippet,
+                    **(caveat_loc or {}),
                     "library_review_hit": (
                         json.loads(json.dumps(dict(library_review_hit), default=str))
                         if library_review_hit else None

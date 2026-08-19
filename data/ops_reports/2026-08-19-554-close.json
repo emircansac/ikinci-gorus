@@ -1,0 +1,970 @@
+{
+  "slices": {
+    "1": {
+      "n": 100,
+      "n_ids": 100,
+      "n_esc0": 0,
+      "nli_only_rate": 0.0,
+      "cost_n": 100,
+      "cost_sum": 4.2268883,
+      "cost_mean": 0.042268883,
+      "cost_p50": 0.0364024,
+      "cost_p95": 0.06787953749999999,
+      "cost_max": 0.6371033999999999,
+      "tail_gt3x": 1,
+      "tail_ids": [
+        620
+      ],
+      "wsr_mean": 1.42,
+      "wsr_n": 100,
+      "wsr_official_n": 0,
+      "wsr_p50": 1.0,
+      "wsr_p95": 3.0,
+      "wsr_max": 3.0,
+      "wsr_hist": {
+        "2": 32,
+        "1": 45,
+        "3": 11,
+        "0": 12
+      },
+      "retrieval_cited_rate": 0.36,
+      "n_retrieval_cited": 36,
+      "n_esc": 100,
+      "parse_fail": 0,
+      "parse_retry": 0,
+      "parse_retry_ok": 0,
+      "retrieval_failed": 0,
+      "compound_mismatch": 0,
+      "esc_rate": 1.0,
+      "auto_accept_n": 0
+    },
+    "2": {
+      "n": 100,
+      "n_ids": 100,
+      "n_esc0": 0,
+      "nli_only_rate": 0.0,
+      "cost_n": 100,
+      "cost_sum": 3.060288,
+      "cost_mean": 0.03060288,
+      "cost_p50": 0.0263614,
+      "cost_p95": 0.058681065000000004,
+      "cost_max": 0.0847054,
+      "tail_gt3x": 1,
+      "tail_ids": [
+        777
+      ],
+      "wsr_mean": 0.91,
+      "wsr_n": 100,
+      "wsr_official_n": 0,
+      "wsr_p50": 1.0,
+      "wsr_p95": 1.0,
+      "wsr_max": 2.0,
+      "wsr_hist": {
+        "1": 87,
+        "0": 11,
+        "2": 2
+      },
+      "retrieval_cited_rate": 0.46,
+      "n_retrieval_cited": 46,
+      "n_esc": 100,
+      "parse_fail": 1,
+      "parse_retry": 1,
+      "parse_retry_ok": 0,
+      "retrieval_failed": 0,
+      "compound_mismatch": 1,
+      "esc_rate": 1.0,
+      "auto_accept_n": 1
+    },
+    "3": {
+      "n": 100,
+      "n_ids": 100,
+      "n_esc0": 3,
+      "nli_only_rate": 0.03,
+      "cost_n": 97,
+      "cost_sum": 3.0981195,
+      "cost_mean": 0.031939376288659796,
+      "cost_p50": 0.0268804,
+      "cost_p95": 0.05824007999999997,
+      "cost_max": 0.14653039999999998,
+      "tail_gt3x": 1,
+      "tail_ids": [
+        1030
+      ],
+      "wsr_mean": 0.9072164948453608,
+      "wsr_n": 97,
+      "wsr_official_n": 85,
+      "wsr_p50": 1.0,
+      "wsr_p95": 1.0,
+      "wsr_max": 2.0,
+      "wsr_hist": {
+        "1": 82,
+        "0": 12,
+        "2": 3
+      },
+      "retrieval_cited_rate": 0.5567010309278351,
+      "n_retrieval_cited": 54,
+      "n_esc": 97,
+      "parse_fail": 0,
+      "parse_retry": 2,
+      "parse_retry_ok": 2,
+      "retrieval_failed": 0,
+      "compound_mismatch": 1,
+      "esc_rate": 0.97,
+      "auto_accept_n": 1
+    },
+    "4": {
+      "n": 100,
+      "n_ids": 100,
+      "n_esc0": 0,
+      "nli_only_rate": 0.0,
+      "cost_n": 100,
+      "cost_sum": 2.899291,
+      "cost_mean": 0.02899291,
+      "cost_p50": 0.025324649999999997,
+      "cost_p95": 0.06564814999999999,
+      "cost_max": 0.0817354,
+      "tail_gt3x": 1,
+      "tail_ids": [
+        771
+      ],
+      "wsr_mean": 0.85,
+      "wsr_n": 100,
+      "wsr_official_n": 83,
+      "wsr_p50": 1.0,
+      "wsr_p95": 1.0,
+      "wsr_max": 2.0,
+      "wsr_hist": {
+        "1": 81,
+        "0": 17,
+        "2": 2
+      },
+      "retrieval_cited_rate": 0.55,
+      "n_retrieval_cited": 55,
+      "n_esc": 100,
+      "parse_fail": 0,
+      "parse_retry": 0,
+      "parse_retry_ok": 0,
+      "retrieval_failed": 0,
+      "compound_mismatch": 0,
+      "esc_rate": 1.0,
+      "auto_accept_n": 4
+    },
+    "5": {
+      "n": 154,
+      "n_ids": 154,
+      "n_esc0": 0,
+      "nli_only_rate": 0.0,
+      "cost_n": 154,
+      "cost_sum": 4.7930913,
+      "cost_mean": 0.03112396948051948,
+      "cost_p50": 0.02763715,
+      "cost_p95": 0.060042799999999986,
+      "cost_max": 0.1332774,
+      "tail_gt3x": 2,
+      "tail_ids": [
+        1029,
+        1187
+      ],
+      "wsr_mean": 0.8766233766233766,
+      "wsr_n": 154,
+      "wsr_official_n": 133,
+      "wsr_p50": 1.0,
+      "wsr_p95": 1.0,
+      "wsr_max": 2.0,
+      "wsr_hist": {
+        "1": 131,
+        "0": 21,
+        "2": 2
+      },
+      "retrieval_cited_rate": 0.525974025974026,
+      "n_retrieval_cited": 81,
+      "n_esc": 154,
+      "parse_fail": 0,
+      "parse_retry": 2,
+      "parse_retry_ok": 2,
+      "retrieval_failed": 0,
+      "compound_mismatch": 0,
+      "esc_rate": 1.0,
+      "auto_accept_n": 6
+    }
+  },
+  "all": {
+    "n": 554,
+    "n_esc0": 3,
+    "esc0_ids": [
+      1020,
+      1036,
+      1132
+    ],
+    "esc0_detail": [
+      {
+        "claim_id": 1020,
+        "slice": [
+          3
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.75,
+        "verdict": "doğrulanmış"
+      },
+      {
+        "claim_id": 1036,
+        "slice": [
+          3
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.791,
+        "verdict": "doğrulanmış"
+      },
+      {
+        "claim_id": 1132,
+        "slice": [
+          3
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.932,
+        "verdict": "doğrulanmış"
+      }
+    ],
+    "cost_n": 551,
+    "cost_sum": 18.0776781,
+    "cost_mean": 0.03280885317604356,
+    "cost_p50": 0.0275122,
+    "cost_p95": 0.061486400000000004,
+    "cost_max": 0.6371033999999999,
+    "tail_gt3x_n": 7,
+    "tail_gt3x": [
+      {
+        "claim_id": 620,
+        "cost": 0.6371033999999999,
+        "ratio": 23.157123021786692
+      },
+      {
+        "claim_id": 1030,
+        "cost": 0.14653039999999998,
+        "ratio": 5.326015367727771
+      },
+      {
+        "claim_id": 1029,
+        "cost": 0.1332774,
+        "ratio": 4.844301800655709
+      },
+      {
+        "claim_id": 942,
+        "cost": 0.08686215000000001,
+        "ratio": 3.1572229774427347
+      },
+      {
+        "claim_id": 1187,
+        "cost": 0.08610815000000001,
+        "ratio": 3.1298169539331644
+      },
+      {
+        "claim_id": 1016,
+        "cost": 0.08598829999999999,
+        "ratio": 3.1254607047055485
+      },
+      {
+        "claim_id": 777,
+        "cost": 0.0847054,
+        "ratio": 3.0788304824768646
+      }
+    ],
+    "wsr_mean": 0.9818511796733213,
+    "wsr_n": 551,
+    "wsr_official_n": 301,
+    "wsr_p50": 1.0,
+    "wsr_p95": 2.0,
+    "wsr_max": 3.0,
+    "wsr_hist": {
+      "0": 73,
+      "1": 426,
+      "2": 41,
+      "3": 11
+    },
+    "retrieval_cited_rate": 0.49364791288566245,
+    "n_retrieval_cited": 272,
+    "n_esc": 551,
+    "parse_fail_n": 1,
+    "parse_fail_ids": [
+      641
+    ],
+    "parse_retry": 5,
+    "parse_retry_ok": 4,
+    "retry_rescue_rate": 0.8,
+    "retrieval_failed": 0,
+    "retrieval_failed_ids": [],
+    "compound_mismatch": 2,
+    "nli_labels": {
+      "(yok)": 100,
+      "SUPPORTS": 364,
+      "NOT_ENOUGH_INFO": 78,
+      "REFUTES": 12
+    },
+    "nli_present_n": 454,
+    "nli_missing_n": 100,
+    "nli_conf_n": 454,
+    "nli_conf_p50": 0.4165,
+    "nli_conf_p95": 0.6610499999999999,
+    "nli_conf_mean": 0.444204845814978,
+    "nli_conf_buckets": {
+      "0.60-0.70": 16,
+      "0.40-0.50": 186,
+      "<0.40": 184,
+      "0.70-0.75": 11,
+      "0.50-0.60": 50,
+      ">=0.75": 7
+    },
+    "tokens": {
+      "input_tokens": 10493701,
+      "output_tokens": 511623,
+      "cache_creation_input_tokens": 3306226,
+      "cache_read_input_tokens": 4465398
+    },
+    "auto_accept": [
+      {
+        "claim_id": 256,
+        "slice": [
+          4
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.8,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.46,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.8 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Güneş ışığına maruz kalmak, kas fonksiyonu ve kemik yoğunluğu için hayati önemi olan D vitamini üretimini sağlar."
+      },
+      {
+        "claim_id": 270,
+        "slice": [
+          4
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.78,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.36,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.78 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Kas sentezini sağlayan büyüme hormonu en çok derin uykuda salgılanır."
+      },
+      {
+        "claim_id": 274,
+        "slice": [
+          4
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.72,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.481,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.72 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Yaz aylarında aşırı terleme gizli sıvı kaybına ve dehidrasyon riskinin artmasına yol açar."
+      },
+      {
+        "claim_id": 623,
+        "slice": [
+          4
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.7,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.345,
+        "initial_risk": "low",
+        "category": "diğer",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.7 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Tırnaklar ayda yaklaşık 3 mm büyür ve bu büyüme sırasında geçmiş dönemdeki beslenme ve metabolik durumu kaydeder."
+      },
+      {
+        "claim_id": 842,
+        "slice": [
+          5
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.72,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.368,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.72 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Yaş ilerledikçe karaciğerin kafeini metabolize etme hızı yavaşlar."
+      },
+      {
+        "claim_id": 932,
+        "slice": [
+          2
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.7,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.482,
+        "initial_risk": "medium",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.7 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "60 yaş üstünde uyku kalitesinin bozulması (az derin uyku, sık uyanma) fizyolojik stres kaynağı olarak kortizolü yükseltir."
+      },
+      {
+        "claim_id": 934,
+        "slice": [
+          5
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.75,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.424,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.75 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Deri altı yağı ile visseral (iç organ) yağ farklı metabolik şekilde davranır."
+      },
+      {
+        "claim_id": 1083,
+        "slice": [
+          5
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.72,
+        "specificity_tier": "background",
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.398,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.72 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Lütein ve zeaksantin pigmentleri makulayı zararlı mavi ve ultraviyole ışıktan koruyarak hücre hasarını engeller."
+      },
+      {
+        "claim_id": 1111,
+        "slice": [
+          3
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.72,
+        "specificity_tier": "background",
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.446,
+        "initial_risk": "medium",
+        "category": "diğer",
+        "flags": "retrieval_cited,specificity_tier:background,no_direct_evidence_expected",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.72 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Cerrahi varis tedavisi sonrasında bile mor damarlar sıklıkla tekrar geri döner."
+      },
+      {
+        "claim_id": 1141,
+        "slice": [
+          5
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.72,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.448,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background,no_direct_evidence_expected",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.72 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Gizli sodyum (aşırı tuz) tüketimi damar duvarlarında hasarı körükler."
+      },
+      {
+        "claim_id": 1184,
+        "slice": [
+          5
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.85,
+        "specificity_tier": "background",
+        "nli_label": "NOT_ENOUGH_INFO",
+        "nli_confidence": 0.388,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.85 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Albümin, kan damarlarındaki suyu içeride tutan anahtar bir proteindir; seviyesi düşerse su damar dışına sızarak dokularda birikir."
+      },
+      {
+        "claim_id": 1257,
+        "slice": [
+          5
+        ],
+        "verdict": "doğrulanmış",
+        "confidence": 0.72,
+        "specificity_tier": "background",
+        "nli_label": "SUPPORTS",
+        "nli_confidence": 0.378,
+        "initial_risk": "low",
+        "category": "mekanizma",
+        "flags": "retrieval_cited,specificity_tier:background",
+        "needs_human": false,
+        "why": [
+          "verdict_gate=0 (doğrulanmış/tartışmalı-destekleyici dışı değil)",
+          "conf_gate=0 (conf=0.72 ≥ 0.70)",
+          "compound_gate=0",
+          "needs_human=0 (kategori/risk/ilaç/parse tetik yok)"
+        ],
+        "text": "Kakaodaki flavanoller ileri yaştaki bireylerde kanıtlanmış bir vazodilatör (damar genişletici) etkiye sahiptir."
+      }
+    ],
+    "disagreements": [
+      {
+        "claim_id": 244,
+        "slice": [
+          4
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.66,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.5,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Uyku sırasında vücut hasarlı dokuları onarır, hücreleri yeniler ve hormonları düzenler; bu süreç proteine ihtiyaç duyar."
+      },
+      {
+        "claim_id": 793,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.735,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.42,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Çilek, damarları koruyan antosiyanin bakımından zengindir ve düşük glisemik yüke sahiptir."
+      },
+      {
+        "claim_id": 829,
+        "slice": [
+          2
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.441,
+        "verdict": "yanlış",
+        "claude_conf": 0.55,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Çörek otu küründe zamanlama kritiktir; yatmadan 45 dakika ila 1 saat önce uygulanmalıdır, aksi halde vücut uyku sinyalini işleyemez."
+      },
+      {
+        "claim_id": 835,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.535,
+        "verdict": "yanlış",
+        "claude_conf": 0.55,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Çörek otunun kavrulmamış (çiğ) formu, kavrulmuş forma göre şifalı bileşenlerini daha iyi korur."
+      },
+      {
+        "claim_id": 865,
+        "slice": [
+          2
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.746,
+        "verdict": "yanlış",
+        "claude_conf": 0.65,
+        "binary": true,
+        "high_conf_mismatch": true,
+        "golden": true,
+        "text": "Yüzdeki sarkmanın asıl nedeni yaşlanma veya genetik değil, tamamen postürel/mekanik faktörlerdir ve bu mekanik hatalar düzeltilebilir."
+      },
+      {
+        "claim_id": 891,
+        "slice": [
+          2
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.358,
+        "verdict": "yanlış",
+        "claude_conf": 0.72,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Yaşlanmayla böbreklerin aldosteron hormonuna tepki verme kapasitesi zayıflayarak gece sıvı tutulumuna yol açar."
+      },
+      {
+        "claim_id": 905,
+        "slice": [
+          2
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.687,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.45,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": true,
+        "text": "Maydanozdaki bileşenler, reçeteli diüretiklerden farklı bir mekanizmayla vücut potasyumunu tüketmeden idrar söktürücü etki gösterir."
+      },
+      {
+        "claim_id": 913,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.421,
+        "verdict": "yanlış",
+        "claude_conf": 0.68,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Gözaltı bölgesindeki lenf sıvısı iç köşeden kulağa doğru akar."
+      },
+      {
+        "claim_id": 955,
+        "slice": [
+          2
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.37,
+        "verdict": "yanlış",
+        "claude_conf": 0.65,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Akşam yemeğinden 2,5-3 saat sonra göbek bölgesinde hala sıcaklık, dolgunluk veya şişkinlik hissi olması sindirim sisteminde yavaşlama ve mide boşalmasının gecikmesi anlamına gelir."
+      },
+      {
+        "claim_id": 960,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.721,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.55,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Yemek sırasında önce yağ ve protein, sonra karbonhidrat tüketmek insülin tepkisini yavaşlatır."
+      },
+      {
+        "claim_id": 961,
+        "slice": [
+          2
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.679,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.4,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": true,
+        "text": "İskelet kasları vücuttaki glikozun birincil alım merkezleridir ve 90 dakikadan fazla hareketsiz kalmak kasların şeker emme kapasitesini düşürerek insülin direncini artırır."
+      },
+      {
+        "claim_id": 1003,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.687,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.45,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "60 yaş üstü yetişkinlerin çoğu, yaşlanmayla susama sinyallerinin zayıflaması nedeniyle farkında olmadan kronik susuzluk yaşar."
+      },
+      {
+        "claim_id": 1044,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.433,
+        "verdict": "yanlış",
+        "claude_conf": 0.8,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Keratin sistein, lizin ve metiyonin adı verilen üç amino asitten oluşur."
+      },
+      {
+        "claim_id": 1047,
+        "slice": [
+          3
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.728,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.45,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Kronik stres, böbrek üstü bezlerinden sürekli kortizol salgılanmasına neden olarak saç köklerindeki reseptörlere saldırır ve büyüme evresini keserek dinlenme evresine sokar."
+      },
+      {
+        "claim_id": 1060,
+        "slice": [
+          3
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.716,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.4,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Antibiyotik kullanımı bağırsak florasını bozarak demir, çinko ve aminoasit emilimini uzun süre baskılayabilir."
+      },
+      {
+        "claim_id": 1090,
+        "slice": [
+          3
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.663,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.45,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Yemek sonrası yükselen kan şekeri göz merceğini fiziksel olarak şişirir ve ince damarları tahrip eder."
+      },
+      {
+        "claim_id": 1096,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.381,
+        "verdict": "yanlış",
+        "claude_conf": 0.68,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Koyu yeşil yapraklı sebzelerin pişirilerek tüketilmesi, çiğ tüketime göre çok daha fazla ve kolay emilebilir lütein sağlar."
+      },
+      {
+        "claim_id": 1152,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.741,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.45,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "İdrar söktürücü ilaçlar kan hacmini azaltarak çalışır."
+      },
+      {
+        "claim_id": 1181,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.735,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.35,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Yaban mersini, böğürtlen, narenciye kabukları ve kırmızı lahana gibi flavonoid içeren gıdalar kılcal damar duvarlarını güçlendirerek sıvı sızıntısını azaltır."
+      },
+      {
+        "claim_id": 1200,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.741,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.5,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "İdrar söktürücü ilaçlar kan hacmini azaltarak çalışır."
+      },
+      {
+        "claim_id": 1222,
+        "slice": [
+          4
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.477,
+        "verdict": "yanlış",
+        "claude_conf": 0.55,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Kaval kemiği üzerine 15 saniye bastırıp bırakınca oluşan çukurun kaybolma süresine göre ödem evrelemesi yapılabilir (10 saniyeden fazla=1. derece, 1 dakikadan fazla=3. derece)."
+      },
+      {
+        "claim_id": 1258,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.453,
+        "verdict": "yanlış",
+        "claude_conf": 0.6,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Sabah kahvesine 1-2 yemek kaşığı saf kakao tozu eklenmesi damar sağlığı için yeterlidir."
+      },
+      {
+        "claim_id": 1274,
+        "slice": [
+          4
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.39,
+        "verdict": "yanlış",
+        "claude_conf": 0.68,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "3 gramlık lösin eşiği, yaşlanmayla ortaya çıkan anabolik direnci kırmanın tek yoludur."
+      },
+      {
+        "claim_id": 1282,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.808,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.45,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Kahvedeki klorojenik asit ve polifenoller hücreleri yaşlanmaya bağlı oksidatif hasara karşı korur."
+      },
+      {
+        "claim_id": 1285,
+        "slice": [
+          5
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.732,
+        "verdict": "tartışmalı",
+        "claude_conf": 0.4,
+        "binary": false,
+        "high_conf_mismatch": true,
+        "golden": false,
+        "text": "Ölçülü kahve tüketimi insülin duyarlılığını artırır."
+      },
+      {
+        "claim_id": 1294,
+        "slice": [
+          4
+        ],
+        "nli": "REFUTES",
+        "nli_conf": 0.372,
+        "verdict": "doğrulanmış",
+        "claude_conf": 0.72,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Proteinin böbrekleri çürüttüğü iddiası bir efsanedir ve sadece böbrek hastalarına özgü verilerden yanlış genellenmiştir."
+      },
+      {
+        "claim_id": 1296,
+        "slice": [
+          4
+        ],
+        "nli": "SUPPORTS",
+        "nli_conf": 0.439,
+        "verdict": "yanlış",
+        "claude_conf": 0.55,
+        "binary": true,
+        "high_conf_mismatch": false,
+        "golden": false,
+        "text": "Yıllar içinde biriken protein açığı sarkopeninin bir numaralı sebebidir."
+      }
+    ]
+  }
+}

@@ -33,8 +33,36 @@ PARTIAL_EVIDENCE_RE_EN = re.compile(
 )
 
 
+def locate_partial_caveat(text: str | None) -> str | None:
+    """İlk çekince kalıbının eşleşen metni (ör. 'However'); yoksa None."""
+    if not text or len(text.strip()) < 10:
+        return None
+    m = PARTIAL_REASONING_RE.search(text) or PARTIAL_EVIDENCE_RE_EN.search(text)
+    if not m:
+        return None
+    phrase = (m.group() or "").strip()
+    return phrase or None
+
+
+def locate_partial_caveat_in_pieces(pieces: list[str] | None) -> dict | None:
+    """
+    NLI dilimindeki (index 0/1/2) ilk çekince eşleşmesi.
+
+    Dönüş: partial_caveat_matched_index + partial_caveat_matched_phrase, veya None.
+
+    Index 0 dışı eşleşme gerçek: #1282 caveat parça 2 (index=1, "however").
+    pieces'i tek elemana indirgemek bu kontrolü sessizce kaçırır.
+    """
+    for i, piece in enumerate(pieces or []):
+        phrase = locate_partial_caveat(piece)
+        if phrase:
+            return {
+                "partial_caveat_matched_index": i,
+                "partial_caveat_matched_phrase": phrase,
+            }
+    return None
+
+
 def evidence_has_partial_caveat(text: str | None) -> bool:
     """Kanıt metninde kısmi/bileşik destek veya yeterlilik uyarısı var mı?"""
-    if not text or len(text.strip()) < 10:
-        return False
-    return bool(PARTIAL_REASONING_RE.search(text) or PARTIAL_EVIDENCE_RE_EN.search(text))
+    return locate_partial_caveat(text) is not None
