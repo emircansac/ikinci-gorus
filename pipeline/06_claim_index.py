@@ -26,6 +26,7 @@ from utils.suspicion import compute_suspicion, compute_priority
 from utils.text_similarity import get_cluster_members, get_cluster_members_embedding
 from utils.factcheck_calibrate import calibrate_factcheck
 from utils.reviewer_summary import build_reviewer_summary
+from utils.dedup_status import has_full_dedup_pipeline
 
 ROOT = Path(__file__).parent.parent
 DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
@@ -40,6 +41,16 @@ DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
 CLAIM_CLUSTER_THRESHOLD = 0.55
 
 PLACEHOLDER_THUMB = "https://placehold.co/480x270/171C16/9BA396?text=Video"
+
+
+def _derive_retrieval_source(dbg: dict, calibration_flags: str) -> str:
+    flags = {f.strip() for f in (calibration_flags or "").split(",") if f.strip()}
+    if flags & {"web_search_override", "web_search_only"}:
+        return "web_search"
+    tiers = dbg.get("retrieval_tiers") or []
+    if any(t == "serper" for t in tiers):
+        return "serper"
+    return "native"
 
 
 def _latest_debug_by_claim() -> dict[int, dict]:
@@ -75,7 +86,9 @@ def build_flat_index(conn) -> pd.DataFrame:
             cl.video_id, cl.channel_id, cl.extraction_version, cl.archived_at, cl.archive_reason,
             ch.name AS channel_name,
             v.title AS video_title, v.published_at AS video_published_at,
-            vr.final_verdict, vr.confidence, vr.source_url, vr.human_reviewed, vr.reviewer_note, vr.escalated,
+            vr.final_verdict, vr.confidence, vr.source_url, vr.human_reviewed, vr.auto_accepted,
+            vr.would_auto_accept_after_all_gates,
+            vr.reviewer_note, vr.escalated,
             vr.reasoning, vr.source_directness, vr.evidence_stance, vr.source_tier, vr.calibration_flags,
             vr.nli_label, vr.nli_confidence, vr.nli_evidence_snippet
         FROM claims cl
@@ -141,6 +154,9 @@ def build_flat_index(conn) -> pd.DataFrame:
             "suspicion_score": score,
             "suspicion_note": note,
             "human_reviewed": r["human_reviewed"],
+            "auto_accepted": r["auto_accepted"],
+            "would_auto_accept_after_all_gates": r["would_auto_accept_after_all_gates"],
+            "retrieval_source": _derive_retrieval_source(dbg, export_flags),
             "reviewer_note": r["reviewer_note"],
             "archived_at": r["archived_at"],
             "archive_reason": r["archive_reason"],
@@ -229,7 +245,10 @@ def build_video_index(conn, claims_df: pd.DataFrame) -> pd.DataFrame:
             if pd.isna(vid):
                 continue
             scored = grp[grp["suspicion_score"].notna()]
-            pending = grp[grp["human_reviewed"].fillna(0).astype(float) == 0]
+            pending = grp[
+                (grp["human_reviewed"].fillna(0).astype(float) == 0)
+                & (grp["auto_accepted"].fillna(0).astype(float) == 0)
+            ]
             top_row = scored.loc[scored["suspicion_score"].idxmax()] if not scored.empty else None
             claim_groups[vid] = {
                 "claim_count": len(grp),
@@ -254,6 +273,7 @@ def build_video_index(conn, claims_df: pd.DataFrame) -> pd.DataFrame:
             "max_suspicion_score": stats.get("max_suspicion_score"),
             "top_verdict": stats.get("top_verdict"),
             "pending_review_count": stats.get("pending_review_count", 0),
+            "full_pipeline": has_full_dedup_pipeline(vid),
             "youtube_url": f"https://www.youtube.com/watch?v={vid}",
             "thumbnail_url": thumbnail_url(vid),
         })
@@ -273,13 +293,14 @@ def build_video_index(conn, claims_df: pd.DataFrame) -> pd.DataFrame:
             "max_suspicion_score": stats.get("max_suspicion_score"),
             "top_verdict": stats.get("top_verdict"),
             "pending_review_count": stats.get("pending_review_count", 0),
+            "full_pipeline": has_full_dedup_pipeline(vid),
             "youtube_url": f"https://www.youtube.com/watch?v={vid}",
             "thumbnail_url": thumbnail_url(vid),
         })
 
     cols = ["video_id", "title", "published_at", "channel_id", "channel_name",
             "claim_count", "max_suspicion_score", "top_verdict", "pending_review_count",
-            "youtube_url", "thumbnail_url"]
+            "full_pipeline", "youtube_url", "thumbnail_url"]
     if not rows:
         return pd.DataFrame(columns=cols)
     out = pd.DataFrame(rows)

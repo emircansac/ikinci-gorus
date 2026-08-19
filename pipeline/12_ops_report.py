@@ -24,6 +24,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from utils.db import get_conn
 from utils.factcheck_review import compute_needs_human, security_risk_triggers
+from utils.dedup_status import has_full_dedup_pipeline, offline_dedup_path
+from utils.ops_report_parse import metrics_from_report_file, parse_cost_spread, parse_report_metric_value
 
 ROOT = Path(__file__).parent.parent
 DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
@@ -200,31 +202,10 @@ def _embedding_clustering_status() -> str:
     return "ok (probe: sentence-transformers import; sidecar yok — 06_claim_index çalıştırın)"
 
 
-def _offline_dedup_path(video_id: str) -> Path | None:
-    p = ROOT / "data" / f"smoke_{video_id}" / "offline_dedup.json"
-    return p if p.is_file() else None
-
-
-def _has_full_dedup_pipeline(video_id: str) -> bool:
-    """
-    Tam extraction+dedup turu koşulmuş mu?
-    Kısmi measurement örneklemi (birkaç claim_id) bu sayılmaz —
-    chunk artifact veya smoke offline_dedup gerekir.
-    """
-    if _offline_dedup_path(video_id):
-        return True
-    chunk_path = CHUNK_DIR / f"{video_id}.json"
-    if not chunk_path.is_file():
-        return False
-    data = json.loads(chunk_path.read_text(encoding="utf-8"))
-    chunks = data.get("chunks") or []
-    return bool(chunks) and any("raw_count" in c for c in chunks)
-
-
 def _dedup_stats(video_id: str, db_claim_count: int) -> dict:
     """chunk-içi + global pencere birleşen / ham toplam."""
-    full_pipeline = _has_full_dedup_pipeline(video_id)
-    offline = _offline_dedup_path(video_id)
+    full_pipeline = has_full_dedup_pipeline(video_id)
+    offline = offline_dedup_path(video_id)
     if offline:
         data = json.loads(offline.read_text(encoding="utf-8"))
         raw_total = int(data.get("raw_count") or 0)
@@ -339,12 +320,12 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
     chunk_local = global_merged = raw_total = 0
     dedup_video_n = 0
     for vid, cnt in claims_by_video.items():
-        if not _has_full_dedup_pipeline(vid):
+        if not has_full_dedup_pipeline(vid):
             continue
         dedup_video_n += 1
         d = _dedup_stats(vid, cnt)
         raw_total += d["raw_total"]
-        offline = _offline_dedup_path(vid)
+        offline = offline_dedup_path(vid)
         if offline:
             data = json.loads(offline.read_text(encoding="utf-8"))
             lt = int(data.get("local_dedup_total") or data.get("raw_count") or 0)
@@ -380,6 +361,8 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
     cost_sources = Counter()
     cache_retrieval_n = cache_hit_n = 0
     search_counts: list[float] = []
+    relevance_scores: list[float] = []
+    relevance_basis = Counter()
     retrieval_failed_n = 0
     compound_mismatch_n = 0
     shadow_accept_n = 0
@@ -481,6 +464,14 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
             except (TypeError, ValueError):
                 pass
 
+        if esc == 1 and rec and rec.get("relevance_score") is not None:
+            try:
+                relevance_scores.append(float(rec["relevance_score"]))
+                basis = rec.get("relevance_basis") or "(yok)"
+                relevance_basis[basis] += 1
+            except (TypeError, ValueError):
+                pass
+
         usage = batch_usage.get(cid) or (rec or {}).get("usage")
         is_batch = cid in batch_usage or bool(
             usage and (int(usage.get("cache_creation_input_tokens") or 0)
@@ -534,6 +525,11 @@ def _compute_metrics(rows: list[dict], debug: dict[int, dict], batch_usage: dict
         "search_p95": _percentile(search_counts, 0.95),
         "search_max": max(search_counts) if search_counts else None,
         "n_search_samples": len(search_counts),
+        "relevance_p25": _percentile(relevance_scores, 0.25),
+        "relevance_p50": _percentile(relevance_scores, 0.50),
+        "relevance_p75": _percentile(relevance_scores, 0.75),
+        "n_relevance_scores": len(relevance_scores),
+        "relevance_basis": dict(relevance_basis),
         "retrieval_failed_n": retrieval_failed_n,
         "compound_tier_mismatch_n": compound_mismatch_n,
         "would_auto_accept_after_all_gates_n": shadow_accept_n,
@@ -574,30 +570,16 @@ def _fmt_delta(cur, prev, *, is_rate: bool = False, is_money: bool = False) -> s
     return f"{d:+d}" if isinstance(d, int) else f"{d:+.2f}"
 
 
-_VALUE_RE = re.compile(r"^\|\s*(?P<metric>.+?)\s*\|\s*(?P<value>[^|]+?)\s*\|", re.UNICODE)
-_NUM_LEAD_RE = re.compile(r"^\$?\s*([\d,]+(?:\.\d+)?)")
-_COST_SPREAD_RE = re.compile(
-    r"p50\s*\$?([\d.]+)\s*/\s*p90\s*\$?([\d.]+)\s*/\s*p95\s*\$?([\d.]+)\s*/\s*max\s*\$?([\d.]+)",
-    re.IGNORECASE,
-)
+def _metrics_from_report_file(path: Path) -> dict[str, float]:
+    return metrics_from_report_file(path)
 
 
 def _parse_report_metric_value(raw_value: str) -> float | None:
-    raw = raw_value.strip()
-    if raw in ("—", "-", "baseline"):
-        return None
-    if "/" in raw.split()[0]:
-        pct_m = re.search(r"\(([\d.]+)%", raw)
-        if pct_m:
-            return float(pct_m.group(1)) / 100.0
-        return None
-    num_m = _NUM_LEAD_RE.match(raw.replace(",", ""))
-    if not num_m:
-        return None
-    num = float(num_m.group(1))
-    if "%" in raw:
-        return num / 100.0
-    return num
+    return parse_report_metric_value(raw_value)
+
+
+def _parse_cost_spread(raw_value: str) -> dict[str, float]:
+    return parse_cost_spread(raw_value)
 
 
 def _find_previous_report_file(report_dir: Path, before: date) -> Path | None:
@@ -615,40 +597,6 @@ def _find_previous_report_file(report_dir: Path, before: date) -> Path | None:
             prev_file = f
             prev_date = d
     return prev_file
-
-
-def _parse_cost_spread(raw_value: str) -> dict[str, float]:
-    """$/claim p50/p90/p95/max satırından kuyruk metriklerini çıkar."""
-    m = _COST_SPREAD_RE.search(raw_value or "")
-    if not m:
-        return {}
-    p50, p90, p95, mx = (float(x) for x in m.groups())
-    return {
-        "$/claim p50": p50,
-        "$/claim p90": p90,
-        "$/claim p95": p95,
-        "$/claim max": mx,
-    }
-
-
-def _metrics_from_report_file(path: Path) -> dict[str, float]:
-    if not path.is_file():
-        return {}
-    text = path.read_text(encoding="utf-8")
-    mapping: dict[str, float] = {}
-    for line in text.splitlines():
-        m = _VALUE_RE.match(line.strip())
-        if not m:
-            continue
-        metric = m.group("metric").strip()
-        raw_value = m.group("value")
-        if metric.startswith("$/claim p50/p90/p95/max"):
-            mapping.update(_parse_cost_spread(raw_value))
-            continue
-        parsed = _parse_report_metric_value(raw_value)
-        if parsed is not None:
-            mapping[metric] = parsed
-    return mapping
 
 
 def _claim_ids_scope_lines(scope_label: str, claim_ids: list[int]) -> list[str]:
@@ -935,6 +883,20 @@ def _render_report(
         else "—"
     )
     lines.append(f"| web_search_call_count p50/p95/max | {search_spread} | — |")
+    rel_n = metrics.get("n_relevance_scores") or 0
+    if rel_n:
+        basis = metrics.get("relevance_basis") or {}
+        cited_n = basis.get("cited_package_item", 0)
+        proxy_n = basis.get("proxy_relevance_exact_cited_not_tracked", 0)
+        rel_spread = (
+            f"p25 {_num(metrics.get('relevance_p25'), 3)} / "
+            f"p50 {_num(metrics.get('relevance_p50'), 3)} / "
+            f"p75 {_num(metrics.get('relevance_p75'), 3)} "
+            f"(n={rel_n}; cited={cited_n} proxy={proxy_n})"
+        )
+    else:
+        rel_spread = "— (henüz skor yok)"
+    lines.append(f"| relevance_score p25/p50/p75 (shadow) | {rel_spread} | — |")
     lines.append(f"| processed (verdict almış) | {metrics['n_verdicts']} | — |")
     lines.append(f"| parse_failed | {metrics['parse_fail_n']} | — |")
     lines.append(f"| retrieval_failed | {metrics.get('retrieval_failed_n', 0)} | — |")
@@ -987,7 +949,7 @@ def _render_report(
     # Hücre zaten koşullu (evet → oran, hayır → n/a); not da yalnızca
     # n/a satırı varken gösterilir — aksi halde yanıltıcı "kısmi örnekleme" iddiası.
     has_partial_dedup = any(
-        not _has_full_dedup_pipeline(vid)
+        not has_full_dedup_pipeline(vid)
         for vid in (metrics.get("claims_by_video") or {})
     )
     if has_partial_dedup:
@@ -1004,6 +966,11 @@ def _render_report(
             "bu mekanizma eklenmeden önce fact-check edilmiş — kapsam metriği yalnızca "
             "bundan sonraki turlar için anlamlı."
         )
+    notes.append(
+        "- **relevance_score (shadow):** eşik yok, gate yok. Escalated iddialarda "
+        "cosine kaydı; cited evidence izlenirse o, yoksa proxy top-evidence. "
+        "should_escalate / needs_human / calibration_flags değişmez."
+    )
     if notes:
         lines += ["", "## Notlar", "", *notes]
 

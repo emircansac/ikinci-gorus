@@ -2,7 +2,6 @@
 import sqlite3
 from pathlib import Path
 
-from utils.factcheck_review import security_risk_triggers
 from utils.evidence_topic_cache import ensure_topic_cache_table
 
 DB_PATH = Path(__file__).parent.parent / "data" / "monitor.db"
@@ -56,36 +55,80 @@ def _migrate_human_reviewed_semantics(conn):
     conn.commit()
 
 
-def _reconcile_stale_auto_accepted(conn):
+def _load_debug_by_claim() -> dict[int, dict]:
+    debug_path = Path(__file__).parent.parent / "data" / "factcheck_debug.jsonl"
+    out: dict[int, dict] = {}
+    if not debug_path.is_file():
+        return out
+    import json
+    with debug_path.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            cid = rec.get("claim_id")
+            if cid is not None:
+                out[int(cid)] = rec
+    return out
+
+
+def _reconcile_stale_auto_accepted(conn) -> list[int]:
     """
     Güvenlik kuralları sonradan eklendiğinde kalan auto_accepted=1 satırları düzelt.
+    Aktif iddialara karşı çalışır; compute_needs_human + partial_caveat dahil güncel tetikleyiciler.
     (claim 709 tipi — drug_interaction kuralı öncesi fact-check edilmiş kayıtlar)
     """
+    from utils.factcheck_review import stale_auto_accept_reasons
+
+    debug_by = _load_debug_by_claim()
     rows = conn.execute("""
         SELECT c.claim_id, c.claim_text, c.category, c.initial_risk,
-               v.calibration_flags, v.human_reviewed, v.reviewer_note
+               v.final_verdict, v.confidence, v.source_url, v.reasoning,
+               v.source_directness, v.evidence_stance, v.source_tier,
+               v.calibration_flags, v.escalated, v.library_match,
+               v.nli_evidence_snippet, v.human_reviewed, v.reviewer_note
         FROM claims c
         JOIN verdicts v ON v.claim_id = c.claim_id
-        WHERE v.auto_accepted = 1
+        WHERE c.archived_at IS NULL
+          AND v.auto_accepted = 1
           AND v.human_reviewed = 0
           AND (v.reviewer_note IS NULL OR TRIM(v.reviewer_note) = '')
     """).fetchall()
     fixed: list[int] = []
     for row in rows:
         r = dict(row)
-        if security_risk_triggers(
+        cid = int(r["claim_id"])
+        dbg = debug_by.get(cid) or {}
+        reasons = stale_auto_accept_reasons(
             category=r.get("category"),
             initial_risk=r.get("initial_risk"),
             claim_text=r.get("claim_text") or "",
+            final_verdict=r.get("final_verdict"),
+            confidence=r.get("confidence"),
+            source_url=r.get("source_url"),
+            reasoning=r.get("reasoning"),
+            source_directness=r.get("source_directness"),
+            evidence_stance=r.get("evidence_stance"),
+            source_tier=r.get("source_tier"),
             calibration_flags=r.get("calibration_flags"),
-        ):
+            escalated=int(r.get("escalated") or 0),
+            library_match=r.get("library_match"),
+            nli_evidence_snippet=r.get("nli_evidence_snippet"),
+            partial_caveat_matched_index=dbg.get("partial_caveat_matched_index"),
+        )
+        if reasons:
             conn.execute(
                 "UPDATE verdicts SET auto_accepted = 0 WHERE claim_id = ?",
-                (int(r["claim_id"]),),
+                (cid,),
             )
-            fixed.append(int(r["claim_id"]))
+            fixed.append(cid)
     if fixed:
         conn.commit()
+    return fixed
 
 
 def _backfill_shadow_human_gates(conn):

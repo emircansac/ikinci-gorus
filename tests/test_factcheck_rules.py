@@ -247,3 +247,65 @@ def test_compound_same_tier_auto_accept_unchanged():
     assert not needs_human
     _, auto_accepted = review_flags(needs_human=needs_human)
     assert auto_accepted == 1
+
+
+def test_stale_auto_accept_drug_interaction_like_709():
+    """#709 tipi: ilaç etkileşimi iddiası auto_accepted=1 olmamalı."""
+    from utils.factcheck_review import stale_auto_accept_reasons
+
+    reasons = stale_auto_accept_reasons(
+        category="önleme",
+        initial_risk="medium",
+        claim_text="Bazı bitki çayları ilaçlarla tehlikeli etkileşimlere girebilir.",
+        final_verdict="doğrulanmış",
+        confidence=0.65,
+        source_url="https://www.nccih.nih.gov/health/providers/digest/herb-drug-interactions",
+        reasoning="NCCIH ilaç etkileşimlerini doğruluyor.",
+        source_directness="direct",
+        evidence_stance="supports",
+        source_tier="guideline",
+        calibration_flags="tier_url:guideline->other,tier_cap:other",
+        escalated=1,
+    )
+    assert "drug_interaction" in reasons
+
+
+def test_stale_auto_accept_partial_caveat_nli_snippet():
+    from utils.factcheck_review import stale_auto_accept_reasons
+
+    reasons = stale_auto_accept_reasons(
+        category="mekanizma",
+        initial_risk="low",
+        claim_text="Test iddia.",
+        final_verdict="doğrulanmış",
+        confidence=0.8,
+        source_url="https://example.com",
+        reasoning="Destek var.",
+        source_directness="direct",
+        evidence_stance="supports",
+        source_tier="primary_study",
+        calibration_flags="retrieval_cited,specificity_tier:background",
+        escalated=1,
+        nli_evidence_snippet="Results support the claim. However, limitations apply.",
+    )
+    assert "partial_caveat" in reasons
+
+
+def test_stale_auto_accept_legit_background_claim():
+    from utils.factcheck_review import stale_auto_accept_reasons
+
+    reasons = stale_auto_accept_reasons(
+        category="mekanizma",
+        initial_risk="low",
+        claim_text="Güneş ışığı D vitamini üretimini destekler.",
+        final_verdict="doğrulanmış",
+        confidence=0.8,
+        source_url="https://pubmed.ncbi.nlm.nih.gov/123/",
+        reasoning="Mekanizma iyi bilinir.",
+        source_directness="direct",
+        evidence_stance="supports",
+        source_tier="primary_study",
+        calibration_flags="retrieval_cited,specificity_tier:background",
+        escalated=1,
+    )
+    assert reasons == []

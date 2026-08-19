@@ -126,6 +126,13 @@
   .badge{font-family:var(--mono); font-size:10px; padding:2px 7px; border-radius:4px; border:1px solid var(--line-strong); color:var(--text-muted);}
   .badge.risk-high{border-color:var(--red); color:var(--red); background:var(--red-dim);}
   .badge.pending{border-color:var(--magenta); color:var(--magenta); background:var(--magenta-dim);}
+  .badge.provenance-human{border-color:var(--teal); color:var(--teal); background:var(--teal-dim);}
+  .badge.provenance-auto{border-color:var(--line-strong); color:var(--text-muted); background:var(--bg);}
+  .badge.provenance-pending{border-color:var(--magenta); color:var(--magenta); background:var(--magenta-dim);}
+  .badge.source-native{border-color:var(--teal); color:var(--teal); background:var(--teal-dim);}
+  .badge.source-web{border-color:var(--line-strong); color:var(--text-muted);}
+  .badge.audited{border-color:var(--teal); color:var(--teal); background:var(--teal-dim);}
+  .badge.unaudited{border-color:var(--line-strong); color:var(--text-muted); border-style:dashed;}
   .claims-btn{font-family:var(--mono); font-size:11px; padding:6px 12px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg-elevated); color:var(--text); width:100%;}
   .claims-btn:hover{border-color:var(--teal); color:var(--teal);}
   .video-actions{display:flex; gap:8px;}
@@ -216,6 +223,14 @@
   .reviewer-focus-meta .risk-yuksek{color:var(--red);}
   .reviewer-focus-meta .risk-orta{color:var(--yellow);}
   .reviewer-focus-meta .risk-dusuk{color:var(--teal);}
+  .reviewer-focus-spec{display:flex; align-items:center; gap:6px; margin-top:6px;}
+  .spec-dot{font-size:8px; color:var(--line-strong);}
+  .spec-dot.on{color:var(--teal);}
+  .reviewer-focus-flags{display:flex; gap:4px; flex-wrap:wrap; margin-top:6px;}
+  .cal-flag-pill{
+    font-family:var(--mono); font-size:9.5px; padding:2px 6px; border-radius:4px;
+    border:1px solid var(--yellow); color:var(--yellow); background:var(--yellow-dim);
+  }
   .claim-cal-flag{
     font-family:var(--mono); font-size:10px; color:var(--yellow); margin-top:4px;
   }
@@ -273,6 +288,19 @@
   .cluster-channels strong{color:var(--text);}
   .cluster-stats{display:flex; gap:20px; font-family:var(--mono); font-size:11.5px; color:var(--text-muted); flex-wrap:wrap;}
   .cluster-stats b{color:var(--text); font-size:13.5px;}
+
+  /* Ops özet paneli */
+  .ops-card{background:var(--bg-card); border:1px solid var(--line); border-radius:10px; padding:20px 22px; margin-bottom:16px;}
+  .ops-head{font-family:var(--head); font-size:16px; font-weight:600; margin:0 0 4px;}
+  .ops-sub{font-family:var(--mono); font-size:11px; color:var(--text-muted); margin-bottom:16px;}
+  .ops-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:12px; margin-bottom:16px;}
+  .ops-stat{background:var(--bg-elevated); border:1px solid var(--line); border-radius:8px; padding:12px 14px;}
+  .ops-stat-val{font-family:var(--head); font-size:22px; font-weight:700; line-height:1.1;}
+  .ops-stat-label{font-family:var(--mono); font-size:10px; color:var(--text-muted); margin-top:4px;}
+  .ops-warnings{background:var(--yellow-dim); border:1px solid var(--yellow); border-radius:8px; padding:12px 14px; margin-bottom:12px;}
+  .ops-warnings-title{font-family:var(--mono); font-size:10px; font-weight:600; text-transform:uppercase; color:var(--yellow); margin-bottom:8px;}
+  .ops-warnings li{font-size:12.5px; line-height:1.45; margin-bottom:4px; color:var(--text);}
+  .ops-note{font-family:var(--mono); font-size:10px; color:var(--text-muted); opacity:.8;}
 
   /* Detail panel */
   .overlay{position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:200; opacity:0; pointer-events:none; transition:opacity .2s;}
@@ -360,15 +388,17 @@
     <button class="tab" data-panel="channels">kanallar</button>
     <button class="tab" data-panel="claims">iddialar</button>
     <button class="tab" data-panel="clusters">anlatı kümeleri</button>
+    <button class="tab" data-panel="ops">ops</button>
   </div>
 
   <div class="panel active" id="videos"><div class="empty-note">yükleniyor…</div></div>
   <div class="panel" id="channels"><div class="empty-note">yükleniyor…</div></div>
   <div class="panel" id="claims"><div class="empty-note">yükleniyor…</div></div>
   <div class="panel" id="clusters"><div class="empty-note">yükleniyor…</div></div>
+  <div class="panel" id="ops"><div class="empty-note">yükleniyor…</div></div>
 
   <footer>
-    /api/videos · /api/channels · /api/claims · /api/claims/archived · /api/clusters
+    /api/videos · /api/channels · /api/claims · /api/claims/archived · /api/clusters · /api/ops/summary
     <div class="note">skorlar olasılık göstergesidir, kesin hüküm değildir · + doğrulanmış, × yanlış, ± tartışmalı</div>
   </footer>
 </div>
@@ -390,9 +420,9 @@
 
 <script>
 const VERDICT_MARK = {"doğrulanmış":{sym:"+",cls:"dogrulanmis"}, "yanlış":{sym:"×",cls:"yanlis"}, "tartışmalı":{sym:"±",cls:"tartismali"}};
-const TAB_LABELS = {videos:"video", channels:"kanal", claims:"iddia", clusters:"küme"};
+const TAB_LABELS = {videos:"video", channels:"kanal", claims:"iddia", clusters:"küme", ops:"ops"};
 
-let cache = {videos:[], channels:[], claims:[], claimsArchived:[], clusters:[]};
+let cache = {videos:[], channels:[], claims:[], claimsArchived:[], clusters:[], ops:null};
 let watchlist = {channels:[], videos:[], min_videos_for_score:5};
 let activePanel = "videos";
 let searchQuery = "";
@@ -461,12 +491,100 @@ function filterClaimsByChip(rows){
   if(claimsFilter === "archive") return rows;
   if(claimsFilter === "high") return rows.filter(c => (c.suspicion_score ?? 0) >= 75);
   if(claimsFilter === "yanlis") return rows.filter(c => c.final_verdict === "yanlış");
-  if(claimsFilter === "pending") return rows.filter(c => isPendingReview(c));
+  if(claimsFilter === "pending") return rows.filter(c => needsHumanReview(c));
   return rows;
 }
 
-function isPendingReview(c){
-  return c.human_reviewed === 0 || c.human_reviewed === false || c.human_reviewed === '0';
+function isTruthy(v){ return v === 1 || v === true || v === '1'; }
+
+function isProductionAutoAccepted(c){
+  return isTruthy(c.auto_accepted);
+}
+
+function needsHumanReview(c){
+  return !isTruthy(c.human_reviewed) && !isTruthy(c.auto_accepted);
+}
+
+function reviewProvenanceBadge(c){
+  if(isTruthy(c.human_reviewed)) return {cls:'provenance-human', label:'İnsan onaylı'};
+  if(isProductionAutoAccepted(c)) return {cls:'provenance-auto', label:'Otomasyon kararı'};
+  return {cls:'provenance-pending', label:'Onay bekliyor'};
+}
+
+function retrievalSourceBadge(c){
+  const map = {
+    native: ['source-native', 'Bilimsel kaynak'],
+    serper: ['source-web', 'Web araması'],
+    web_search: ['source-web', 'Web araması'],
+  };
+  return map[c.retrieval_source] || null;
+}
+
+function renderProvenanceBadges(c){
+  const prov = reviewProvenanceBadge(c);
+  const src = retrievalSourceBadge(c);
+  let html = `<span class="badge ${prov.cls}">${esc(prov.label)}</span>`;
+  if(src) html += ` <span class="badge ${src[0]}">${esc(src[1])}</span>`;
+  return html;
+}
+
+const CALIBRATION_FLAG_TR = {
+  verdict_reasoning_mismatch: 'Gerekçe-hüküm uyumsuzluğu',
+  compound_tier_mismatch: 'Bileşik iddia seviye uyumsuzluğu',
+  web_search_override: 'Web araması devreye girdi',
+  web_search_only: 'Yalnızca web araması',
+  retrieval_cited: 'Kaynaklı yanıt',
+  package_only_forced: 'Paket dışı kaynak',
+  no_direct_evidence_expected: 'Doğrudan kanıt beklenmiyor',
+};
+
+const SPECIFICITY_TR = {
+  direct: 'doğrudan kanıt',
+  supportive: 'destekleyici',
+  background: 'arka plan',
+  none: 'belirtilmemiş',
+};
+
+function parseSpecificityTier(flagsStr){
+  if(!flagsStr) return null;
+  const m = flagsStr.match(/specificity_tier:(\w+)/);
+  return m ? m[1] : null;
+}
+
+function specificityDots(tier){
+  const levels = {direct:3, supportive:2, background:1, none:0};
+  const n = levels[tier] ?? 0;
+  return [0,1,2].map(i => `<span class="spec-dot${i < n ? ' on' : ''}">●</span>`).join('');
+}
+
+function formatCalibrationFlags(flagsStr){
+  if(!flagsStr) return [];
+  const shown = [];
+  for(const f of flagsStr.split(',').map(s => s.trim()).filter(Boolean)){
+    if(f.startsWith('specificity_tier:')) continue;
+    if(f.startsWith('tier_cap:') || f.startsWith('tier_url:')) continue;
+    const tr = CALIBRATION_FLAG_TR[f];
+    if(tr) shown.push(tr);
+  }
+  return shown;
+}
+
+function renderReviewerFocusExtras(c){
+  const tier = parseSpecificityTier(c.calibration_flags);
+  const calLabels = formatCalibrationFlags(c.calibration_flags);
+  let html = '';
+  if(tier){
+    html += `<div class="reviewer-focus-spec">${specificityDots(tier)} <span>${esc(SPECIFICITY_TR[tier] || tier)}</span></div>`;
+  }
+  if(calLabels.length){
+    html += `<div class="reviewer-focus-flags">${calLabels.map(l => `<span class="cal-flag-pill">${esc(l)}</span>`).join('')}</div>`;
+  }
+  return html;
+}
+
+function isFullPipeline(v){
+  const fp = v.full_pipeline;
+  return fp === true || fp === 1 || fp === '1' || fp === 'True' || fp === 'true';
 }
 
 function riskLevelClass(level){
@@ -481,8 +599,8 @@ function renderClaimStreamItem(c, opts){
   const susp = c.suspicion_score;
   const verdictLabel = c.final_verdict || "belirsiz";
   const ytUrl = youtubeAt(c.video_id, c.timestamp_sec);
-  const pending = isPendingReview(c);
-  const reviewStatus = c.reviewer_note || (c.human_reviewed ? 'onaylandı' : '');
+  const pending = needsHumanReview(c);
+  const reviewStatus = c.reviewer_note || (isTruthy(c.human_reviewed) ? 'onaylandı' : '');
   const timeLink = c.timestamp_sec != null
     ? `<a href="${esc(ytUrl)}" target="_blank" rel="noopener">${c.timestamp_sec}s</a>`
     : '';
@@ -495,11 +613,13 @@ function renderClaimStreamItem(c, opts){
       <div class="reviewer-focus-meta">
         ${c.reviewer_risk_level ? `<span class="risk-${riskLevelClass(c.reviewer_risk_level)}">risk: ${esc(c.reviewer_risk_level)}</span>` : ''}
         ${c.reviewer_source_note ? `<span>${c.reviewer_risk_level ? ' · ' : ''}${esc(c.reviewer_source_note)}</span>` : ''}
+        ${renderReviewerFocusExtras(c)}
       </div>
     </div>` : ''}
     <p class="claim-stream-text">${esc(c.claim_text)}</p>
     <div class="claim-stream-meta">
       <span class="claim-stream-verdict ${vCls}">${vMark.sym} ${esc(verdictLabel)}</span>
+      ${renderProvenanceBadges(c)}
       <span>${esc(c.channel_name || c.channel_id)}</span>
       ${timeLink ? `<span>${timeLink}</span>` : ''}
       ${c.confidence != null ? `<span>güven ${Number(c.confidence).toFixed(2)}</span>` : ''}
@@ -521,7 +641,7 @@ function renderClaimStreamItem(c, opts){
       <div class="review-hint" style="font-size:10.5px;color:var(--text-muted);margin-top:6px;">
         onayla = AI hükmü onayla · reddet = tartışmalı + arşiv · arşivle = ana akıştan çıkar
       </div>` : !isArchiveView ? `
-      <div class="review-status ${String(reviewStatus).includes('redd') ? 'no' : 'ok'}">${esc(reviewStatus || 'incelendi')}</div>` : `
+      <div class="review-status ${String(reviewStatus).includes('redd') ? 'no' : 'ok'}">${esc(reviewStatus || (isProductionAutoAccepted(c) ? 'otomasyon kararı' : 'incelendi'))}</div>` : `
       <div class="review-status ok">arşiv · ${esc(archiveReasonLabel(c.archive_reason))}</div>`}
     </div>
   </article>`;
@@ -539,6 +659,7 @@ function renderTweetCard(c){
     <p class="tweet-text">${esc(c.claim_text)}</p>
     <div class="tweet-foot">
       <span>${vMark.sym} ${esc(verdictLabel)}</span>
+      ${renderProvenanceBadges(c)}
       ${c.category ? `<span>${esc(c.category)}</span>` : ''}
       ${susp != null ? `<span style="color:${tierColor(susp)}">şüphe ${Number(susp).toFixed(0)}</span>` : ''}
       <a href="${esc(ytUrl)}" target="_blank" rel="noopener">videoyu izle</a>
@@ -617,6 +738,9 @@ function renderVideos(){
         <div class="video-badges">
           <span class="badge">${v.claim_count ?? 0} iddia</span>
           ${v.top_verdict ? `<span class="badge">${esc(v.top_verdict)}</span>` : ''}
+          ${isFullPipeline(v)
+            ? '<span class="badge audited" title="Bu videodaki iddialar uçtan uca işlendi">Tam kontrolden geçti</span>'
+            : '<span class="badge unaudited" title="Videodan yalnızca bir alt küme işlendi; sonuçlar temsilî olabilir">Örnek kontrol</span>'}
           ${v.pending_review_count > 0 ? `<span class="badge pending">${v.pending_review_count} onay bekliyor</span>` : ''}
         </div>
         <div class="video-actions">
@@ -740,10 +864,39 @@ function renderClusters(){
     </div>`).join('');
 }
 
+function renderOps(){
+  const el = document.getElementById('ops');
+  const ops = cache.ops;
+  if(!ops || ops.error){
+    el.innerHTML = `<div class="empty-note">${esc(ops?.error || 'henüz ops raporu yok')}</div>`;
+    return;
+  }
+  const pct = v => v != null ? `${Math.round(v * 100)}%` : '—';
+  const usd = v => v != null ? `$${Number(v).toFixed(4)}` : '—';
+  el.innerHTML = `
+    <div class="ops-card">
+      <h3 class="ops-head">Üretim özeti — ${esc(ops.report_date || '')}</h3>
+      <div class="ops-sub">${esc(ops.scope ? `kapsam: ${ops.scope}` : '')}${ops.scope && ops.source_file ? ' · ' : ''}${ops.source_file ? esc(ops.source_file) : ''}</div>
+      <div class="ops-grid">
+        <div class="ops-stat"><div class="ops-stat-val">${ops.n_claims ?? '—'}</div><div class="ops-stat-label">toplam iddia</div></div>
+        <div class="ops-stat"><div class="ops-stat-val">${usd(ops.cost_per_claim_usd)}</div><div class="ops-stat-label">$/claim ort.</div></div>
+        <div class="ops-stat"><div class="ops-stat-val">${pct(ops.needs_human_rate)}</div><div class="ops-stat-label">needs_human oranı</div></div>
+        <div class="ops-stat"><div class="ops-stat-val">${pct(ops.retrieval_cited_rate)}</div><div class="ops-stat-label">retrieval_cited oranı</div></div>
+      </div>
+      ${ops.has_alarms ? `
+      <div class="ops-warnings">
+        <div class="ops-warnings-title">⚠ aktif uyarılar</div>
+        <ul>${(ops.warnings || []).map(w => `<li>${esc(w.replace(/^⚠️\s*/, ''))}</li>`).join('')}</ul>
+      </div>` : `<div class="ops-note" style="margin-bottom:12px;">aktif alarm yok</div>`}
+      <div class="ops-note">yeni hesaplama yok — son ops raporundan okundu</div>
+    </div>`;
+}
+
 function renderActivePanel(){
   if(activePanel === 'videos') renderVideos();
   else if(activePanel === 'channels') renderChannels();
   else if(activePanel === 'claims') renderClaims();
+  else if(activePanel === 'ops') renderOps();
   else renderClusters();
 }
 
@@ -888,12 +1041,13 @@ async function refreshAll(){
   btn.disabled = true;
   btn.textContent = 'yükleniyor…';
   try {
-    const [videos, channels, claims, claimsArchived, clusters] = await Promise.all([
+    const [videos, channels, claims, claimsArchived, clusters, ops] = await Promise.all([
       fetchJson('/api/videos').catch(() => []),
       fetchJson('/api/channels').catch(() => []),
       fetchJson('/api/claims').catch(() => []),
       fetchJson('/api/claims/archived').catch(() => []),
       fetchJson('/api/clusters').catch(() => []),
+      fetch('/api/ops/summary').then(r => r.ok ? r.json() : {error: 'ops raporu yok'}).catch(() => ({error: 'ops raporu yüklenemedi'})),
     ]);
     const asArr = x => Array.isArray(x) ? x : [];
     cache = {
@@ -902,6 +1056,7 @@ async function refreshAll(){
       claims: asArr(claims),
       claimsArchived: asArr(claimsArchived),
       clusters: asArr(clusters),
+      ops: ops && !Array.isArray(ops) ? ops : null,
     };
     await loadWatchlist();
     renderActivePanel();

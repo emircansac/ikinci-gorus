@@ -47,7 +47,12 @@ from functools import lru_cache
 from pathlib import Path
 from typing import NamedTuple
 
-from utils.factcheck_calibrate import TIER_CONF_CAP, infer_source_tier
+from utils.factcheck_calibrate import (
+    TIER_CONF_CAP,
+    infer_source_tier,
+    _cite_ids_from_evidence_item,
+    _cite_ids_from_url,
+)
 
 try:
     from dotenv import load_dotenv
@@ -1471,3 +1476,107 @@ def retrieve_pubmed_evidence(claim_text: str, search_query_en: str | None = None
     candidates = with_abstract or [abstracts[p] for p in pmids if p in abstracts]
 
     return _dense_rerank(claim_text, candidates, FINAL_EVIDENCE_COUNT)
+
+
+# --- Shadow relevance (Ölçüm 3) — skor kaydı; eşik/gate yok ---
+RELEVANCE_BASIS_CITED = "cited_package_item"
+RELEVANCE_BASIS_PROXY = "proxy_relevance_exact_cited_not_tracked"
+RELEVANCE_BASIS_MISSING = "missing/not_available"
+
+
+def evidence_item_text(item: dict | None) -> str:
+    """Paket parçasının title+abstract metni (Ölçüm 3 evidence_text_of ile aynı)."""
+    if not item:
+        return ""
+    return f"{(item.get('title') or '').strip()} {(item.get('abstract') or '').strip()}".strip()
+
+
+def top_package_item(evidence: list[dict] | None) -> dict | None:
+    """Rerank skoru varsa en yüksek; yoksa paketin ilk sırası (proxy top-evidence)."""
+    items = [e for e in (evidence or []) if isinstance(e, dict)]
+    if not items:
+        return None
+
+    def _score(item: dict) -> float:
+        val = item.get("rerank_score")
+        try:
+            return float(val)
+        except (TypeError, ValueError):
+            return float("-inf")
+
+    ranked = sorted(items, key=_score, reverse=True)
+    if _score(ranked[0]) == float("-inf"):
+        return items[0]
+    return ranked[0]
+
+
+def match_cited_package_item(source_url: str | None, evidence: list[dict] | None) -> dict | None:
+    """source_url paket URL/PMID/PMCID/DOI ile kesişiyorsa o parçayı döner."""
+    if not source_url or not evidence:
+        return None
+    cited = _cite_ids_from_url(source_url)
+    if not cited:
+        return None
+    for item in evidence:
+        if cited & _cite_ids_from_evidence_item(item):
+            return item
+    return None
+
+
+def resolve_relevance_evidence(
+    source_url: str | None,
+    evidence: list[dict] | None,
+) -> tuple[dict | None, str]:
+    """
+    Ölçüm 3 ile aynı seçim: cited evidence izlenebiliyorsa o,
+    değilse proxy top-evidence. Eşik uygulamaz.
+    """
+    cited_item = match_cited_package_item(source_url, evidence) if source_url else None
+    if cited_item is not None:
+        return cited_item, RELEVANCE_BASIS_CITED
+    proxy_item = top_package_item(evidence)
+    if proxy_item is not None:
+        return proxy_item, RELEVANCE_BASIS_PROXY
+    return None, RELEVANCE_BASIS_MISSING
+
+
+def compute_evidence_relevance(claim_text: str, evidence_text: str) -> float | None:
+    """
+    Zaten yüklü dense embedder ile cosine similarity. Yeni model yok.
+
+    Embedder yoksa veya metin boşsa None (0 uydurulmaz).
+    """
+    a = (claim_text or "").strip()
+    b = (evidence_text or "").strip()
+    if not a or not b:
+        return None
+    embedder = _get_embedder()
+    if embedder is None:
+        return None
+    import numpy as np
+
+    va, vb = embedder.encode([a, b])
+    na = float(np.linalg.norm(va))
+    nb = float(np.linalg.norm(vb))
+    if na <= 0 or nb <= 0:
+        return None
+    return float(np.dot(va, vb) / (na * nb))
+
+
+def shadow_relevance_debug_fields(
+    claim_text: str,
+    source_url: str | None,
+    evidence: list[dict] | None,
+) -> dict:
+    """
+    Escalated karar için pasif shadow kayıt. calibration_flags / escalate
+    yoluna dokunmaz — yalnızca debug alanları.
+    """
+    item, basis = resolve_relevance_evidence(source_url, evidence)
+    text = evidence_item_text(item)
+    score = compute_evidence_relevance(claim_text, text) if text else None
+    return {
+        "relevance_score": score,
+        "relevance_basis": basis,
+        "relevance_evidence_title": (item or {}).get("title") if item else None,
+    }

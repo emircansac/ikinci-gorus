@@ -147,3 +147,30 @@ def test_specificity_missing_note_two_way():
     )
     assert "- **specificity_tier=(yok) 99 iddia**" in body_n
     assert "bu mekanizma eklenmeden önce fact-check edilmiş" in body_n
+
+
+def test_relevance_shadow_row_informational_only():
+    """Dağılım satırı var; eşik önerisi yok."""
+    mod = _load_ops_report()
+    body_empty = _render_notes_body(mod, _minimal_metrics())
+    assert "relevance_score p25/p50/p75 (shadow)" in body_empty
+    assert "— (henüz skor yok)" in body_empty
+    assert "eşik yok, gate yok" in body_empty
+    assert "eşik öner" not in body_empty.lower()
+
+    body = _render_notes_body(
+        mod,
+        _minimal_metrics(
+            n_relevance_scores=4,
+            relevance_p25=0.25,
+            relevance_p50=0.50,
+            relevance_p75=0.75,
+            relevance_basis={
+                "cited_package_item": 2,
+                "proxy_relevance_exact_cited_not_tracked": 2,
+            },
+        ),
+    )
+    assert "p25 0.250 / p50 0.500 / p75 0.750" in body
+    assert "cited=2 proxy=2" in body
+    assert "eşik öner" not in body.lower()

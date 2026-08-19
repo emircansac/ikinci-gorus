@@ -127,3 +127,82 @@ def compute_needs_human(
 def review_flags(*, needs_human: bool) -> tuple[int, int]:
     """Pipeline asla human_reviewed=1 yazmaz; auto_accepted otomasyon kararını taşır."""
     return 0, 0 if needs_human else 1
+
+
+def stale_auto_accept_reasons(
+    *,
+    category: str | None,
+    initial_risk: str | None,
+    claim_text: str,
+    final_verdict: str | None,
+    confidence,
+    source_url: str | None,
+    reasoning: str | None,
+    source_directness: str | None,
+    evidence_stance: str | None,
+    source_tier: str | None,
+    calibration_flags: str | None,
+    escalated: int,
+    library_match=None,
+    nli_evidence_snippet: str | None = None,
+    partial_caveat_matched_index=None,
+) -> list[str]:
+    """
+    Mevcut güvenlik kurallarına göre auto_accepted=1 artık geçerli mi?
+    _reconcile_stale_auto_accepted ve testler için — pipeline davranışını değiştirmez.
+    """
+    from utils.factcheck_calibrate import calibrate_factcheck
+    from utils.reasoning_patterns import evidence_has_partial_caveat
+
+    reasons: list[str] = []
+    reasoning_text = reasoning or ""
+    parse_failed = "parse edilemedi" in reasoning_text.lower()
+    cal = calibrate_factcheck({
+        "final_verdict": final_verdict,
+        "confidence": confidence,
+        "source_url": source_url or "",
+        "reasoning": reasoning_text,
+        "source_directness": source_directness,
+        "evidence_stance": evidence_stance,
+        "source_tier": source_tier,
+    })
+    stored = {f.strip() for f in (calibration_flags or "").split(",") if f.strip()}
+    export_flags = {
+        f.strip() for f in (cal.get("calibration_flags") or "").split(",") if f.strip()
+    }
+    merged_flags = ",".join(sorted(stored | export_flags))
+    library_hit = None
+    if "library_flag_review" in stored and library_match:
+        library_hit = {"raw": library_match}
+
+    if compute_needs_human(
+        category=category,
+        initial_risk=initial_risk,
+        claim_text=claim_text or "",
+        parse_failed=parse_failed,
+        final_verdict=final_verdict,
+        escalated_flag=int(escalated or 0),
+        calibrated={"needs_human": bool(cal.get("needs_human"))},
+        source_directness=source_directness,
+        library_review_hit=library_hit,
+        calibration_flags=merged_flags,
+    ):
+        for t in security_risk_triggers(
+            category=category,
+            initial_risk=initial_risk,
+            claim_text=claim_text or "",
+            calibration_flags=merged_flags,
+        ):
+            reasons.append(t)
+        if not reasons:
+            if cal.get("needs_human"):
+                reasons.append("calibrated_needs_human")
+            else:
+                reasons.append("needs_human")
+
+    if partial_caveat_matched_index is not None:
+        reasons.append("partial_caveat")
+    elif evidence_has_partial_caveat(nli_evidence_snippet):
+        reasons.append("partial_caveat")
+
+    return reasons

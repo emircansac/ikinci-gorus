@@ -175,6 +175,16 @@ def api_clusters():
     return jsonify(data or [])
 
 
+@app.route("/api/ops/summary")
+def api_ops_summary():
+    from utils.ops_summary import load_ops_summary
+    ops_dir = DATA_DIR / "ops_reports"
+    summary = load_ops_summary(ops_dir)
+    if summary is None:
+        return jsonify({"error": "henüz ops raporu yok — pipeline/12_ops_report.py çalıştırın"}), 404
+    return jsonify(summary)
+
+
 @app.route("/api/claims/<int:claim_id>/review", methods=["POST"])
 def api_claim_review(claim_id):
     from utils.review import review_claim

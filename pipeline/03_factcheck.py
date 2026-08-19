@@ -63,6 +63,7 @@ from utils.evidence_retrieval import (
     collect_specificity_nli_scores,
     classify_evidence_expectation,
     score_component_evidence,
+    shadow_relevance_debug_fields,
     FINAL_EVIDENCE_COUNT,
     EPISTEMIC_NO_DIRECT,
 )
@@ -275,6 +276,10 @@ def _finalize_escalated(
     if force_package_only and not parse_failed:
         calibrated["needs_human"] = True
         calibrated["calibration_flags"] = final.get("calibration_flags") or ""
+    # Shadow relevance: skor kaydı; calibration_flags / escalate davranışı değişmez.
+    relevance_fields = shadow_relevance_debug_fields(
+        claim_text, final.get("source_url"), evidence,
+    )
     _append_debug_log({
         "claim_id": claim_id,
         "claim_text": claim_text,
@@ -323,6 +328,7 @@ def _finalize_escalated(
             "partial_caveat_matched_index": partial_caveat_matched_index,
             "partial_caveat_matched_phrase": partial_caveat_matched_phrase,
         } if partial_caveat_matched_index is not None else {}),
+        **relevance_fields,
     })
     _merge_library_review_flag(final, library_review_hit)
     apply_verdict_reasoning_mismatch(final)
@@ -375,6 +381,16 @@ def _finalize_escalated(
         print(f"           {final['reasoning'][:240]}")
     if final["calibration_flags"]:
         print(f"           kalibrasyon: {final['calibration_flags']}")
+    if relevance_fields.get("relevance_score") is not None:
+        print(
+            f"           shadow relevance={relevance_fields['relevance_score']:.3f} "
+            f"basis={relevance_fields.get('relevance_basis')}"
+        )
+    else:
+        print(
+            f"           shadow relevance=— "
+            f"basis={relevance_fields.get('relevance_basis')}"
+        )
 
 
 def _pending_claim_ids() -> set[int]:
