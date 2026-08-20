@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 data/monitor.db
+data_seed/
 data/pipeline_scheduler.log
 data/.scheduler.lock
 data/_healthcheck_test.db

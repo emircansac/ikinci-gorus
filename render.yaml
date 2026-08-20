@@ -15,12 +15,12 @@ services:
     name: health-misinfo-dashboard
     runtime: python
     plan: starter                     # kalıcı disk için ücretsiz planda mümkün değil
-    buildCommand: "pip install -r requirements.txt && cp -f data/channels.csv channels.csv.seed"
-    # Disk data/ üzerine biner; ilk attach'te channels.csv yoksa seed kopyalanır.
-    # workers=1: zamanlayıcı her gunicorn worker'da bir kez başlar; tek worker
-    # çifte pipeline turunu önler. Pipeline Flask'ı bloklamaz (ayrı thread +
-    # her adım zaten subprocess).
-    startCommand: "sh -c 'mkdir -p data; test -f data/channels.csv || cp -f channels.csv.seed data/channels.csv; gunicorn --workers 1 app:app'"
+    # Build, disk bindirmeden ÖNCE git'teki gerçek CSV + deploy_seed/monitor.db
+    # snapshot'ını data_seed/'e alır. Start'ta boş disk data/'yı örter; eksik
+    # dosyalar snapshot'tan bir kez kopyalanır (demo tohum değil, yerel analiz).
+    # Diskte dosya zaten varsa üzerine yazılmaz. workers=1: tek zamanlayıcı.
+    buildCommand: "pip install -r requirements.txt && mkdir -p data_seed && cp -f data/channels.csv data/videos.csv data/claim_index.csv data/claim_archive.csv data/suspects.csv data/narrative_clusters.csv data/watchlist.json data_seed/ && cp -f deploy_seed/monitor.db data_seed/monitor.db"
+    startCommand: "sh scripts/seed_render_disk.sh"
     healthCheckPath: /healthz
     envVars:
       - key: PYTHON_VERSION

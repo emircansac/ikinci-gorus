@@ -337,12 +337,11 @@ Hâlâ **çözülmemiş**, bilerek kapsam dışı bırakılan noktalar:
   `sync: false` olduğu için koda hiç yazılmaz, sadece Render'ın kendi
   şifreli ortam değişkeni deposunda durur)
 
-**3. `data/channels.csv`'yi yükleyin**
-Web servisi ayağa kalkınca `data/channels.csv` dosyasını arayacak — bunu
-GitHub reposuna diğer dosyalarla birlikte yüklediğinizden emin olun
-(kanal listenizi hazırlama adımı yukarıda). Kalıcı disk `data/` üzerine
-bindiği için ilk attach boş olabilir; `render.yaml` build sırasında
-`channels.csv.seed` kopyalar, start komutu seed'i diske yazar.
+**3. İlk açılışta gerçek analiz snapshot'ı**
+Kalıcı disk `data/` üzerine boş biner. Build, git'teki `videos.csv` /
+`claim_index.csv` ve `deploy_seed/monitor.db` (yereldeki gerçek analiz
+kopyası, demo değil) `data_seed/`'e alınır; start'ta diskte yoksa bir kez
+yazılır. Diskte dosya varsa ezilmez.
 
 **4. URL'nizi test edin**
 Render, web servisiniz için `https://health-misinfo-dashboard.onrender.com`
