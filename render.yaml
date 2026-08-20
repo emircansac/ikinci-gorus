@@ -1,44 +1,41 @@
 # Render Blueprint — render.com/docs/blueprint-spec
 #
-# Bu dosya iki servis tanımlar:
-#   1. web       -> dashboard + API (her zaman açık, size bir URL verir)
-#   2. pipeline  -> ağır işi günlük çalıştıran zamanlanmış görev (cron job)
+# TEK web servisi. Cron job YOKTUR.
 #
-# İkisi de AYNI kalıcı diski (health-data) paylaşır ki pipeline'ın yazdığı
-# data/*.csv dosyalarını web servisi okuyabilsin.
+# Neden: Render'da (1) kalıcı disk yalnızca TEK servise bağlanabilir,
+# (2) cron job servis türüne disk hiç bağlanamaz. Web + cron'un aynı
+# data/*.csv ve data/monitor.db dosyalarını paylaşması bu yüzden imkânsız.
+# Pipeline, web sürecinin içinde APScheduler ile arka plan thread'inde
+# çalışır (app.py). 20/21 interaktif script'ler Render'a girmez.
 #
-# Kullanım: Render dashboard'da "New -> Blueprint" seçip bu repoyu gösterin,
-# Render bu dosyayı okuyup iki servisi de otomatik oluşturur.
+# Kullanım: Render dashboard'da "New -> Blueprint" seçip bu repoyu gösterin.
 
 services:
   - type: web
     name: health-misinfo-dashboard
     runtime: python
     plan: starter                     # kalıcı disk için ücretsiz planda mümkün değil
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
+    buildCommand: "pip install -r requirements.txt && cp -f data/channels.csv channels.csv.seed"
+    # Disk data/ üzerine biner; ilk attach'te channels.csv yoksa seed kopyalanır.
+    # workers=1: zamanlayıcı her gunicorn worker'da bir kez başlar; tek worker
+    # çifte pipeline turunu önler. Pipeline Flask'ı bloklamaz (ayrı thread +
+    # her adım zaten subprocess).
+    startCommand: "sh -c 'mkdir -p data; test -f data/channels.csv || cp -f channels.csv.seed data/channels.csv; gunicorn --workers 1 app:app'"
     healthCheckPath: /healthz
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
-    disk:
-      name: health-data
-      mountPath: /app/data
-      sizeGB: 1
-
-  - type: cron
-    name: health-misinfo-pipeline
-    runtime: python
-    plan: starter
-    schedule: "0 6 * * *"              # her gün 06:00 UTC — kendi saat diliminize göre ayarlayın
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python run_pipeline.py --channels data/channels.csv --max-videos 15"
-    envVars:
+      - key: PIPELINE_INTERVAL_HOURS
+        value: "24"
+      - key: PIPELINE_INITIAL_DELAY_SECONDS
+        value: "120"
+      - key: PIPELINE_SCHEDULER_ENABLED
+        value: "1"
       - key: ANTHROPIC_API_KEY
         sync: false                    # Render dashboard'dan elle girilecek, koda yazılmayacak
       - key: YOUTUBE_API_KEY
         sync: false
     disk:
       name: health-data
-      mountPath: /app/data
+      mountPath: /opt/render/project/src/data
       sizeGB: 1

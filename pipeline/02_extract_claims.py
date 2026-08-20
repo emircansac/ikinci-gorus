@@ -3,6 +3,7 @@ AŞAMA 2: Transkriptlerden atomik iddiaları çıkarma (Claude API).
 
 Kullanım:
     python pipeline/02_extract_claims.py [--limit 50]
+    python pipeline/02_extract_claims.py --channel-id UCxxx [--limit 10000]
 
 Sadece henüz iddia çıkarılmamış (claims tablosunda karşılığı olmayan) videoları işler,
 bu yüzden script'i tekrar tekrar çalıştırmak güvenlidir (idempotent).
@@ -27,34 +28,48 @@ def _refresh_exports():
     )
 
 
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=100)
+    ap.add_argument("--channel-id", default=None,
+                    help="yalnızca bu kanalın extract edilmemiş videoları")
     ap.add_argument("--retry-empty", action="store_true",
                     help="0 iddia çıkarılmış ama işaretlenmiş videoları tekrar dene "
                          "(JSON parse hatası sonrası sıkışmış kayıtlar için)")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
 
     conn = get_conn()
     if args.retry_empty:
-        n = conn.execute("""
+        extra = " AND channel_id = ?" if args.channel_id else ""
+        retry_params: list = []
+        if args.channel_id:
+            retry_params.append(args.channel_id)
+        n = conn.execute(f"""
             UPDATE videos SET claims_extracted_at = NULL
             WHERE claims_extracted_at IS NOT NULL
               AND transcript IS NOT NULL
               AND video_id NOT IN (SELECT DISTINCT video_id FROM claims)
-        """).rowcount
+              {extra}
+        """, retry_params).rowcount
         conn.commit()
         print(f"[claims] {n} video yeniden deneme için sıfırlandı (0 iddia)")
     # claims_extracted_at IS NULL kullanıyoruz (claim sayısına değil) — bir video
     # gerçekten 0 iddia içerse bile burası set edilir, yoksa o video her
     # çalıştırmada tekrar tekrar (ve tekrar ücretli) işlenir.
-    rows = conn.execute("""
+    params: list = []
+    channel_clause = ""
+    if args.channel_id:
+        channel_clause = " AND channel_id = ?"
+        params.append(args.channel_id)
+    params.append(args.limit)
+    rows = conn.execute(f"""
         SELECT video_id, channel_id, transcript
         FROM videos
         WHERE transcript IS NOT NULL
           AND claims_extracted_at IS NULL
+          {channel_clause}
         LIMIT ?
-    """, (args.limit,)).fetchall()
+    """, params).fetchall()
 
     print(f"[claims] işlenecek video sayısı: {len(rows)}")
     ok, failed = 0, 0

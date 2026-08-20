@@ -20,6 +20,7 @@ Kullanım:
     python pipeline/03_factcheck.py --batch-submit --limit 10 --skip-nli
     python pipeline/03_factcheck.py --batch-submit --limit 10 --dump-payload data/batch_payload.json
     python pipeline/03_factcheck.py --batch-retrieve --wait
+    python pipeline/03_factcheck.py --auto-method --video-ids id1,id2 --limit 200
 
 --skip-nli: HF modelini kurmadıysanız (torch/transformers ağır), doğrudan her
             iddiayı Claude+web_search'e gönderir. Daha pahalı ama kurulum gerektirmez.
@@ -29,6 +30,9 @@ yeni sonuç başarılı olursa üzerine yazılır). Arşivli iddialar da dahil e
             verdict yazılmaz. Senkron --recheck-ids yolu durur.
 --batch-retrieve: kayıtlı batch sonuçlarını çekip mevcut kalibrasyonla DB'ye yazar.
 --dump-payload: --batch-submit ile payload'ı diske yaz, API'ye gönderme.
+--auto-method: iddia/video eşiğine göre senkron veya batch seç (manuel
+            --batch-submit/--batch-retrieve ile birlikte kullanılamaz).
+--video-ids: virgülle video listesi (global kuyruk yerine bu videolar).
 
 Normal kuyruk yalnızca archived_at IS NULL iddiaları işler — v2 re-extraction
 sonrası superseded_* ile arşivlenen eski iddialar tekrar fact-check edilmez.
@@ -78,6 +82,7 @@ from utils.factcheck_review import (
     PACKAGE_ONLY_FORCED_FLAG,
 )
 from utils.reviewer_summary import would_auto_accept_v1, compute_shadow_human_gates
+from utils.factcheck_dispatch import build_factcheck_dispatch
 
 ROOT = Path(__file__).parent.parent
 DEBUG_LOG = ROOT / "data" / "factcheck_debug.jsonl"
@@ -403,10 +408,14 @@ def _pending_claim_ids() -> set[int]:
     return ids
 
 
-def _flush_batch_submit(jobs: list[dict], args) -> None:
+def _parse_video_ids(raw: str) -> list[str]:
+    return [p.strip() for p in (raw or "").split(",") if p.strip()]
+
+
+def _flush_batch_submit(jobs: list[dict], args) -> str | None:
     if not jobs:
         print("[batch] escalate edilecek iddia yok — gönderim yok")
-        return
+        return None
     already = _pending_claim_ids()
     filtered = [j for j in jobs if int(j["claim_id"]) not in already]
     skipped = len(jobs) - len(filtered)
@@ -415,7 +424,7 @@ def _flush_batch_submit(jobs: list[dict], args) -> None:
     jobs = filtered
     if not jobs:
         print("[batch] yeni iddia kalmadı")
-        return
+        return None
     requests = [
         build_batch_request(
             j["claim_id"],
@@ -435,7 +444,7 @@ def _flush_batch_submit(jobs: list[dict], args) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"[batch] payload yazıldı (API yok): {path} n={len(requests)}")
-        return
+        return None
     batch = submit_message_batch(requests)
     rec = {
         "batch_id": batch.id,
@@ -453,6 +462,7 @@ def _flush_batch_submit(jobs: list[dict], args) -> None:
         f"status={rec['processing_status']}"
     )
     print(f"[batch] kayıt: {PENDING_BATCHES}")
+    return batch.id
 
 
 def _run_batch_retrieve(conn, args) -> None:
@@ -570,40 +580,52 @@ def _run_batch_retrieve(conn, args) -> None:
         )
 
 
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=200)
     ap.add_argument("--skip-nli", action="store_true")
     ap.add_argument("--video-id", default=None, help="yalnızca bu video_id'deki iddiaları işle")
+    ap.add_argument("--video-ids", default="",
+                    help="virgülle video_id listesi (yalnızca bu videolar)")
     ap.add_argument("--recheck-ids", default="",
                     help="virgülle ayrılmış claim_id listesini yeniden fact-check et")
     ap.add_argument("--batch-submit", action="store_true",
                     help="escalate iddialarını Batch API'ye gönder (verdict yazma)")
     ap.add_argument("--batch-retrieve", action="store_true",
                     help="bekleyen batch sonuçlarını çek ve mevcut kalibrasyonla DB'ye yaz")
+    ap.add_argument("--auto-method", action="store_true",
+                    help="iş yüküne göre senkron veya batch seç (--batch-submit/--retrieve ile çelişir)")
     ap.add_argument("--dump-payload", default="",
                     help="--batch-submit: istek JSON'unu yaz, Anthropic'e gönderme")
     ap.add_argument("--wait", action="store_true",
                     help="--batch-retrieve: processing_status=ended olana kadar bekle")
     ap.add_argument("--wait-timeout", type=int, default=1800)
     ap.add_argument("--poll-interval", type=int, default=20)
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
     if args.batch_submit and args.batch_retrieve:
         raise SystemExit("--batch-submit ve --batch-retrieve aynı anda kullanılamaz")
+    if args.auto_method and (args.batch_submit or args.batch_retrieve):
+        raise SystemExit("--auto-method, --batch-submit/--batch-retrieve ile birlikte kullanılamaz")
+    video_ids = _parse_video_ids(args.video_ids)
+    if args.video_id and video_ids:
+        raise SystemExit("--video-id ve --video-ids aynı anda kullanılamaz")
+    if args.video_id:
+        video_ids = [args.video_id]
 
     conn = get_conn()
     ensure_library_table(conn)
     if args.batch_retrieve:
         _run_batch_retrieve(conn, args)
         conn.close()
-        return
+        return None
     recheck_ids = _parse_recheck_ids(args.recheck_ids)
     if recheck_ids:
         placeholders = ",".join("?" * len(recheck_ids))
         # Eski verdict silinmez — başarılı INSERT OR REPLACE üzerine yazar.
         # (API bakiyesi bitince silmek #96/#110'u veri_eksik bırakmıştı.)
         rows = conn.execute(f"""
-            SELECT c.claim_id, c.claim_text, c.search_query_en, c.category, c.initial_risk
+            SELECT c.claim_id, c.claim_text, c.search_query_en, c.category, c.initial_risk,
+                   c.video_id
             FROM claims c
             WHERE c.claim_id IN ({placeholders})
             ORDER BY CASE c.initial_risk WHEN 'high' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END,
@@ -611,13 +633,16 @@ def main():
         """, recheck_ids).fetchall()
         print(f"[factcheck] yeniden değerlendirilecek: {len(rows)} iddia ({recheck_ids})")
     else:
-        video_clause = "AND c.video_id = ?" if args.video_id else ""
         params: list = []
-        if args.video_id:
-            params.append(args.video_id)
+        video_clause = ""
+        if video_ids:
+            placeholders = ",".join("?" * len(video_ids))
+            video_clause = f"AND c.video_id IN ({placeholders})"
+            params.extend(video_ids)
         params.append(args.limit)
         rows = conn.execute(f"""
-            SELECT c.claim_id, c.claim_text, c.search_query_en, c.category, c.initial_risk
+            SELECT c.claim_id, c.claim_text, c.search_query_en, c.category, c.initial_risk,
+                   c.video_id
             FROM claims c
             LEFT JOIN verdicts vr ON vr.claim_id = c.claim_id
             WHERE vr.claim_id IS NULL
@@ -627,8 +652,37 @@ def main():
                      c.claim_id
             LIMIT ?
         """, params).fetchall()
-        scope = f" video={args.video_id}" if args.video_id else ""
+        if len(video_ids) == 1:
+            scope = f" video={video_ids[0]}"
+        elif video_ids:
+            scope = f" videos={len(video_ids)}"
+        else:
+            scope = ""
         print(f"[factcheck] işlenecek iddia sayısı: {len(rows)}{scope}")
+
+    n_claims = len(rows)
+    if video_ids:
+        n_videos = len(video_ids)
+    else:
+        distinct = {r["video_id"] for r in rows if r["video_id"]}
+        n_videos = len(distinct) if distinct else None
+
+    if args.auto_method:
+        dispatch = build_factcheck_dispatch(n_claims=n_claims, n_videos=n_videos)
+        if dispatch["method"] == "batch":
+            args.batch_submit = True
+    elif args.batch_submit:
+        dispatch = build_factcheck_dispatch(
+            n_claims=n_claims, n_videos=n_videos, method="batch",
+        )
+    else:
+        dispatch = build_factcheck_dispatch(
+            n_claims=n_claims, n_videos=n_videos, method="sync",
+        )
+
+    skip_user_wait = bool(args.dump_payload) or n_claims == 0
+    if not skip_user_wait:
+        print(dispatch["user_message"])
 
     nli_check = should_escalate = None
     if not args.skip_nli:
@@ -1030,8 +1084,19 @@ def main():
         if final["calibration_flags"]:
             print(f"           kalibrasyon: {final['calibration_flags']}")
 
+    batch_id = None
     if args.batch_submit:
-        _flush_batch_submit(batch_jobs, args)
+        batch_id = _flush_batch_submit(batch_jobs, args)
+        if batch_id and not args.dump_payload:
+            dispatch = build_factcheck_dispatch(
+                n_claims=n_claims,
+                n_videos=n_videos,
+                method="batch",
+                batch_id=batch_id,
+            )
+            print(dispatch["user_message"])
+        elif batch_id:
+            dispatch = {**dispatch, "batch_id": batch_id}
 
     print(f"\n[factcheck] {ok} iddia işlendi, {failed} iddia hata verdi (tekrar denenecek).")
     if retrieval_failed:
@@ -1042,6 +1107,7 @@ def main():
     conn.close()
     print("[factcheck] tamamlandı. İnsan onayı bekleyen iddialar human_reviewed=0 ile işaretlendi — "
           "auto_accepted=1 yalnızca otomasyon kararını gösterir (bkz. README).")
+    return dispatch
 
 
 if __name__ == "__main__":

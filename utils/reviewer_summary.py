@@ -208,6 +208,15 @@ def is_compound_claim(claim_text: str, reasoning: str | None = None) -> bool:
     return False
 
 
+def _cut_at_word(text: str, limit: int) -> str:
+    """limit karakterde kes; kesme noktası son tam kelimenin sonunda olsun."""
+    text = (text or "").strip()
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0]
+    return (cut or text[:limit]) + "…"
+
+
 def _extract_mismatch_snippet(reasoning: str) -> str:
     """verdict_reasoning_mismatch için gerekçeden ilgili cümleyi çek."""
     text = (reasoning or "").strip()
@@ -216,12 +225,11 @@ def _extract_mismatch_snippet(reasoning: str) -> str:
     for sent in re.split(r"(?<=[.!?])\s+", text):
         sent = sent.strip()
         if sent and PARTIAL_REASONING_RE.search(sent):
-            return sent[:140] + ("…" if len(sent) > 140 else "")
+            return sent
     m = re.search(r"(?:ancak|fakat|oysa)\s+(.{15,140}?)(?:[.;]|$)", text, re.IGNORECASE)
     if m:
-        snippet = m.group(1).strip()
-        return snippet[:140] + ("…" if len(snippet) > 140 else "")
-    return text[:100] + ("…" if len(text) > 100 else "")
+        return _cut_at_word(m.group(1).strip(), 140)
+    return _cut_at_word(text, 100)
 
 
 def _evidence_snippet(reasoning: str | None, nli_snippet: str | None = None) -> str:

@@ -34,11 +34,19 @@ def archive_claim(conn, claim_id: int, reason: str) -> None:
     """, (reason, claim_id))
 
 
-def review_claim(claim_id: int, action: str, note: str | None = None) -> dict:
+VALID_REVIEW_VERDICTS = frozenset({"doğrulanmış", "yanlış", "tartışmalı", "belirsiz"})
+
+
+def review_claim(
+    claim_id: int,
+    action: str,
+    note: str | None = None,
+    verdict: str | None = None,
+) -> dict:
     """
     action:
       approve — AI hükmü kalır; human_reviewed=1; skor ≤25 ise auto arşiv
-      reject  — tartışmalı + arşiv (reject)
+      reject  — seçilen (veya varsayılan tartışmalı) hüküm + arşiv (reject)
       archive — hüküm değişmez; arşiv (manual); human_reviewed=1
     """
     if action not in ("approve", "reject", "archive"):
@@ -82,16 +90,23 @@ def review_claim(claim_id: int, action: str, note: str | None = None) -> dict:
         if row["human_reviewed"]:
             conn.close()
             return {"ok": False, "error": "bu iddia zaten incelenmiş"}
+        chosen = (verdict or "").strip() or "tartışmalı"
+        if chosen not in VALID_REVIEW_VERDICTS:
+            conn.close()
+            return {
+                "ok": False,
+                "error": "verdict doğrulanmış, yanlış, tartışmalı veya belirsiz olmalı",
+            }
         conn.execute("""
             UPDATE verdicts
             SET human_reviewed = 1,
                 auto_accepted = 0,
-                final_verdict = 'tartışmalı',
+                final_verdict = ?,
                 confidence = COALESCE(confidence, 0.5),
                 reviewer_note = ?,
                 verified_at = datetime('now')
             WHERE claim_id = ?
-        """, (note or "reddedildi — insan incelemesi", claim_id))
+        """, (chosen, note or "reddedildi — insan incelemesi", claim_id))
         archive_claim(conn, claim_id, "reject")
         archived = True
         archive_reason = "reject"
@@ -99,13 +114,16 @@ def review_claim(claim_id: int, action: str, note: str | None = None) -> dict:
     conn.commit()
     conn.close()
     refresh_dashboard_exports()
-    return {
+    result = {
         "ok": True,
         "claim_id": claim_id,
         "action": action,
         "archived": archived,
         "archive_reason": archive_reason,
     }
+    if action == "reject":
+        result["verdict"] = chosen
+    return result
 
 
 def refresh_dashboard_exports():

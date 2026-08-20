@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İzleme Dosyası — Sağlık Yanlış Bilgisi Takibi</title>
+<title>Yapay Zekaya İkinci Görüş</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#101410; --bg-card:#171C16; --bg-elevated:#1E241E;
-    --line:#2A3027; --line-strong:#3A4136;
-    --text:#EDEFEA; --text-muted:#9BA396;
-    --teal:#1FC7B6; --teal-dim:#123330;
-    --magenta:#E6007E; --magenta-dim:#33101F;
-    --yellow:#F2D200; --yellow-dim:#332C08;
-    --red:#E5303C; --red-dim:#341012;
+    --bg:#EAE7E0; --bg-card:#F4F2ED; --bg-elevated:#F7F5F1;
+    --line:#D4CFC6; --line-strong:#C4BEB3;
+    --text:#20263A; --text-muted:#6B655C;
+    --teal:#33604A; --teal-dim:#D8E0DA;
+    --magenta:#6B5348; --magenta-dim:#E5DDD8;
+    --yellow:#A9832E; --yellow-dim:#E8DFD0;
+    --red:#8C3A32; --red-dim:#E8D6D3;
     --mono:'IBM Plex Mono', monospace;
-    --head:'Space Grotesk', sans-serif;
-    --sans:'Inter', system-ui, sans-serif;
+    --head:'Fraunces', serif;
+    --sans:'Public Sans', system-ui, sans-serif;
   }
   *{box-sizing:border-box;}
   body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.5;}
@@ -54,7 +54,7 @@
   .wl-remove:hover{color:var(--red);}
   .wl-form{display:flex; flex-direction:column; gap:8px; margin-top:8px;}
   .wl-input{padding:8px 10px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg); color:var(--text); font-size:12.5px;}
-  .wl-input:focus{outline:none; border-color:var(--teal);}
+  .wl-input:focus{outline:none; border-color:#B5551F;}
   .wl-add-btn{font-family:var(--mono); font-size:11px; padding:8px 10px; border-radius:6px; border:1px solid var(--teal); background:var(--teal-dim); color:var(--teal);}
   .wl-note{font-family:var(--mono); font-size:10px; color:var(--text-muted); line-height:1.45; margin-top:6px;}
   .wl-msg{font-family:var(--mono); font-size:10px; margin-top:6px; min-height:14px;}
@@ -76,26 +76,23 @@
 
   .topbar{
     position:sticky; top:0; z-index:100;
-    background:rgba(16,20,16,0.95); backdrop-filter:blur(8px);
+    background:var(--bg);
     border-bottom:1px solid var(--line);
     padding:12px 20px;
     display:flex; align-items:center; gap:16px;
   }
   .logo{display:flex; align-items:center; gap:10px; flex-shrink:0;}
-  .mark{font-family:var(--head); font-weight:700; font-size:20px; width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:var(--teal-dim); color:var(--teal);}
-  .logo-text{font-family:var(--head); font-weight:600; font-size:15px; white-space:nowrap;}
+  .mark{width:40px; height:40px; display:block; object-fit:contain; flex-shrink:0; background:none;}
+  .logo-text{font-family:var(--head); font-weight:600; font-size:14px; white-space:nowrap;}
   .search-wrap{flex:1; max-width:640px; margin:0 auto; position:relative;}
   .search-input{
     width:100%; padding:10px 16px 10px 40px;
     background:var(--bg-card); border:1px solid var(--line-strong); border-radius:24px;
     color:var(--text); font-size:14px; font-family:var(--sans);
   }
-  .search-input:focus{outline:none; border-color:var(--teal);}
+  .search-input:focus{outline:none; border-color:#B5551F;}
   .search-icon{position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px; pointer-events:none;}
   .search-meta{font-family:var(--mono); font-size:11px; color:var(--text-muted); margin-top:4px; padding-left:16px; min-height:16px;}
-  .refresh-btn{font-family:var(--mono); font-size:12px; padding:8px 14px; color:var(--teal); background:var(--teal-dim); border:1px solid var(--line-strong); border-radius:6px; flex-shrink:0;}
-  .refresh-btn:hover{background:var(--line);}
-  .refresh-btn:disabled{opacity:.5; cursor:wait;}
 
   .wrap{max-width:1400px; margin:0 auto; padding:0 20px 80px;}
   .wrap.claims-mode{max-width:min(1680px, 100%); padding-bottom:40px;}
@@ -104,7 +101,7 @@
   .tabs{display:flex; gap:4px; padding:16px 0 12px; border-bottom:1px solid var(--line); overflow-x:auto;}
   .tab{font-family:var(--mono); font-size:13px; padding:10px 16px; color:var(--text-muted); background:none; border:none; border-bottom:2px solid transparent; white-space:nowrap;}
   .tab:hover{color:var(--text);}
-  .tab.active{color:var(--teal); border-bottom-color:var(--teal); font-weight:500;}
+  .tab.active{color:#B5551F; border-bottom-color:#B5551F; font-weight:500;}
   .panel{display:none; padding-top:20px;}
   .panel.active{display:block;}
   .empty-note{font-family:var(--mono); font-size:13px; color:var(--text-muted); padding:24px 0;}
@@ -116,11 +113,25 @@
   .thumb-wrap a{display:block; width:100%; height:100%;}
   .thumb-wrap img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .15s;}
   .thumb-wrap:hover img{opacity:.85;}
+  .thumb-demo{
+    width:100%; height:100%; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:14px 14px 16px; background:var(--bg-elevated);
+    border:1px solid var(--line);
+  }
+  .thumb-demo-kicker{
+    font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--teal); margin-bottom:6px;
+  }
+  .thumb-demo-title{
+    font-family:var(--head); font-size:14px; font-weight:600; line-height:1.3; color:var(--text);
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .thumb-badge{position:absolute; top:8px; right:8px; font-family:var(--mono); font-size:10px; font-weight:600; padding:3px 8px; border-radius:4px; background:rgba(0,0,0,.75);}
+  .badge.demo{border-color:var(--yellow); color:var(--yellow); background:var(--yellow-dim);}
   .video-meta{padding:0 2px;}
   .video-title{font-family:var(--head); font-size:15px; font-weight:600; line-height:1.35; margin:0 0 6px;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
-  .video-title a:hover{color:var(--teal);}
+  .video-title a:hover{color:#B5551F;}
   .video-sub{font-size:12.5px; color:var(--text-muted); margin-bottom:8px;}
   .video-badges{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
   .badge{font-family:var(--mono); font-size:10px; padding:2px 7px; border-radius:4px; border:1px solid var(--line-strong); color:var(--text-muted);}
@@ -134,13 +145,21 @@
   .badge.audited{border-color:var(--teal); color:var(--teal); background:var(--teal-dim);}
   .badge.unaudited{border-color:var(--line-strong); color:var(--text-muted); border-style:dashed;}
   .claims-btn{font-family:var(--mono); font-size:11px; padding:6px 12px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg-elevated); color:var(--text); width:100%;}
-  .claims-btn:hover{border-color:var(--teal); color:var(--teal);}
+  .claims-btn:hover{border-color:#B5551F; color:#B5551F;}
   .video-actions{display:flex; gap:8px;}
   .video-actions .claims-btn, .video-actions .watch-link{flex:1; text-align:center;}
   .watch-link{font-family:var(--mono); font-size:11px; padding:6px 12px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg-elevated); color:var(--text); display:inline-block;}
-  .watch-link:hover{border-color:var(--teal); color:var(--teal);}
+  .watch-link:hover{border-color:#B5551F; color:#B5551F;}
 
-  .vmark{font-family:var(--head); font-weight:700; font-size:18px; width:30px; height:30px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .vmark{
+    font-family:var(--head); font-weight:700; font-size:18px;
+    width:30px; height:30px;
+    border-radius:3px 8px 4px 7px;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    transform:rotate(-2deg);
+    border:1.5px solid currentColor;
+  }
   .vmark.dogrulanmis{background:var(--teal-dim); color:var(--teal);}
   .vmark.yanlis{background:var(--red-dim); color:var(--red);}
   .vmark.tartismali{background:var(--yellow-dim); color:var(--yellow);}
@@ -196,11 +215,18 @@
     display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     font-family:var(--mono); font-size:10.5px; color:var(--text-muted);
   }
-  .claim-stream-verdict{font-weight:600;}
-  .claim-stream-verdict.yanlis{color:var(--red);}
-  .claim-stream-verdict.dogrulanmis{color:var(--teal);}
-  .claim-stream-verdict.tartismali{color:var(--yellow);}
-  .claim-stream-verdict.belirsiz{color:var(--text-muted);}
+  .claim-stream-verdict{
+    display:inline-flex; align-items:center; gap:4px;
+    font-weight:600; padding:2px 8px 2px 7px;
+    border:1.5px solid currentColor;
+    border-radius:3px 8px 4px 7px;
+    transform:rotate(-2deg);
+    letter-spacing:.03em;
+  }
+  .claim-stream-verdict.yanlis{color:var(--red); background:var(--red-dim);}
+  .claim-stream-verdict.dogrulanmis{color:var(--teal); background:var(--teal-dim);}
+  .claim-stream-verdict.tartismali{color:var(--yellow); background:var(--yellow-dim);}
+  .claim-stream-verdict.belirsiz{color:var(--text-muted); background:var(--line);}
   .claim-stream-score{
     margin-left:auto; font-weight:600; font-size:11px;
   }
@@ -211,6 +237,7 @@
     margin:0 0 8px; padding:8px 10px; border-radius:6px;
     background:var(--magenta-dim); border:1px solid var(--magenta);
     font-size:12.5px; line-height:1.45;
+    overflow:visible;
   }
   .reviewer-focus-label{
     font-family:var(--mono); font-size:10px; font-weight:600;
@@ -234,9 +261,16 @@
   .claim-cal-flag{
     font-family:var(--mono); font-size:10px; color:var(--yellow); margin-top:4px;
   }
+  .claim-tech-details{
+    margin-top:6px; font-family:var(--mono); font-size:10px; color:var(--text-muted);
+  }
+  .claim-tech-details summary{cursor:pointer; color:var(--text-muted); list-style:none;}
+  .claim-tech-details summary::-webkit-details-marker{display:none;}
+  .claim-tech-details summary::before{content:'▸ '; color:var(--text-muted);}
+  .claim-tech-details[open] summary::before{content:'▾ ';}
   .claim-stream-item.open .claim-stream-detail{display:block;}
-  .claim-stream-detail a{color:var(--teal);}
-  .review-actions{display:flex; gap:8px; margin-top:10px;}
+  .claim-stream-detail a{color:#B5551F;}
+  .review-actions{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
   .review-btn{
     font-family:var(--mono); font-size:10.5px; padding:6px 12px; border-radius:6px;
     border:1px solid var(--line-strong); background:var(--bg); color:var(--text);
@@ -247,6 +281,11 @@
   .review-btn.reject:hover{background:var(--red-dim);}
   .review-btn.archive{border-color:var(--text-muted); color:var(--text-muted);}
   .review-btn.archive:hover{background:var(--line); color:var(--text);}
+  .reject-verdict-picker{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:8px;}
+  .reject-verdict-picker[hidden]{display:none;}
+  .reject-picker-label{font-family:var(--mono); font-size:10px; color:var(--text-muted);}
+  .review-btn.reject-verdict{border-color:var(--red); color:var(--red); font-size:10px; padding:5px 8px;}
+  .review-btn.reject-verdict:hover{background:var(--red-dim);}
   .archive-tag{
     font-family:var(--mono); font-size:9.5px; text-transform:uppercase;
     letter-spacing:.04em; color:var(--text-muted); padding:2px 6px;
@@ -265,7 +304,7 @@
     border:1px solid var(--line-strong); background:transparent; color:var(--text-muted);
   }
   .filter-chip:hover{color:var(--text); border-color:var(--text-muted);}
-  .filter-chip.active{background:var(--teal-dim); border-color:var(--teal); color:var(--teal);}
+  .filter-chip.active{background:transparent; border-color:#B5551F; color:#B5551F;}
   .claims-feed.single-col{max-width:720px;}
 
   /* Detay paneli / genişletilmiş kart */
@@ -317,7 +356,7 @@
   .detail-sub{font-size:12.5px; color:var(--text-muted); margin-bottom:12px;}
   .detail-actions{display:flex; gap:8px; flex-wrap:wrap;}
   .detail-actions a, .detail-actions button{font-family:var(--mono); font-size:11px; padding:6px 12px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg-card); color:var(--text);}
-  .detail-actions a:hover, .detail-actions button:hover{border-color:var(--teal); color:var(--teal);}
+  .detail-actions a:hover, .detail-actions button:hover{border-color:#B5551F; color:#B5551F;}
   .detail-body{flex:1; overflow-y:auto; padding:16px 20px;}
   .detail-empty{font-family:var(--mono); font-size:13px; color:var(--text-muted); padding:20px 0;}
 
@@ -371,15 +410,14 @@
 <div class="topbar">
   <button class="menu-btn" id="menu-btn" type="button" aria-label="Menü">☰</button>
   <div class="logo">
-    <div class="mark">+</div>
-    <span class="logo-text">İzleme dosyası</span>
+    <img class="mark" src="/static/brand/logo-icon.png" width="40" height="40" alt="Yapay Zekaya İkinci Görüş">
+    <span class="logo-text">Yapay Zekaya İkinci Görüş</span>
   </div>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
     <input type="search" class="search-input" id="search-input" placeholder="Video, kanal veya iddia ara…" autocomplete="off">
     <div class="search-meta" id="search-meta"></div>
   </div>
-  <button class="refresh-btn" id="refresh-btn" type="button">yenile</button>
 </div>
 
 <div class="wrap">
@@ -388,7 +426,7 @@
     <button class="tab" data-panel="channels">kanallar</button>
     <button class="tab" data-panel="claims">iddialar</button>
     <button class="tab" data-panel="clusters">anlatı kümeleri</button>
-    <button class="tab" data-panel="ops">ops</button>
+    <button class="tab" data-panel="ops">Performans</button>
   </div>
 
   <div class="panel active" id="videos"><div class="empty-note">yükleniyor…</div></div>
@@ -420,7 +458,7 @@
 
 <script>
 const VERDICT_MARK = {"doğrulanmış":{sym:"+",cls:"dogrulanmis"}, "yanlış":{sym:"×",cls:"yanlis"}, "tartışmalı":{sym:"±",cls:"tartismali"}};
-const TAB_LABELS = {videos:"video", channels:"kanal", claims:"iddia", clusters:"küme", ops:"ops"};
+const TAB_LABELS = {videos:"video", channels:"kanal", claims:"iddia", clusters:"küme", ops:"performans"};
 
 let cache = {videos:[], channels:[], claims:[], claimsArchived:[], clusters:[], ops:null};
 let watchlist = {channels:[], videos:[], min_videos_for_score:5};
@@ -574,7 +612,7 @@ function renderReviewerFocusExtras(c){
   const calLabels = formatCalibrationFlags(c.calibration_flags);
   let html = '';
   if(tier){
-    html += `<div class="reviewer-focus-spec">${specificityDots(tier)} <span>${esc(SPECIFICITY_TR[tier] || tier)}</span></div>`;
+    html += `<div class="reviewer-focus-spec">özgüllük: ${specificityDots(tier)} <span>${esc(SPECIFICITY_TR[tier] || tier)}</span></div>`;
   }
   if(calLabels.length){
     html += `<div class="reviewer-focus-flags">${calLabels.map(l => `<span class="cal-flag-pill">${esc(l)}</span>`).join('')}</div>`;
@@ -582,9 +620,24 @@ function renderReviewerFocusExtras(c){
   return html;
 }
 
+function renderSourceLine(c, ytUrl){
+  const parts = [
+    `<a href="${esc(ytUrl)}" target="_blank" rel="noopener">videoyu izle${c.timestamp_sec != null ? ` (${c.timestamp_sec}s)` : ''}</a>`,
+  ];
+  if(c.source_url) parts.push(`<a href="${esc(c.source_url)}" target="_blank" rel="noopener">kaynak</a>`);
+  if(c.source_tier) parts.push(`kademe: ${esc(c.source_tier)}`);
+  if(c.source_directness) parts.push(`doğrudanlık: ${esc(c.source_directness)}`);
+  return `<div>${parts.join(' · ')}</div>`;
+}
+
 function isFullPipeline(v){
   const fp = v.full_pipeline;
   return fp === true || fp === 1 || fp === '1' || fp === 'True' || fp === 'true';
+}
+
+function isDemoVideo(v){
+  return String(v.video_id || '').startsWith('DEMO_')
+      || String(v.channel_id || '').startsWith('DEMO_');
 }
 
 function riskLevelClass(level){
@@ -630,16 +683,23 @@ function renderClaimStreamItem(c, opts){
       ${c.video_title ? `<div><strong>video:</strong> ${esc(c.video_title)}</div>` : ''}
       ${c.category ? `<div><strong>kategori:</strong> ${esc(c.category)}</div>` : ''}
       ${c.reasoning ? `<div class="claim-reasoning">${esc(c.reasoning)}</div>` : ''}
-      <div><a href="${esc(ytUrl)}" target="_blank" rel="noopener">videoyu izle${c.timestamp_sec != null ? ` (${c.timestamp_sec}s)` : ''}</a>${c.source_url ? ` · <a href="${esc(c.source_url)}" target="_blank" rel="noopener">kaynak</a>` : ''}${c.source_tier ? ` · ${esc(c.source_tier)}` : ''}${c.source_directness ? ` · ${esc(c.source_directness)}` : ''}</div>
-      ${c.calibration_flags ? `<div class="claim-cal-flag">kalibrasyon: ${esc(c.calibration_flags)}</div>` : ''}
+      ${renderSourceLine(c, ytUrl)}
+      ${c.calibration_flags ? `<details class="claim-tech-details"><summary>teknik detay</summary><div class="claim-cal-flag">kalibrasyon: ${esc(c.calibration_flags)}</div></details>` : ''}
       ${!isArchiveView && pending ? `
       <div class="review-actions">
         <button type="button" class="review-btn approve" data-review="approve" data-claim-id="${esc(c.claim_id)}">onayla</button>
-        <button type="button" class="review-btn reject" data-review="reject" data-claim-id="${esc(c.claim_id)}">reddet</button>
+        <button type="button" class="review-btn reject" data-review="reject-toggle" data-claim-id="${esc(c.claim_id)}">reddet</button>
         <button type="button" class="review-btn archive" data-review="archive" data-claim-id="${esc(c.claim_id)}">arşivle</button>
       </div>
+      <div class="reject-verdict-picker" hidden>
+        <span class="reject-picker-label">yeni hüküm:</span>
+        <button type="button" class="review-btn reject-verdict" data-review="reject" data-verdict="doğrulanmış" data-claim-id="${esc(c.claim_id)}">doğrulanmış</button>
+        <button type="button" class="review-btn reject-verdict" data-review="reject" data-verdict="yanlış" data-claim-id="${esc(c.claim_id)}">yanlış</button>
+        <button type="button" class="review-btn reject-verdict" data-review="reject" data-verdict="tartışmalı" data-claim-id="${esc(c.claim_id)}">tartışmalı</button>
+        <button type="button" class="review-btn reject-verdict" data-review="reject" data-verdict="belirsiz" data-claim-id="${esc(c.claim_id)}">belirsiz</button>
+      </div>
       <div class="review-hint" style="font-size:10.5px;color:var(--text-muted);margin-top:6px;">
-        onayla = AI hükmü onayla · reddet = tartışmalı + arşiv · arşivle = ana akıştan çıkar
+        onayla = AI hükmü onayla · reddet = hükmü seç + arşiv · arşivle = ana akıştan çıkar
       </div>` : !isArchiveView ? `
       <div class="review-status ${String(reviewStatus).includes('redd') ? 'no' : 'ok'}">${esc(reviewStatus || (isProductionAutoAccepted(c) ? 'otomasyon kararı' : 'incelendi'))}</div>` : `
       <div class="review-status ok">arşiv · ${esc(archiveReasonLabel(c.archive_reason))}</div>`}
@@ -675,7 +735,7 @@ function bindClaimStreamClicks(root){
       if(!open) item.classList.add('open');
     };
     item.addEventListener('click', e => {
-      if(e.target.closest('a') || e.target.closest('.review-btn')) return;
+      if(e.target.closest('a') || e.target.closest('.review-btn') || e.target.closest('.reject-verdict-picker') || e.target.closest('.claim-tech-details')) return;
       toggle();
     });
     item.addEventListener('keydown', e => {
@@ -687,12 +747,19 @@ function bindClaimStreamClicks(root){
       e.stopPropagation();
       const id = btn.dataset.claimId;
       const action = btn.dataset.review;
+      if(action === 'reject-toggle'){
+        const picker = btn.closest('.claim-stream-detail')?.querySelector('.reject-verdict-picker');
+        if(picker) picker.hidden = !picker.hidden;
+        return;
+      }
       btn.disabled = true;
       try {
+        const payload = {action};
+        if(btn.dataset.verdict) payload.verdict = btn.dataset.verdict;
         const res = await fetch(`/api/claims/${id}/review`, {
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({action}),
+          body: JSON.stringify(payload),
         });
         const data = await parseJsonResponse(res);
         if(!data.ok){ alert(data.error || 'işlem başarısız'); return; }
@@ -724,27 +791,40 @@ function renderVideos(){
     const badgeCls = score != null && score >= 75 ? 'risk-high' : '';
     const scoreText = score != null ? `şüphe ${Number(score).toFixed(0)}` : 'veri eksik';
     const date = v.published_at ? esc(String(v.published_at).slice(0,10)) : '';
+    const demo = isDemoVideo(v);
+    const thumbInner = demo
+      ? `<div class="thumb-demo" title="YouTube videosu değil — tohum/örnek kayıt">
+           <span class="thumb-demo-kicker">örnek veri</span>
+           <span class="thumb-demo-title">${esc(v.title || v.video_id)}</span>
+         </div>`
+      : `<a href="${esc(v.youtube_url)}" target="_blank" rel="noopener" title="videoyu izle">
+           <img src="${esc(v.thumbnail_url)}" alt="${esc(v.title || '')}" loading="lazy">
+         </a>`;
+    const titleBlock = demo
+      ? `<h3 class="video-title">${esc(v.title || v.video_id)}</h3>`
+      : `<h3 class="video-title"><a href="${esc(v.youtube_url)}" target="_blank" rel="noopener">${esc(v.title || v.video_id)}</a></h3>`;
     return `
     <article class="video-card">
       <div class="thumb-wrap">
-        <a href="${esc(v.youtube_url)}" target="_blank" rel="noopener" title="videoyu izle">
-          <img src="${esc(v.thumbnail_url)}" alt="" loading="lazy">
-        </a>
+        ${thumbInner}
         ${score != null ? `<span class="thumb-badge" style="color:${tierColor(score)}">${scoreText}</span>` : ''}
       </div>
       <div class="video-meta">
-        <h3 class="video-title"><a href="${esc(v.youtube_url)}" target="_blank" rel="noopener">${esc(v.title || v.video_id)}</a></h3>
+        ${titleBlock}
         <div class="video-sub">${esc(v.channel_name || v.channel_id)}${date ? ` · ${date}` : ''}</div>
         <div class="video-badges">
+          ${demo ? '<span class="badge demo" title="Gerçek YouTube videosu değil; demo tohum kaydı">Demo</span>' : ''}
           <span class="badge">${v.claim_count ?? 0} iddia</span>
           ${v.top_verdict ? `<span class="badge">${esc(v.top_verdict)}</span>` : ''}
-          ${isFullPipeline(v)
+          ${!demo && isFullPipeline(v)
             ? '<span class="badge audited" title="Bu videodaki iddialar uçtan uca işlendi">Tam kontrolden geçti</span>'
-            : '<span class="badge unaudited" title="Videodan yalnızca bir alt küme işlendi; sonuçlar temsilî olabilir">Örnek kontrol</span>'}
+            : !demo
+              ? '<span class="badge unaudited" title="Videodan yalnızca bir alt küme işlendi; sonuçlar temsilî olabilir">Örnek kontrol</span>'
+              : ''}
           ${v.pending_review_count > 0 ? `<span class="badge pending">${v.pending_review_count} onay bekliyor</span>` : ''}
         </div>
         <div class="video-actions">
-          <a class="watch-link" href="${esc(v.youtube_url)}" target="_blank" rel="noopener">videoyu izle</a>
+          ${demo ? '' : `<a class="watch-link" href="${esc(v.youtube_url)}" target="_blank" rel="noopener">videoyu izle</a>`}
           <button class="claims-btn" type="button" data-video-id="${esc(v.video_id)}">iddiaları gör</button>
         </div>
       </div>
@@ -868,14 +948,14 @@ function renderOps(){
   const el = document.getElementById('ops');
   const ops = cache.ops;
   if(!ops || ops.error){
-    el.innerHTML = `<div class="empty-note">${esc(ops?.error || 'henüz ops raporu yok')}</div>`;
+    el.innerHTML = `<div class="empty-note">${esc(ops?.error || 'henüz performans raporu yok')}</div>`;
     return;
   }
   const pct = v => v != null ? `${Math.round(v * 100)}%` : '—';
   const usd = v => v != null ? `$${Number(v).toFixed(4)}` : '—';
   el.innerHTML = `
     <div class="ops-card">
-      <h3 class="ops-head">Üretim özeti — ${esc(ops.report_date || '')}</h3>
+      <h3 class="ops-head">Performans özeti — ${esc(ops.report_date || '')}</h3>
       <div class="ops-sub">${esc(ops.scope ? `kapsam: ${ops.scope}` : '')}${ops.scope && ops.source_file ? ' · ' : ''}${ops.source_file ? esc(ops.source_file) : ''}</div>
       <div class="ops-grid">
         <div class="ops-stat"><div class="ops-stat-val">${ops.n_claims ?? '—'}</div><div class="ops-stat-label">toplam iddia</div></div>
@@ -888,7 +968,7 @@ function renderOps(){
         <div class="ops-warnings-title">⚠ aktif uyarılar</div>
         <ul>${(ops.warnings || []).map(w => `<li>${esc(w.replace(/^⚠️\s*/, ''))}</li>`).join('')}</ul>
       </div>` : `<div class="ops-note" style="margin-bottom:12px;">aktif alarm yok</div>`}
-      <div class="ops-note">yeni hesaplama yok — son ops raporundan okundu</div>
+      <div class="ops-note">yeni hesaplama yok — son performans raporundan okundu</div>
     </div>`;
 }
 
@@ -1037,9 +1117,6 @@ function toggleSidebar(open){
 }
 
 async function refreshAll(){
-  const btn = document.getElementById('refresh-btn');
-  btn.disabled = true;
-  btn.textContent = 'yükleniyor…';
   try {
     const [videos, channels, claims, claimsArchived, clusters, ops] = await Promise.all([
       fetchJson('/api/videos').catch(() => []),
@@ -1047,7 +1124,7 @@ async function refreshAll(){
       fetchJson('/api/claims').catch(() => []),
       fetchJson('/api/claims/archived').catch(() => []),
       fetchJson('/api/clusters').catch(() => []),
-      fetch('/api/ops/summary').then(r => r.ok ? r.json() : {error: 'ops raporu yok'}).catch(() => ({error: 'ops raporu yüklenemedi'})),
+      fetch('/api/ops/summary').then(r => r.ok ? r.json() : {error: 'performans raporu yok'}).catch(() => ({error: 'performans raporu yüklenemedi'})),
     ]);
     const asArr = x => Array.isArray(x) ? x : [];
     cache = {
@@ -1062,13 +1139,9 @@ async function refreshAll(){
     renderActivePanel();
   } catch(e) {
     document.getElementById(activePanel).innerHTML = `<div class="empty-note">bağlantı hatası: ${esc(e.message)}</div>`;
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'yenile';
   }
 }
 
-document.getElementById('refresh-btn').addEventListener('click', refreshAll);
 document.getElementById('menu-btn').addEventListener('click', () => toggleSidebar(true));
 document.getElementById('sidebar-close').addEventListener('click', () => toggleSidebar(false));
 document.getElementById('sidebar-overlay').addEventListener('click', () => toggleSidebar(false));

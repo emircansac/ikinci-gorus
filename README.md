@@ -1,4 +1,8 @@
-# Sağlık Yanlış Bilgisi İzleme Sistemi (Türkçe YouTube)
+<p align="center">
+  <img src="static/brand/logo-full.png" alt="Yapay Zekaya İkinci Görüş" width="320">
+</p>
+
+# Yapay Zekaya İkinci Görüş
 
 4 aşamalı pipeline: **Topla → İddia Çıkar → Fact-Check (hibrit) → Şüpheli Listele**
 
@@ -75,9 +79,11 @@ python run_pipeline.py --channels data/channels.csv --skip-collect   # sadece 2-
 python pipeline/01_collect.py --channels data/channels.csv --no-transcripts  # hızlı büyüme kontrolü
 ```
 
-**Zamanlama**: Bunu bir cron job veya GitHub Actions scheduled workflow olarak
-günde bir kez çalıştırın. RSS tabanlı hızlı kontrol için (`--no-transcripts`,
-kota harcamaz) günde birkaç kez çalıştırabilirsiniz.
+**Zamanlama**: Render'da pipeline, web sürecinin içindeki APScheduler
+thread'inde varsayılan olarak 24 saatte bir çalışır (`PIPELINE_INTERVAL_HOURS`).
+Yerelde `python run_pipeline.py` ile de aynı zinciri elle tetikleyebilirsiniz.
+RSS tabanlı hızlı kontrol için (`--no-transcripts`, kota harcamaz)
+günde birkaç kez çalıştırabilirsiniz.
 
 ## Aşama 3'ün maliyet mimarisi (önemli)
 
@@ -321,30 +327,52 @@ Hâlâ **çözülmemiş**, bilerek kapsam dışı bırakılan noktalar:
 **2. Render'a bağlayın**
 - render.com'da hesap açın, GitHub hesabınızı yetkilendirin
 - "New → Blueprint" seçip az önce yüklediğiniz repoyu gösterin — Render bu
-  projedeki `render.yaml` dosyasını okuyup İKİ servisi otomatik oluşturur:
-  - `health-misinfo-dashboard` (web servisi — size bir URL verir)
-  - `health-misinfo-pipeline` (cron job — pipeline'ı günlük 06:00'da çalıştırır)
-- Render dashboard'ında her iki servis için de `ANTHROPIC_API_KEY` ve
+  projedeki `render.yaml` dosyasını okuyup **tek web servisi** oluşturur:
+  - `health-misinfo-dashboard` (dashboard + API + in-process pipeline zamanlayıcı)
+- Cron job **yoktur**. Render cron türüne disk bağlanamaz ve disk yalnızca
+  tek servise takılabilir; bu yüzden pipeline Flask sürecinin arka plan
+  thread'inde çalışır.
+- Render dashboard'ında `ANTHROPIC_API_KEY` ve
   `YOUTUBE_API_KEY`'i **Environment** sekmesinden elle girin (render.yaml'da
   `sync: false` olduğu için koda hiç yazılmaz, sadece Render'ın kendi
   şifreli ortam değişkeni deposunda durur)
 
 **3. `data/channels.csv`'yi yükleyin**
-Cron job ilk çalıştığında `data/channels.csv` dosyasını arayacak — bunu
+Web servisi ayağa kalkınca `data/channels.csv` dosyasını arayacak — bunu
 GitHub reposuna diğer dosyalarla birlikte yüklediğinizden emin olun
-(kanal listenizi hazırlama adımı yukarıda).
+(kanal listenizi hazırlama adımı yukarıda). Kalıcı disk `data/` üzerine
+bindiği için ilk attach boş olabilir; `render.yaml` build sırasında
+`channels.csv.seed` kopyalar, start komutu seed'i diske yazar.
 
 **4. URL'nizi test edin**
 Render, web servisiniz için `https://health-misinfo-dashboard.onrender.com`
-gibi bir adres verir. İlk açılışta (cron job henüz çalışmadıysa) dashboard
-"henüz veri yok" gösterir — bu normal, cron job'un ilk çalışmasını bekleyin
-ya da Render dashboard'ından cron job'u "Trigger Run" ile elle bir kez
-tetikleyebilirsiniz.
+gibi bir adres verir. İlk açılışta (zamanlayıcı henüz bir tur bitirmediyse)
+dashboard "henüz veri yok" gösterebilir — varsayılan ilk tur ~2 dakika
+sonra başlar (`PIPELINE_INITIAL_DELAY_SECONDS`), sonra 24 saatte bir
+tekrarlar. `/healthz` içindeki `scheduler` alanı son turu gösterir.
 
-**Neden iki ayrı servis?** Web servisi (dashboard) her zaman açık kalmalı
-ki URL çalışsın; cron job ise sadece günde bir kez, kısa süre çalışıp kapanır.
-İkisini birleştirseydik, ağır pipeline çalışırken dashboard'a gelen istekler
-zaman aşımına uğrardı.
+Zamanlayıcı **yalnız** `run_pipeline.py` zincirini çalıştırır (abone
+kanallardaki yeni videolar). `20_subscribe_channel.py` /
+`21_pre_research_channel.py` `input()` bekler; Render'a asla eklenmez,
+yalnız yerel/Cursor'dan çalıştırın.
+
+**5. Disk kanıtı — Restart sonrası veri duruyor mu?**
+`mountPath` satırlarının YAML'da aynı görünmesi yetmez. Deploy olduktan
+sonra şunu yapın (yeni deploy değil, **Restart**):
+
+1. Canlı dashboard'da bir iddiayı **onaylayın** (veya izleme listesine bir
+   kanal ekleyin). `claim_id` ve görünen durumu not edin.
+2. Render dashboard → `health-misinfo-dashboard` → **Restart**.
+3. URL'yi yenileyin. Onay (veya eklenen kanal) **hâlâ orada** olmalı.
+
+Duruyor = kalıcı disk gerçekten kodun yazdığı `data/`'ya bağlı. Kayıp =
+mount path yanlış veya disk bağlı değil (ephemeral dosya Restart'ta silinir).
+
+**Neden tek servis?** Render kalıcı diski yalnızca bir servise bağlar ve
+cron job'a disk hiç bağlanamaz. Web ile pipeline aynı `data/` dizinini
+paylaşmak zorunda olduğu için pipeline, web sürecinin arka plan
+thread'indedir (APScheduler). Ağır adımlar ayrı subprocess'lerde çalışır;
+Flask istek sunmaya devam eder.
 
 ## Sonraki adımlar (genişletme fikirleri)
 
@@ -357,8 +385,8 @@ zaman aşımına uğrardı.
 
 ```
 health_misinfo_monitor/
-├── app.py                    # Web sunucusu (dashboard + API) — Render deploy için
-├── render.yaml                # Render Blueprint (web + cron servisleri)
+├── app.py                    # Web sunucusu + in-process pipeline zamanlayıcı
+├── render.yaml                # Render Blueprint (tek web servisi + disk)
 ├── templates/
 │   └── dashboard.html         # Canlı dashboard (API'den fetch eder)
 ├── run_pipeline.py           # orkestratör

@@ -325,3 +325,92 @@ def test_shadow_would_auto_accept_after_all_gates():
     assert g["would_require_human_confidence_gate"] == 0
     assert g["would_require_human_compound_gate"] == 0
     assert g["would_auto_accept_after_all_gates"] == 1
+
+
+# Claim #802 — kuru meyve / diyabet (gerçek kayıt). PARTIAL_REASONING_RE
+# "porsiyon kontrol" ile ikinci cümleye denk gelir; eski kod sent[:140] ile
+# "doğrudan"ı "doğ…" diye kesiyordu.
+CLAIM_802_REASONING = (
+    "American Diabetes Association'ın resmi kaynağı kuru meyveleri "
+    "'tamamen kaçınılması gereken' değil, besleyici bir seçenek olarak tanımlıyor; "
+    "sadece porsiyon boyutunun küçük tutulması gerektiğini vurguluyor. "
+    "Kaynak, iki yemek kaşığı kuru üzüm veya kuru vişnenin 15 gram karbonhidrat "
+    "içerdiğini belirterek porsiyon kontrolüyle tüketilebileceğini doğrudan ifade ediyor. "
+    "Bu nedenle 'tamamen kaçınılmalı' iddiası, kılavuz kaynağın önerisiyle çelişiyor."
+)
+CLAIM_802_MATCHED_SENTENCE = (
+    "Kaynak, iki yemek kaşığı kuru üzüm veya kuru vişnenin 15 gram karbonhidrat "
+    "içerdiğini belirterek porsiyon kontrolüyle tüketilebileceğini doğrudan ifade ediyor."
+)
+
+# PARTIAL_REASONING_RE / ancak|fakat|oysa yok; 100. karakter "porsiyonla"nın ortası.
+FALLBACK_REASONING = (
+    "Kaynak ADA kılavuzu kuru meyveyi ölçülü tüketilebilir bir seçenek olarak sunuyor "
+    "glisemik yük porsiyonla yönetilir bu yüzden tamamen yasaklanması gerekmez ve "
+    "iddia kılavuz önerisiyle çelişir."
+)
+
+
+def test_claim_802_mismatch_snippet_keeps_full_sentence():
+    from utils.reviewer_summary import _extract_mismatch_snippet
+
+    old_cut = CLAIM_802_MATCHED_SENTENCE[:140] + "…"
+    assert "doğ…" in old_cut
+    assert "doğrudan ifade ediyor" not in old_cut
+
+    snippet = _extract_mismatch_snippet(CLAIM_802_REASONING)
+    assert snippet == CLAIM_802_MATCHED_SENTENCE
+    assert "doğrudan ifade ediyor" in snippet
+    assert "doğ…" not in snippet
+
+    row = {
+        "final_verdict": "yanlış",
+        "reasoning": CLAIM_802_REASONING,
+        "calibration_flags": (
+            "no_direct_evidence_expected,specificity_tier:background,"
+            "verdict_reasoning_mismatch,web_search_override"
+        ),
+        "category": "önleme",
+        "initial_risk": "medium",
+        "claim_text": (
+            "Kuru meyveler konsantre şeker içeriği nedeniyle diyabet hastaları "
+            "tarafından tamamen kaçınılması gereken gıdalardır."
+        ),
+        "evidence_stance": "contradicts",
+        "source_directness": "direct",
+        "cite_source": "web_search_override",
+    }
+    out = build_reviewer_summary(row)
+    assert "tüketilebileceğini doğrudan ifade ediyor" in out["check_point"]
+    assert "doğ…" not in out["check_point"]
+
+
+def test_mismatch_snippet_fallback_cuts_at_word_boundary():
+    import re
+
+    from utils.reasoning_patterns import PARTIAL_REASONING_RE
+    from utils.reviewer_summary import _extract_mismatch_snippet
+
+    text = FALLBACK_REASONING
+    assert len(text) > 100
+    assert PARTIAL_REASONING_RE.search(text) is None
+    assert re.search(r"(?:ancak|fakat|oysa)\s+(.{15,140}?)(?:[.;]|$)", text, re.I) is None
+
+    naive = text[:100] + "…"
+    # Eski davranış: "porsiyonla" → "porsiy…"
+    assert naive.endswith("porsiy…"), naive
+    assert "porsiy" not in text.split()
+
+    out = _extract_mismatch_snippet(text)
+    assert out.endswith("…")
+    body = out[:-1]
+    last_word = body.rsplit(" ", 1)[-1]
+    assert last_word in text.split(), last_word
+    assert "porsiy" not in out
+    assert out == (
+        "Kaynak ADA kılavuzu kuru meyveyi ölçülü tüketilebilir bir seçenek "
+        "olarak sunuyor glisemik yük…"
+    )
+    # Fallback dalı: tam cümle değil, kısaltılmış prefix.
+    assert out != text
+    assert len(out) < len(text)
