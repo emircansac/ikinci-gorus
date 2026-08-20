@@ -240,8 +240,36 @@ def healthz():
     return jsonify({
         "status": "ok",
         "suspects_csv_exists": (DATA_DIR / "suspects.csv").exists(),
-        "scheduler": dict(_scheduler_state),
+        "scheduler": pipeline_status(),
     })
+
+
+@app.route("/api/pipeline/status")
+def api_pipeline_status():
+    return jsonify(pipeline_status())
+
+
+@app.route("/api/pipeline/run", methods=["POST"])
+def api_pipeline_run():
+    """Yereldeki `run_pipeline.py --watchlist` karşılığı — arka planda kuyruğa al."""
+    result = enqueue_pipeline_run(force_watchlist=True)
+    return jsonify(result), 200
+
+
+def pipeline_status():
+    return dict(_scheduler_state)
+
+
+def enqueue_pipeline_run(force_watchlist=False):
+    """Pipeline turunu arka plan thread'inde başlat; Flask isteğini bloklamaz."""
+    if _scheduler_state.get("running"):
+        return {"ok": True, "queued": False, "reason": "already_running"}
+    threading.Thread(
+        target=run_scheduled_pipeline,
+        kwargs={"force_watchlist": force_watchlist},
+        daemon=True,
+    ).start()
+    return {"ok": True, "queued": True}
 
 
 def _env_flag(name, default=True):
@@ -280,11 +308,13 @@ def _append_scheduler_log(event, **extra):
         log.exception("scheduler log yazılamadı")
 
 
-def run_scheduled_pipeline():
+def run_scheduled_pipeline(force_watchlist=False):
     """retrieve→collect→extract→auto-method zincirini arka planda çalıştır.
 
     Hata Flask sürecini düşürmez: loglanır, sonraki tur normal devam eder.
     PIPELINE_DRY_RUN=1 iken gerçek pipeline çağrılmaz (yerel zamanlayıcı testi).
+    force_watchlist=True (manuel Analiz et) veya PIPELINE_WATCHLIST=1 iken
+    izleme listesindeki kanallar + tekil videolar toplanır.
     """
     if not _job_lock.acquire(blocking=False):
         log.warning("pipeline zaten çalışıyor, bu tur atlandı")
@@ -311,13 +341,14 @@ def run_scheduled_pipeline():
             _append_scheduler_log("dry_run_ok", steps=step_names, sleep_s=sleep_s)
             return
 
+        use_watchlist = force_watchlist or _env_flag("PIPELINE_WATCHLIST", default=False)
         run_pipeline(
             channels=os.environ.get("PIPELINE_CHANNELS", "data/channels.csv"),
             max_videos=os.environ.get("PIPELINE_MAX_VIDEOS", "15"),
             skip_collect=skip_collect,
             skip_nli=_env_flag("PIPELINE_SKIP_NLI", default=False),
             with_comments=with_comments,
-            watchlist=_env_flag("PIPELINE_WATCHLIST", default=False),
+            watchlist=use_watchlist,
         )
         _append_scheduler_log("ok", steps=step_names)
     except Exception:

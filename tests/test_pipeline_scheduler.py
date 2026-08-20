@@ -10,6 +10,14 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from run_pipeline import build_step_plan
 
 
+def _wait_pipeline_idle(appmod, timeout=2.0):
+    deadline = time.time() + timeout
+    while appmod._scheduler_state.get("running") and time.time() < deadline:
+        time.sleep(0.05)
+    appmod._scheduler_state["running"] = False
+    appmod._scheduler_state["last_error"] = None
+
+
 def test_step_plan_is_retrieve_collect_extract_automethod_then_score_index():
     plan = build_step_plan()
     scripts = [name for name, _ in plan]
@@ -40,6 +48,7 @@ def test_scheduled_job_error_does_not_propagate(monkeypatch, tmp_path):
     monkeypatch.setenv("DATA_DIR", str(tmp_path))
     import app as appmod
     monkeypatch.setattr(appmod, "DATA_DIR", tmp_path)
+    _wait_pipeline_idle(appmod)
 
     def boom(**kwargs):
         raise RuntimeError("simulated pipeline crash")
@@ -58,6 +67,7 @@ def test_flask_serves_healthz_while_pipeline_thread_sleeps(monkeypatch, tmp_path
     monkeypatch.setenv("DATA_DIR", str(tmp_path))
     import app as appmod
     monkeypatch.setattr(appmod, "DATA_DIR", tmp_path)
+    _wait_pipeline_idle(appmod)
 
     started = threading.Event()
     orig = appmod.run_scheduled_pipeline

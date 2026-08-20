@@ -343,7 +343,17 @@ Kalıcı disk `data/` üzerine boş biner. Build, git'teki `videos.csv` /
 kopyası, demo değil) `data_seed/`'e alınır; start'ta diskte yoksa bir kez
 yazılır. Diskte dosya varsa ezilmez.
 
-**4. URL'nizi test edin**
+**4. Yeni kanal / video analizi (Render’da yerel akış)**
+Sidebar (☰ menü):
+
+1. **Abone ol** veya **videoyu izle** — izleme listesine eklenir (`data/watchlist.json`, kalıcı disk)
+2. **Analiz et** — yereldeki `python run_pipeline.py --watchlist` ile aynı; arka planda pipeline başlar
+3. Durum satırı “analiz sürüyor…” → “son tur tamam”; tablolar otomatik yenilenir
+
+Günlük zamanlayıcı da `PIPELINE_WATCHLIST=1` ile abone kanalları + tekil videoları tarar.
+Shell / One-Off Job gerekmez. `20_subscribe_channel.py` / `21_pre_research_channel.py` yalnız yerelde (`input()` onay).
+
+**5. URL’nizi test edin**
 Render, web servisiniz için `https://health-misinfo-dashboard.onrender.com`
 gibi bir adres verir. İlk açılışta (zamanlayıcı henüz bir tur bitirmediyse)
 dashboard "henüz veri yok" gösterebilir — varsayılan ilk tur ~2 dakika
@@ -355,7 +365,7 @@ kanallardaki yeni videolar). `20_subscribe_channel.py` /
 `21_pre_research_channel.py` `input()` bekler; Render'a asla eklenmez,
 yalnız yerel/Cursor'dan çalıştırın.
 
-**5. Disk kanıtı — Restart sonrası veri duruyor mu?**
+**6. Disk kanıtı — Restart sonrası veri duruyor mu?**
 `mountPath` satırlarının YAML'da aynı görünmesi yetmez. Deploy olduktan
 sonra şunu yapın (yeni deploy değil, **Restart**):
 

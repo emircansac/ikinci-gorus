@@ -56,6 +56,13 @@
   .wl-input{padding:8px 10px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg); color:var(--text); font-size:12.5px;}
   .wl-input:focus{outline:none; border-color:#B5551F;}
   .wl-add-btn{font-family:var(--mono); font-size:11px; padding:8px 10px; border-radius:6px; border:1px solid var(--teal); background:var(--teal-dim); color:var(--teal);}
+  .wl-add-btn:disabled{opacity:0.5; cursor:not-allowed;}
+  .wl-run-btn{width:100%; font-family:var(--mono); font-size:12px; font-weight:600; padding:10px 12px; border-radius:6px; border:1px solid var(--teal); background:var(--teal); color:#0a1412; cursor:pointer;}
+  .wl-run-btn:disabled{opacity:0.5; cursor:not-allowed;}
+  .wl-pipeline-status{font-family:var(--mono); font-size:10px; color:var(--text-muted); margin-top:8px; min-height:28px; line-height:1.4;}
+  .wl-pipeline-status.running{color:var(--yellow);}
+  .wl-pipeline-status.err{color:var(--red);}
+  .wl-pipeline-status.ok{color:var(--teal);}
   .wl-note{font-family:var(--mono); font-size:10px; color:var(--text-muted); line-height:1.45; margin-top:6px;}
   .wl-msg{font-family:var(--mono); font-size:10px; margin-top:6px; min-height:14px;}
   .wl-msg.err{color:var(--red);} .wl-msg.ok{color:var(--teal);}
@@ -381,6 +388,11 @@
   <p class="wl-note">Kanala abone olunca yeni videolar taranır. Tek video eklersen yalnızca o video analiz edilir.</p>
 
   <div class="sidebar-section">
+    <button class="wl-run-btn" id="btn-pipeline-run" type="button">Analiz et</button>
+    <div class="wl-pipeline-status" id="pipeline-status">durum yükleniyor…</div>
+  </div>
+
+  <div class="sidebar-section">
     <div class="wl-label">Abone olunan kanallar</div>
     <div id="wl-channels"><div class="empty-note" style="padding:8px 0;">henüz abone olunan kanal yok</div></div>
     <form class="wl-form" id="form-add-channel">
@@ -467,6 +479,81 @@ let searchQuery = "";
 let searchTimer = null;
 let claimsFilter = "all";
 let wlVideosOpen = false;
+let pipelinePollTimer = null;
+let lastPipelineTicks = 0;
+
+function renderPipelineStatus(st){
+  const el = document.getElementById('pipeline-status');
+  const btn = document.getElementById('btn-pipeline-run');
+  if(!el || !st) return;
+  btn.disabled = !!st.running;
+  el.className = 'wl-pipeline-status';
+  if(st.running){
+    el.classList.add('running');
+    el.textContent = 'analiz sürüyor… (birkaç dakika sürebilir)';
+    return;
+  }
+  if(st.last_error){
+    el.classList.add('err');
+    el.textContent = 'son tur hata verdi — Render loglarına bakın';
+    return;
+  }
+  if((st.ticks || 0) > 0){
+    el.classList.add('ok');
+    el.textContent = `son tur tamam (${st.ticks} tur)`;
+    return;
+  }
+  el.textContent = 'bekliyor — kanal/video ekledikten sonra Analiz et';
+}
+
+async function pollPipelineStatus(){
+  try {
+    const st = await fetchJson('/api/pipeline/status');
+    const prevTicks = lastPipelineTicks;
+    renderPipelineStatus(st);
+    if(!st.running && (st.ticks || 0) > prevTicks){
+      lastPipelineTicks = st.ticks || 0;
+      await refreshAll();
+    } else {
+      lastPipelineTicks = st.ticks || 0;
+    }
+    if(st.running && !pipelinePollTimer){
+      pipelinePollTimer = setInterval(pollPipelineStatus, 5000);
+    }
+    if(!st.running && pipelinePollTimer){
+      clearInterval(pipelinePollTimer);
+      pipelinePollTimer = null;
+    }
+  } catch(e){
+    const el = document.getElementById('pipeline-status');
+    if(el){ el.className = 'wl-pipeline-status err'; el.textContent = 'durum alınamadı'; }
+  }
+}
+
+async function runPipelineManual(){
+  const btn = document.getElementById('btn-pipeline-run');
+  const el = document.getElementById('pipeline-status');
+  btn.disabled = true;
+  el.className = 'wl-pipeline-status running';
+  el.textContent = 'kuyruğa alınıyor…';
+  try {
+    const res = await fetch('/api/pipeline/run', {method:'POST', headers:{'Content-Type':'application/json'}});
+    const data = await parseJsonResponse(res);
+    if(!data.ok){ el.className='wl-pipeline-status err'; el.textContent = data.error || 'başlatılamadı'; btn.disabled=false; return; }
+    if(!data.queued && data.reason === 'already_running'){
+      el.className='wl-pipeline-status running';
+      el.textContent = 'analiz zaten sürüyor…';
+    } else {
+      el.className='wl-pipeline-status running';
+      el.textContent = 'analiz başlatıldı…';
+    }
+    await pollPipelineStatus();
+  } catch(e){
+    el.className='wl-pipeline-status err';
+    el.textContent = e.message;
+    btn.disabled = false;
+  }
+}
 
 function verdictMark(v){ return VERDICT_MARK[v] || {sym:"?", cls:"belirsiz"}; }
 function tierColor(s){ if(s==null) return 'var(--text-muted)'; return s>=75 ? 'var(--red)' : s>=45 ? 'var(--yellow)' : 'var(--teal)'; }
@@ -1077,7 +1164,7 @@ async function addWatchlistChannel(input){
     const res = await fetch('/api/watchlist/channel', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({input})});
     const data = await parseJsonResponse(res);
     if(!data.ok){ msg.className='wl-msg err'; msg.textContent = data.error; return; }
-    msg.className='wl-msg ok'; msg.textContent = 'abone olundu';
+    msg.className='wl-msg ok'; msg.textContent = 'abone olundu — Analiz et ile taramayı başlatın';
     document.querySelector('#form-add-channel input').value = '';
     await loadWatchlist();
   } catch(e){ msg.className='wl-msg err'; msg.textContent = e.message; }
@@ -1090,7 +1177,7 @@ async function addWatchlistVideo(input){
     const res = await fetch('/api/watchlist/video', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({input})});
     const data = await parseJsonResponse(res);
     if(!data.ok){ msg.className='wl-msg err'; msg.textContent = data.error; return; }
-    msg.className='wl-msg ok'; msg.textContent = 'video eklendi — pipeline çalıştırınca analiz edilir';
+    msg.className='wl-msg ok'; msg.textContent = 'video eklendi — Analiz et ile analizi başlatın';
     document.querySelector('#form-add-video input').value = '';
     wlVideosOpen = true;
     await loadWatchlist();
@@ -1154,6 +1241,7 @@ document.getElementById('form-add-video').addEventListener('submit', e => {
   e.preventDefault();
   addWatchlistVideo(e.target.querySelector('input').value);
 });
+document.getElementById('btn-pipeline-run').addEventListener('click', () => runPipelineManual());
 document.getElementById('detail-close').addEventListener('click', closeDetail);
 document.getElementById('overlay').addEventListener('click', closeDetail);
 document.addEventListener('keydown', e => {
@@ -1187,6 +1275,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 refreshAll();
+pollPipelineStatus();
 </script>
 </body>
 </html>
