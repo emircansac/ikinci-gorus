@@ -22,7 +22,7 @@ import json
 import logging
 import math
 import os
-import subprocess
+import sys
 import threading
 import time
 import traceback
@@ -60,6 +60,33 @@ _scheduler_state = {
     "ticks": 0,
 }
 
+_export_lock = threading.Lock()
+_claim_patches_lock = threading.Lock()
+_claim_patches = {}
+_export_stop = threading.Event()
+_export_thread = None
+_export_state = {
+    "enabled": False,
+    "interval_seconds": None,
+    "stale": False,
+    "running": False,
+    "last_started_at": None,
+    "last_finished_at": None,
+    "last_error": None,
+    "ticks": 0,
+}
+
+
+def _csv_mtime_iso(filename: str):
+    path = DATA_DIR / filename
+    if not path.exists():
+        return None
+    return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
+
+
+if _export_state["last_finished_at"] is None:
+    _export_state["last_finished_at"] = _csv_mtime_iso("claim_index.csv") or _csv_mtime_iso("suspects.csv")
+
 
 def read_csv_as_json(filename: str):
     path = DATA_DIR / filename
@@ -90,16 +117,14 @@ def api_channels():
 
 @app.route("/api/claims")
 def api_claims():
-    data = read_csv_as_json("claim_index.csv")
-    if data is None:
-        return jsonify([])
-    return jsonify(data)
+    active, _archived = claims_with_patches()
+    return jsonify(active)
 
 
 @app.route("/api/claims/archived")
 def api_claims_archived():
-    data = read_csv_as_json("claim_archive.csv")
-    return jsonify(data or [])
+    _active, archived = claims_with_patches()
+    return jsonify(archived)
 
 
 @app.route("/api/watchlist")
@@ -207,23 +232,28 @@ def api_claim_review(claim_id):
     action = (body.get("action") or "").strip().lower()
     note = (body.get("note") or "").strip() or None
     verdict = (body.get("verdict") or "").strip() or None
-    try:
-        result = review_claim(claim_id, action, note=note, verdict=verdict)
-        if not result.get("ok"):
-            return jsonify(result), 400
-        return jsonify(result)
-    except subprocess.CalledProcessError as e:
-        return jsonify({"ok": False, "error": f"export güncellenemedi: {e}"}), 500
+    result = review_claim(claim_id, action, note=note, verdict=verdict)
+    if not result.get("ok"):
+        return jsonify(result), 400
+    remember_review_patch(result)
+    mark_exports_stale()
+    return jsonify(result)
 
 
 @app.route("/healthz")
 def healthz():
-    """Yerel süreç ayakta mı — CSV varlığı + son pipeline turu."""
+    """Yerel süreç ayakta mı — CSV varlığı + son pipeline / export turu."""
     return jsonify({
         "status": "ok",
         "suspects_csv_exists": (DATA_DIR / "suspects.csv").exists(),
         "pipeline": pipeline_status(),
+        "export": export_status(),
     })
+
+
+@app.route("/api/export/status")
+def api_export_status():
+    return jsonify(export_status())
 
 
 @app.route("/api/pipeline/status")
@@ -240,6 +270,70 @@ def api_pipeline_run():
 
 def pipeline_status():
     return dict(_scheduler_state)
+
+
+def export_status():
+    return dict(_export_state)
+
+
+def _claim_id_int(value):
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def remember_review_patch(result: dict):
+    """CSV yenilenene kadar /api/claims yanıtına DB sonucunu bindir."""
+    cid = _claim_id_int(result.get("claim_id"))
+    if cid is None:
+        return
+    patch = {
+        "human_reviewed": 1,
+        "auto_accepted": 0,
+        "reviewer_note": result.get("reviewer_note"),
+        "final_verdict": result.get("final_verdict") or result.get("verdict"),
+    }
+    if result.get("archived"):
+        patch["archived_at"] = datetime.now(timezone.utc).isoformat()
+        patch["archive_reason"] = result.get("archive_reason")
+    with _claim_patches_lock:
+        _claim_patches[cid] = patch
+
+
+def mark_exports_stale():
+    _export_state["stale"] = True
+
+
+def claims_with_patches():
+    active = read_csv_as_json("claim_index.csv") or []
+    archived = read_csv_as_json("claim_archive.csv") or []
+    with _claim_patches_lock:
+        patches = dict(_claim_patches)
+
+    def merge(rec):
+        cid = _claim_id_int(rec.get("claim_id"))
+        if cid is None:
+            return rec
+        extra = patches.get(cid)
+        return {**rec, **extra} if extra else rec
+
+    active_m = [merge(r) for r in active]
+    archived_m = [merge(r) for r in archived]
+    still_active = []
+    for rec in active_m:
+        if rec.get("archived_at"):
+            archived_m.append(rec)
+        else:
+            still_active.append(rec)
+    return still_active, archived_m
+
+
+def clear_claim_patches():
+    with _claim_patches_lock:
+        _claim_patches.clear()
 
 
 def enqueue_pipeline_run(force_watchlist=False):
@@ -336,6 +430,66 @@ def run_background_pipeline(force_watchlist=False):
         _scheduler_state["ticks"] = int(_scheduler_state["ticks"] or 0) + 1
         _scheduler_state["last_finished_at"] = datetime.now(timezone.utc).isoformat()
         _job_lock.release()
+
+
+def run_export_refresh():
+    """04 + 06'yı arka planda çalıştır; Flask isteğini bloklamaz."""
+    if _scheduler_state.get("running"):
+        log.info("pipeline çalışıyor, CSV yenileme bu tur atlandı")
+        return
+    if not _export_lock.acquire(blocking=False):
+        log.info("CSV yenileme zaten çalışıyor, atlandı")
+        return
+    _export_state["running"] = True
+    _export_state["last_started_at"] = datetime.now(timezone.utc).isoformat()
+    _export_state["last_error"] = None
+    try:
+        from utils.review import refresh_dashboard_exports
+        refresh_dashboard_exports()
+        _export_state["stale"] = False
+        _export_state["last_finished_at"] = datetime.now(timezone.utc).isoformat()
+        clear_claim_patches()
+        log.info("dashboard CSV yenilendi (04 + 06)")
+    except Exception:
+        err = traceback.format_exc()
+        log.exception("CSV yenileme hata verdi; Flask ayakta kalıyor")
+        _export_state["last_error"] = err[-2000:]
+    finally:
+        _export_state["running"] = False
+        _export_state["ticks"] = int(_export_state["ticks"] or 0) + 1
+        _export_lock.release()
+
+
+def _export_loop():
+    interval = max(1, _env_int("EXPORT_INTERVAL_SECONDS", 180))
+    _export_state["interval_seconds"] = interval
+    while not _export_stop.wait(interval):
+        if _export_state.get("stale"):
+            run_export_refresh()
+
+
+def start_export_refresh():
+    """Review sonrası bayraklanan CSV'leri her N saniyede bir yenile."""
+    global _export_thread
+    if _export_thread is not None and _export_thread.is_alive():
+        return _export_thread
+    if "pytest" in sys.modules and not _env_flag("EXPORT_REFRESH_FORCE", default=False):
+        return None
+    if not _env_flag("EXPORT_REFRESH_ENABLED", default=True):
+        log.info("CSV yenileme kapalı (EXPORT_REFRESH_ENABLED=0)")
+        return None
+    interval = max(1, _env_int("EXPORT_INTERVAL_SECONDS", 180))
+    _export_state["enabled"] = True
+    _export_state["interval_seconds"] = interval
+    _export_stop.clear()
+    thread = threading.Thread(target=_export_loop, name="export_refresh", daemon=True)
+    thread.start()
+    _export_thread = thread
+    log.info("CSV yenileme başladı: stale ise her %ss", interval)
+    return thread
+
+
+start_export_refresh()
 
 
 if __name__ == "__main__":

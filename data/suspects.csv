@@ -1,4 +1,4 @@
 channel_id,name,risk_score,risk_tier,analyzed_videos,min_videos_for_score,total_claims,false_or_disputed,high_risk_claims,scored_claims,fact_check_coverage,avg_suspicion,funnel_flag,ai_persona_flag,growth_anomaly_flag,bot_comment_ratio,pending_human_review
-UC83SKJrkGxPAkhK1aPosw7A,Dr. Hasan Yıldırım .Doğal Şifa,27.1,izlemede,14,5,718,407,106,718,1.0,50.0,False,True,False,0.0,718
+UC83SKJrkGxPAkhK1aPosw7A,Dr. Hasan Yıldırım .Doğal Şifa,25.8,izlemede,14,5,718,407,106,718,1.0,46.9,False,True,False,0.0,714
 UCBhdMrBXcuq1IdPl8uO6KvQ,Dr. Elif Yılmaz,,yetersiz_veri,3,5,31,20,0,0,0.0,,False,False,False,0.0,24
 UCXhDI7n_iC4J9jR3GYJKkcQ,Dr. Stefen Radoslaw ile Fizyoterapi,,yetersiz_veri,1,5,41,18,10,0,0.0,,True,False,False,0.0,41

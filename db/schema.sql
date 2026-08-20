@@ -158,3 +158,24 @@ CREATE TABLE IF NOT EXISTS evidence_topic_cache (
     UNIQUE(topic_key, source_url)
 );
 CREATE INDEX IF NOT EXISTS idx_topic_cache_key ON evidence_topic_cache(topic_key);
+
+-- İnsan incelemesi öğrenme kaydı (yalnızca approve/reject; arşivle yazılmaz)
+CREATE TABLE IF NOT EXISTS review_outcomes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    claim_id INTEGER NOT NULL,
+    reviewed_at TEXT DEFAULT (datetime('now')),
+    ai_verdict TEXT,
+    ai_confidence REAL,
+    human_verdict TEXT,
+    agreed INTEGER NOT NULL,
+    calibration_flags_at_review TEXT,
+    specificity_tier_at_review TEXT,
+    reviewer_check_point_category TEXT,
+    FOREIGN KEY (claim_id) REFERENCES claims(claim_id)
+);
+CREATE INDEX IF NOT EXISTS idx_review_outcomes_reviewed_at
+    ON review_outcomes(reviewed_at);
+CREATE INDEX IF NOT EXISTS idx_review_outcomes_category
+    ON review_outcomes(reviewer_check_point_category);
+CREATE INDEX IF NOT EXISTS idx_review_outcomes_agreed
+    ON review_outcomes(agreed);

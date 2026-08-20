@@ -5,7 +5,7 @@ Video/iddia bazlı değil, KANAL bazlı puanlama yapılır çünkü tespit etti�
 aynı kanal hem sorumlu hem agresif yanıltıcı içerik üretebiliyor — kanalın genel
 paternine bakmak gerekiyor.
 
-Skor bileşenleri (0-100, toplam):
+Skor bileşenleri (tavanlar 40+10+15+10+45 = 120; çıktı min(100, toplam)):
   - kontrol edilmiş iddiaların ort. şüphe skoru     (ağırlık: 40)
   - kontrol edilmişlerde yüksek şüphe (≥75) oranı   (ağırlık: 10)
   - henüz kontrol edilmemiş high initial_risk        (ağırlık: 15)
@@ -83,7 +83,8 @@ def main():
     for ch in channels:
         cid = ch["channel_id"]
         claim_rows = conn.execute(f"""
-            SELECT c.claim_id, c.category, c.initial_risk, vr.final_verdict, vr.human_reviewed
+            SELECT c.claim_id, c.category, c.initial_risk,
+                   vr.final_verdict, vr.confidence, vr.human_reviewed
             FROM claims c LEFT JOIN verdicts vr ON vr.claim_id = c.claim_id
             WHERE c.channel_id = ? AND c.{ACTIVE_CLAIM_WHERE}
         """, (cid,)).fetchall()

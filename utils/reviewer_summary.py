@@ -341,12 +341,10 @@ def _partial_caveat_check_point(claim_row: dict) -> str | None:
     )
 
 
-def _build_check_point(
-    claim_row: dict,
-    flags: set[str],
-    *,
-    drug_suffix: str,
-) -> str:
+def check_point_category(claim_row: dict, flags: set[str] | None = None) -> str:
+    """_build_check_point ile aynı dalga sırası — öğrenme kaydı için sabit anahtar."""
+    if flags is None:
+        flags = _parse_flags(claim_row.get("calibration_flags"))
     reasoning = claim_row.get("reasoning") or ""
     claim_text = claim_row.get("claim_text") or ""
     evidence_stance = (claim_row.get("evidence_stance") or "").strip()
@@ -354,44 +352,78 @@ def _build_check_point(
     specificity_tier = _specificity_tier(claim_row, flags)
     final_verdict = claim_row.get("final_verdict")
 
-    caveat_point = _partial_caveat_check_point(claim_row)
     if VERDICT_REASONING_MISMATCH_FLAG in flags:
+        return "verdict_reasoning_mismatch"
+    if _partial_caveat_check_point(claim_row):
+        return "partial_caveat"
+    if evidence_stance == "mixed" or is_compound_claim(claim_text, reasoning):
+        return "compound"
+    if specificity_tier == "background" or "no_direct_evidence_expected" in flags:
+        return "no_direct_evidence"
+    if source_directness == "unrelated":
+        return "unrelated_source"
+    if source_directness == "indirect":
+        return "indirect"
+    if "package_only_forced" in flags:
+        return "package_only"
+    if "web_search_override" in flags:
+        return "web_search_override"
+    if evidence_stance == "insufficient":
+        return "insufficient"
+    if final_verdict == "tartışmalı" and "default_conf" in flags:
+        return "default_conf_tartismali"
+    if final_verdict == "belirsiz":
+        return "belirsiz"
+    return "generic"
+
+
+def _build_check_point(
+    claim_row: dict,
+    flags: set[str],
+    *,
+    drug_suffix: str,
+) -> str:
+    reasoning = claim_row.get("reasoning") or ""
+    final_verdict = claim_row.get("final_verdict")
+    cat = check_point_category(claim_row, flags)
+
+    if cat == "verdict_reasoning_mismatch":
         snippet = _extract_mismatch_snippet(reasoning)
         point = (
             f"Verdict kendi gerekçesiyle tam örtüşmüyor — "
             f"{snippet} kısmının doğrudan kanıtı var mı, bakın."
         )
-    elif caveat_point:
-        point = caveat_point
-    elif evidence_stance == "mixed" or is_compound_claim(claim_text, reasoning):
+    elif cat == "partial_caveat":
+        point = _partial_caveat_check_point(claim_row) or ""
+    elif cat == "compound":
         point = (
             "Bileşik iddia — bileşenlerden biri destekleniyor, diğeri "
             "desteklenmiyor olabilir. Hangi bileşenin sorunlu olduğuna bakın."
         )
-    elif specificity_tier == "background" or "no_direct_evidence_expected" in flags:
+    elif cat == "no_direct_evidence":
         point = (
             "Bu iddia için literatürde doğrudan bir çalışma bulunamadı; "
             "kanıt dolaylı/mekanistik."
         )
-    elif source_directness == "unrelated":
+    elif cat == "unrelated_source":
         point = "Atıf yapılan kaynak iddiayla ilgisiz görünüyor — doğru kaynak var mı?"
-    elif source_directness == "indirect":
+    elif cat == "indirect":
         point = (
             f"Kaynak iddiayı dolaylı ele alıyor — '{final_verdict or 'hüküm'}' "
             "için doğrudan kanıt var mı kontrol edin."
         )
-    elif "package_only_forced" in flags:
+    elif cat == "package_only":
         point = "Yalnızca sağlanan kanıt paketine dayanıyor — cited URL gerçekten pakette mi?"
-    elif "web_search_override" in flags:
+    elif cat == "web_search_override":
         point = (
             "Claude paket dışı bir kaynak buldu — URL'nin iddiayı "
             "doğrudan destekleyip desteklemediğine bakın."
         )
-    elif evidence_stance == "insufficient":
+    elif cat == "insufficient":
         point = "Kanıt yetersiz işaretlendi — mevcut kaynak iddiayı gerçekten ele alıyor mu?"
-    elif final_verdict == "tartışmalı" and "default_conf" in flags:
+    elif cat == "default_conf_tartismali":
         point = "Model düşük güvenle tartışmalı dedi — hangi kısım belirsiz, netleştirin."
-    elif final_verdict == "belirsiz":
+    elif cat == "belirsiz":
         point = "Model belirsiz dedi — iddia için yeterli kanıt var mı, yeniden değerlendirin."
     else:
         point = (

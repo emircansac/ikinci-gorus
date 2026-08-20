@@ -6,6 +6,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.reviewer_summary import (
     build_reviewer_summary,
+    check_point_category,
     decompose_claim_for_retrieval,
     is_compound_claim,
     would_auto_accept_v1,
@@ -29,6 +30,7 @@ def test_mismatch_check_point():
     assert "Verdict kendi gerekçesiyle tam örtüşmüyor" in out["check_point"]
     assert out["model_disagreement"] is True
     assert out["source_note"] == "Claude'un kendi aramasından (pakette değildi)"
+    assert check_point_category(row) == "verdict_reasoning_mismatch"
 
 
 def test_background_no_direct_evidence():
@@ -46,6 +48,7 @@ def test_background_no_direct_evidence():
     out = build_reviewer_summary(row)
     assert "doğrudan bir çalışma bulunamadı" in out["check_point"]
     assert out["source_note"] == "Sağlanan kanıt paketinden"
+    assert check_point_category(row) == "no_direct_evidence"
 
 
 def test_high_risk_category():
@@ -164,6 +167,7 @@ def test_partial_caveat_check_point_overrides_mixed_stance():
     assert "gözden geçiriliyor" in out["check_point"]
     assert "NLI yüksek güvenle destekledi" in out["check_point"]
     assert "Bileşik iddia" not in out["check_point"]
+    assert check_point_category(row) == "partial_caveat"
 
 
 def test_partial_caveat_check_point_skips_low_nli_conf():

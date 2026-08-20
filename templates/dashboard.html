@@ -204,7 +204,6 @@
     border-radius:8px;
     padding:10px 14px 9px 12px;
     border-left:3px solid var(--line-strong);
-    cursor:pointer;
     transition:border-color .12s, background .12s;
   }
   .claim-stream-item:hover{background:var(--bg-elevated);}
@@ -212,12 +211,32 @@
   .claim-stream-item.v-dogrulanmis{border-left-color:var(--teal);}
   .claim-stream-item.v-tartismali{border-left-color:var(--yellow);}
   .claim-stream-item.v-belirsiz{border-left-color:var(--line-strong);}
-  .claim-stream-item.open{background:var(--bg-elevated); border-color:var(--line-strong);}
+  .claim-stream-item[open]{background:var(--bg-elevated); border-color:var(--line-strong);}
+  .claim-stream-summary{
+    display:flex; align-items:center; gap:8px;
+    list-style:none; cursor:pointer;
+    font-family:var(--mono); font-size:10.5px; color:var(--text-muted);
+    min-width:0; white-space:nowrap;
+  }
+  .claim-stream-summary::-webkit-details-marker{display:none;}
+  .claim-stream-summary .claim-stream-verdict,
+  .claim-stream-summary .badge{flex-shrink:0;}
+  .claim-stream-summary .claim-stream-score{margin-left:0; flex-shrink:0;}
+  .claim-stream-preview{
+    flex:1; min-width:0;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    color:var(--text); font-size:12px; font-family:inherit;
+  }
+  .claim-toggle-incele, .claim-toggle-kapat{
+    margin-left:auto; flex-shrink:0;
+    font-family:var(--mono); font-size:10.5px; color:var(--text-muted);
+  }
+  .claim-stream-item[open] > .claim-stream-summary .claim-toggle-incele{display:none;}
+  .claim-stream-item:not([open]) > .claim-stream-summary .claim-toggle-kapat{display:none;}
+  .claim-stream-body{margin-top:10px;}
   .claim-stream-text{
     font-size:15px; line-height:1.45; margin:0 0 6px; color:var(--text);
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
   }
-  .claim-stream-item.open .claim-stream-text{-webkit-line-clamp:unset;}
   .claim-stream-meta{
     display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     font-family:var(--mono); font-size:10.5px; color:var(--text-muted);
@@ -275,7 +294,6 @@
   .claim-tech-details summary::-webkit-details-marker{display:none;}
   .claim-tech-details summary::before{content:'▸ '; color:var(--text-muted);}
   .claim-tech-details[open] summary::before{content:'▾ ';}
-  .claim-stream-item.open .claim-stream-detail{display:block;}
   .claim-stream-detail a{color:#B5551F;}
   .review-actions{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
   .review-btn{
@@ -369,6 +387,7 @@
 
   footer{margin-top:40px; font-family:var(--mono); font-size:10.5px; color:var(--text-muted); border-top:1px solid var(--line); padding-top:16px;}
   footer .note{margin-top:6px; opacity:.7;}
+  .export-freshness{font-family:var(--mono); font-size:10.5px; color:var(--text-muted); margin:8px 0 0; min-height:16px;}
 
   @media (max-width:640px){
     .topbar{flex-wrap:wrap; padding:10px 12px;}
@@ -440,6 +459,7 @@
     <button class="tab" data-panel="clusters">anlatı kümeleri</button>
     <button class="tab" data-panel="ops">Performans</button>
   </div>
+  <div class="export-freshness" id="export-freshness">sayılar yükleniyor…</div>
 
   <div class="panel active" id="videos"><div class="empty-note">yükleniyor…</div></div>
   <div class="panel" id="channels"><div class="empty-note">yükleniyor…</div></div>
@@ -504,6 +524,51 @@ function renderPipelineStatus(st){
     return;
   }
   el.textContent = 'bekliyor — kanal/video ekledikten sonra Analiz et';
+}
+
+function formatExportFreshness(st){
+  const el = document.getElementById('export-freshness');
+  if(!el || !st) return;
+  if(st.running){
+    el.textContent = 'Sayılar yenileniyor… (kanal skoru ve kümeler; inceleme kaydı zaten duruyor)';
+    return;
+  }
+  if(st.last_error){
+    el.textContent = 'Sayı yenileme hata verdi — sonraki turda tekrar denenecek';
+    return;
+  }
+  const ts = st.last_finished_at;
+  const intervalMin = Math.max(1, Math.round((st.interval_seconds || 180) / 60));
+  const staleNote = st.stale ? ' · inceleme kaydı alındı, sayılar yakında güncellenecek' : '';
+  if(!ts){
+    el.textContent = `Sayılar henüz yenilenmedi (canlı değil, ~${intervalMin} dk’da bir)${staleNote}`;
+    return;
+  }
+  const agoMs = Date.now() - Date.parse(ts);
+  const agoMin = Number.isFinite(agoMs) ? Math.max(0, Math.round(agoMs / 60000)) : 0;
+  const when = agoMin === 0 ? 'az önce' : `${agoMin} dk önce`;
+  el.textContent = `Son güncelleme: ${when} (canlı değil, ~${intervalMin} dk’da bir)${staleNote}`;
+}
+
+let lastExportTicks = 0;
+
+async function pollExportStatus(){
+  try {
+    const st = await fetchJson('/api/export/status');
+    const prevTicks = lastExportTicks;
+    formatExportFreshness(st);
+    if(!st.running && (st.ticks || 0) > prevTicks){
+      lastExportTicks = st.ticks || 0;
+      if(prevTicks > 0 || st.ticks > 0){
+        await refreshAll();
+      }
+    } else {
+      lastExportTicks = st.ticks || 0;
+    }
+  } catch(e){
+    const el = document.getElementById('export-freshness');
+    if(el) el.textContent = 'sayı zamanı alınamadı';
+  }
 }
 
 async function pollPipelineStatus(){
@@ -732,6 +797,15 @@ function riskLevelClass(level){
   return map[level] || "orta";
 }
 
+function claimPreviewText(c, n=60){
+  if(needsHumanReview(c)){
+    const cp = String(c.reviewer_check_point || '').trim();
+    if(cp) return cp;
+  }
+  const t = String(c.claim_text || '').trim();
+  return t.length <= n ? t : t.slice(0, n) + '...';
+}
+
 function renderClaimStreamItem(c, opts){
   const isArchiveView = opts?.archiveView;
   const vCls = verdictClass(c.final_verdict);
@@ -740,12 +814,23 @@ function renderClaimStreamItem(c, opts){
   const verdictLabel = c.final_verdict || "belirsiz";
   const ytUrl = youtubeAt(c.video_id, c.timestamp_sec);
   const pending = needsHumanReview(c);
+  const prov = reviewProvenanceBadge(c);
   const reviewStatus = c.reviewer_note || (isTruthy(c.human_reviewed) ? 'onaylandı' : '');
   const timeLink = c.timestamp_sec != null
     ? `<a href="${esc(ytUrl)}" target="_blank" rel="noopener">${c.timestamp_sec}s</a>`
     : '';
   return `
-  <article class="claim-stream-item v-${vCls}" data-claim-id="${esc(c.claim_id)}" tabindex="0" role="button">
+  <details class="claim-stream-item v-${vCls}" data-claim-id="${esc(c.claim_id)}">
+    <summary class="claim-stream-summary">
+      <span class="claim-stream-verdict ${vCls}">${vMark.sym} ${esc(verdictLabel)}</span>
+      <span class="badge ${prov.cls}">${esc(prov.label)}</span>
+      ${susp != null ? `<span class="claim-stream-score" style="color:${tierColor(susp)}">${Number(susp).toFixed(0)}</span>` : ''}
+      <span>${esc(c.channel_name || c.channel_id)}</span>
+      <span class="claim-stream-preview">${esc(claimPreviewText(c))}</span>
+      <span class="claim-toggle-incele">İncele ▾</span>
+      <span class="claim-toggle-kapat">▴ Kapat</span>
+    </summary>
+    <div class="claim-stream-body">
     ${!isArchiveView && pending && c.reviewer_check_point ? `
     <div class="reviewer-focus">
       <div class="reviewer-focus-label">İncelenecek nokta</div>
@@ -791,7 +876,8 @@ function renderClaimStreamItem(c, opts){
       <div class="review-status ${String(reviewStatus).includes('redd') ? 'no' : 'ok'}">${esc(reviewStatus || (isProductionAutoAccepted(c) ? 'otomasyon kararı' : 'incelendi'))}</div>` : `
       <div class="review-status ok">arşiv · ${esc(archiveReasonLabel(c.archive_reason))}</div>`}
     </div>
-  </article>`;
+    </div>
+  </details>`;
 }
 
 function renderTweetCard(c){
@@ -815,20 +901,6 @@ function renderTweetCard(c){
 }
 
 function bindClaimStreamClicks(root){
-  root.querySelectorAll('.claim-stream-item').forEach(item => {
-    const toggle = () => {
-      const open = item.classList.contains('open');
-      root.querySelectorAll('.claim-stream-item.open').forEach(el => el.classList.remove('open'));
-      if(!open) item.classList.add('open');
-    };
-    item.addEventListener('click', e => {
-      if(e.target.closest('a') || e.target.closest('.review-btn') || e.target.closest('.reject-verdict-picker') || e.target.closest('.claim-tech-details')) return;
-      toggle();
-    });
-    item.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
-  });
   root.querySelectorAll('[data-review]').forEach(btn => {
     btn.addEventListener('click', async e => {
       e.stopPropagation();
@@ -853,7 +925,7 @@ function bindClaimStreamClicks(root){
         await refreshAll();
         if(activePanel === 'claims'){
           const item = root.querySelector(`[data-claim-id="${id}"]`);
-          item?.classList.add('open');
+          if(item) item.open = true;
         }
       } catch(err){
         alert(err.message);
@@ -1276,6 +1348,8 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 refreshAll();
 pollPipelineStatus();
+pollExportStatus();
+setInterval(pollExportStatus, 15000);
 </script>
 </body>
 </html>

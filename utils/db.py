@@ -3,6 +3,7 @@ import sqlite3
 from pathlib import Path
 
 from utils.evidence_topic_cache import ensure_topic_cache_table
+from utils.review_outcomes import ensure_review_outcomes_table
 
 DB_PATH = Path(__file__).parent.parent / "data" / "monitor.db"
 SCHEMA_PATH = Path(__file__).parent.parent / "db" / "schema.sql"
@@ -227,6 +228,7 @@ def _migrate_columns(conn):
     _reconcile_stale_auto_accepted(conn)
     _backfill_shadow_human_gates(conn)
     ensure_topic_cache_table(conn)
+    ensure_review_outcomes_table(conn)
     conn.execute("""
         UPDATE claims SET extraction_version = 'v1'
         WHERE extraction_version IS NULL

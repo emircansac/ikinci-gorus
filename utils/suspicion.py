@@ -172,6 +172,9 @@ def compute_channel_risk(
         + min(max(bot_comment_ratio, 0.0), 1.0) * 15
     )
 
+    # Bileşen tavanları 40+10+15+10+45 = 120 (davranış bayrakları 15+5+10+15).
+    # Sözleşme 0–100; fazlalık burada kırpılır. Ağırlıkları 100'e yeniden
+    # dağıtmak ayrı bir formül değişikliği — bu satır tavanı garanti eder.
     score = suspicion_component + peak_component + unscored_component + high_risk_component + flag_component
     score = round(min(100.0, max(0.0, score)), 1)
 
