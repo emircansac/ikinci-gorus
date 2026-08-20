@@ -1,17 +1,16 @@
 """
 AŞAMA 0: Ön kontrol (preflight healthcheck).
 
-Amaç: Render'a (ya da başka bir yere) deploy etmeden ÖNCE, gerçek bir video/iddia
-işlemeden, sistemin gerçekten çalışmaya hazır olduğunu doğrulamak. Her kontrol
-küçük, ucuz (ya da ücretsiz) bir "dokunuş" yapar — asıl pipeline'ı çalıştırmaz.
+Amaç: Gerçek bir video/iddia işlemeden, sistemin çalışmaya hazır olduğunu
+doğrulamak. Her kontrol küçük, ucuz (ya da ücretsiz) bir "dokunuş" yapar —
+asıl pipeline'ı çalıştırmaz.
 
 Kullanım:
     python pipeline/00_healthcheck.py
     python pipeline/00_healthcheck.py --local-only   # API anahtarı kontrolü atlanır
 
-Her satır ✓ / ✗ ile raporlanır. Tek bir ✗ varsa deploy etmeden önce onu düzeltin —
-gerisi boşuna zaman/para kaybı olur (özellikle Render'da build başarısız
-olursa fark etmeniz saatler alabilir).
+Her satır ✓ / ✗ ile raporlanır. Tek bir ✗ varsa pipeline'ı çalıştırmadan
+önce onu düzeltin.
 """
 import os
 import sys
@@ -145,13 +144,13 @@ def main():
 
     print()
     if all_ok:
-        print("✅ Tüm kontroller geçti. Render'a (ya da başka bir ortama) deploy etmeye hazırsınız.")
+        print("✅ Tüm kontroller geçti. Yerel çalıştırmaya hazırsınız.")
         print("   Ama bu, GERÇEK VERİYLE UÇTAN UCA çalıştığını KANITLAMAZ — sadece parçaların")
         print("   ayrı ayrı çalışabildiğini gösterir. Bir sonraki adım: 'python run_pipeline.py "
               "--channels data/channels.csv --max-videos 2' ile 1-2 gerçek kanalda küçük bir "
               "deneme yapıp çıkan claim_index.csv'yi elle gözden geçirin.")
     else:
-        print("❌ Bir veya daha fazla kontrol başarısız. Deploy etmeden önce yukarıdaki ✗ satırlarını düzeltin.")
+        print("❌ Bir veya daha fazla kontrol başarısız. Pipeline'ı çalıştırmadan önce yukarıdaki ✗ satırlarını düzeltin.")
         sys.exit(1)
 
 

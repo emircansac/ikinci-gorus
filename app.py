@@ -1,10 +1,9 @@
 """
-Web sunucusu — Render'a deploy edildiğinde bir web adresi versin diye.
+Yerel web sunucusu — pipeline CSV çıktılarını JSON olarak sunar.
 
-Yaptığı iş: pipeline'ın ürettiği CSV dosyalarını (data/suspects.csv,
-data/claim_index.csv, data/claim_archive.csv, data/narrative_clusters.csv,
-data/videos.csv) okuyup JSON olarak sunar, dashboard bu JSON'ı fetch() ile
-çekip gösterir.
+Okuduğu dosyalar: data/suspects.csv, data/claim_index.csv,
+data/claim_archive.csv, data/narrative_clusters.csv, data/videos.csv.
+Dashboard bunları fetch() ile çeker.
 
 BİLİNÇLİ TASARIM: veritabanına (SQLite) doğrudan bağlanmak yerine SADECE
 CSV çıktılarını okuyor. Neden: pipeline'ın "doğruluk kaynağı" zaten bu CSV'ler
@@ -12,39 +11,26 @@ CSV çıktılarını okuyor. Neden: pipeline'ın "doğruluk kaynağı" zaten bu 
 kendi sorgu mantığını (join, filtre) tekrar yazıp DB şemasıyla sıkı bağlı
 olmaktansa, tek bir yerden (CSV) okuyor. Şema değişse bile bu dosya bozulmaz.
 
-ZAMANLAYICI: Render cron job'una disk bağlanamadığı için pipeline bu süreç
-içinde, APScheduler arka plan thread'inde çalışır. Flask istek sunumunu
-bloklamaz; bir tur hata verse bile süreç ayakta kalır. 20/21 interaktif
-script'ler burada yok (yalnız yerel/Cursor).
+Dashboard'daki Analiz et, run_pipeline.py --watchlist karşılığını arka plan
+thread'inde çalıştırır; Flask istek sunumunu bloklamaz. 20/21 interaktif
+script'ler burada yok (terminalden çalıştırın).
 
-Yerel çalıştırma:
-    pip install flask pandas APScheduler
     python app.py
     -> http://localhost:8000
-
-Render'da:
-    Start command: gunicorn --workers 1 app:app
 """
-import atexit
 import json
 import logging
 import math
 import os
 import subprocess
-import sys
 import threading
 import time
 import traceback
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
 from flask import Flask, jsonify, render_template, request
-
-try:
-    import fcntl
-except ImportError:  # Windows; Render/macOS'ta fcntl var
-    fcntl = None
 
 try:
     from dotenv import load_dotenv
@@ -65,12 +51,8 @@ if not log.handlers:
     _handler.setFormatter(logging.Formatter("%(asctime)s %(name)s %(levelname)s %(message)s"))
     log.addHandler(_handler)
 
-_scheduler = None
-_scheduler_lock_fh = None
 _job_lock = threading.Lock()
 _scheduler_state = {
-    "enabled": False,
-    "interval_seconds": None,
     "last_started_at": None,
     "last_finished_at": None,
     "last_error": None,
@@ -236,11 +218,11 @@ def api_claim_review(claim_id):
 
 @app.route("/healthz")
 def healthz():
-    """Render'ın servisin ayakta olup olmadığını kontrol etmesi için basit bir uç nokta."""
+    """Yerel süreç ayakta mı — CSV varlığı + son pipeline turu."""
     return jsonify({
         "status": "ok",
         "suspects_csv_exists": (DATA_DIR / "suspects.csv").exists(),
-        "scheduler": pipeline_status(),
+        "pipeline": pipeline_status(),
     })
 
 
@@ -265,7 +247,7 @@ def enqueue_pipeline_run(force_watchlist=False):
     if _scheduler_state.get("running"):
         return {"ok": True, "queued": False, "reason": "already_running"}
     threading.Thread(
-        target=run_scheduled_pipeline,
+        target=run_background_pipeline,
         kwargs={"force_watchlist": force_watchlist},
         daemon=True,
     ).start()
@@ -286,15 +268,8 @@ def _env_int(name, default):
     return int(raw)
 
 
-def _pipeline_interval_seconds():
-    if os.environ.get("PIPELINE_INTERVAL_SECONDS", "").strip():
-        return max(1, _env_int("PIPELINE_INTERVAL_SECONDS", 86400))
-    hours = max(1, _env_int("PIPELINE_INTERVAL_HOURS", 24))
-    return hours * 3600
-
-
-def _append_scheduler_log(event, **extra):
-    """Zamanlayıcı turlarını data/pipeline_scheduler.log'a yazar (yerel kanıt + ops)."""
+def _append_pipeline_log(event, **extra):
+    """Arka plan turlarını data/pipeline_scheduler.log'a yazar (yerel kanıt + ops)."""
     payload = {
         "ts": datetime.now(timezone.utc).isoformat(),
         "event": event,
@@ -305,20 +280,20 @@ def _append_scheduler_log(event, **extra):
         with open(DATA_DIR / "pipeline_scheduler.log", "a", encoding="utf-8") as fh:
             fh.write(json.dumps(payload, ensure_ascii=False) + "\n")
     except OSError:
-        log.exception("scheduler log yazılamadı")
+        log.exception("pipeline log yazılamadı")
 
 
-def run_scheduled_pipeline(force_watchlist=False):
+def run_background_pipeline(force_watchlist=False):
     """retrieve→collect→extract→auto-method zincirini arka planda çalıştır.
 
     Hata Flask sürecini düşürmez: loglanır, sonraki tur normal devam eder.
-    PIPELINE_DRY_RUN=1 iken gerçek pipeline çağrılmaz (yerel zamanlayıcı testi).
-    force_watchlist=True (manuel Analiz et) veya PIPELINE_WATCHLIST=1 iken
+    PIPELINE_DRY_RUN=1 iken gerçek pipeline çağrılmaz (yerel tetikleyici testi).
+    force_watchlist=True (dashboard Analiz et) veya PIPELINE_WATCHLIST=1 iken
     izleme listesindeki kanallar + tekil videolar toplanır.
     """
     if not _job_lock.acquire(blocking=False):
         log.warning("pipeline zaten çalışıyor, bu tur atlandı")
-        _append_scheduler_log("skip_already_running")
+        _append_pipeline_log("skip_already_running")
         return
     _scheduler_state["running"] = True
     _scheduler_state["last_started_at"] = datetime.now(timezone.utc).isoformat()
@@ -331,14 +306,14 @@ def run_scheduled_pipeline(force_watchlist=False):
         plan = build_step_plan(skip_collect=skip_collect, with_comments=with_comments)
         step_names = [script for script, _ in plan]
         log.info("pipeline turu başlıyor: %s", " → ".join(step_names))
-        _append_scheduler_log("start", steps=step_names)
+        _append_pipeline_log("start", steps=step_names)
 
         if _env_flag("PIPELINE_DRY_RUN", default=False):
             sleep_s = max(0, _env_int("PIPELINE_DRY_RUN_SLEEP", 0))
             if sleep_s:
                 time.sleep(sleep_s)
             log.info("pipeline dry-run bitti (adımlar çalıştırılmadı)")
-            _append_scheduler_log("dry_run_ok", steps=step_names, sleep_s=sleep_s)
+            _append_pipeline_log("dry_run_ok", steps=step_names, sleep_s=sleep_s)
             return
 
         use_watchlist = force_watchlist or _env_flag("PIPELINE_WATCHLIST", default=False)
@@ -350,87 +325,17 @@ def run_scheduled_pipeline(force_watchlist=False):
             with_comments=with_comments,
             watchlist=use_watchlist,
         )
-        _append_scheduler_log("ok", steps=step_names)
+        _append_pipeline_log("ok", steps=step_names)
     except Exception:
         err = traceback.format_exc()
-        log.exception("zamanlanmış pipeline turu hata verdi; Flask ayakta kalıyor")
+        log.exception("arka plan pipeline turu hata verdi; Flask ayakta kalıyor")
         _scheduler_state["last_error"] = err[-2000:]
-        _append_scheduler_log("error", error=_scheduler_state["last_error"])
+        _append_pipeline_log("error", error=_scheduler_state["last_error"])
     finally:
         _scheduler_state["running"] = False
         _scheduler_state["ticks"] = int(_scheduler_state["ticks"] or 0) + 1
         _scheduler_state["last_finished_at"] = datetime.now(timezone.utc).isoformat()
         _job_lock.release()
-
-
-def _acquire_scheduler_lock():
-    """gunicorn worker>1 olursa yalnızca bir süreç zamanlayıcıyı tutar."""
-    global _scheduler_lock_fh
-    if fcntl is None:
-        return True
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    lock_path = DATA_DIR / ".scheduler.lock"
-    fh = open(lock_path, "a+")
-    try:
-        fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except OSError:
-        fh.close()
-        log.info("zamanlayıcı kilidi başka süreçte; bu worker atlıyor")
-        return False
-    _scheduler_lock_fh = fh
-    return True
-
-
-def start_pipeline_scheduler():
-    """Flask/gunicorn süreci ayağa kalkınca arka plan zamanlayıcıyı başlat."""
-    global _scheduler
-    if _scheduler is not None:
-        return _scheduler
-    if "pytest" in sys.modules and not _env_flag("PIPELINE_SCHEDULER_FORCE", default=False):
-        return None
-    if not _env_flag("PIPELINE_SCHEDULER_ENABLED", default=bool(os.environ.get("RENDER"))):
-        log.info("zamanlayıcı kapalı (yerel varsayılan; Render'da veya PIPELINE_SCHEDULER_ENABLED=1 ile açılır)")
-        return None
-    # Flask debug reloader ebeveyn süreçte çift zamanlayıcı açmasın
-    if os.environ.get("WERKZEUG_RUN_MAIN") == "false":
-        return None
-    if not _acquire_scheduler_lock():
-        return None
-
-    try:
-        from apscheduler.schedulers.background import BackgroundScheduler
-    except ImportError:
-        log.error("APScheduler kurulu değil; zamanlayıcı başlatılamadı")
-        return None
-
-    interval = _pipeline_interval_seconds()
-    delay = _env_int("PIPELINE_INITIAL_DELAY_SECONDS", 60)
-    _scheduler_state["enabled"] = True
-    _scheduler_state["interval_seconds"] = interval
-
-    scheduler = BackgroundScheduler(daemon=True)
-    scheduler.add_job(
-        run_scheduled_pipeline,
-        "interval",
-        seconds=interval,
-        id="health_pipeline",
-        replace_existing=True,
-        max_instances=1,
-        coalesce=True,
-        next_run_time=datetime.now() + timedelta(seconds=max(0, delay)),
-    )
-    scheduler.start()
-    _scheduler = scheduler
-    atexit.register(lambda: scheduler.shutdown(wait=False))
-    log.info(
-        "pipeline zamanlayıcı başladı: ilk tur %ss sonra, sonra her %ss",
-        delay, interval,
-    )
-    _append_scheduler_log("scheduler_started", delay_s=delay, interval_s=interval)
-    return scheduler
-
-
-start_pipeline_scheduler()
 
 
 if __name__ == "__main__":
@@ -439,7 +344,6 @@ if __name__ == "__main__":
         format="%(asctime)s %(name)s %(levelname)s %(message)s",
     )
     debug = _env_flag("FLASK_DEBUG", default=True)
-    # Reloader ikinci süreç açar ve zamanlayıcıyı çiftler; kapalı tut.
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 8000)),

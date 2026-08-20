@@ -495,7 +495,7 @@ function renderPipelineStatus(st){
   }
   if(st.last_error){
     el.classList.add('err');
-    el.textContent = 'son tur hata verdi — Render loglarına bakın';
+    el.textContent = 'son tur hata verdi — terminal çıktısına veya data/pipeline_scheduler.log dosyasına bakın';
     return;
   }
   if((st.ticks || 0) > 0){

@@ -26,10 +26,11 @@ Gerekli anahtarlar:
 - **YOUTUBE_API_KEY**: [Google Cloud Console](https://console.cloud.google.com/apis/credentials) → YouTube Data API v3'ü etkinleştirin (ücretsiz, günlük 10.000 unit kota)
 - **ANTHROPIC_API_KEY**: [console.anthropic.com](https://console.anthropic.com)
 
-## Deploy etmeden önce: 3 kademeli güven kontrolü
+## Çalıştırmadan önce: 3 kademeli güven kontrolü
 
-Render'a (ya da başka bir yere) yüklemeden önce "acaba çalışır mı" belirsizliğini
-üç kademede azaltın — her kademe öncekinden daha fazla gerçek şey test eder:
+Pipeline'ı tam kanal listesiyle çalıştırmadan önce "acaba çalışır mı"
+belirsizliğini üç kademede azaltın — her kademe öncekinden daha fazla
+gerçek şey test eder:
 
 **1. Ön kontrol (saniyeler, ~0 maliyet)**
 ```bash
@@ -38,8 +39,7 @@ python pipeline/00_healthcheck.py
 API anahtarlarınızın geçerli olup olmadığını, bağımlılıkların kurulu olup
 olmadığını, veritabanı şemasının hatasız uygulanıp uygulanmadığını kontrol eder.
 Tek bir gerçek maliyetli çağrı yapar (Claude'a 5 token'lık bir "merhaba" isteği).
-Herhangi bir ✗ varsa deploy etmeden önce onu düzeltin — Render'da build
-başarısız olduğunda fark etmek çok daha zor ve zaman alıcıdır.
+Herhangi bir ✗ varsa asıl taramayı başlatmadan önce onu düzeltin.
 
 **2. Küçük gerçek deneme (dakikalar, küçük maliyet)**
 ```bash
@@ -51,10 +51,9 @@ kategori/risk etiketleri doğru mu, şüphe skorları savunulabilir mi? Bu adım
 ön kontrolün YAKALAYAMAYACAĞI şeyleri (prompt kalitesi, gerçek transkript
 formatı, gerçek PubMed sonuçları) ortaya çıkarır.
 
-**3. Ancak bundan sonra deploy**
-İkinci adımdaki çıktı mantıklı görünüyorsa, kanal listenizin tamamıyla bir
-kez daha çalıştırıp (`--max-videos` sınırını kaldırarak) sonucu tekrar
-gözden geçirin, sonra Render'a geçin.
+**3. Tam tarama**
+İkinci adımdaki çıktı mantıklı görünüyorsa, kanal listenizin tamamıyla
+çalıştırın (`--max-videos` sınırını kaldırarak) ve sonucu tekrar gözden geçirin.
 
 ## Kanal listenizi hazırlama
 
@@ -79,11 +78,10 @@ python run_pipeline.py --channels data/channels.csv --skip-collect   # sadece 2-
 python pipeline/01_collect.py --channels data/channels.csv --no-transcripts  # hızlı büyüme kontrolü
 ```
 
-**Zamanlama**: Render'da pipeline, web sürecinin içindeki APScheduler
-thread'inde varsayılan olarak 24 saatte bir çalışır (`PIPELINE_INTERVAL_HOURS`).
-Yerelde `python run_pipeline.py` ile de aynı zinciri elle tetikleyebilirsiniz.
-RSS tabanlı hızlı kontrol için (`--no-transcripts`, kota harcamaz)
-günde birkaç kez çalıştırabilirsiniz.
+**Zamanlama**: Pipeline'ı yerelde `python run_pipeline.py` ile elle
+çalıştırın; dashboard sidebar'daki **Analiz et** aynı zinciri izleme
+listesiyle arka planda tetikler. RSS tabanlı hızlı kontrol için
+(`--no-transcripts`, kota harcamaz) günde birkaç kez çalıştırabilirsiniz.
 
 ## Aşama 3'ün maliyet mimarisi (önemli)
 
@@ -317,71 +315,23 @@ Hâlâ **çözülmemiş**, bilerek kapsam dışı bırakılan noktalar:
   yakalar; eski kayıtları düzeltmek için `--recheck-ids` gerekir. Ham
   `reasoning` daha önce kaydedilmiyordu — şimdi DB + jsonl'de.
 
-## Bilgisayarınıza hiçbir şey kurmadan deploy (GitHub + Render, tarayıcıdan)
+## Dashboard (yerel)
 
-**1. GitHub'a yükleyin (git kurmadan)**
-- github.com'da hesap açın, yeni bir repo oluşturun (private yapabilirsiniz)
-- Repo sayfasında "Add file → Upload files" ile bu klasördeki TÜM dosyaları
-  sürükle-bırak yükleyin
+```bash
+python app.py
+# -> http://localhost:8000
+```
 
-**2. Render'a bağlayın**
-- render.com'da hesap açın, GitHub hesabınızı yetkilendirin
-- "New → Blueprint" seçip az önce yüklediğiniz repoyu gösterin — Render bu
-  projedeki `render.yaml` dosyasını okuyup **tek web servisi** oluşturur:
-  - `health-misinfo-dashboard` (dashboard + API + in-process pipeline zamanlayıcı)
-- Cron job **yoktur**. Render cron türüne disk bağlanamaz ve disk yalnızca
-  tek servise takılabilir; bu yüzden pipeline Flask sürecinin arka plan
-  thread'inde çalışır.
-- Render dashboard'ında `ANTHROPIC_API_KEY` ve
-  `YOUTUBE_API_KEY`'i **Environment** sekmesinden elle girin (render.yaml'da
-  `sync: false` olduğu için koda hiç yazılmaz, sadece Render'ın kendi
-  şifreli ortam değişkeni deposunda durur)
-
-**3. İlk açılışta gerçek analiz snapshot'ı**
-Kalıcı disk `data/` üzerine boş biner. Build, git'teki `videos.csv` /
-`claim_index.csv` ve `deploy_seed/monitor.db` (yereldeki gerçek analiz
-kopyası, demo değil) `data_seed/`'e alınır; start'ta diskte yoksa bir kez
-yazılır. Diskte dosya varsa ezilmez.
-
-**4. Yeni kanal / video analizi (Render’da yerel akış)**
 Sidebar (☰ menü):
 
-1. **Abone ol** veya **videoyu izle** — izleme listesine eklenir (`data/watchlist.json`, kalıcı disk)
-2. **Analiz et** — yereldeki `python run_pipeline.py --watchlist` ile aynı; arka planda pipeline başlar
-3. Durum satırı “analiz sürüyor…” → “son tur tamam”; tablolar otomatik yenilenir
+1. **Abone ol** veya **videoyu izle** — izleme listesine eklenir (`data/watchlist.json`)
+2. **Analiz et** — `python run_pipeline.py --watchlist` ile aynı; arka planda pipeline başlar
+3. Durum satırı "analiz sürüyor…" → "son tur tamam"; tablolar otomatik yenilenir
 
-Günlük zamanlayıcı da `PIPELINE_WATCHLIST=1` ile abone kanalları + tekil videoları tarar.
-Shell / One-Off Job gerekmez. `20_subscribe_channel.py` / `21_pre_research_channel.py` yalnız yerelde (`input()` onay).
+`20_subscribe_channel.py` / `21_pre_research_channel.py` `input()` bekler;
+yalnız terminalden çalıştırın. Dashboard zinciri `run_pipeline.py` ile aynıdır.
 
-**5. URL’nizi test edin**
-Render, web servisiniz için `https://health-misinfo-dashboard.onrender.com`
-gibi bir adres verir. İlk açılışta (zamanlayıcı henüz bir tur bitirmediyse)
-dashboard "henüz veri yok" gösterebilir — varsayılan ilk tur ~2 dakika
-sonra başlar (`PIPELINE_INITIAL_DELAY_SECONDS`), sonra 24 saatte bir
-tekrarlar. `/healthz` içindeki `scheduler` alanı son turu gösterir.
-
-Zamanlayıcı **yalnız** `run_pipeline.py` zincirini çalıştırır (abone
-kanallardaki yeni videolar). `20_subscribe_channel.py` /
-`21_pre_research_channel.py` `input()` bekler; Render'a asla eklenmez,
-yalnız yerel/Cursor'dan çalıştırın.
-
-**6. Disk kanıtı — Restart sonrası veri duruyor mu?**
-`mountPath` satırlarının YAML'da aynı görünmesi yetmez. Deploy olduktan
-sonra şunu yapın (yeni deploy değil, **Restart**):
-
-1. Canlı dashboard'da bir iddiayı **onaylayın** (veya izleme listesine bir
-   kanal ekleyin). `claim_id` ve görünen durumu not edin.
-2. Render dashboard → `health-misinfo-dashboard` → **Restart**.
-3. URL'yi yenileyin. Onay (veya eklenen kanal) **hâlâ orada** olmalı.
-
-Duruyor = kalıcı disk gerçekten kodun yazdığı `data/`'ya bağlı. Kayıp =
-mount path yanlış veya disk bağlı değil (ephemeral dosya Restart'ta silinir).
-
-**Neden tek servis?** Render kalıcı diski yalnızca bir servise bağlar ve
-cron job'a disk hiç bağlanamaz. Web ile pipeline aynı `data/` dizinini
-paylaşmak zorunda olduğu için pipeline, web sürecinin arka plan
-thread'indedir (APScheduler). Ağır adımlar ayrı subprocess'lerde çalışır;
-Flask istek sunmaya devam eder.
+`/healthz` içindeki `pipeline` alanı son turu gösterir.
 
 ## Sonraki adımlar (genişletme fikirleri)
 
@@ -394,8 +344,7 @@ Flask istek sunmaya devam eder.
 
 ```
 health_misinfo_monitor/
-├── app.py                    # Web sunucusu + in-process pipeline zamanlayıcı
-├── render.yaml                # Render Blueprint (tek web servisi + disk)
+├── app.py                    # Yerel dashboard + Analiz et tetikleyicisi
 ├── templates/
 │   └── dashboard.html         # Canlı dashboard (API'den fetch eder)
 ├── run_pipeline.py           # orkestratör
@@ -405,7 +354,7 @@ health_misinfo_monitor/
 ├── db/schema.sql             # SQLite şeması
 ├── data/                     # monitor.db, channels.csv, suspects.csv burada oluşur
 ├── pipeline/
-│   ├── 00_healthcheck.py         # Deploy öncesi ön kontrol (yeni)
+│   ├── 00_healthcheck.py         # Yerel ön kontrol
 │   ├── 01_collect.py             # Aşama 1
 │   ├── 02_extract_claims.py      # Aşama 2
 │   ├── 03_factcheck.py           # Aşama 3

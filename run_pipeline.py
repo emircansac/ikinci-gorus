@@ -5,11 +5,10 @@ Kullanım:
     python run_pipeline.py --channels data/channels.csv --max-videos 15
 
 Not: Her aşama idempotent'tir (zaten işlenmiş kayıtları atlar), bu yüzden
-periyodik olarak tekrar tekrar çalıştırabilirsiniz (yerel cron, ya da
-app.py içindeki in-process zamanlayıcı).
+periyodik olarak tekrar tekrar çalıştırabilirsiniz.
 
 20_subscribe_channel.py / 21_pre_research_channel.py burada YOKTUR (input()
-bekler). Zamanlayıcı / Render yalnız bu dosyayı çağırmalı.
+bekler). Dashboard "Analiz et" ve bu dosya aynı zinciri çalıştırır.
 """
 import argparse
 import subprocess

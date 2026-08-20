@@ -1,4 +1,4 @@
-"""In-process pipeline zamanlayıcı: adım sırası, hata yalıtımı, Flask bloklamama."""
+"""Arka plan pipeline tetikleyicisi: adım sırası, hata yalıtımı, Flask bloklamama."""
 import json
 import sys
 import threading
@@ -43,7 +43,7 @@ def test_skip_collect_drops_01_keeps_retrieve_extract_automethod():
     assert scripts[1:3] == ["02_extract_claims.py", "03_factcheck.py"]
 
 
-def test_scheduled_job_error_does_not_propagate(monkeypatch, tmp_path):
+def test_background_job_error_does_not_propagate(monkeypatch, tmp_path):
     monkeypatch.setenv("PIPELINE_DRY_RUN", "0")
     monkeypatch.setenv("DATA_DIR", str(tmp_path))
     import app as appmod
@@ -54,7 +54,7 @@ def test_scheduled_job_error_does_not_propagate(monkeypatch, tmp_path):
         raise RuntimeError("simulated pipeline crash")
 
     monkeypatch.setattr("run_pipeline.run_pipeline", boom)
-    appmod.run_scheduled_pipeline()  # must not raise
+    appmod.run_background_pipeline()  # must not raise
     assert appmod._scheduler_state["last_error"]
     assert "simulated pipeline crash" in appmod._scheduler_state["last_error"]
     assert appmod._scheduler_state["running"] is False
@@ -70,7 +70,7 @@ def test_flask_serves_healthz_while_pipeline_thread_sleeps(monkeypatch, tmp_path
     _wait_pipeline_idle(appmod)
 
     started = threading.Event()
-    orig = appmod.run_scheduled_pipeline
+    orig = appmod.run_background_pipeline
 
     def wrapped():
         started.set()

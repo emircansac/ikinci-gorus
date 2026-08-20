@@ -18,8 +18,6 @@ sentencepiece
 # kendi sıralaması) moduna düşer, çökme olmaz.
 sentence-transformers
 
-# Web sunucusu (dashboard + API) — Render deploy için
+# Web sunucusu (dashboard + API)
 flask
-gunicorn
 python-dotenv
-APScheduler>=3.10.4,<4
